@@ -35,9 +35,10 @@
             this.tsbNewPCF = new System.Windows.Forms.ToolStripButton();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabNewControl = new System.Windows.Forms.TabPage();
+            this.btnDeploy = new System.Windows.Forms.Button();
+            this.lblDeploy = new System.Windows.Forms.Label();
             this.lblDeploymentError = new System.Windows.Forms.Label();
             this.lblRunPacError = new System.Windows.Forms.Label();
-            this.linkLblBlog = new System.Windows.Forms.LinkLabel();
             this.txtPublisherPrefix = new System.Windows.Forms.TextBox();
             this.lblPublisherPrefix = new System.Windows.Forms.Label();
             this.txtPublisherName = new System.Windows.Forms.TextBox();
@@ -70,8 +71,9 @@
             this.txtVSPromptLoc = new System.Windows.Forms.TextBox();
             this.btnVSPromptLoc = new System.Windows.Forms.Button();
             this.lblErrors = new System.Windows.Forms.Label();
-            this.lblDeploy = new System.Windows.Forms.Label();
-            this.btnDeploy = new System.Windows.Forms.Button();
+            this.webBrowserPCFInfo = new System.Windows.Forms.WebBrowser();
+            this.lblPCFInfo = new System.Windows.Forms.Label();
+            this.selectVSDevFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStripMenu.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabNewControl.SuspendLayout();
@@ -86,7 +88,7 @@
             this.tsbNewPCF});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(1127, 31);
+            this.toolStripMenu.Size = new System.Drawing.Size(1225, 31);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -120,7 +122,7 @@
             this.tabControl.Location = new System.Drawing.Point(0, 91);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(1127, 745);
+            this.tabControl.Size = new System.Drawing.Size(660, 745);
             this.tabControl.TabIndex = 5;
             // 
             // tabNewControl
@@ -129,7 +131,6 @@
             this.tabNewControl.Controls.Add(this.lblDeploy);
             this.tabNewControl.Controls.Add(this.lblDeploymentError);
             this.tabNewControl.Controls.Add(this.lblRunPacError);
-            this.tabNewControl.Controls.Add(this.linkLblBlog);
             this.tabNewControl.Controls.Add(this.txtPublisherPrefix);
             this.tabNewControl.Controls.Add(this.lblPublisherPrefix);
             this.tabNewControl.Controls.Add(this.txtPublisherName);
@@ -157,10 +158,29 @@
             this.tabNewControl.Location = new System.Drawing.Point(4, 22);
             this.tabNewControl.Name = "tabNewControl";
             this.tabNewControl.Padding = new System.Windows.Forms.Padding(3);
-            this.tabNewControl.Size = new System.Drawing.Size(1119, 719);
+            this.tabNewControl.Size = new System.Drawing.Size(652, 719);
             this.tabNewControl.TabIndex = 0;
             this.tabNewControl.Text = "New PCF Control";
             this.tabNewControl.UseVisualStyleBackColor = true;
+            // 
+            // btnDeploy
+            // 
+            this.btnDeploy.Location = new System.Drawing.Point(51, 635);
+            this.btnDeploy.Name = "btnDeploy";
+            this.btnDeploy.Size = new System.Drawing.Size(143, 23);
+            this.btnDeploy.TabIndex = 29;
+            this.btnDeploy.Text = "Deploy to D365 CE";
+            this.btnDeploy.UseVisualStyleBackColor = true;
+            this.btnDeploy.Click += new System.EventHandler(this.btnDeploy_Click);
+            // 
+            // lblDeploy
+            // 
+            this.lblDeploy.AutoSize = true;
+            this.lblDeploy.Location = new System.Drawing.Point(21, 603);
+            this.lblDeploy.Name = "lblDeploy";
+            this.lblDeploy.Size = new System.Drawing.Size(184, 13);
+            this.lblDeploy.TabIndex = 28;
+            this.lblDeploy.Text = "6. Deploy Custom Control to D365 CE";
             // 
             // lblDeploymentError
             // 
@@ -179,17 +199,6 @@
             this.lblRunPacError.Name = "lblRunPacError";
             this.lblRunPacError.Size = new System.Drawing.Size(0, 13);
             this.lblRunPacError.TabIndex = 26;
-            // 
-            // linkLblBlog
-            // 
-            this.linkLblBlog.AutoSize = true;
-            this.linkLblBlog.Location = new System.Drawing.Point(197, 218);
-            this.linkLblBlog.Name = "linkLblBlog";
-            this.linkLblBlog.Size = new System.Drawing.Size(52, 13);
-            this.linkLblBlog.TabIndex = 25;
-            this.linkLblBlog.TabStop = true;
-            this.linkLblBlog.Text = "More Info";
-            this.linkLblBlog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblBlog_LinkClicked);
             // 
             // txtPublisherPrefix
             // 
@@ -466,29 +475,38 @@
             this.lblErrors.Size = new System.Drawing.Size(0, 13);
             this.lblErrors.TabIndex = 12;
             // 
-            // lblDeploy
+            // webBrowserPCFInfo
             // 
-            this.lblDeploy.AutoSize = true;
-            this.lblDeploy.Location = new System.Drawing.Point(21, 603);
-            this.lblDeploy.Name = "lblDeploy";
-            this.lblDeploy.Size = new System.Drawing.Size(184, 13);
-            this.lblDeploy.TabIndex = 28;
-            this.lblDeploy.Text = "6. Deploy Custom Control to D365 CE";
+            this.webBrowserPCFInfo.AllowWebBrowserDrop = false;
+            this.webBrowserPCFInfo.Location = new System.Drawing.Point(667, 113);
+            this.webBrowserPCFInfo.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPCFInfo.Name = "webBrowserPCFInfo";
+            this.webBrowserPCFInfo.ScriptErrorsSuppressed = true;
+            this.webBrowserPCFInfo.Size = new System.Drawing.Size(555, 685);
+            this.webBrowserPCFInfo.TabIndex = 13;
+            this.webBrowserPCFInfo.Url = new System.Uri(" https://aka.ms/PCFDemos", System.UriKind.Absolute);
             // 
-            // btnDeploy
+            // lblPCFInfo
             // 
-            this.btnDeploy.Location = new System.Drawing.Point(51, 635);
-            this.btnDeploy.Name = "btnDeploy";
-            this.btnDeploy.Size = new System.Drawing.Size(143, 23);
-            this.btnDeploy.TabIndex = 29;
-            this.btnDeploy.Text = "Deploy to D365 CE";
-            this.btnDeploy.UseVisualStyleBackColor = true;
-            this.btnDeploy.Click += new System.EventHandler(this.btnDeploy_Click);
+            this.lblPCFInfo.AutoSize = true;
+            this.lblPCFInfo.Location = new System.Drawing.Point(667, 91);
+            this.lblPCFInfo.Name = "lblPCFInfo";
+            this.lblPCFInfo.Size = new System.Drawing.Size(124, 13);
+            this.lblPCFInfo.TabIndex = 14;
+            this.lblPCFInfo.Text = "More Information on PCF";
             // 
-            // MyPluginControl
+            // selectVSDevFileDialog
+            // 
+            this.selectVSDevFileDialog.FileName = "VsDevCmd.bat";
+            this.selectVSDevFileDialog.Filter = "Batch files (*.bat)|*.bat";
+            this.selectVSDevFileDialog.InitialDirectory = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools";
+            // 
+            // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblPCFInfo);
+            this.Controls.Add(this.webBrowserPCFInfo);
             this.Controls.Add(this.lblErrors);
             this.Controls.Add(this.btnVSPromptLoc);
             this.Controls.Add(this.txtVSPromptLoc);
@@ -498,8 +516,8 @@
             this.Controls.Add(this.lblWorkingDir);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.toolStripMenu);
-            this.Name = "MyPluginControl";
-            this.Size = new System.Drawing.Size(1127, 839);
+            this.Name = "MainPluginControl";
+            this.Size = new System.Drawing.Size(1225, 839);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -549,11 +567,13 @@
         private System.Windows.Forms.Label lblPublisherPrefix;
         private System.Windows.Forms.TextBox txtPublisherName;
         private System.Windows.Forms.Label lblPublisherName;
-        private System.Windows.Forms.LinkLabel linkLblBlog;
         private System.Windows.Forms.Label lblErrors;
         private System.Windows.Forms.Label lblRunPacError;
         private System.Windows.Forms.Label lblDeploymentError;
         private System.Windows.Forms.Label lblDeploy;
         private System.Windows.Forms.Button btnDeploy;
+        private System.Windows.Forms.WebBrowser webBrowserPCFInfo;
+        private System.Windows.Forms.Label lblPCFInfo;
+        private System.Windows.Forms.OpenFileDialog selectVSDevFileDialog;
     }
 }

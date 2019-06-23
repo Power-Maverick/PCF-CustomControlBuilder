@@ -43,6 +43,8 @@ namespace Maverick.PCF.Builder
             }
 
             tabControl.Visible = false;
+            lblPCFInfo.Visible = false;
+            webBrowserPCFInfo.Visible = false;
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -115,9 +117,9 @@ namespace Maverick.PCF.Builder
 
         private void btnVSPromptLoc_Click(object sender, EventArgs e)
         {
-            if (workingFolderBrowserDialog.ShowDialog() == DialogResult.OK)
+            if (selectVSDevFileDialog.ShowDialog() == DialogResult.OK)
             {
-                txtWorkingFolder.Text = workingFolderBrowserDialog.SelectedPath;
+                txtVSPromptLoc.Text = selectVSDevFileDialog.FileName;
             }
         }
 
@@ -178,11 +180,6 @@ namespace Maverick.PCF.Builder
             }
         }
 
-        private void linkLblBlog_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("http://bit.ly/2IyjoBE");
-        }
-
         private void tsbNewPCF_Click(object sender, EventArgs e)
         {
             lblErrors.Text = string.Empty;
@@ -198,6 +195,10 @@ namespace Maverick.PCF.Builder
             if (!string.IsNullOrEmpty(txtWorkingFolder.Text) && !string.IsNullOrEmpty(txtVSPromptLoc.Text))
             {
                 tabControl.Visible = true;
+
+                lblPCFInfo.Visible = true;
+                webBrowserPCFInfo.Visible = true;
+
                 lblErrors.Text = string.Empty;
             }
         }
