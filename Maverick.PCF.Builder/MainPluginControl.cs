@@ -17,11 +17,11 @@ using Microsoft.Crm.Sdk.Messages;
 
 namespace Maverick.PCF.Builder
 {
-    public partial class MyPluginControl : PluginControlBase
+    public partial class MainPluginControl : PluginControlBase
     {
         private Settings mySettings;
 
-        public MyPluginControl()
+        public MainPluginControl()
         {
             InitializeComponent();
             //lblLinkBlog.Links.Add(0, lblLinkBlog.Text.Length, "http://bit.ly/2Kdqu0q");
