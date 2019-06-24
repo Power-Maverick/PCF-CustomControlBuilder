@@ -148,6 +148,17 @@
         PHLYlFKWN0IxwWHFsto/Jpzt15KHkuszC442f4xK5RuWDcCXGvQNSAAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="tsbEditControl.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAD/SURBVFhH7ZJBCsIwEEW7EhfiTVyJ4EKvJN5CPIY30JVX
+        0EO4FMEL6ELU/6UDIR3JJGmLQh88ZCbJ/IFadHT8Iq+GDaI9qtMg5ouR/N8CTRlEe1SnQcwXI+kWyFrA
+        70kd0kXrqVgeSx3SReupmC9GInMvpWvYgxWaWKAPZa7rClaQQxe/J7WvBsP3kOdXOIHTsj7DCtowvye1
+        r48fPoJkDNkzL5DCt3D+smbf/AlisYTzvJE/oTWc91RyFsgOJ6kL1BJOZIFUs8KJPzDG7PAUBvABb7D1
+        cDKDDDp+qpbDyQIy7AQP8F7WrYSTDWSg+IRb2Eo42UEusYRzOIRGiuINJkYi+GVCIYsAAAAASUVORK5C
+        YII=
+</value>
+  </data>
   <metadata name="workingFolderBrowserDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>147, 17</value>
   </metadata>

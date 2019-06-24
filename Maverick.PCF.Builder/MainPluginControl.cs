@@ -21,10 +21,10 @@ namespace Maverick.PCF.Builder
     {
         private Settings mySettings;
 
+
         public MainPluginControl()
         {
             InitializeComponent();
-            //lblLinkBlog.Links.Add(0, lblLinkBlog.Text.Length, "http://bit.ly/2Kdqu0q");
         }
 
         private void MyPluginControl_Load(object sender, EventArgs e)
@@ -42,9 +42,11 @@ namespace Maverick.PCF.Builder
                 LogInfo("Settings found and loaded");
             }
 
-            tabControl.Visible = false;
             lblPCFInfo.Visible = false;
             webBrowserPCFInfo.Visible = false;
+
+            gboxNewControl.Visible = false;
+            gboxEditControl.Visible = false;
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -194,12 +196,12 @@ namespace Maverick.PCF.Builder
 
             if (!string.IsNullOrEmpty(txtWorkingFolder.Text) && !string.IsNullOrEmpty(txtVSPromptLoc.Text))
             {
-                tabControl.Visible = true;
-
                 lblPCFInfo.Visible = true;
                 webBrowserPCFInfo.Visible = true;
 
                 lblErrors.Text = string.Empty;
+                gboxNewControl.Visible = true;
+                gboxEditControl.Visible = false;
             }
         }
 
@@ -213,6 +215,150 @@ namespace Maverick.PCF.Builder
         private void DeployCustomControl()
         {
             string deploymentFolder = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtDeploymentFolder.Text}\\bin\\debug\\{txtDeploymentFolder.Text}.zip";
+            byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
+
+
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Deploying custom control solution to Dynamics 365",
+                Work = (worker, args) =>
+                {
+                    ImportSolutionRequest impSolReq = new ImportSolutionRequest()
+                    {
+                        CustomizationFile = fileBytes
+                    };
+                    args.Result = Service.Execute(impSolReq);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    var result = args.Result as OrganizationResponse;
+                    if (result != null)
+                    {
+                        MessageBox.Show($"Solution {txtDeploymentFolder.Text} deployed to Dynamics 365 CE");
+                    }
+                }
+            });
+        }
+
+        private void tsbEditControl_Click(object sender, EventArgs e)
+        {
+            lblErrors.Text = string.Empty;
+            if (string.IsNullOrEmpty(txtWorkingFolder.Text))
+            {
+                lblErrors.Text = "Working folder is required.";
+            }
+            if (string.IsNullOrEmpty(txtVSPromptLoc.Text))
+            {
+                lblErrors.Text += "\nVisual Studio Developer Command Prompt executable location is required.";
+            }
+
+            if (!string.IsNullOrEmpty(txtWorkingFolder.Text) && !string.IsNullOrEmpty(txtVSPromptLoc.Text))
+            {
+                lblPCFInfo.Visible = true;
+                webBrowserPCFInfo.Visible = true;
+
+                lblErrors.Text = string.Empty;
+                gboxNewControl.Visible = false;
+                gboxEditControl.Visible = true;
+            }
+        }
+
+        private void btnExistsOpenProject_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer.exe", txtWorkingFolder.Text);
+            lblExistsDevelopComments.Text = $"Navigate inside {txtControlName.Text} folder.\nEdit \"ControlManifest.Input.xml\" by incrementing the version.\nEdit your control.";
+        }
+
+        private void btnExistsBuild_Click(object sender, EventArgs e)
+        {
+            string vsPromptLocation = txtVSPromptLoc.Text;
+            string cdWorkingDir = $"cd {txtWorkingFolder.Text}\\{txtExistsControlName.Text}";
+            string npmCommand = $"npm run build";
+
+            Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
+        }
+
+        private void btnExistsTest_Click(object sender, EventArgs e)
+        {
+            string vsPromptLocation = txtVSPromptLoc.Text;
+            string cdWorkingDir = $"cd {txtWorkingFolder.Text}\\{txtExistsControlName.Text}";
+            string npmCommand = $"npm start";
+
+            Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
+        }
+
+        private void btnExistsCreateSolution_Click(object sender, EventArgs e)
+        {
+            lblExistsDeploymentError.Text = string.Empty;
+            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
+            {
+                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
+            }
+            if (string.IsNullOrEmpty(txtExistsPublisherName.Text))
+            {
+                lblExistsDeploymentError.Text += "\nPublisher Name is required.";
+            }
+            if (string.IsNullOrEmpty(txtExistsPublisherPrefix.Text))
+            {
+                lblExistsDeploymentError.Text += "\nPublisher Prefix is required.";
+            }
+
+            if (!string.IsNullOrEmpty(txtExistsDeployFolderName.Text) && !string.IsNullOrEmpty(txtExistsPublisherName.Text) && !string.IsNullOrEmpty(txtExistsPublisherPrefix.Text))
+            {
+                lblExistsDeploymentError.Text = string.Empty;
+
+                string vsPromptLocation = txtVSPromptLoc.Text;
+                string cdWorkingDir = $"cd {txtWorkingFolder.Text}\\{txtExistsControlName.Text}";
+
+                if (cboxDeploymentFolderExists.Checked)
+                {
+                    // Delete existing folder and re-create it
+
+                    string rmdirDeploymentFolder = $"rmdir /s {txtExistsDeployFolderName.Text}";
+                    string mkdirDeploymentFolder = $"mkdir {txtExistsDeployFolderName.Text}";
+                    string cdDeploymentFolder = $"cd {txtExistsDeployFolderName.Text}";
+                    string pacCommand_CreateSolution = $"pac solution init --publisherName {txtExistsPublisherName.Text} --customizationPrefix {txtExistsPublisherPrefix.Text}";
+                    string pacCommand_AddComponent = $"pac solution add-reference --path {txtWorkingFolder.Text}";
+                    string msbuild_restore = "msbuild /t:restore";
+                    string msbuild = "msbuild ";
+
+                    Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {rmdirDeploymentFolder} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent} && {msbuild_restore} && {msbuild}");
+                }
+                else
+                {
+                    // No folder exists; create a folder
+
+                    string mkdirDeploymentFolder = $"mkdir {txtExistsDeployFolderName.Text}";
+                    string cdDeploymentFolder = $"cd {txtExistsDeployFolderName.Text}";
+                    string pacCommand_CreateSolution = $"pac solution init --publisherName {txtExistsPublisherName.Text} --customizationPrefix {txtExistsPublisherPrefix.Text}";
+                    string pacCommand_AddComponent = $"pac solution add-reference --path {txtWorkingFolder.Text}";
+                    string msbuild_restore = "msbuild /t:restore";
+                    string msbuild = "msbuild ";
+
+                    Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent} && {msbuild_restore} && {msbuild}");
+                }
+            }
+        }
+
+        private void cboxDeploymentFolderExists_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cboxDeploymentFolderExists.Checked)
+            {
+                lblExistsCreateSolutionWarning.Text = "*This will delete the existing folder for you. Make sure folder exists.";
+            }
+            else
+            {
+                lblExistsCreateSolutionWarning.Text = "*This will create the folder for you. Do not create deployment folder";
+            }
+        }
+
+        private void btnExistsDeplotToD365_Click(object sender, EventArgs e)
+        {
+            string deploymentFolder = $"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}\\{txtExistsDeployFolderName.Text}\\bin\\debug\\{txtExistsDeployFolderName.Text}.zip";
             byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
 
 
