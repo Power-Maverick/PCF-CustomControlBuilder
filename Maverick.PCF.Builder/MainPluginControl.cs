@@ -14,13 +14,19 @@ using McTools.Xrm.Connection;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Crm.Sdk.Messages;
+using XrmToolBox.Extensibility.Interfaces;
 
 namespace Maverick.PCF.Builder
 {
-    public partial class MainPluginControl : PluginControlBase
+    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin
     {
         private Settings mySettings;
 
+        public string RepositoryName => "PCF-CustomControlBuilder";
+
+        public string UserName => "Danz-maveRICK";
+
+        public string HelpUrl => "https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/wiki";
 
         public MainPluginControl()
         {
@@ -386,6 +392,24 @@ namespace Maverick.PCF.Builder
                     }
                 }
             });
+        }
+
+        private void powerAppsCLIOverviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://docs.microsoft.com/en-us/powerapps/developer/component-framework/overview");
+        }
+
+        private void tspmDownloadPowerAppsCLI_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://aka.ms/PowerAppsCLI");
+        }
+
+        private void tspmUpdatePowerAppsCLI_Click(object sender, EventArgs e)
+        {
+            string vsPromptLocation = txtVSPromptLoc.Text;
+            string pacUpdateCLI = $"pac install latest";
+
+            Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {pacUpdateCLI}");
         }
     }
 }

@@ -98,8 +98,15 @@
             this.lblExistNamespace = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.gboxNewControl = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.gboxEditControl = new System.Windows.Forms.GroupBox();
             this.cboxDeploymentFolderExists = new System.Windows.Forms.CheckBox();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.powerAppsCLIOverviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
@@ -112,7 +119,10 @@
             this.tsbClose,
             this.tssSeparator1,
             this.tsbNewPCF,
-            this.tsbEditControl});
+            this.tsbEditControl,
+            this.toolStripSeparator1,
+            this.toolStripSeparator2,
+            this.tspHelp});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
             this.toolStripMenu.Size = new System.Drawing.Size(1225, 31);
@@ -704,6 +714,7 @@
             // 
             // gboxNewControl
             // 
+            this.gboxNewControl.Controls.Add(this.label2);
             this.gboxNewControl.Controls.Add(this.btnDeploy);
             this.gboxNewControl.Controls.Add(this.lblNewPcfRunPacCmd);
             this.gboxNewControl.Controls.Add(this.lblDeploy);
@@ -738,6 +749,16 @@
             this.gboxNewControl.TabIndex = 15;
             this.gboxNewControl.TabStop = false;
             this.gboxNewControl.Text = "New PCF Control";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(212, 150);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(295, 13);
+            this.label2.TabIndex = 30;
+            this.label2.Text = "*Important: Make sure you have downloaded PowerApps CLI";
             // 
             // gboxEditControl
             // 
@@ -786,6 +807,53 @@
             this.cboxDeploymentFolderExists.UseVisualStyleBackColor = true;
             this.cboxDeploymentFolderExists.CheckedChanged += new System.EventHandler(this.cboxDeploymentFolderExists_CheckedChanged);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspHelp
+            // 
+            this.tspHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmDownloadPowerAppsCLI,
+            this.tspmUpdatePowerAppsCLI,
+            this.powerAppsCLIOverviewToolStripMenuItem});
+            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
+            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspHelp.Name = "tspHelp";
+            this.tspHelp.Size = new System.Drawing.Size(37, 28);
+            this.tspHelp.Text = "Help";
+            // 
+            // powerAppsCLIOverviewToolStripMenuItem
+            // 
+            this.powerAppsCLIOverviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("powerAppsCLIOverviewToolStripMenuItem.Image")));
+            this.powerAppsCLIOverviewToolStripMenuItem.Name = "powerAppsCLIOverviewToolStripMenuItem";
+            this.powerAppsCLIOverviewToolStripMenuItem.Size = new System.Drawing.Size(271, 30);
+            this.powerAppsCLIOverviewToolStripMenuItem.Text = "PowerApps Component Framework";
+            this.powerAppsCLIOverviewToolStripMenuItem.Click += new System.EventHandler(this.powerAppsCLIOverviewToolStripMenuItem_Click);
+            // 
+            // tspmDownloadPowerAppsCLI
+            // 
+            this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
+            this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
+            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(271, 30);
+            this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
+            this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
+            // 
+            // tspmUpdatePowerAppsCLI
+            // 
+            this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
+            this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
+            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(271, 30);
+            this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
+            this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
+            // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,8 +868,8 @@
             this.Controls.Add(this.txtWorkingFolder);
             this.Controls.Add(this.lblWorkingDir);
             this.Controls.Add(this.toolStripMenu);
-            this.Controls.Add(this.gboxEditControl);
             this.Controls.Add(this.gboxNewControl);
+            this.Controls.Add(this.gboxEditControl);
             this.Name = "MainPluginControl";
             this.Size = new System.Drawing.Size(1225, 839);
             this.Load += new System.EventHandler(this.MyPluginControl_Load);
@@ -888,5 +956,12 @@
         private System.Windows.Forms.GroupBox gboxNewControl;
         private System.Windows.Forms.GroupBox gboxEditControl;
         private System.Windows.Forms.CheckBox cboxDeploymentFolderExists;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripDropDownButton tspHelp;
+        private System.Windows.Forms.ToolStripMenuItem powerAppsCLIOverviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tspmDownloadPowerAppsCLI;
+        private System.Windows.Forms.ToolStripMenuItem tspmUpdatePowerAppsCLI;
     }
 }
