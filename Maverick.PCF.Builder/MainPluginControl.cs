@@ -26,7 +26,7 @@ namespace Maverick.PCF.Builder
 
         public string UserName => "Danz-maveRICK";
 
-        public string HelpUrl => "https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/wiki";
+        public string HelpUrl => "https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/README.md";
 
         public MainPluginControl()
         {
