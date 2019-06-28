@@ -19,7 +19,7 @@ Based on that different windows will open and guide you through the process.
 ## Screenshots
 
 ##### Creating New Custom Control
-![New Control Upgrade](../../../../OneDrive/Work/XrmToolboxPlugins/PCF-CustomControlBuilder/NewControl-Upgrade.png)
+![Control Home](docs/Control-Home.png)
 
 ##### Tool executing commands
-![New Control With Running C L I Upgrade](../../../../OneDrive/Work/XrmToolboxPlugins/PCF-CustomControlBuilder/NewControl-WithRunningCLI-Upgrade.png)
+![Control Running C L I](docs/Control-RunningCLI.png)
