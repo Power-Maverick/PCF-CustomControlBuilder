@@ -34,6 +34,10 @@
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsbNewPCF = new System.Windows.Forms.ToolStripButton();
             this.tsbEditControl = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspCLIHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeploy = new System.Windows.Forms.Button();
             this.lblDeploy = new System.Windows.Forms.Label();
             this.lblDeploymentError = new System.Windows.Forms.Label();
@@ -73,7 +77,7 @@
             this.webBrowserPCFInfo = new System.Windows.Forms.WebBrowser();
             this.lblPCFInfo = new System.Windows.Forms.Label();
             this.selectVSDevFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnExistsDeplotToD365 = new System.Windows.Forms.Button();
+            this.btnExistsDeployToD365 = new System.Windows.Forms.Button();
             this.lblExistsDeplotToD365 = new System.Windows.Forms.Label();
             this.lblExistsDeploymentError = new System.Windows.Forms.Label();
             this.txtExistsPublisherPrefix = new System.Windows.Forms.TextBox();
@@ -98,15 +102,22 @@
             this.lblExistNamespace = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.gboxNewControl = new System.Windows.Forms.GroupBox();
+            this.btnOpenInVSCode = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gboxEditControl = new System.Windows.Forms.GroupBox();
             this.cboxDeploymentFolderExists = new System.Windows.Forms.CheckBox();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnExistsOpenInVSCode = new System.Windows.Forms.Button();
+            this.btnBuildDeploymentProject = new System.Windows.Forms.Button();
+            this.lblBuildDeploymentProject = new System.Windows.Forms.Label();
+            this.btnEditCDSProjectFile = new System.Windows.Forms.Button();
             this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
-            this.powerAppsCLIOverviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
+            this.cboxInfoSelection = new System.Windows.Forms.ComboBox();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspGallery = new System.Windows.Forms.ToolStripButton();
+            this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
@@ -120,8 +131,11 @@
             this.tssSeparator1,
             this.tsbNewPCF,
             this.tsbEditControl,
-            this.toolStripSeparator1,
             this.toolStripSeparator2,
+            this.tspGallery,
+            this.tspSampleControls,
+            this.toolStripSeparator1,
+            this.tspCLIHelp,
             this.tspHelp});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
@@ -162,30 +176,63 @@
             this.tsbEditControl.Text = "Edit existing PCF control";
             this.tsbEditControl.Click += new System.EventHandler(this.tsbEditControl_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspCLIHelp
+            // 
+            this.tspCLIHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmDownloadPowerAppsCLI,
+            this.tspmUpdatePowerAppsCLI});
+            this.tspCLIHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspCLIHelp.Image")));
+            this.tspCLIHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspCLIHelp.Name = "tspCLIHelp";
+            this.tspCLIHelp.Size = new System.Drawing.Size(124, 28);
+            this.tspCLIHelp.Text = "PowerApps CLI";
+            this.tspCLIHelp.ToolTipText = "PowerApps CLI";
+            // 
+            // tspmDownloadPowerAppsCLI
+            // 
+            this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
+            this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
+            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(219, 30);
+            this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
+            this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
+            // 
+            // tspmUpdatePowerAppsCLI
+            // 
+            this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
+            this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
+            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(219, 30);
+            this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
+            this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
+            // 
             // btnDeploy
             // 
-            this.btnDeploy.Location = new System.Drawing.Point(57, 653);
+            this.btnDeploy.Location = new System.Drawing.Point(57, 651);
             this.btnDeploy.Name = "btnDeploy";
             this.btnDeploy.Size = new System.Drawing.Size(143, 23);
             this.btnDeploy.TabIndex = 29;
-            this.btnDeploy.Text = "Deploy to D365 CE";
+            this.btnDeploy.Text = "Deploy to CDS";
             this.btnDeploy.UseVisualStyleBackColor = true;
             this.btnDeploy.Click += new System.EventHandler(this.btnDeploy_Click);
             // 
             // lblDeploy
             // 
             this.lblDeploy.AutoSize = true;
-            this.lblDeploy.Location = new System.Drawing.Point(27, 621);
+            this.lblDeploy.Location = new System.Drawing.Point(21, 624);
             this.lblDeploy.Name = "lblDeploy";
-            this.lblDeploy.Size = new System.Drawing.Size(184, 13);
+            this.lblDeploy.Size = new System.Drawing.Size(163, 13);
             this.lblDeploy.TabIndex = 28;
-            this.lblDeploy.Text = "6. Deploy Custom Control to D365 CE";
+            this.lblDeploy.Text = "6. Deploy Custom Control to CDS";
             // 
             // lblDeploymentError
             // 
             this.lblDeploymentError.AutoSize = true;
             this.lblDeploymentError.ForeColor = System.Drawing.Color.Maroon;
-            this.lblDeploymentError.Location = new System.Drawing.Point(220, 568);
+            this.lblDeploymentError.Location = new System.Drawing.Point(220, 573);
             this.lblDeploymentError.Name = "lblDeploymentError";
             this.lblDeploymentError.Size = new System.Drawing.Size(0, 13);
             this.lblDeploymentError.TabIndex = 27;
@@ -194,14 +241,14 @@
             // 
             this.lblRunPacError.AutoSize = true;
             this.lblRunPacError.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblRunPacError.Location = new System.Drawing.Point(209, 150);
+            this.lblRunPacError.Location = new System.Drawing.Point(302, 150);
             this.lblRunPacError.Name = "lblRunPacError";
             this.lblRunPacError.Size = new System.Drawing.Size(0, 13);
             this.lblRunPacError.TabIndex = 26;
             // 
             // txtPublisherPrefix
             // 
-            this.txtPublisherPrefix.Location = new System.Drawing.Point(181, 527);
+            this.txtPublisherPrefix.Location = new System.Drawing.Point(181, 532);
             this.txtPublisherPrefix.Name = "txtPublisherPrefix";
             this.txtPublisherPrefix.Size = new System.Drawing.Size(118, 20);
             this.txtPublisherPrefix.TabIndex = 24;
@@ -209,7 +256,7 @@
             // lblPublisherPrefix
             // 
             this.lblPublisherPrefix.AutoSize = true;
-            this.lblPublisherPrefix.Location = new System.Drawing.Point(54, 530);
+            this.lblPublisherPrefix.Location = new System.Drawing.Point(54, 535);
             this.lblPublisherPrefix.Name = "lblPublisherPrefix";
             this.lblPublisherPrefix.Size = new System.Drawing.Size(79, 13);
             this.lblPublisherPrefix.TabIndex = 23;
@@ -217,7 +264,7 @@
             // 
             // txtPublisherName
             // 
-            this.txtPublisherName.Location = new System.Drawing.Point(181, 501);
+            this.txtPublisherName.Location = new System.Drawing.Point(181, 506);
             this.txtPublisherName.Name = "txtPublisherName";
             this.txtPublisherName.Size = new System.Drawing.Size(118, 20);
             this.txtPublisherName.TabIndex = 22;
@@ -225,7 +272,7 @@
             // lblPublisherName
             // 
             this.lblPublisherName.AutoSize = true;
-            this.lblPublisherName.Location = new System.Drawing.Point(54, 504);
+            this.lblPublisherName.Location = new System.Drawing.Point(54, 509);
             this.lblPublisherName.Name = "lblPublisherName";
             this.lblPublisherName.Size = new System.Drawing.Size(81, 13);
             this.lblPublisherName.TabIndex = 21;
@@ -235,7 +282,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(306, 478);
+            this.label1.Location = new System.Drawing.Point(306, 483);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(323, 13);
             this.label1.TabIndex = 20;
@@ -243,7 +290,7 @@
             // 
             // txtDeploymentFolder
             // 
-            this.txtDeploymentFolder.Location = new System.Drawing.Point(181, 475);
+            this.txtDeploymentFolder.Location = new System.Drawing.Point(181, 480);
             this.txtDeploymentFolder.Name = "txtDeploymentFolder";
             this.txtDeploymentFolder.Size = new System.Drawing.Size(118, 20);
             this.txtDeploymentFolder.TabIndex = 19;
@@ -251,34 +298,34 @@
             // lblDeploymentFolder
             // 
             this.lblDeploymentFolder.AutoSize = true;
-            this.lblDeploymentFolder.Location = new System.Drawing.Point(54, 478);
+            this.lblDeploymentFolder.Location = new System.Drawing.Point(54, 483);
             this.lblDeploymentFolder.Name = "lblDeploymentFolder";
-            this.lblDeploymentFolder.Size = new System.Drawing.Size(121, 13);
+            this.lblDeploymentFolder.Size = new System.Drawing.Size(76, 13);
             this.lblDeploymentFolder.TabIndex = 18;
-            this.lblDeploymentFolder.Text = "Deployment folder name";
+            this.lblDeploymentFolder.Text = "Solution Name";
             // 
             // btnCreatePackage
             // 
-            this.btnCreatePackage.Location = new System.Drawing.Point(57, 563);
+            this.btnCreatePackage.Location = new System.Drawing.Point(57, 568);
             this.btnCreatePackage.Name = "btnCreatePackage";
-            this.btnCreatePackage.Size = new System.Drawing.Size(143, 23);
+            this.btnCreatePackage.Size = new System.Drawing.Size(163, 23);
             this.btnCreatePackage.TabIndex = 17;
-            this.btnCreatePackage.Text = "Create Solution Package";
+            this.btnCreatePackage.Text = "Create CDS Solution Project";
             this.btnCreatePackage.UseVisualStyleBackColor = true;
             this.btnCreatePackage.Click += new System.EventHandler(this.btnCreatePackage_Click);
             // 
             // lblCreatePackage
             // 
             this.lblCreatePackage.AutoSize = true;
-            this.lblCreatePackage.Location = new System.Drawing.Point(27, 455);
+            this.lblCreatePackage.Location = new System.Drawing.Point(21, 458);
             this.lblCreatePackage.Name = "lblCreatePackage";
-            this.lblCreatePackage.Size = new System.Drawing.Size(180, 13);
+            this.lblCreatePackage.Size = new System.Drawing.Size(149, 13);
             this.lblCreatePackage.TabIndex = 16;
-            this.lblCreatePackage.Text = "5. Create D365 CE solution package";
+            this.lblCreatePackage.Text = "5. Create CDS solution project";
             // 
             // btnTestProject
             // 
-            this.btnTestProject.Location = new System.Drawing.Point(57, 406);
+            this.btnTestProject.Location = new System.Drawing.Point(57, 409);
             this.btnTestProject.Name = "btnTestProject";
             this.btnTestProject.Size = new System.Drawing.Size(143, 23);
             this.btnTestProject.TabIndex = 15;
@@ -289,7 +336,7 @@
             // lblTestProject
             // 
             this.lblTestProject.AutoSize = true;
-            this.lblTestProject.Location = new System.Drawing.Point(24, 372);
+            this.lblTestProject.Location = new System.Drawing.Point(21, 374);
             this.lblTestProject.Name = "lblTestProject";
             this.lblTestProject.Size = new System.Drawing.Size(181, 13);
             this.lblTestProject.TabIndex = 14;
@@ -301,7 +348,7 @@
             this.btnBuild.Name = "btnBuild";
             this.btnBuild.Size = new System.Drawing.Size(143, 23);
             this.btnBuild.TabIndex = 13;
-            this.btnBuild.Text = "Build project";
+            this.btnBuild.Text = "Build PCF Project";
             this.btnBuild.UseVisualStyleBackColor = true;
             this.btnBuild.Click += new System.EventHandler(this.btnBuild_Click);
             // 
@@ -310,22 +357,22 @@
             this.lblBuild.AutoSize = true;
             this.lblBuild.Location = new System.Drawing.Point(21, 288);
             this.lblBuild.Name = "lblBuild";
-            this.lblBuild.Size = new System.Drawing.Size(77, 13);
+            this.lblBuild.Size = new System.Drawing.Size(100, 13);
             this.lblBuild.TabIndex = 12;
-            this.lblBuild.Text = "3. Build project";
+            this.lblBuild.Text = "3. Build PCF project";
             // 
             // lblDevelopComments
             // 
             this.lblDevelopComments.AutoSize = true;
             this.lblDevelopComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDevelopComments.Location = new System.Drawing.Point(306, 236);
+            this.lblDevelopComments.Location = new System.Drawing.Point(54, 260);
             this.lblDevelopComments.Name = "lblDevelopComments";
             this.lblDevelopComments.Size = new System.Drawing.Size(0, 13);
             this.lblDevelopComments.TabIndex = 10;
             // 
             // btnOpenProject
             // 
-            this.btnOpenProject.Location = new System.Drawing.Point(57, 231);
+            this.btnOpenProject.Location = new System.Drawing.Point(57, 226);
             this.btnOpenProject.Name = "btnOpenProject";
             this.btnOpenProject.Size = new System.Drawing.Size(143, 23);
             this.btnOpenProject.TabIndex = 9;
@@ -340,10 +387,11 @@
             this.lblOpenProject.Name = "lblOpenProject";
             this.lblOpenProject.Size = new System.Drawing.Size(223, 13);
             this.lblOpenProject.TabIndex = 8;
-            this.lblOpenProject.Text = "2. Open your project and develop your control";
+            this.lblOpenProject.Text = "2. Open PCF project and develop your control";
             // 
             // cmbTemplate
             // 
+            this.cmbTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTemplate.FormattingEnabled = true;
             this.cmbTemplate.Items.AddRange(new object[] {
             "Field",
@@ -399,9 +447,9 @@
             this.lblNewPcfRunPacCmd.AutoSize = true;
             this.lblNewPcfRunPacCmd.Location = new System.Drawing.Point(21, 32);
             this.lblNewPcfRunPacCmd.Name = "lblNewPcfRunPacCmd";
-            this.lblNewPcfRunPacCmd.Size = new System.Drawing.Size(278, 13);
+            this.lblNewPcfRunPacCmd.Size = new System.Drawing.Size(245, 13);
             this.lblNewPcfRunPacCmd.TabIndex = 1;
-            this.lblNewPcfRunPacCmd.Text = "1. Run \"pac\" command to create new component project";
+            this.lblNewPcfRunPacCmd.Text = "1. Run \"pac\" command to create new PCF project";
             // 
             // btnNewPcfRunPacCmd
             // 
@@ -477,11 +525,13 @@
             // webBrowserPCFInfo
             // 
             this.webBrowserPCFInfo.AllowWebBrowserDrop = false;
-            this.webBrowserPCFInfo.Location = new System.Drawing.Point(667, 113);
+            this.webBrowserPCFInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserPCFInfo.Location = new System.Drawing.Point(667, 142);
             this.webBrowserPCFInfo.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserPCFInfo.Name = "webBrowserPCFInfo";
             this.webBrowserPCFInfo.ScriptErrorsSuppressed = true;
-            this.webBrowserPCFInfo.Size = new System.Drawing.Size(555, 685);
+            this.webBrowserPCFInfo.Size = new System.Drawing.Size(555, 656);
             this.webBrowserPCFInfo.TabIndex = 13;
             this.webBrowserPCFInfo.Url = new System.Uri(" https://aka.ms/PCFDemos", System.UriKind.Absolute);
             // 
@@ -500,37 +550,37 @@
             this.selectVSDevFileDialog.Filter = "Batch files (*.bat)|*.bat";
             this.selectVSDevFileDialog.InitialDirectory = "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools";
             // 
-            // btnExistsDeplotToD365
+            // btnExistsDeployToD365
             // 
-            this.btnExistsDeplotToD365.Location = new System.Drawing.Point(57, 567);
-            this.btnExistsDeplotToD365.Name = "btnExistsDeplotToD365";
-            this.btnExistsDeplotToD365.Size = new System.Drawing.Size(143, 23);
-            this.btnExistsDeplotToD365.TabIndex = 48;
-            this.btnExistsDeplotToD365.Text = "Deploy to D365 CE";
-            this.btnExistsDeplotToD365.UseVisualStyleBackColor = true;
-            this.btnExistsDeplotToD365.Click += new System.EventHandler(this.btnExistsDeplotToD365_Click);
+            this.btnExistsDeployToD365.Location = new System.Drawing.Point(53, 631);
+            this.btnExistsDeployToD365.Name = "btnExistsDeployToD365";
+            this.btnExistsDeployToD365.Size = new System.Drawing.Size(143, 23);
+            this.btnExistsDeployToD365.TabIndex = 48;
+            this.btnExistsDeployToD365.Text = "Deploy to D365 CE";
+            this.btnExistsDeployToD365.UseVisualStyleBackColor = true;
+            this.btnExistsDeployToD365.Click += new System.EventHandler(this.btnExistsDeployToD365_Click);
             // 
             // lblExistsDeplotToD365
             // 
             this.lblExistsDeplotToD365.AutoSize = true;
-            this.lblExistsDeplotToD365.Location = new System.Drawing.Point(27, 535);
+            this.lblExistsDeplotToD365.Location = new System.Drawing.Point(27, 599);
             this.lblExistsDeplotToD365.Name = "lblExistsDeplotToD365";
             this.lblExistsDeplotToD365.Size = new System.Drawing.Size(184, 13);
             this.lblExistsDeplotToD365.TabIndex = 47;
-            this.lblExistsDeplotToD365.Text = "5. Deploy Custom Control to D365 CE";
+            this.lblExistsDeplotToD365.Text = "6. Deploy Custom Control to D365 CE";
             // 
             // lblExistsDeploymentError
             // 
             this.lblExistsDeploymentError.AutoSize = true;
             this.lblExistsDeploymentError.ForeColor = System.Drawing.Color.Maroon;
-            this.lblExistsDeploymentError.Location = new System.Drawing.Point(220, 482);
+            this.lblExistsDeploymentError.Location = new System.Drawing.Point(442, 473);
             this.lblExistsDeploymentError.Name = "lblExistsDeploymentError";
             this.lblExistsDeploymentError.Size = new System.Drawing.Size(0, 13);
             this.lblExistsDeploymentError.TabIndex = 46;
             // 
             // txtExistsPublisherPrefix
             // 
-            this.txtExistsPublisherPrefix.Location = new System.Drawing.Point(181, 441);
+            this.txtExistsPublisherPrefix.Location = new System.Drawing.Point(181, 432);
             this.txtExistsPublisherPrefix.Name = "txtExistsPublisherPrefix";
             this.txtExistsPublisherPrefix.Size = new System.Drawing.Size(118, 20);
             this.txtExistsPublisherPrefix.TabIndex = 45;
@@ -538,7 +588,7 @@
             // lblExistsPublisherPrefix
             // 
             this.lblExistsPublisherPrefix.AutoSize = true;
-            this.lblExistsPublisherPrefix.Location = new System.Drawing.Point(54, 444);
+            this.lblExistsPublisherPrefix.Location = new System.Drawing.Point(54, 435);
             this.lblExistsPublisherPrefix.Name = "lblExistsPublisherPrefix";
             this.lblExistsPublisherPrefix.Size = new System.Drawing.Size(79, 13);
             this.lblExistsPublisherPrefix.TabIndex = 44;
@@ -546,7 +596,7 @@
             // 
             // txtExistsPublisherName
             // 
-            this.txtExistsPublisherName.Location = new System.Drawing.Point(181, 415);
+            this.txtExistsPublisherName.Location = new System.Drawing.Point(181, 406);
             this.txtExistsPublisherName.Name = "txtExistsPublisherName";
             this.txtExistsPublisherName.Size = new System.Drawing.Size(118, 20);
             this.txtExistsPublisherName.TabIndex = 43;
@@ -554,7 +604,7 @@
             // lblExistsPublisherName
             // 
             this.lblExistsPublisherName.AutoSize = true;
-            this.lblExistsPublisherName.Location = new System.Drawing.Point(54, 418);
+            this.lblExistsPublisherName.Location = new System.Drawing.Point(54, 409);
             this.lblExistsPublisherName.Name = "lblExistsPublisherName";
             this.lblExistsPublisherName.Size = new System.Drawing.Size(81, 13);
             this.lblExistsPublisherName.TabIndex = 42;
@@ -564,15 +614,15 @@
             // 
             this.lblExistsCreateSolutionWarning.AutoSize = true;
             this.lblExistsCreateSolutionWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExistsCreateSolutionWarning.Location = new System.Drawing.Point(305, 392);
+            this.lblExistsCreateSolutionWarning.Location = new System.Drawing.Point(305, 383);
             this.lblExistsCreateSolutionWarning.Name = "lblExistsCreateSolutionWarning";
-            this.lblExistsCreateSolutionWarning.Size = new System.Drawing.Size(317, 13);
+            this.lblExistsCreateSolutionWarning.Size = new System.Drawing.Size(301, 13);
             this.lblExistsCreateSolutionWarning.TabIndex = 41;
-            this.lblExistsCreateSolutionWarning.Text = "*This will delete the existing folder for you. Make sure folder exists.";
+            this.lblExistsCreateSolutionWarning.Text = "*Use the same solution package to update the custom control.";
             // 
             // txtExistsDeployFolderName
             // 
-            this.txtExistsDeployFolderName.Location = new System.Drawing.Point(181, 389);
+            this.txtExistsDeployFolderName.Location = new System.Drawing.Point(181, 380);
             this.txtExistsDeployFolderName.Name = "txtExistsDeployFolderName";
             this.txtExistsDeployFolderName.Size = new System.Drawing.Size(118, 20);
             this.txtExistsDeployFolderName.TabIndex = 40;
@@ -580,34 +630,34 @@
             // lblExistsDeployFolderName
             // 
             this.lblExistsDeployFolderName.AutoSize = true;
-            this.lblExistsDeployFolderName.Location = new System.Drawing.Point(54, 392);
+            this.lblExistsDeployFolderName.Location = new System.Drawing.Point(54, 383);
             this.lblExistsDeployFolderName.Name = "lblExistsDeployFolderName";
-            this.lblExistsDeployFolderName.Size = new System.Drawing.Size(121, 13);
+            this.lblExistsDeployFolderName.Size = new System.Drawing.Size(76, 13);
             this.lblExistsDeployFolderName.TabIndex = 39;
-            this.lblExistsDeployFolderName.Text = "Deployment folder name";
+            this.lblExistsDeployFolderName.Text = "Solution Name";
             // 
             // btnExistsCreateSolution
             // 
-            this.btnExistsCreateSolution.Location = new System.Drawing.Point(57, 477);
+            this.btnExistsCreateSolution.Location = new System.Drawing.Point(53, 468);
             this.btnExistsCreateSolution.Name = "btnExistsCreateSolution";
             this.btnExistsCreateSolution.Size = new System.Drawing.Size(143, 23);
             this.btnExistsCreateSolution.TabIndex = 38;
-            this.btnExistsCreateSolution.Text = "Create Solution Package";
+            this.btnExistsCreateSolution.Text = "Create CDS project";
             this.btnExistsCreateSolution.UseVisualStyleBackColor = true;
             this.btnExistsCreateSolution.Click += new System.EventHandler(this.btnExistsCreateSolution_Click);
             // 
             // lblExistsUpdateDeploy
             // 
             this.lblExistsUpdateDeploy.AutoSize = true;
-            this.lblExistsUpdateDeploy.Location = new System.Drawing.Point(24, 342);
+            this.lblExistsUpdateDeploy.Location = new System.Drawing.Point(24, 333);
             this.lblExistsUpdateDeploy.Name = "lblExistsUpdateDeploy";
-            this.lblExistsUpdateDeploy.Size = new System.Drawing.Size(180, 13);
+            this.lblExistsUpdateDeploy.Size = new System.Drawing.Size(149, 13);
             this.lblExistsUpdateDeploy.TabIndex = 37;
-            this.lblExistsUpdateDeploy.Text = "4. Create D365 CE solution package";
+            this.lblExistsUpdateDeploy.Text = "4. Create CDS solution project";
             // 
             // btnExistsTest
             // 
-            this.btnExistsTest.Location = new System.Drawing.Point(54, 293);
+            this.btnExistsTest.Location = new System.Drawing.Point(53, 287);
             this.btnExistsTest.Name = "btnExistsTest";
             this.btnExistsTest.Size = new System.Drawing.Size(143, 23);
             this.btnExistsTest.TabIndex = 36;
@@ -626,7 +676,7 @@
             // 
             // btnExistsBuild
             // 
-            this.btnExistsBuild.Location = new System.Drawing.Point(61, 214);
+            this.btnExistsBuild.Location = new System.Drawing.Point(53, 211);
             this.btnExistsBuild.Name = "btnExistsBuild";
             this.btnExistsBuild.Size = new System.Drawing.Size(143, 23);
             this.btnExistsBuild.TabIndex = 34;
@@ -639,9 +689,9 @@
             this.lblExistsBuild.AutoSize = true;
             this.lblExistsBuild.Location = new System.Drawing.Point(21, 186);
             this.lblExistsBuild.Name = "lblExistsBuild";
-            this.lblExistsBuild.Size = new System.Drawing.Size(77, 13);
+            this.lblExistsBuild.Size = new System.Drawing.Size(100, 13);
             this.lblExistsBuild.TabIndex = 33;
-            this.lblExistsBuild.Text = "2. Build project";
+            this.lblExistsBuild.Text = "2. Build PCF project";
             // 
             // lblExistsDevelopComments
             // 
@@ -654,7 +704,7 @@
             // 
             // btnExistsOpenProject
             // 
-            this.btnExistsOpenProject.Location = new System.Drawing.Point(57, 144);
+            this.btnExistsOpenProject.Location = new System.Drawing.Point(53, 144);
             this.btnExistsOpenProject.Name = "btnExistsOpenProject";
             this.btnExistsOpenProject.Size = new System.Drawing.Size(143, 23);
             this.btnExistsOpenProject.TabIndex = 31;
@@ -667,9 +717,9 @@
             this.lblExistsOpenProject.AutoSize = true;
             this.lblExistsOpenProject.Location = new System.Drawing.Point(21, 118);
             this.lblExistsOpenProject.Name = "lblExistsOpenProject";
-            this.lblExistsOpenProject.Size = new System.Drawing.Size(334, 13);
+            this.lblExistsOpenProject.Size = new System.Drawing.Size(357, 13);
             this.lblExistsOpenProject.TabIndex = 30;
-            this.lblExistsOpenProject.Text = "1. Edit your project and increment version in ControlManifest.Input.xml";
+            this.lblExistsOpenProject.Text = "1. Edit your PCF project and increment version in ControlManifest.Input.xml";
             // 
             // txtExistsControlName
             // 
@@ -714,6 +764,7 @@
             // 
             // gboxNewControl
             // 
+            this.gboxNewControl.Controls.Add(this.btnOpenInVSCode);
             this.gboxNewControl.Controls.Add(this.label2);
             this.gboxNewControl.Controls.Add(this.btnDeploy);
             this.gboxNewControl.Controls.Add(this.lblNewPcfRunPacCmd);
@@ -750,18 +801,32 @@
             this.gboxNewControl.TabStop = false;
             this.gboxNewControl.Text = "New PCF Control";
             // 
+            // btnOpenInVSCode
+            // 
+            this.btnOpenInVSCode.Location = new System.Drawing.Point(223, 226);
+            this.btnOpenInVSCode.Name = "btnOpenInVSCode";
+            this.btnOpenInVSCode.Size = new System.Drawing.Size(143, 23);
+            this.btnOpenInVSCode.TabIndex = 31;
+            this.btnOpenInVSCode.Text = "Open in VS Code";
+            this.btnOpenInVSCode.UseVisualStyleBackColor = true;
+            this.btnOpenInVSCode.Click += new System.EventHandler(this.btnOpenInVSCode_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(212, 150);
+            this.label2.Location = new System.Drawing.Point(54, 174);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(295, 13);
+            this.label2.Size = new System.Drawing.Size(225, 13);
             this.label2.TabIndex = 30;
-            this.label2.Text = "*Important: Make sure you have downloaded PowerApps CLI";
+            this.label2.Text = "*Make sure you have PowerApps CLI installed";
             // 
             // gboxEditControl
             // 
+            this.gboxEditControl.Controls.Add(this.btnEditCDSProjectFile);
+            this.gboxEditControl.Controls.Add(this.btnBuildDeploymentProject);
+            this.gboxEditControl.Controls.Add(this.lblBuildDeploymentProject);
+            this.gboxEditControl.Controls.Add(this.btnExistsOpenInVSCode);
             this.gboxEditControl.Controls.Add(this.cboxDeploymentFolderExists);
             this.gboxEditControl.Controls.Add(this.label16);
             this.gboxEditControl.Controls.Add(this.txtExistsControlName);
@@ -780,7 +845,7 @@
             this.gboxEditControl.Controls.Add(this.lblExistsPublisherPrefix);
             this.gboxEditControl.Controls.Add(this.lblExistsBuild);
             this.gboxEditControl.Controls.Add(this.lblExistsUpdateDeploy);
-            this.gboxEditControl.Controls.Add(this.btnExistsDeplotToD365);
+            this.gboxEditControl.Controls.Add(this.btnExistsDeployToD365);
             this.gboxEditControl.Controls.Add(this.txtExistsPublisherPrefix);
             this.gboxEditControl.Controls.Add(this.btnExistsBuild);
             this.gboxEditControl.Controls.Add(this.btnExistsTest);
@@ -799,7 +864,7 @@
             this.cboxDeploymentFolderExists.AutoSize = true;
             this.cboxDeploymentFolderExists.Checked = true;
             this.cboxDeploymentFolderExists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxDeploymentFolderExists.Location = new System.Drawing.Point(57, 366);
+            this.cboxDeploymentFolderExists.Location = new System.Drawing.Point(57, 357);
             this.cboxDeploymentFolderExists.Name = "cboxDeploymentFolderExists";
             this.cboxDeploymentFolderExists.Size = new System.Drawing.Size(177, 17);
             this.cboxDeploymentFolderExists.TabIndex = 56;
@@ -807,57 +872,124 @@
             this.cboxDeploymentFolderExists.UseVisualStyleBackColor = true;
             this.cboxDeploymentFolderExists.CheckedChanged += new System.EventHandler(this.cboxDeploymentFolderExists_CheckedChanged);
             // 
-            // toolStripSeparator1
+            // btnExistsOpenInVSCode
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            this.btnExistsOpenInVSCode.Location = new System.Drawing.Point(223, 144);
+            this.btnExistsOpenInVSCode.Name = "btnExistsOpenInVSCode";
+            this.btnExistsOpenInVSCode.Size = new System.Drawing.Size(143, 23);
+            this.btnExistsOpenInVSCode.TabIndex = 57;
+            this.btnExistsOpenInVSCode.Text = "Open in VS Code";
+            this.btnExistsOpenInVSCode.UseVisualStyleBackColor = true;
+            this.btnExistsOpenInVSCode.Click += new System.EventHandler(this.btnExistsOpenInVSCode_Click);
+            // 
+            // btnBuildDeploymentProject
+            // 
+            this.btnBuildDeploymentProject.Location = new System.Drawing.Point(53, 548);
+            this.btnBuildDeploymentProject.Name = "btnBuildDeploymentProject";
+            this.btnBuildDeploymentProject.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildDeploymentProject.TabIndex = 59;
+            this.btnBuildDeploymentProject.Text = "Build CDS Project";
+            this.btnBuildDeploymentProject.UseVisualStyleBackColor = true;
+            this.btnBuildDeploymentProject.Click += new System.EventHandler(this.btnBuildDeploymentProject_Click);
+            // 
+            // lblBuildDeploymentProject
+            // 
+            this.lblBuildDeploymentProject.AutoSize = true;
+            this.lblBuildDeploymentProject.Location = new System.Drawing.Point(27, 516);
+            this.lblBuildDeploymentProject.Name = "lblBuildDeploymentProject";
+            this.lblBuildDeploymentProject.Size = new System.Drawing.Size(242, 13);
+            this.lblBuildDeploymentProject.TabIndex = 58;
+            this.lblBuildDeploymentProject.Text = "5. Build CDS project (msbuild - restore and rebuild)";
+            // 
+            // btnEditCDSProjectFile
+            // 
+            this.btnEditCDSProjectFile.Location = new System.Drawing.Point(223, 468);
+            this.btnEditCDSProjectFile.Name = "btnEditCDSProjectFile";
+            this.btnEditCDSProjectFile.Size = new System.Drawing.Size(166, 23);
+            this.btnEditCDSProjectFile.TabIndex = 60;
+            this.btnEditCDSProjectFile.Text = "Edit CDS project in VS Code";
+            this.btnEditCDSProjectFile.UseVisualStyleBackColor = true;
+            this.btnEditCDSProjectFile.Click += new System.EventHandler(this.btnEditCDSProjectFile_Click);
+            // 
+            // tspHelp
+            // 
+            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmPCFOverview,
+            this.tspmMSDocs,
+            this.tspmPCFLimitations});
+            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
+            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspHelp.Name = "tspHelp";
+            this.tspHelp.Size = new System.Drawing.Size(69, 28);
+            this.tspHelp.Text = "Help";
+            // 
+            // tspmMSDocs
+            // 
+            this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
+            this.tspmMSDocs.Name = "tspmMSDocs";
+            this.tspmMSDocs.Size = new System.Drawing.Size(297, 30);
+            this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
+            this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
+            // 
+            // tspmPCFLimitations
+            // 
+            this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
+            this.tspmPCFLimitations.Name = "tspmPCFLimitations";
+            this.tspmPCFLimitations.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFLimitations.Text = "PCF Limitations";
+            this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
+            // 
+            // cboxInfoSelection
+            // 
+            this.cboxInfoSelection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxInfoSelection.FormattingEnabled = true;
+            this.cboxInfoSelection.Items.AddRange(new object[] {
+            "Demos",
+            "Blogs",
+            "Forums",
+            "Ideas"});
+            this.cboxInfoSelection.Location = new System.Drawing.Point(667, 115);
+            this.cboxInfoSelection.Name = "cboxInfoSelection";
+            this.cboxInfoSelection.Size = new System.Drawing.Size(269, 21);
+            this.cboxInfoSelection.TabIndex = 18;
+            this.cboxInfoSelection.SelectedIndexChanged += new System.EventHandler(this.cboxInfoSelection_SelectedIndexChanged);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
-            // tspHelp
+            // tspGallery
             // 
-            this.tspHelp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspmDownloadPowerAppsCLI,
-            this.tspmUpdatePowerAppsCLI,
-            this.powerAppsCLIOverviewToolStripMenuItem});
-            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
-            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspHelp.Name = "tspHelp";
-            this.tspHelp.Size = new System.Drawing.Size(37, 28);
-            this.tspHelp.Text = "Help";
+            this.tspGallery.Image = ((System.Drawing.Image)(resources.GetObject("tspGallery.Image")));
+            this.tspGallery.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspGallery.Name = "tspGallery";
+            this.tspGallery.Size = new System.Drawing.Size(95, 28);
+            this.tspGallery.Text = "PCF Gallery";
+            this.tspGallery.Click += new System.EventHandler(this.tspGallery_Click);
             // 
-            // powerAppsCLIOverviewToolStripMenuItem
+            // tspmPCFOverview
             // 
-            this.powerAppsCLIOverviewToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("powerAppsCLIOverviewToolStripMenuItem.Image")));
-            this.powerAppsCLIOverviewToolStripMenuItem.Name = "powerAppsCLIOverviewToolStripMenuItem";
-            this.powerAppsCLIOverviewToolStripMenuItem.Size = new System.Drawing.Size(271, 30);
-            this.powerAppsCLIOverviewToolStripMenuItem.Text = "PowerApps Component Framework";
-            this.powerAppsCLIOverviewToolStripMenuItem.Click += new System.EventHandler(this.powerAppsCLIOverviewToolStripMenuItem_Click);
+            this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
+            this.tspmPCFOverview.Name = "tspmPCFOverview";
+            this.tspmPCFOverview.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFOverview.Text = "PowerApps Component Framework";
+            this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
             // 
-            // tspmDownloadPowerAppsCLI
+            // tspSampleControls
             // 
-            this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
-            this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
-            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(271, 30);
-            this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
-            this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
-            // 
-            // tspmUpdatePowerAppsCLI
-            // 
-            this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
-            this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
-            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(271, 30);
-            this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
-            this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
+            this.tspSampleControls.Image = ((System.Drawing.Image)(resources.GetObject("tspSampleControls.Image")));
+            this.tspSampleControls.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSampleControls.Name = "tspSampleControls";
+            this.tspSampleControls.Size = new System.Drawing.Size(122, 28);
+            this.tspSampleControls.Text = "Sample Controls";
+            this.tspSampleControls.Click += new System.EventHandler(this.tspSampleControls_Click);
             // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cboxInfoSelection);
             this.Controls.Add(this.lblPCFInfo);
             this.Controls.Add(this.webBrowserPCFInfo);
             this.Controls.Add(this.lblErrors);
@@ -868,11 +1000,11 @@
             this.Controls.Add(this.txtWorkingFolder);
             this.Controls.Add(this.lblWorkingDir);
             this.Controls.Add(this.toolStripMenu);
-            this.Controls.Add(this.gboxNewControl);
             this.Controls.Add(this.gboxEditControl);
+            this.Controls.Add(this.gboxNewControl);
             this.Name = "MainPluginControl";
             this.Size = new System.Drawing.Size(1225, 839);
-            this.Load += new System.EventHandler(this.MyPluginControl_Load);
+            this.Load += new System.EventHandler(this.MainPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
             this.gboxNewControl.ResumeLayout(false);
@@ -934,7 +1066,7 @@
         private System.Windows.Forms.Label lblExistsControlName;
         private System.Windows.Forms.TextBox txtExistNamespace;
         private System.Windows.Forms.Label lblExistNamespace;
-        private System.Windows.Forms.Button btnExistsDeplotToD365;
+        private System.Windows.Forms.Button btnExistsDeployToD365;
         private System.Windows.Forms.Label lblExistsDeplotToD365;
         private System.Windows.Forms.Label lblExistsDeploymentError;
         private System.Windows.Forms.TextBox txtExistsPublisherPrefix;
@@ -958,10 +1090,21 @@
         private System.Windows.Forms.CheckBox cboxDeploymentFolderExists;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripDropDownButton tspHelp;
-        private System.Windows.Forms.ToolStripMenuItem powerAppsCLIOverviewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton tspCLIHelp;
         private System.Windows.Forms.ToolStripMenuItem tspmDownloadPowerAppsCLI;
         private System.Windows.Forms.ToolStripMenuItem tspmUpdatePowerAppsCLI;
+        private System.Windows.Forms.Button btnOpenInVSCode;
+        private System.Windows.Forms.Button btnExistsOpenInVSCode;
+        private System.Windows.Forms.Button btnBuildDeploymentProject;
+        private System.Windows.Forms.Label lblBuildDeploymentProject;
+        private System.Windows.Forms.Button btnEditCDSProjectFile;
+        private System.Windows.Forms.ToolStripDropDownButton tspHelp;
+        private System.Windows.Forms.ToolStripMenuItem tspmMSDocs;
+        private System.Windows.Forms.ToolStripMenuItem tspmPCFLimitations;
+        private System.Windows.Forms.ComboBox cboxInfoSelection;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton tspGallery;
+        private System.Windows.Forms.ToolStripMenuItem tspmPCFOverview;
+        private System.Windows.Forms.ToolStripButton tspSampleControls;
     }
 }
