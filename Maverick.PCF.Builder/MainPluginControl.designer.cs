@@ -525,7 +525,8 @@
             // webBrowserPCFInfo
             // 
             this.webBrowserPCFInfo.AllowWebBrowserDrop = false;
-            this.webBrowserPCFInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.webBrowserPCFInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.webBrowserPCFInfo.Location = new System.Drawing.Point(667, 142);
             this.webBrowserPCFInfo.MinimumSize = new System.Drawing.Size(20, 20);
