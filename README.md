@@ -1,5 +1,7 @@
 [![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Danz-maveRICK.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master)
 
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/PCF-CustomControlBuilder)
+
 # PCF-CustomControlBuilder
 Xrm Toolbox Plugin for building and deploying custom control using PCF
 
