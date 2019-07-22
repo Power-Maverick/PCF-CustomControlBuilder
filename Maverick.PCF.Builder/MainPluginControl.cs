@@ -19,7 +19,7 @@ using System.Xml;
 
 namespace Maverick.PCF.Builder
 {
-    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin
+    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin, IPayPalPlugin
     {
         private Settings mySettings;
 
@@ -28,6 +28,10 @@ namespace Maverick.PCF.Builder
         public string UserName => "Danz-maveRICK";
 
         public string HelpUrl => "https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/README.md";
+
+        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools.";
+
+        public string EmailAccount => "danz@techgeek.co.in";
 
         public MainPluginControl()
         {
