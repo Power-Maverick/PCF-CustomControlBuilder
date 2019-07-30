@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Maverick.PCF.Builder</id>
+    <version>1.0.6</version>
+    <title>PCF Custom Control Builder</title>
+    <authors>Danish Naglekar</authors>
+    <owners>Danz-maveRICK</owners>
+    <projectUrl>https://github.com/Danz-maveRICK/PCF-CustomControlBuilder</projectUrl>
+    <iconUrl>https://danishnaglekar.files.wordpress.com/2018/06/cropped-d-logos1.jpg</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE</licenseUrl>
+    <description>Easily create, build and deployment solution for your custom control using PCF.</description>
+    <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © Danish Naglekar</copyright>
+    <tags>XrmToolBox, PCF, Custom Control, PCF Control Builder,Custom Builder</tags>
+    <dependencies>
+      <dependency id="XrmToolBox" version="1.2018.6.24" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="PCFCustomControlBuilder\bin\Release\Maverick.PCF.Builder.dll" target="lib\net462\Plugins" />
+  </files>
+</package>
