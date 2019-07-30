@@ -1,0 +1,8 @@
+﻿---- NEW FEATURES ----
+None
+
+---- UPDATES ----
+1. Link to PayPal
+
+---- BUG FIXES ----
+1. UI fixes - by @rappen
