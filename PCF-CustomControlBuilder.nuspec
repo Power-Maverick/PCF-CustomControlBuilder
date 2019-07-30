@@ -12,7 +12,7 @@
     <licenseUrl>https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE</licenseUrl>
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
-    <releaseNotes></releaseNotes>
+    <releaseNotes>$releasenotes$</releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Custom Control, PCF Control Builder,Custom Builder</tags>
     <dependencies>
