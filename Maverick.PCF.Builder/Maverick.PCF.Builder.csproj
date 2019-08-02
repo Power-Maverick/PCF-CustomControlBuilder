@@ -117,6 +117,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataObjects\PcfGallery.cs" />
+    <Compile Include="Forms\SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Templates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Templates.Designer.cs">
+      <DependentUpon>Templates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\CommandLineHelper.cs" />
+    <Compile Include="Helper\Commands.cs" />
+    <Compile Include="Helper\JsonHelper.cs" />
     <Compile Include="MainPlugin.cs" />
     <Compile Include="MainPluginControl.cs">
       <SubType>UserControl</SubType>
@@ -131,18 +147,33 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="UserControls\Template.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Template.Designer.cs">
+      <DependentUpon>Template.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Forms\SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Templates.resx">
+      <DependentUpon>Templates.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainPluginControl.resx">
       <DependentUpon>MainPluginControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Template.resx">
+      <DependentUpon>Template.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

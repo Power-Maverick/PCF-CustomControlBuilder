@@ -1,8 +1,14 @@
 ﻿---- NEW FEATURES ----
-None
+1. Ability to download templates from various PCF controls.
+2. Embedded command prompt display. No more multiple windows.
+3. New improved UI with tabs
+4. Added capabilitity to save and maintain your settings
 
 ---- UPDATES ----
 1. Link to PayPal
+2. Change of logo
+3. Added link to creator
 
 ---- BUG FIXES ----
 1. UI fixes - by @rappen
+2. Bug fixes

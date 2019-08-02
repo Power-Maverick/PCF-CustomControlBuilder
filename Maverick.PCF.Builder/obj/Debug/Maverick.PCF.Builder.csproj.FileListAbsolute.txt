@@ -70,3 +70,6 @@ C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csproj.CopyComplete
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.dll
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.pdb
+C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.Templates.resources
+C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.UserControls.Template.resources
+C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.SettingsForm.resources

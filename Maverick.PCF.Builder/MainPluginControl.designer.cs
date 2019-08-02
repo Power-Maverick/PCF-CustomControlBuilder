@@ -32,12 +32,21 @@
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.tsbNewPCF = new System.Windows.Forms.ToolStripButton();
+            this.tsbNewPCFMenu = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmNewPCFBlank = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmNewPCFTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbEditControl = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspGallery = new System.Windows.Forms.ToolStripButton();
+            this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tspCLIHelp = new System.Windows.Forms.ToolStripDropDownButton();
             this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
             this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeploy = new System.Windows.Forms.Button();
             this.lblDeploy = new System.Windows.Forms.Label();
             this.lblDeploymentError = new System.Windows.Forms.Label();
@@ -105,22 +114,29 @@
             this.btnOpenInVSCode = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gboxEditControl = new System.Windows.Forms.GroupBox();
-            this.cboxDeploymentFolderExists = new System.Windows.Forms.CheckBox();
-            this.btnExistsOpenInVSCode = new System.Windows.Forms.Button();
+            this.btnExistingRefreshDetails = new System.Windows.Forms.Button();
+            this.btnEditCDSProjectFile = new System.Windows.Forms.Button();
             this.btnBuildDeploymentProject = new System.Windows.Forms.Button();
             this.lblBuildDeploymentProject = new System.Windows.Forms.Label();
-            this.btnEditCDSProjectFile = new System.Windows.Forms.Button();
-            this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExistsOpenInVSCode = new System.Windows.Forms.Button();
+            this.cboxDeploymentFolderExists = new System.Windows.Forms.CheckBox();
             this.cboxInfoSelection = new System.Windows.Forms.ComboBox();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.tspGallery = new System.Windows.Forms.ToolStripButton();
-            this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
+            this.linklblCreator = new System.Windows.Forms.LinkLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspSettings = new System.Windows.Forms.ToolStripButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabMain = new System.Windows.Forms.TabPage();
+            this.tabInformation = new System.Windows.Forms.TabPage();
+            this.flowMainRight = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblCommandPrompt = new System.Windows.Forms.Label();
+            this.txtCommandPrompt = new System.Windows.Forms.TextBox();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabMain.SuspendLayout();
+            this.tabInformation.SuspendLayout();
+            this.flowMainRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -129,17 +145,19 @@
             this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbClose,
             this.tssSeparator1,
-            this.tsbNewPCF,
+            this.tsbNewPCFMenu,
             this.tsbEditControl,
             this.toolStripSeparator2,
             this.tspGallery,
             this.tspSampleControls,
             this.toolStripSeparator1,
             this.tspCLIHelp,
-            this.tspHelp});
+            this.tspHelp,
+            this.toolStripSeparator3,
+            this.tspSettings});
             this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
             this.toolStripMenu.Name = "toolStripMenu";
-            this.toolStripMenu.Size = new System.Drawing.Size(1225, 31);
+            this.toolStripMenu.Size = new System.Drawing.Size(1486, 31);
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
@@ -157,15 +175,31 @@
             this.tssSeparator1.Name = "tssSeparator1";
             this.tssSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
-            // tsbNewPCF
+            // tsbNewPCFMenu
             // 
-            this.tsbNewPCF.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewPCF.Image")));
-            this.tsbNewPCF.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbNewPCF.Name = "tsbNewPCF";
-            this.tsbNewPCF.Size = new System.Drawing.Size(126, 28);
-            this.tsbNewPCF.Text = "New PCF Control";
-            this.tsbNewPCF.ToolTipText = "Create New PCF Control";
-            this.tsbNewPCF.Click += new System.EventHandler(this.tsbNewPCF_Click);
+            this.tsbNewPCFMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmNewPCFBlank,
+            this.tsmNewPCFTemplate});
+            this.tsbNewPCFMenu.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewPCFMenu.Image")));
+            this.tsbNewPCFMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewPCFMenu.Name = "tsbNewPCFMenu";
+            this.tsbNewPCFMenu.Size = new System.Drawing.Size(138, 28);
+            this.tsbNewPCFMenu.Text = "New PCF Control";
+            this.tsbNewPCFMenu.ButtonClick += new System.EventHandler(this.TsbNewPCFMenu_ButtonClick);
+            // 
+            // tsmNewPCFBlank
+            // 
+            this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
+            this.tsmNewPCFBlank.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFBlank.Text = "New from Blank";
+            this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
+            // 
+            // tsmNewPCFTemplate
+            // 
+            this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
+            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFTemplate.Text = "New from Template";
+            this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
             // 
             // tsbEditControl
             // 
@@ -175,6 +209,29 @@
             this.tsbEditControl.Size = new System.Drawing.Size(163, 28);
             this.tsbEditControl.Text = "Edit existing PCF control";
             this.tsbEditControl.Click += new System.EventHandler(this.tsbEditControl_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspGallery
+            // 
+            this.tspGallery.Image = ((System.Drawing.Image)(resources.GetObject("tspGallery.Image")));
+            this.tspGallery.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspGallery.Name = "tspGallery";
+            this.tspGallery.Size = new System.Drawing.Size(95, 28);
+            this.tspGallery.Text = "PCF Gallery";
+            this.tspGallery.Click += new System.EventHandler(this.tspGallery_Click);
+            // 
+            // tspSampleControls
+            // 
+            this.tspSampleControls.Image = ((System.Drawing.Image)(resources.GetObject("tspSampleControls.Image")));
+            this.tspSampleControls.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSampleControls.Name = "tspSampleControls";
+            this.tspSampleControls.Size = new System.Drawing.Size(122, 28);
+            this.tspSampleControls.Text = "Sample Controls";
+            this.tspSampleControls.Click += new System.EventHandler(this.tspSampleControls_Click);
             // 
             // toolStripSeparator1
             // 
@@ -197,7 +254,7 @@
             // 
             this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
             this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
-            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(219, 30);
+            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(211, 22);
             this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
             this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
             // 
@@ -205,9 +262,45 @@
             // 
             this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
             this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
-            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(219, 30);
+            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(211, 22);
             this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
             this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
+            // 
+            // tspHelp
+            // 
+            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmPCFOverview,
+            this.tspmMSDocs,
+            this.tspmPCFLimitations});
+            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
+            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspHelp.Name = "tspHelp";
+            this.tspHelp.Size = new System.Drawing.Size(69, 28);
+            this.tspHelp.Text = "Help";
+            // 
+            // tspmPCFOverview
+            // 
+            this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
+            this.tspmPCFOverview.Name = "tspmPCFOverview";
+            this.tspmPCFOverview.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFOverview.Text = "PowerApps Component Framework";
+            this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
+            // 
+            // tspmMSDocs
+            // 
+            this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
+            this.tspmMSDocs.Name = "tspmMSDocs";
+            this.tspmMSDocs.Size = new System.Drawing.Size(297, 30);
+            this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
+            this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
+            // 
+            // tspmPCFLimitations
+            // 
+            this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
+            this.tspmPCFLimitations.Name = "tspmPCFLimitations";
+            this.tspmPCFLimitations.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFLimitations.Text = "PCF Limitations";
+            this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
             // 
             // btnDeploy
             // 
@@ -464,7 +557,7 @@
             // lblWorkingDir
             // 
             this.lblWorkingDir.AutoSize = true;
-            this.lblWorkingDir.Location = new System.Drawing.Point(1, 41);
+            this.lblWorkingDir.Location = new System.Drawing.Point(11, 19);
             this.lblWorkingDir.Name = "lblWorkingDir";
             this.lblWorkingDir.Size = new System.Drawing.Size(143, 13);
             this.lblWorkingDir.TabIndex = 6;
@@ -472,14 +565,15 @@
             // 
             // txtWorkingFolder
             // 
-            this.txtWorkingFolder.Location = new System.Drawing.Point(204, 38);
+            this.txtWorkingFolder.Location = new System.Drawing.Point(214, 16);
             this.txtWorkingFolder.Name = "txtWorkingFolder";
             this.txtWorkingFolder.Size = new System.Drawing.Size(305, 20);
             this.txtWorkingFolder.TabIndex = 7;
+            this.txtWorkingFolder.TextChanged += new System.EventHandler(this.TxtWorkingFolder_TextChanged);
             // 
             // btnWorkingFolderSelector
             // 
-            this.btnWorkingFolderSelector.Location = new System.Drawing.Point(515, 38);
+            this.btnWorkingFolderSelector.Location = new System.Drawing.Point(525, 16);
             this.btnWorkingFolderSelector.Name = "btnWorkingFolderSelector";
             this.btnWorkingFolderSelector.Size = new System.Drawing.Size(27, 20);
             this.btnWorkingFolderSelector.TabIndex = 8;
@@ -490,7 +584,7 @@
             // lblVSPromptLoc
             // 
             this.lblVSPromptLoc.AutoSize = true;
-            this.lblVSPromptLoc.Location = new System.Drawing.Point(3, 68);
+            this.lblVSPromptLoc.Location = new System.Drawing.Point(13, 46);
             this.lblVSPromptLoc.Name = "lblVSPromptLoc";
             this.lblVSPromptLoc.Size = new System.Drawing.Size(195, 13);
             this.lblVSPromptLoc.TabIndex = 9;
@@ -498,14 +592,15 @@
             // 
             // txtVSPromptLoc
             // 
-            this.txtVSPromptLoc.Location = new System.Drawing.Point(204, 65);
+            this.txtVSPromptLoc.Location = new System.Drawing.Point(214, 43);
             this.txtVSPromptLoc.Name = "txtVSPromptLoc";
             this.txtVSPromptLoc.Size = new System.Drawing.Size(305, 20);
             this.txtVSPromptLoc.TabIndex = 10;
+            this.txtVSPromptLoc.TextChanged += new System.EventHandler(this.TxtVSPromptLoc_TextChanged);
             // 
             // btnVSPromptLoc
             // 
-            this.btnVSPromptLoc.Location = new System.Drawing.Point(515, 65);
+            this.btnVSPromptLoc.Location = new System.Drawing.Point(525, 43);
             this.btnVSPromptLoc.Name = "btnVSPromptLoc";
             this.btnVSPromptLoc.Size = new System.Drawing.Size(27, 20);
             this.btnVSPromptLoc.TabIndex = 11;
@@ -517,7 +612,7 @@
             // 
             this.lblErrors.AutoSize = true;
             this.lblErrors.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblErrors.Location = new System.Drawing.Point(593, 41);
+            this.lblErrors.Location = new System.Drawing.Point(603, 19);
             this.lblErrors.Name = "lblErrors";
             this.lblErrors.Size = new System.Drawing.Size(0, 13);
             this.lblErrors.TabIndex = 12;
@@ -525,21 +620,21 @@
             // webBrowserPCFInfo
             // 
             this.webBrowserPCFInfo.AllowWebBrowserDrop = false;
-            this.webBrowserPCFInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.webBrowserPCFInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserPCFInfo.Location = new System.Drawing.Point(667, 142);
+            this.webBrowserPCFInfo.Location = new System.Drawing.Point(6, 61);
             this.webBrowserPCFInfo.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserPCFInfo.Name = "webBrowserPCFInfo";
             this.webBrowserPCFInfo.ScriptErrorsSuppressed = true;
-            this.webBrowserPCFInfo.Size = new System.Drawing.Size(555, 656);
+            this.webBrowserPCFInfo.Size = new System.Drawing.Size(1466, 715);
             this.webBrowserPCFInfo.TabIndex = 13;
             this.webBrowserPCFInfo.Url = new System.Uri(" https://aka.ms/PCFDemos", System.UriKind.Absolute);
             // 
             // lblPCFInfo
             // 
             this.lblPCFInfo.AutoSize = true;
-            this.lblPCFInfo.Location = new System.Drawing.Point(667, 91);
+            this.lblPCFInfo.Location = new System.Drawing.Point(6, 10);
             this.lblPCFInfo.Name = "lblPCFInfo";
             this.lblPCFInfo.Size = new System.Drawing.Size(124, 13);
             this.lblPCFInfo.TabIndex = 14;
@@ -698,7 +793,7 @@
             // 
             this.lblExistsDevelopComments.AutoSize = true;
             this.lblExistsDevelopComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExistsDevelopComments.Location = new System.Drawing.Point(306, 149);
+            this.lblExistsDevelopComments.Location = new System.Drawing.Point(401, 149);
             this.lblExistsDevelopComments.Name = "lblExistsDevelopComments";
             this.lblExistsDevelopComments.Size = new System.Drawing.Size(0, 13);
             this.lblExistsDevelopComments.TabIndex = 32;
@@ -795,9 +890,9 @@
             this.gboxNewControl.Controls.Add(this.btnBuild);
             this.gboxNewControl.Controls.Add(this.btnTestProject);
             this.gboxNewControl.Controls.Add(this.lblTestProject);
-            this.gboxNewControl.Location = new System.Drawing.Point(6, 91);
+            this.gboxNewControl.Location = new System.Drawing.Point(16, 69);
             this.gboxNewControl.Name = "gboxNewControl";
-            this.gboxNewControl.Size = new System.Drawing.Size(655, 707);
+            this.gboxNewControl.Size = new System.Drawing.Size(753, 707);
             this.gboxNewControl.TabIndex = 15;
             this.gboxNewControl.TabStop = false;
             this.gboxNewControl.Text = "New PCF Control";
@@ -816,7 +911,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(54, 174);
+            this.label2.Location = new System.Drawing.Point(217, 150);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(225, 13);
             this.label2.TabIndex = 30;
@@ -824,6 +919,7 @@
             // 
             // gboxEditControl
             // 
+            this.gboxEditControl.Controls.Add(this.btnExistingRefreshDetails);
             this.gboxEditControl.Controls.Add(this.btnEditCDSProjectFile);
             this.gboxEditControl.Controls.Add(this.btnBuildDeploymentProject);
             this.gboxEditControl.Controls.Add(this.lblBuildDeploymentProject);
@@ -853,35 +949,32 @@
             this.gboxEditControl.Controls.Add(this.lblExistsDeplotToD365);
             this.gboxEditControl.Controls.Add(this.lblExistsDeploymentError);
             this.gboxEditControl.Controls.Add(this.lblExistsTest);
-            this.gboxEditControl.Location = new System.Drawing.Point(6, 92);
+            this.gboxEditControl.Location = new System.Drawing.Point(16, 70);
             this.gboxEditControl.Name = "gboxEditControl";
-            this.gboxEditControl.Size = new System.Drawing.Size(655, 706);
+            this.gboxEditControl.Size = new System.Drawing.Size(753, 706);
             this.gboxEditControl.TabIndex = 17;
             this.gboxEditControl.TabStop = false;
             this.gboxEditControl.Text = "Edit Existing PCF control";
             // 
-            // cboxDeploymentFolderExists
+            // btnExistingRefreshDetails
             // 
-            this.cboxDeploymentFolderExists.AutoSize = true;
-            this.cboxDeploymentFolderExists.Checked = true;
-            this.cboxDeploymentFolderExists.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cboxDeploymentFolderExists.Location = new System.Drawing.Point(57, 357);
-            this.cboxDeploymentFolderExists.Name = "cboxDeploymentFolderExists";
-            this.cboxDeploymentFolderExists.Size = new System.Drawing.Size(177, 17);
-            this.cboxDeploymentFolderExists.TabIndex = 56;
-            this.cboxDeploymentFolderExists.Text = "Deployment folder already exists";
-            this.cboxDeploymentFolderExists.UseVisualStyleBackColor = true;
-            this.cboxDeploymentFolderExists.CheckedChanged += new System.EventHandler(this.cboxDeploymentFolderExists_CheckedChanged);
+            this.btnExistingRefreshDetails.Location = new System.Drawing.Point(328, 78);
+            this.btnExistingRefreshDetails.Name = "btnExistingRefreshDetails";
+            this.btnExistingRefreshDetails.Size = new System.Drawing.Size(143, 23);
+            this.btnExistingRefreshDetails.TabIndex = 61;
+            this.btnExistingRefreshDetails.Text = "Refresh Control Details";
+            this.btnExistingRefreshDetails.UseVisualStyleBackColor = true;
+            this.btnExistingRefreshDetails.Click += new System.EventHandler(this.BtnExistingRefreshDetails_Click);
             // 
-            // btnExistsOpenInVSCode
+            // btnEditCDSProjectFile
             // 
-            this.btnExistsOpenInVSCode.Location = new System.Drawing.Point(223, 144);
-            this.btnExistsOpenInVSCode.Name = "btnExistsOpenInVSCode";
-            this.btnExistsOpenInVSCode.Size = new System.Drawing.Size(143, 23);
-            this.btnExistsOpenInVSCode.TabIndex = 57;
-            this.btnExistsOpenInVSCode.Text = "Open in VS Code";
-            this.btnExistsOpenInVSCode.UseVisualStyleBackColor = true;
-            this.btnExistsOpenInVSCode.Click += new System.EventHandler(this.btnExistsOpenInVSCode_Click);
+            this.btnEditCDSProjectFile.Location = new System.Drawing.Point(223, 468);
+            this.btnEditCDSProjectFile.Name = "btnEditCDSProjectFile";
+            this.btnEditCDSProjectFile.Size = new System.Drawing.Size(166, 23);
+            this.btnEditCDSProjectFile.TabIndex = 60;
+            this.btnEditCDSProjectFile.Text = "Edit CDS project in VS Code";
+            this.btnEditCDSProjectFile.UseVisualStyleBackColor = true;
+            this.btnEditCDSProjectFile.Click += new System.EventHandler(this.btnEditCDSProjectFile_Click);
             // 
             // btnBuildDeploymentProject
             // 
@@ -902,43 +995,28 @@
             this.lblBuildDeploymentProject.TabIndex = 58;
             this.lblBuildDeploymentProject.Text = "5. Build CDS project (msbuild - restore and rebuild)";
             // 
-            // btnEditCDSProjectFile
+            // btnExistsOpenInVSCode
             // 
-            this.btnEditCDSProjectFile.Location = new System.Drawing.Point(223, 468);
-            this.btnEditCDSProjectFile.Name = "btnEditCDSProjectFile";
-            this.btnEditCDSProjectFile.Size = new System.Drawing.Size(166, 23);
-            this.btnEditCDSProjectFile.TabIndex = 60;
-            this.btnEditCDSProjectFile.Text = "Edit CDS project in VS Code";
-            this.btnEditCDSProjectFile.UseVisualStyleBackColor = true;
-            this.btnEditCDSProjectFile.Click += new System.EventHandler(this.btnEditCDSProjectFile_Click);
+            this.btnExistsOpenInVSCode.Location = new System.Drawing.Point(220, 144);
+            this.btnExistsOpenInVSCode.Name = "btnExistsOpenInVSCode";
+            this.btnExistsOpenInVSCode.Size = new System.Drawing.Size(143, 23);
+            this.btnExistsOpenInVSCode.TabIndex = 57;
+            this.btnExistsOpenInVSCode.Text = "Open in VS Code";
+            this.btnExistsOpenInVSCode.UseVisualStyleBackColor = true;
+            this.btnExistsOpenInVSCode.Click += new System.EventHandler(this.btnExistsOpenInVSCode_Click);
             // 
-            // tspHelp
+            // cboxDeploymentFolderExists
             // 
-            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspmPCFOverview,
-            this.tspmMSDocs,
-            this.tspmPCFLimitations});
-            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
-            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspHelp.Name = "tspHelp";
-            this.tspHelp.Size = new System.Drawing.Size(69, 28);
-            this.tspHelp.Text = "Help";
-            // 
-            // tspmMSDocs
-            // 
-            this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
-            this.tspmMSDocs.Name = "tspmMSDocs";
-            this.tspmMSDocs.Size = new System.Drawing.Size(297, 30);
-            this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
-            this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
-            // 
-            // tspmPCFLimitations
-            // 
-            this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
-            this.tspmPCFLimitations.Name = "tspmPCFLimitations";
-            this.tspmPCFLimitations.Size = new System.Drawing.Size(297, 30);
-            this.tspmPCFLimitations.Text = "PCF Limitations";
-            this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
+            this.cboxDeploymentFolderExists.AutoSize = true;
+            this.cboxDeploymentFolderExists.Checked = true;
+            this.cboxDeploymentFolderExists.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cboxDeploymentFolderExists.Location = new System.Drawing.Point(57, 357);
+            this.cboxDeploymentFolderExists.Name = "cboxDeploymentFolderExists";
+            this.cboxDeploymentFolderExists.Size = new System.Drawing.Size(177, 17);
+            this.cboxDeploymentFolderExists.TabIndex = 56;
+            this.cboxDeploymentFolderExists.Text = "Deployment folder already exists";
+            this.cboxDeploymentFolderExists.UseVisualStyleBackColor = true;
+            this.cboxDeploymentFolderExists.CheckedChanged += new System.EventHandler(this.cboxDeploymentFolderExists_CheckedChanged);
             // 
             // cboxInfoSelection
             // 
@@ -949,62 +1027,127 @@
             "Blogs",
             "Forums",
             "Ideas"});
-            this.cboxInfoSelection.Location = new System.Drawing.Point(667, 115);
+            this.cboxInfoSelection.Location = new System.Drawing.Point(6, 34);
             this.cboxInfoSelection.Name = "cboxInfoSelection";
             this.cboxInfoSelection.Size = new System.Drawing.Size(269, 21);
             this.cboxInfoSelection.TabIndex = 18;
             this.cboxInfoSelection.SelectedIndexChanged += new System.EventHandler(this.cboxInfoSelection_SelectedIndexChanged);
             // 
-            // toolStripSeparator2
+            // linklblCreator
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            this.linklblCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblCreator.Image = ((System.Drawing.Image)(resources.GetObject("linklblCreator.Image")));
+            this.linklblCreator.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linklblCreator.Location = new System.Drawing.Point(1327, 0);
+            this.linklblCreator.Name = "linklblCreator";
+            this.linklblCreator.Size = new System.Drawing.Size(156, 23);
+            this.linklblCreator.TabIndex = 19;
+            this.linklblCreator.TabStop = true;
+            this.linklblCreator.Text = "by Danish (Danz-Maverick)";
+            this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
-            // tspGallery
+            // toolStripSeparator3
             // 
-            this.tspGallery.Image = ((System.Drawing.Image)(resources.GetObject("tspGallery.Image")));
-            this.tspGallery.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspGallery.Name = "tspGallery";
-            this.tspGallery.Size = new System.Drawing.Size(95, 28);
-            this.tspGallery.Text = "PCF Gallery";
-            this.tspGallery.Click += new System.EventHandler(this.tspGallery_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
             // 
-            // tspmPCFOverview
+            // tspSettings
             // 
-            this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
-            this.tspmPCFOverview.Name = "tspmPCFOverview";
-            this.tspmPCFOverview.Size = new System.Drawing.Size(297, 30);
-            this.tspmPCFOverview.Text = "PowerApps Component Framework";
-            this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
+            this.tspSettings.Image = ((System.Drawing.Image)(resources.GetObject("tspSettings.Image")));
+            this.tspSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSettings.Name = "tspSettings";
+            this.tspSettings.Size = new System.Drawing.Size(77, 28);
+            this.tspSettings.Text = "Settings";
+            this.tspSettings.Click += new System.EventHandler(this.TspSettings_Click);
             // 
-            // tspSampleControls
+            // tabControl1
             // 
-            this.tspSampleControls.Image = ((System.Drawing.Image)(resources.GetObject("tspSampleControls.Image")));
-            this.tspSampleControls.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspSampleControls.Name = "tspSampleControls";
-            this.tspSampleControls.Size = new System.Drawing.Size(122, 28);
-            this.tspSampleControls.Text = "Sample Controls";
-            this.tspSampleControls.Click += new System.EventHandler(this.tspSampleControls_Click);
+            this.tabControl1.Controls.Add(this.tabMain);
+            this.tabControl1.Controls.Add(this.tabInformation);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 31);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1486, 808);
+            this.tabControl1.TabIndex = 20;
+            // 
+            // tabMain
+            // 
+            this.tabMain.Controls.Add(this.flowMainRight);
+            this.tabMain.Controls.Add(this.lblWorkingDir);
+            this.tabMain.Controls.Add(this.lblErrors);
+            this.tabMain.Controls.Add(this.gboxEditControl);
+            this.tabMain.Controls.Add(this.btnVSPromptLoc);
+            this.tabMain.Controls.Add(this.txtWorkingFolder);
+            this.tabMain.Controls.Add(this.txtVSPromptLoc);
+            this.tabMain.Controls.Add(this.btnWorkingFolderSelector);
+            this.tabMain.Controls.Add(this.lblVSPromptLoc);
+            this.tabMain.Controls.Add(this.gboxNewControl);
+            this.tabMain.Location = new System.Drawing.Point(4, 22);
+            this.tabMain.Name = "tabMain";
+            this.tabMain.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMain.Size = new System.Drawing.Size(1478, 782);
+            this.tabMain.TabIndex = 0;
+            this.tabMain.Text = "Builder";
+            this.tabMain.UseVisualStyleBackColor = true;
+            // 
+            // tabInformation
+            // 
+            this.tabInformation.Controls.Add(this.lblPCFInfo);
+            this.tabInformation.Controls.Add(this.webBrowserPCFInfo);
+            this.tabInformation.Controls.Add(this.cboxInfoSelection);
+            this.tabInformation.Location = new System.Drawing.Point(4, 22);
+            this.tabInformation.Name = "tabInformation";
+            this.tabInformation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInformation.Size = new System.Drawing.Size(1478, 782);
+            this.tabInformation.TabIndex = 1;
+            this.tabInformation.Text = "Learn More about PCF";
+            this.tabInformation.UseVisualStyleBackColor = true;
+            // 
+            // flowMainRight
+            // 
+            this.flowMainRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowMainRight.Controls.Add(this.lblCommandPrompt);
+            this.flowMainRight.Controls.Add(this.txtCommandPrompt);
+            this.flowMainRight.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowMainRight.Location = new System.Drawing.Point(775, 69);
+            this.flowMainRight.Name = "flowMainRight";
+            this.flowMainRight.Size = new System.Drawing.Size(697, 707);
+            this.flowMainRight.TabIndex = 18;
+            this.flowMainRight.Visible = false;
+            // 
+            // lblCommandPrompt
+            // 
+            this.lblCommandPrompt.AutoSize = true;
+            this.lblCommandPrompt.Location = new System.Drawing.Point(3, 0);
+            this.lblCommandPrompt.Name = "lblCommandPrompt";
+            this.lblCommandPrompt.Size = new System.Drawing.Size(90, 13);
+            this.lblCommandPrompt.TabIndex = 0;
+            this.lblCommandPrompt.Text = "Command Prompt";
+            // 
+            // txtCommandPrompt
+            // 
+            this.txtCommandPrompt.BackColor = System.Drawing.SystemColors.Desktop;
+            this.txtCommandPrompt.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommandPrompt.ForeColor = System.Drawing.SystemColors.Window;
+            this.txtCommandPrompt.Location = new System.Drawing.Point(3, 16);
+            this.txtCommandPrompt.Multiline = true;
+            this.txtCommandPrompt.Name = "txtCommandPrompt";
+            this.txtCommandPrompt.ReadOnly = true;
+            this.txtCommandPrompt.Size = new System.Drawing.Size(694, 671);
+            this.txtCommandPrompt.TabIndex = 1;
             // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.cboxInfoSelection);
-            this.Controls.Add(this.lblPCFInfo);
-            this.Controls.Add(this.webBrowserPCFInfo);
-            this.Controls.Add(this.lblErrors);
-            this.Controls.Add(this.btnVSPromptLoc);
-            this.Controls.Add(this.txtVSPromptLoc);
-            this.Controls.Add(this.lblVSPromptLoc);
-            this.Controls.Add(this.btnWorkingFolderSelector);
-            this.Controls.Add(this.txtWorkingFolder);
-            this.Controls.Add(this.lblWorkingDir);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.linklblCreator);
             this.Controls.Add(this.toolStripMenu);
-            this.Controls.Add(this.gboxEditControl);
-            this.Controls.Add(this.gboxNewControl);
             this.Name = "MainPluginControl";
-            this.Size = new System.Drawing.Size(1225, 839);
+            this.Size = new System.Drawing.Size(1486, 839);
             this.Load += new System.EventHandler(this.MainPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -1012,6 +1155,13 @@
             this.gboxNewControl.PerformLayout();
             this.gboxEditControl.ResumeLayout(false);
             this.gboxEditControl.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabMain.ResumeLayout(false);
+            this.tabMain.PerformLayout();
+            this.tabInformation.ResumeLayout(false);
+            this.tabInformation.PerformLayout();
+            this.flowMainRight.ResumeLayout(false);
+            this.flowMainRight.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1021,7 +1171,6 @@
         private System.Windows.Forms.ToolStrip toolStripMenu;
         private System.Windows.Forms.ToolStripButton tsbClose;
         private System.Windows.Forms.ToolStripSeparator tssSeparator1;
-        private System.Windows.Forms.ToolStripButton tsbNewPCF;
         private System.Windows.Forms.Label lblWorkingDir;
         private System.Windows.Forms.FolderBrowserDialog workingFolderBrowserDialog;
         private System.Windows.Forms.TextBox txtWorkingFolder;
@@ -1107,5 +1256,18 @@
         private System.Windows.Forms.ToolStripButton tspGallery;
         private System.Windows.Forms.ToolStripMenuItem tspmPCFOverview;
         private System.Windows.Forms.ToolStripButton tspSampleControls;
+        private System.Windows.Forms.ToolStripSplitButton tsbNewPCFMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmNewPCFBlank;
+        private System.Windows.Forms.ToolStripMenuItem tsmNewPCFTemplate;
+        private System.Windows.Forms.Button btnExistingRefreshDetails;
+        private System.Windows.Forms.LinkLabel linklblCreator;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton tspSettings;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabMain;
+        private System.Windows.Forms.TabPage tabInformation;
+        private System.Windows.Forms.FlowLayoutPanel flowMainRight;
+        private System.Windows.Forms.Label lblCommandPrompt;
+        private System.Windows.Forms.TextBox txtCommandPrompt;
     }
 }

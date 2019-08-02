@@ -14,6 +14,8 @@ namespace Maverick.PCF.Builder
     /// </remarks>
     public class Settings
     {
-        public string LastUsedOrganizationWebappUrl { get; set; }
+        public string VisualStudioCommandPromptPath { get; set; }
+        public string WorkingDirectoryLocation { get; set; }
+        public bool DoNotShowWelcomeScreen { get; set; }
     }
 }
