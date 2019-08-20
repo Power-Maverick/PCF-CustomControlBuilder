@@ -47,6 +47,8 @@
             this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
             this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
             this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspSettings = new System.Windows.Forms.ToolStripButton();
             this.btnDeploy = new System.Windows.Forms.Button();
             this.lblDeploy = new System.Windows.Forms.Label();
             this.lblDeploymentError = new System.Windows.Forms.Label();
@@ -122,21 +124,19 @@
             this.cboxDeploymentFolderExists = new System.Windows.Forms.CheckBox();
             this.cboxInfoSelection = new System.Windows.Forms.ComboBox();
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.tspSettings = new System.Windows.Forms.ToolStripButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
-            this.tabInformation = new System.Windows.Forms.TabPage();
             this.flowMainRight = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCommandPrompt = new System.Windows.Forms.Label();
             this.txtCommandPrompt = new System.Windows.Forms.TextBox();
+            this.tabInformation = new System.Windows.Forms.TabPage();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
-            this.tabInformation.SuspendLayout();
             this.flowMainRight.SuspendLayout();
+            this.tabInformation.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -190,14 +190,14 @@
             // tsmNewPCFBlank
             // 
             this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
-            this.tsmNewPCFBlank.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFBlank.Size = new System.Drawing.Size(179, 22);
             this.tsmNewPCFBlank.Text = "New from Blank";
             this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
             // 
             // tsmNewPCFTemplate
             // 
             this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
-            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(179, 22);
             this.tsmNewPCFTemplate.Text = "New from Template";
             this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
             // 
@@ -282,7 +282,7 @@
             // 
             this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
             this.tspmPCFOverview.Name = "tspmPCFOverview";
-            this.tspmPCFOverview.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFOverview.Size = new System.Drawing.Size(289, 22);
             this.tspmPCFOverview.Text = "PowerApps Component Framework";
             this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
             // 
@@ -290,7 +290,7 @@
             // 
             this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
             this.tspmMSDocs.Name = "tspmMSDocs";
-            this.tspmMSDocs.Size = new System.Drawing.Size(297, 30);
+            this.tspmMSDocs.Size = new System.Drawing.Size(289, 22);
             this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
             this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
             // 
@@ -298,9 +298,23 @@
             // 
             this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
             this.tspmPCFLimitations.Name = "tspmPCFLimitations";
-            this.tspmPCFLimitations.Size = new System.Drawing.Size(297, 30);
+            this.tspmPCFLimitations.Size = new System.Drawing.Size(289, 22);
             this.tspmPCFLimitations.Text = "PCF Limitations";
             this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspSettings
+            // 
+            this.tspSettings.Image = ((System.Drawing.Image)(resources.GetObject("tspSettings.Image")));
+            this.tspSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSettings.Name = "tspSettings";
+            this.tspSettings.Size = new System.Drawing.Size(77, 28);
+            this.tspSettings.Text = "Settings";
+            this.tspSettings.Click += new System.EventHandler(this.TspSettings_Click);
             // 
             // btnDeploy
             // 
@@ -1047,20 +1061,6 @@
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
-            // 
-            // tspSettings
-            // 
-            this.tspSettings.Image = ((System.Drawing.Image)(resources.GetObject("tspSettings.Image")));
-            this.tspSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspSettings.Name = "tspSettings";
-            this.tspSettings.Size = new System.Drawing.Size(77, 28);
-            this.tspSettings.Text = "Settings";
-            this.tspSettings.Click += new System.EventHandler(this.TspSettings_Click);
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabMain);
@@ -1091,19 +1091,6 @@
             this.tabMain.TabIndex = 0;
             this.tabMain.Text = "Builder";
             this.tabMain.UseVisualStyleBackColor = true;
-            // 
-            // tabInformation
-            // 
-            this.tabInformation.Controls.Add(this.lblPCFInfo);
-            this.tabInformation.Controls.Add(this.webBrowserPCFInfo);
-            this.tabInformation.Controls.Add(this.cboxInfoSelection);
-            this.tabInformation.Location = new System.Drawing.Point(4, 22);
-            this.tabInformation.Name = "tabInformation";
-            this.tabInformation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabInformation.Size = new System.Drawing.Size(1478, 782);
-            this.tabInformation.TabIndex = 1;
-            this.tabInformation.Text = "Learn More about PCF";
-            this.tabInformation.UseVisualStyleBackColor = true;
             // 
             // flowMainRight
             // 
@@ -1136,8 +1123,22 @@
             this.txtCommandPrompt.Multiline = true;
             this.txtCommandPrompt.Name = "txtCommandPrompt";
             this.txtCommandPrompt.ReadOnly = true;
+            this.txtCommandPrompt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtCommandPrompt.Size = new System.Drawing.Size(694, 671);
             this.txtCommandPrompt.TabIndex = 1;
+            // 
+            // tabInformation
+            // 
+            this.tabInformation.Controls.Add(this.lblPCFInfo);
+            this.tabInformation.Controls.Add(this.webBrowserPCFInfo);
+            this.tabInformation.Controls.Add(this.cboxInfoSelection);
+            this.tabInformation.Location = new System.Drawing.Point(4, 22);
+            this.tabInformation.Name = "tabInformation";
+            this.tabInformation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabInformation.Size = new System.Drawing.Size(1478, 782);
+            this.tabInformation.TabIndex = 1;
+            this.tabInformation.Text = "Learn More about PCF";
+            this.tabInformation.UseVisualStyleBackColor = true;
             // 
             // MainPluginControl
             // 
@@ -1158,10 +1159,10 @@
             this.tabControl1.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
-            this.tabInformation.ResumeLayout(false);
-            this.tabInformation.PerformLayout();
             this.flowMainRight.ResumeLayout(false);
             this.flowMainRight.PerformLayout();
+            this.tabInformation.ResumeLayout(false);
+            this.tabInformation.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

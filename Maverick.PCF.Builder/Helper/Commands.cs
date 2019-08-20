@@ -35,7 +35,7 @@ namespace Maverick.PCF.Builder.Helper
 
             public static string SolutionInit(string publisherName, string customizationPrefix)
             {
-                return $"pac solution init --publisherName {publisherName} --customizationPrefix {customizationPrefix}";
+                return $"pac solution init --publisher-name {publisherName} --publisher-prefix {customizationPrefix}";
             }
 
             public static string SolutionAddReference(string path)

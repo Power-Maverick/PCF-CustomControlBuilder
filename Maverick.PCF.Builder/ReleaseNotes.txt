@@ -1,14 +1,8 @@
 ﻿---- NEW FEATURES ----
-1. Ability to download templates from various PCF controls.
-2. Embedded command prompt display. No more multiple windows.
-3. New improved UI with tabs
-4. Added capabilitity to save and maintain your settings
+None
 
 ---- UPDATES ----
-1. Link to PayPal
-2. Change of logo
-3. Added link to creator
+1. Updated the command for CDS project creation
 
 ---- BUG FIXES ----
-1. UI fixes - by @rappen
-2. Bug fixes
+1. Added scrollbar to commandline display
