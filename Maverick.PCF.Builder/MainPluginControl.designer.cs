@@ -135,6 +135,8 @@
             this.btnBuildAllProjects = new System.Windows.Forms.Button();
             this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
             this.lblBuildStatus = new System.Windows.Forms.Label();
+            this.btnTestWithWatch = new System.Windows.Forms.Button();
+            this.btnTestNewWithWatch = new System.Windows.Forms.Button();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
@@ -880,6 +882,7 @@
             // 
             // gboxNewControl
             // 
+            this.gboxNewControl.Controls.Add(this.btnTestNewWithWatch);
             this.gboxNewControl.Controls.Add(this.btnOpenInVSCode);
             this.gboxNewControl.Controls.Add(this.label2);
             this.gboxNewControl.Controls.Add(this.btnDeploy);
@@ -939,6 +942,7 @@
             // 
             // gboxEditControl
             // 
+            this.gboxEditControl.Controls.Add(this.btnTestWithWatch);
             this.gboxEditControl.Controls.Add(this.btnExistingRefreshDetails);
             this.gboxEditControl.Controls.Add(this.btnEditCDSProjectFile);
             this.gboxEditControl.Controls.Add(this.btnBuildDeploymentProject);
@@ -1090,8 +1094,8 @@
             this.tabMain.Controls.Add(this.txtVSPromptLoc);
             this.tabMain.Controls.Add(this.btnWorkingFolderSelector);
             this.tabMain.Controls.Add(this.lblVSPromptLoc);
-            this.tabMain.Controls.Add(this.gboxEditControl);
             this.tabMain.Controls.Add(this.gboxNewControl);
+            this.tabMain.Controls.Add(this.gboxEditControl);
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
             this.tabMain.Padding = new System.Windows.Forms.Padding(3);
@@ -1199,6 +1203,26 @@
             this.lblBuildStatus.Size = new System.Drawing.Size(200, 23);
             this.lblBuildStatus.TabIndex = 20;
             this.lblBuildStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // btnTestWithWatch
+            // 
+            this.btnTestWithWatch.Location = new System.Drawing.Point(220, 287);
+            this.btnTestWithWatch.Name = "btnTestWithWatch";
+            this.btnTestWithWatch.Size = new System.Drawing.Size(143, 23);
+            this.btnTestWithWatch.TabIndex = 62;
+            this.btnTestWithWatch.Text = "Test project with Watch";
+            this.btnTestWithWatch.UseVisualStyleBackColor = true;
+            this.btnTestWithWatch.Click += new System.EventHandler(this.BtnTestWithWatch_Click);
+            // 
+            // btnTestNewWithWatch
+            // 
+            this.btnTestNewWithWatch.Location = new System.Drawing.Point(223, 410);
+            this.btnTestNewWithWatch.Name = "btnTestNewWithWatch";
+            this.btnTestNewWithWatch.Size = new System.Drawing.Size(143, 23);
+            this.btnTestNewWithWatch.TabIndex = 63;
+            this.btnTestNewWithWatch.Text = "Test project with Watch";
+            this.btnTestNewWithWatch.UseVisualStyleBackColor = true;
+            this.btnTestNewWithWatch.Click += new System.EventHandler(this.BtnTestNewWithWatch_Click);
             // 
             // MainPluginControl
             // 
@@ -1336,5 +1360,7 @@
         private System.Windows.Forms.Button btnBuildAllProjects;
         private System.Windows.Forms.Button btnBuildAndTest;
         private System.Windows.Forms.Label lblBuildStatus;
+        private System.Windows.Forms.Button btnTestWithWatch;
+        private System.Windows.Forms.Button btnTestNewWithWatch;
     }
 }

@@ -951,12 +951,23 @@ namespace Maverick.PCF.Builder
 
             if (areMainControlsValid)
             {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string controlName = string.Empty;
+
+                if (gboxEditControl.Visible)
+                {
+                    controlName = txtExistsControlName.Text;
+                }
+                else
+                {
+                    controlName = txtControlName.Text;
+                }
+
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
                 RunCommandHelper(true, "npmBuild", cdWorkingDir, npmBuildCommand);
 
-                string npmTestCommand = Commands.Npm.Start();
+                string npmTestCommand = Commands.Npm.StartWatch();
                 // Using RunCommandHelper is causing issues.
                 Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmTestCommand}");
             }
@@ -974,10 +985,24 @@ namespace Maverick.PCF.Builder
 
             if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
             {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string controlName = string.Empty;
+                string deployFolderName = string.Empty;
+
+                if (gboxEditControl.Visible)
+                {
+                    controlName = txtExistsControlName.Text;
+                    deployFolderName = txtExistsDeployFolderName.Text;
+                }
+                else
+                {
+                    controlName = txtControlName.Text;
+                    deployFolderName = txtDeploymentFolder.Text;
+                }
+
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
 
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
+                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(deployFolderName);
                 string msbuild_restore = Commands.Msbuild.Restore();
                 string msbuild_rebuild = Commands.Msbuild.Rebuild();
 
@@ -998,10 +1023,24 @@ namespace Maverick.PCF.Builder
 
             if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
             {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string controlName = string.Empty;
+                string deployFolderName = string.Empty;
+
+                if (gboxEditControl.Visible)
+                {
+                    controlName = txtExistsControlName.Text;
+                    deployFolderName = txtExistsDeployFolderName.Text;
+                }
+                else
+                {
+                    controlName = txtControlName.Text;
+                    deployFolderName = txtDeploymentFolder.Text;
+                }
+
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
 
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
+                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(deployFolderName);
                 string msbuild_restore = Commands.Msbuild.Restore();
                 string msbuild_rebuild = Commands.Msbuild.Rebuild();
 
@@ -1011,6 +1050,34 @@ namespace Maverick.PCF.Builder
                 // The ExecuteMethod method handles connecting to an
                 // organization if XrmToolBox is not yet connected
                 ExecuteMethod(DeployExistingCustomControl);
+            }
+        }
+
+        private void BtnTestWithWatch_Click(object sender, EventArgs e)
+        {
+            var areMainControlsValid = AreMainControlsPopulated();
+
+            if (areMainControlsValid)
+            {
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string npmCommand = Commands.Npm.StartWatch();
+
+                // Using RunCommandHelper is causing issues.
+                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
+            }
+        }
+
+        private void BtnTestNewWithWatch_Click(object sender, EventArgs e)
+        {
+            var areMainControlsValid = AreMainControlsPopulated();
+
+            if (areMainControlsValid)
+            {
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
+                string npmCommand = Commands.Npm.StartWatch();
+
+                // Using RunCommandHelper is causing issues.
+                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
             }
         }
     }

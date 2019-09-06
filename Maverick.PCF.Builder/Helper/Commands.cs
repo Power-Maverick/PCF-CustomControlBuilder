@@ -65,6 +65,11 @@ namespace Maverick.PCF.Builder.Helper
             {
                 return $"npm start";
             }
+
+            public static string StartWatch()
+            {
+                return $"npm start watch";
+            }
         }
 
         public class Msbuild
