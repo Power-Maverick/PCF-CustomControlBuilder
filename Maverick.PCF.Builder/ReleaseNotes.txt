@@ -1,8 +1,9 @@
 ﻿---- NEW FEATURES ----
-None
+1. Quick Actions buttons
+2. Added a build status that will determine if the build was Success or Failure
 
 ---- UPDATES ----
-1. Updated the command for CDS project creation
+1. Auto-scrolls to the end of the command prompt
 
 ---- BUG FIXES ----
-1. Added scrollbar to commandline display
+None

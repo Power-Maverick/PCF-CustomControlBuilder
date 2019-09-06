@@ -130,6 +130,11 @@
             this.lblCommandPrompt = new System.Windows.Forms.Label();
             this.txtCommandPrompt = new System.Windows.Forms.TextBox();
             this.tabInformation = new System.Windows.Forms.TabPage();
+            this.gboxQuickAction = new System.Windows.Forms.GroupBox();
+            this.btnBuildAndTest = new System.Windows.Forms.Button();
+            this.btnBuildAllProjects = new System.Windows.Forms.Button();
+            this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
+            this.lblBuildStatus = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
@@ -137,6 +142,7 @@
             this.tabMain.SuspendLayout();
             this.flowMainRight.SuspendLayout();
             this.tabInformation.SuspendLayout();
+            this.gboxQuickAction.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -445,9 +451,9 @@
             this.lblTestProject.AutoSize = true;
             this.lblTestProject.Location = new System.Drawing.Point(21, 374);
             this.lblTestProject.Name = "lblTestProject";
-            this.lblTestProject.Size = new System.Drawing.Size(181, 13);
+            this.lblTestProject.Size = new System.Drawing.Size(135, 13);
             this.lblTestProject.TabIndex = 14;
-            this.lblTestProject.Text = "4. Test your custom control (optional)";
+            this.lblTestProject.Text = "4. Test your custom control";
             // 
             // btnBuild
             // 
@@ -472,7 +478,7 @@
             // 
             this.lblDevelopComments.AutoSize = true;
             this.lblDevelopComments.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDevelopComments.Location = new System.Drawing.Point(54, 260);
+            this.lblDevelopComments.Location = new System.Drawing.Point(401, 231);
             this.lblDevelopComments.Name = "lblDevelopComments";
             this.lblDevelopComments.Size = new System.Drawing.Size(0, 13);
             this.lblDevelopComments.TabIndex = 10;
@@ -780,9 +786,9 @@
             this.lblExistsTest.AutoSize = true;
             this.lblExistsTest.Location = new System.Drawing.Point(21, 259);
             this.lblExistsTest.Name = "lblExistsTest";
-            this.lblExistsTest.Size = new System.Drawing.Size(181, 13);
+            this.lblExistsTest.Size = new System.Drawing.Size(135, 13);
             this.lblExistsTest.TabIndex = 35;
-            this.lblExistsTest.Text = "3. Test your custom control (optional)";
+            this.lblExistsTest.Text = "3. Test your custom control";
             // 
             // btnExistsBuild
             // 
@@ -1074,15 +1080,17 @@
             // 
             // tabMain
             // 
+            this.tabMain.Controls.Add(this.lblBuildStatus);
+            this.tabMain.Controls.Add(this.gboxQuickAction);
             this.tabMain.Controls.Add(this.flowMainRight);
             this.tabMain.Controls.Add(this.lblWorkingDir);
             this.tabMain.Controls.Add(this.lblErrors);
-            this.tabMain.Controls.Add(this.gboxEditControl);
             this.tabMain.Controls.Add(this.btnVSPromptLoc);
             this.tabMain.Controls.Add(this.txtWorkingFolder);
             this.tabMain.Controls.Add(this.txtVSPromptLoc);
             this.tabMain.Controls.Add(this.btnWorkingFolderSelector);
             this.tabMain.Controls.Add(this.lblVSPromptLoc);
+            this.tabMain.Controls.Add(this.gboxEditControl);
             this.tabMain.Controls.Add(this.gboxNewControl);
             this.tabMain.Location = new System.Drawing.Point(4, 22);
             this.tabMain.Name = "tabMain";
@@ -1140,6 +1148,58 @@
             this.tabInformation.Text = "Learn More about PCF";
             this.tabInformation.UseVisualStyleBackColor = true;
             // 
+            // gboxQuickAction
+            // 
+            this.gboxQuickAction.Controls.Add(this.btnBuildAndDeployAll);
+            this.gboxQuickAction.Controls.Add(this.btnBuildAllProjects);
+            this.gboxQuickAction.Controls.Add(this.btnBuildAndTest);
+            this.gboxQuickAction.Location = new System.Drawing.Point(775, 6);
+            this.gboxQuickAction.Name = "gboxQuickAction";
+            this.gboxQuickAction.Size = new System.Drawing.Size(453, 57);
+            this.gboxQuickAction.TabIndex = 19;
+            this.gboxQuickAction.TabStop = false;
+            this.gboxQuickAction.Text = "Quick Actions";
+            // 
+            // btnBuildAndTest
+            // 
+            this.btnBuildAndTest.Location = new System.Drawing.Point(6, 19);
+            this.btnBuildAndTest.Name = "btnBuildAndTest";
+            this.btnBuildAndTest.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAndTest.TabIndex = 35;
+            this.btnBuildAndTest.Text = "Build and Test Control";
+            this.btnBuildAndTest.UseVisualStyleBackColor = true;
+            this.btnBuildAndTest.Click += new System.EventHandler(this.BtnBuildAndTest_Click);
+            // 
+            // btnBuildAllProjects
+            // 
+            this.btnBuildAllProjects.Location = new System.Drawing.Point(155, 19);
+            this.btnBuildAllProjects.Name = "btnBuildAllProjects";
+            this.btnBuildAllProjects.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAllProjects.TabIndex = 36;
+            this.btnBuildAllProjects.Text = "Build All Projects";
+            this.btnBuildAllProjects.UseVisualStyleBackColor = true;
+            this.btnBuildAllProjects.Click += new System.EventHandler(this.BtnBuildAllProjects_Click);
+            // 
+            // btnBuildAndDeployAll
+            // 
+            this.btnBuildAndDeployAll.Location = new System.Drawing.Point(304, 19);
+            this.btnBuildAndDeployAll.Name = "btnBuildAndDeployAll";
+            this.btnBuildAndDeployAll.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAndDeployAll.TabIndex = 37;
+            this.btnBuildAndDeployAll.Text = "Build All and Deploy";
+            this.btnBuildAndDeployAll.UseVisualStyleBackColor = true;
+            this.btnBuildAndDeployAll.Click += new System.EventHandler(this.BtnBuildAndDeployAll_Click);
+            // 
+            // lblBuildStatus
+            // 
+            this.lblBuildStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuildStatus.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblBuildStatus.Location = new System.Drawing.Point(1266, 40);
+            this.lblBuildStatus.Name = "lblBuildStatus";
+            this.lblBuildStatus.Size = new System.Drawing.Size(200, 23);
+            this.lblBuildStatus.TabIndex = 20;
+            this.lblBuildStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1163,6 +1223,7 @@
             this.flowMainRight.PerformLayout();
             this.tabInformation.ResumeLayout(false);
             this.tabInformation.PerformLayout();
+            this.gboxQuickAction.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1270,5 +1331,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowMainRight;
         private System.Windows.Forms.Label lblCommandPrompt;
         private System.Windows.Forms.TextBox txtCommandPrompt;
+        private System.Windows.Forms.GroupBox gboxQuickAction;
+        private System.Windows.Forms.Button btnBuildAndDeployAll;
+        private System.Windows.Forms.Button btnBuildAllProjects;
+        private System.Windows.Forms.Button btnBuildAndTest;
+        private System.Windows.Forms.Label lblBuildStatus;
     }
 }

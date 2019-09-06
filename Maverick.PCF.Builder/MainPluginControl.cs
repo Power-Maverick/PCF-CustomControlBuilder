@@ -315,13 +315,13 @@ namespace Maverick.PCF.Builder
             return ok;
         }
 
-        private void RunCommandHelper(bool async, params string[] commands)
+        private void RunCommandHelper(bool async, string commandsToShow, params string[] commands)
         {
             if (async)
             {
                 WorkAsync(new WorkAsyncInfo
                 {
-                    Message = $"Running commands. Please wait.",
+                    Message = $"Running {commandsToShow} commands. Please wait.",
                     Work = (worker, args) =>
                     {
                         var output = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
@@ -329,7 +329,27 @@ namespace Maverick.PCF.Builder
                     },
                     PostWorkCallBack = (args) =>
                     {
-                        txtCommandPrompt.Text = (string)args.Result;
+                        txtCommandPrompt.Clear();
+                        txtCommandPrompt.AppendText((string)args.Result);
+                        txtCommandPrompt.ScrollToCaret();
+
+                        if (commands.Contains(Commands.Npm.RunBuild()) || commands.Contains(Commands.Msbuild.Rebuild()))
+                        {
+                            lblBuildStatus.Text = "Undetermined";
+                            lblBuildStatus.ForeColor = Color.Gray;
+
+                            if (((string)args.Result).ToLower().Contains("succeeded"))
+                            {
+                                lblBuildStatus.Text = "Succeeded";
+                                lblBuildStatus.ForeColor = Color.LimeGreen;
+                            }
+
+                            if (((string)args.Result).ToLower().Contains("failed"))
+                            {
+                                lblBuildStatus.Text = "Failed";
+                                lblBuildStatus.ForeColor = Color.DarkRed;
+                            }
+                        }
                     }
                 });
             }
@@ -423,7 +443,7 @@ namespace Maverick.PCF.Builder
                 //Process.Start("cmd", "/K \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\" && dir");
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {pacCommand} && {npmCommand}");
 
-                RunCommandHelper(true, cdWorkingDir, pacCommand, npmCommand);
+                RunCommandHelper(true, "pacInit, npmInstall", cdWorkingDir, pacCommand, npmCommand);
             }
         }
 
@@ -458,7 +478,7 @@ namespace Maverick.PCF.Builder
                 string npmCommand = Commands.Npm.RunBuild();
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
-                RunCommandHelper(true, cdWorkingDir, npmCommand);
+                RunCommandHelper(true, "npmBuild", cdWorkingDir, npmCommand);
             }
         }
 
@@ -507,7 +527,7 @@ namespace Maverick.PCF.Builder
                 string msbuild = Commands.Msbuild.Build();
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent} && {msbuild_restore} && {msbuild}");
-                RunCommandHelper(true, cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent, msbuild_restore, msbuild);
+                RunCommandHelper(true, "pacCreateSolution, pacAddComponent, msRestore, msBuild", cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent, msbuild_restore, msbuild);
             }
         }
 
@@ -562,7 +582,7 @@ namespace Maverick.PCF.Builder
                 string npmCommand = Commands.Npm.RunBuild();
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
-                RunCommandHelper(true, cdWorkingDir, npmCommand);
+                RunCommandHelper(true, "npmBuild", cdWorkingDir, npmCommand);
             }
         }
 
@@ -627,7 +647,7 @@ namespace Maverick.PCF.Builder
                     string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
 
                     //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {rmdirDeploymentFolder} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent}");
-                    RunCommandHelper(true, cdWorkingDir, rmdirDeploymentFolder, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
+                    RunCommandHelper(true, "pacCreateSolution, pacAddComponent", cdWorkingDir, rmdirDeploymentFolder, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
                 }
                 else
                 {
@@ -639,7 +659,7 @@ namespace Maverick.PCF.Builder
                     string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
 
                     //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent}");
-                    RunCommandHelper(true, cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
+                    RunCommandHelper(true, "pacCreateSolution, pacAddComponent", cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
                 }
             }
         }
@@ -709,7 +729,7 @@ namespace Maverick.PCF.Builder
                 string vscodeopen = $"code {txtWorkingFolder.Text}\\{txtControlName.Text}";
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, vscodeopen);
+                RunCommandHelper(false, "VSCode Open", vscodeopen);
             }
         }
 
@@ -722,7 +742,7 @@ namespace Maverick.PCF.Builder
                 string vscodeopen = $"code {txtWorkingFolder.Text}\\{txtExistsControlName.Text}";
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, vscodeopen);
+                RunCommandHelper(false, "VSCode Open", vscodeopen);
             }
         }
 
@@ -745,7 +765,7 @@ namespace Maverick.PCF.Builder
                 string msbuild_rebuild = Commands.Msbuild.Rebuild();
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {cdDeploymentFolder} && {msbuild_restore} && {msbuild_rebuild}");
-                RunCommandHelper(true, cdWorkingDir, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
+                RunCommandHelper(true, "msRestore, msRebuild", cdWorkingDir, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
             }
         }
 
@@ -764,7 +784,7 @@ namespace Maverick.PCF.Builder
                 string vscodeopen = $"code {txtWorkingFolder.Text}\\{txtExistsControlName.Text}\\{txtExistsDeployFolderName.Text}";
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, vscodeopen);
+                RunCommandHelper(false, "VSCode Open", vscodeopen);
             }
         }
 
@@ -879,7 +899,7 @@ namespace Maverick.PCF.Builder
                 string npmCommand = Commands.Npm.Install();
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand} && exit");
 
-                RunCommandHelper(true, cdWorkingDir, npmCommand);
+                RunCommandHelper(true, "npmInstall", cdWorkingDir, npmCommand);
             }
         }
 
@@ -923,6 +943,75 @@ namespace Maverick.PCF.Builder
         {
             pluginSettings.VisualStudioCommandPromptPath = txtVSPromptLoc.Text;
             VisualStudioBatchFilePath = txtVSPromptLoc.Text;
+        }
+
+        private void BtnBuildAndTest_Click(object sender, EventArgs e)
+        {
+            var areMainControlsValid = AreMainControlsPopulated();
+
+            if (areMainControlsValid)
+            {
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string npmBuildCommand = Commands.Npm.RunBuild();
+                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
+                RunCommandHelper(true, "npmBuild", cdWorkingDir, npmBuildCommand);
+
+                string npmTestCommand = Commands.Npm.Start();
+                // Using RunCommandHelper is causing issues.
+                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmTestCommand}");
+            }
+        }
+
+        private void BtnBuildAllProjects_Click(object sender, EventArgs e)
+        {
+            var areMainControlsValid = AreMainControlsPopulated();
+
+            lblExistsDeploymentError.Text = string.Empty;
+            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
+            {
+                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
+            }
+
+            if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
+            {
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string npmBuildCommand = Commands.Npm.RunBuild();
+
+                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
+                string msbuild_restore = Commands.Msbuild.Restore();
+                string msbuild_rebuild = Commands.Msbuild.Rebuild();
+
+                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {cdDeploymentFolder} && {msbuild_restore} && {msbuild_rebuild}");
+                RunCommandHelper(true, "npmBuild, msRestore, msRebuild", cdWorkingDir, npmBuildCommand, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
+            }
+        }
+
+        private void BtnBuildAndDeployAll_Click(object sender, EventArgs e)
+        {
+            var areMainControlsValid = AreMainControlsPopulated();
+
+            lblExistsDeploymentError.Text = string.Empty;
+            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
+            {
+                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
+            }
+
+            if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
+            {
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}");
+                string npmBuildCommand = Commands.Npm.RunBuild();
+
+                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
+                string msbuild_restore = Commands.Msbuild.Restore();
+                string msbuild_rebuild = Commands.Msbuild.Rebuild();
+
+                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {cdDeploymentFolder} && {msbuild_restore} && {msbuild_rebuild}");
+                RunCommandHelper(true, "npmBuild, msRestore, msRebuild", cdWorkingDir, npmBuildCommand, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
+
+                // The ExecuteMethod method handles connecting to an
+                // organization if XrmToolBox is not yet connected
+                ExecuteMethod(DeployExistingCustomControl);
+            }
         }
     }
 }
