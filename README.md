@@ -1,6 +1,8 @@
-[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Danz-maveRICK.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master)
+[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Danz-maveRICK.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master) ![Nuget](https://img.shields.io/nuget/v/Maverick.PCF.Builder) ![Gitter](https://img.shields.io/gitter/room/Danz-maveRICK/PCF-CustomControlBuilder)
 
-[![Gitter](https://badges.gitter.im/PCF-CustomControlBuilder/community.svg)](https://gitter.im/PCF-CustomControlBuilder/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![GitHub issues](https://img.shields.io/github/issues/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/issues)  [![GitHub forks](https://img.shields.io/github/forks/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/network)  [![GitHub stars](https://img.shields.io/github/stars/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/stargazers)  [![GitHub license](https://img.shields.io/github/license/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE) ![Nuget](https://img.shields.io/nuget/dt/Maverick.PCF.Builder)
+
+![Twitter Follow](https://img.shields.io/twitter/follow/DanzMaverick?style=social)
 
 # PCF-CustomControlBuilder
 Xrm Toolbox Plugin for building and deploying custom control using PCF
