@@ -1,10 +1,10 @@
 ﻿---- NEW FEATURES ----
-1. Quick Actions buttons
-2. Added a build status that will determine if the build was Success or Failure
-3. Test with Watch mode (more info http://bit.ly/2lACBKb)
+1. PCF CLI version detection and prompt for update
+2. npm version detection and notification for download
 
 ---- UPDATES ----
-1. Auto-scrolls to the end of the command prompt
+1. Added link to web pages on "Learn more about PCF" tab
+2. Minor improvements
 
 ---- BUG FIXES ----
 None
