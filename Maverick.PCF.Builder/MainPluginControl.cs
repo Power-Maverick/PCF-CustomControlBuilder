@@ -359,6 +359,98 @@ namespace Maverick.PCF.Builder
             }
         }
 
+        private void CheckPacVersion()
+        {
+            string[] commands = new string[] { Commands.Pac.Check() };
+            string currentPacVersion = string.Empty;
+            string latestPacVersion = string.Empty;
+
+            var output1 = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
+            if (output1.ToLower().Contains("version"))
+            {
+                currentPacVersion = output1.Substring(output1.IndexOf("Version: ") + 8, output1.IndexOf("+", output1.IndexOf("Version: ") + 8) - (output1.IndexOf("Version: ") + 8));
+
+                commands = new string[] { Commands.Pac.Use() };
+                var output2 = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
+                if (output2.ToLower().Contains("latest"))
+                {
+                    var tempString = output2.Split('\r').Where(a => a.ToLower().Contains("(latest)")).FirstOrDefault().Trim();
+                    latestPacVersion = tempString.Substring(0, tempString.IndexOf(" (Latest)"));
+
+                    if (!currentPacVersion.Trim().Equals(latestPacVersion.Trim()))
+                    {
+                        if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                        {
+                            var isValid = IsVSCommandPromptLocationPopulated(true);
+
+                            if (isValid)
+                            {
+                                string pacUpdateCLI = Commands.Pac.InstallLatest();
+
+                                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {pacUpdateCLI}");
+                                //RunCommandHelper(true, pacUpdateCLI);
+
+                                currentPacVersion = latestPacVersion;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Visual Studio Command Prompt location is needed to update. Please enter valid location and update the PCF CLI from the toolbar.");
+                            }
+                        }
+                    }
+                }
+
+                lblVersionMessages.Text += "Detected PCF CLI Version: " + currentPacVersion + " | ";
+            }
+            else
+            {
+                lblVersionMessages.Text += "PCF CLI Not Detected | ";
+            }
+
+        }
+
+        private void CheckNpmVersion()
+        {
+            string[] commands = new string[] { Commands.Npm.Version() };
+            string currentNpmVersion = string.Empty;
+
+            var output1 = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
+            if (output1.ToLower().Contains("npm: "))
+            {
+                currentNpmVersion = output1.Substring(output1.IndexOf("npm: ") + 4, output1.IndexOf(",", output1.IndexOf("npm: ") + 4) - (output1.IndexOf("npm: ") + 4));
+                lblVersionMessages.Text += "Detected npm Version: " + currentNpmVersion +" | ";
+            }
+            else
+            {
+                lblVersionMessages.Text += "npm Not Detected | ";
+                ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
+            }
+
+        }
+
+        private string GetBrowserUrl()
+        {
+            var selection = cboxInfoSelection.SelectedItem;
+            string browserURL = "https://aka.ms/PCFDemos"; // Default
+            switch (selection)
+            {
+                case "Demos":
+                    browserURL = "https://aka.ms/PCFDemos ";
+                    break;
+                case "Blogs":
+                    browserURL = "https://aka.ms/PCFBlog";
+                    break;
+                case "Forums":
+                    browserURL = "https://aka.ms/PCFForum";
+                    break;
+                case "Ideas":
+                    browserURL = "https://aka.ms/PCFIdeas";
+                    break;
+            }
+
+            return browserURL;
+        }
+
         #endregion
 
         public MainPluginControl()
@@ -383,13 +475,13 @@ namespace Maverick.PCF.Builder
                 LogInfo("Settings found and loaded");
             }
 
-            lblPCFInfo.Visible = false;
-            webBrowserPCFInfo.Visible = false;
-
             gboxNewControl.Visible = false;
             gboxEditControl.Visible = false;
             cboxInfoSelection.SelectedIndex = 0;
-            cboxInfoSelection.Visible = false;
+            gboxQuickAction.Visible = false;
+
+            CheckPacVersion();
+            CheckNpmVersion();
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
@@ -549,13 +641,10 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                lblPCFInfo.Visible = true;
-                webBrowserPCFInfo.Visible = true;
-                cboxInfoSelection.Visible = true;
-
                 gboxNewControl.Visible = false;
                 gboxEditControl.Visible = true;
                 flowMainRight.Visible = true;
+                gboxQuickAction.Visible = true;
 
                 IdentifyControlDetails();
             }
@@ -806,25 +895,7 @@ namespace Maverick.PCF.Builder
 
         private void cboxInfoSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selection = cboxInfoSelection.SelectedItem;
-            string browserURL = "https://aka.ms/PCFDemos"; // Default
-            switch (selection)
-            {
-                case "Demos":
-                    browserURL = "https://aka.ms/PCFDemos ";
-                    break;
-                case "Blogs":
-                    browserURL = "https://aka.ms/PCFBlog";
-                    break;
-                case "Forums":
-                    browserURL = "https://aka.ms/PCFForum";
-                    break;
-                case "Ideas":
-                    browserURL = "https://aka.ms/PCFIdeas";
-                    break;
-            }
-
-            webBrowserPCFInfo.Url = new Uri(browserURL);
+            webBrowserPCFInfo.Url = new Uri(GetBrowserUrl());
         }
 
         private void tspmPCFOverview_Click(object sender, EventArgs e)
@@ -843,13 +914,10 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                lblPCFInfo.Visible = true;
-                webBrowserPCFInfo.Visible = true;
-                cboxInfoSelection.Visible = true;
-
                 gboxNewControl.Visible = true;
                 gboxEditControl.Visible = false;
                 flowMainRight.Visible = true;
+                gboxQuickAction.Visible = true;
             }
         }
 
@@ -875,24 +943,18 @@ namespace Maverick.PCF.Builder
                 {
                     MessageBox.Show("Not able to parse the control from the template.");
 
-                    lblPCFInfo.Visible = true;
-                    webBrowserPCFInfo.Visible = true;
-                    cboxInfoSelection.Visible = true;
-
                     gboxNewControl.Visible = true;
                     gboxEditControl.Visible = false;
                     flowMainRight.Visible = true;
+                    gboxQuickAction.Visible = true;
 
                     return;
                 }
 
-                lblPCFInfo.Visible = true;
-                webBrowserPCFInfo.Visible = true;
-                cboxInfoSelection.Visible = true;
-
                 gboxNewControl.Visible = false;
                 gboxEditControl.Visible = true;
                 flowMainRight.Visible = true;
+                gboxQuickAction.Visible = true;
 
                 // Run npm install - as the solution is downloaded form GitHub
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
@@ -1079,6 +1141,11 @@ namespace Maverick.PCF.Builder
                 // Using RunCommandHelper is causing issues.
                 Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
             }
+        }
+
+        private void LinklblInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(GetBrowserUrl());
         }
     }
 }

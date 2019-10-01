@@ -22,7 +22,7 @@ namespace Maverick.PCF.Builder.Helper
 
             public static string RemoveDirectory(string folderName)
             {
-                return $"rmdir /s {folderName}";
+                return $"rmdir /s/q {folderName}";
             }
         }
 
@@ -47,10 +47,25 @@ namespace Maverick.PCF.Builder.Helper
             {
                 return $"pac install latest";
             }
+
+            public static string Use()
+            {
+                return $"pac use";
+            }
+
+            public static string Check()
+            {
+                return $"pac";
+            }
         }
 
         public class Npm
         {
+            public static string Version()
+            {
+                return $"npm version";
+            }
+
             public static string Install()
             {
                 return $"npm install";

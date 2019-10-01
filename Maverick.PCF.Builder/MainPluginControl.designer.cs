@@ -113,9 +113,11 @@
             this.lblExistNamespace = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.gboxNewControl = new System.Windows.Forms.GroupBox();
+            this.btnTestNewWithWatch = new System.Windows.Forms.Button();
             this.btnOpenInVSCode = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.gboxEditControl = new System.Windows.Forms.GroupBox();
+            this.btnTestWithWatch = new System.Windows.Forms.Button();
             this.btnExistingRefreshDetails = new System.Windows.Forms.Button();
             this.btnEditCDSProjectFile = new System.Windows.Forms.Button();
             this.btnBuildDeploymentProject = new System.Windows.Forms.Button();
@@ -126,25 +128,25 @@
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabMain = new System.Windows.Forms.TabPage();
+            this.lblBuildStatus = new System.Windows.Forms.Label();
+            this.gboxQuickAction = new System.Windows.Forms.GroupBox();
+            this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
+            this.btnBuildAllProjects = new System.Windows.Forms.Button();
+            this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.flowMainRight = new System.Windows.Forms.FlowLayoutPanel();
             this.lblCommandPrompt = new System.Windows.Forms.Label();
             this.txtCommandPrompt = new System.Windows.Forms.TextBox();
             this.tabInformation = new System.Windows.Forms.TabPage();
-            this.gboxQuickAction = new System.Windows.Forms.GroupBox();
-            this.btnBuildAndTest = new System.Windows.Forms.Button();
-            this.btnBuildAllProjects = new System.Windows.Forms.Button();
-            this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
-            this.lblBuildStatus = new System.Windows.Forms.Label();
-            this.btnTestWithWatch = new System.Windows.Forms.Button();
-            this.btnTestNewWithWatch = new System.Windows.Forms.Button();
+            this.lblVersionMessages = new System.Windows.Forms.Label();
+            this.linklblInfo = new System.Windows.Forms.LinkLabel();
             this.toolStripMenu.SuspendLayout();
             this.gboxNewControl.SuspendLayout();
             this.gboxEditControl.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
+            this.gboxQuickAction.SuspendLayout();
             this.flowMainRight.SuspendLayout();
             this.tabInformation.SuspendLayout();
-            this.gboxQuickAction.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -262,7 +264,7 @@
             // 
             this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
             this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
-            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(211, 22);
+            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(219, 30);
             this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
             this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
             // 
@@ -270,7 +272,7 @@
             // 
             this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
             this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
-            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(211, 22);
+            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(219, 30);
             this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
             this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
             // 
@@ -920,6 +922,16 @@
             this.gboxNewControl.TabStop = false;
             this.gboxNewControl.Text = "New PCF Control";
             // 
+            // btnTestNewWithWatch
+            // 
+            this.btnTestNewWithWatch.Location = new System.Drawing.Point(223, 410);
+            this.btnTestNewWithWatch.Name = "btnTestNewWithWatch";
+            this.btnTestNewWithWatch.Size = new System.Drawing.Size(143, 23);
+            this.btnTestNewWithWatch.TabIndex = 63;
+            this.btnTestNewWithWatch.Text = "Test project with Watch";
+            this.btnTestNewWithWatch.UseVisualStyleBackColor = true;
+            this.btnTestNewWithWatch.Click += new System.EventHandler(this.BtnTestNewWithWatch_Click);
+            // 
             // btnOpenInVSCode
             // 
             this.btnOpenInVSCode.Location = new System.Drawing.Point(223, 226);
@@ -979,6 +991,16 @@
             this.gboxEditControl.TabIndex = 17;
             this.gboxEditControl.TabStop = false;
             this.gboxEditControl.Text = "Edit Existing PCF control";
+            // 
+            // btnTestWithWatch
+            // 
+            this.btnTestWithWatch.Location = new System.Drawing.Point(220, 287);
+            this.btnTestWithWatch.Name = "btnTestWithWatch";
+            this.btnTestWithWatch.Size = new System.Drawing.Size(143, 23);
+            this.btnTestWithWatch.TabIndex = 62;
+            this.btnTestWithWatch.Text = "Test project with Watch";
+            this.btnTestWithWatch.UseVisualStyleBackColor = true;
+            this.btnTestWithWatch.Click += new System.EventHandler(this.BtnTestWithWatch_Click);
             // 
             // btnExistingRefreshDetails
             // 
@@ -1104,6 +1126,58 @@
             this.tabMain.Text = "Builder";
             this.tabMain.UseVisualStyleBackColor = true;
             // 
+            // lblBuildStatus
+            // 
+            this.lblBuildStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBuildStatus.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblBuildStatus.Location = new System.Drawing.Point(1266, 40);
+            this.lblBuildStatus.Name = "lblBuildStatus";
+            this.lblBuildStatus.Size = new System.Drawing.Size(200, 23);
+            this.lblBuildStatus.TabIndex = 20;
+            this.lblBuildStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // gboxQuickAction
+            // 
+            this.gboxQuickAction.Controls.Add(this.btnBuildAndDeployAll);
+            this.gboxQuickAction.Controls.Add(this.btnBuildAllProjects);
+            this.gboxQuickAction.Controls.Add(this.btnBuildAndTest);
+            this.gboxQuickAction.Location = new System.Drawing.Point(775, 6);
+            this.gboxQuickAction.Name = "gboxQuickAction";
+            this.gboxQuickAction.Size = new System.Drawing.Size(453, 57);
+            this.gboxQuickAction.TabIndex = 19;
+            this.gboxQuickAction.TabStop = false;
+            this.gboxQuickAction.Text = "Quick Actions";
+            // 
+            // btnBuildAndDeployAll
+            // 
+            this.btnBuildAndDeployAll.Location = new System.Drawing.Point(304, 19);
+            this.btnBuildAndDeployAll.Name = "btnBuildAndDeployAll";
+            this.btnBuildAndDeployAll.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAndDeployAll.TabIndex = 37;
+            this.btnBuildAndDeployAll.Text = "Build All and Deploy";
+            this.btnBuildAndDeployAll.UseVisualStyleBackColor = true;
+            this.btnBuildAndDeployAll.Click += new System.EventHandler(this.BtnBuildAndDeployAll_Click);
+            // 
+            // btnBuildAllProjects
+            // 
+            this.btnBuildAllProjects.Location = new System.Drawing.Point(155, 19);
+            this.btnBuildAllProjects.Name = "btnBuildAllProjects";
+            this.btnBuildAllProjects.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAllProjects.TabIndex = 36;
+            this.btnBuildAllProjects.Text = "Build All Projects";
+            this.btnBuildAllProjects.UseVisualStyleBackColor = true;
+            this.btnBuildAllProjects.Click += new System.EventHandler(this.BtnBuildAllProjects_Click);
+            // 
+            // btnBuildAndTest
+            // 
+            this.btnBuildAndTest.Location = new System.Drawing.Point(6, 19);
+            this.btnBuildAndTest.Name = "btnBuildAndTest";
+            this.btnBuildAndTest.Size = new System.Drawing.Size(143, 23);
+            this.btnBuildAndTest.TabIndex = 35;
+            this.btnBuildAndTest.Text = "Build and Test Control";
+            this.btnBuildAndTest.UseVisualStyleBackColor = true;
+            this.btnBuildAndTest.Click += new System.EventHandler(this.BtnBuildAndTest_Click);
+            // 
             // flowMainRight
             // 
             this.flowMainRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1141,6 +1215,7 @@
             // 
             // tabInformation
             // 
+            this.tabInformation.Controls.Add(this.linklblInfo);
             this.tabInformation.Controls.Add(this.lblPCFInfo);
             this.tabInformation.Controls.Add(this.webBrowserPCFInfo);
             this.tabInformation.Controls.Add(this.cboxInfoSelection);
@@ -1152,82 +1227,31 @@
             this.tabInformation.Text = "Learn More about PCF";
             this.tabInformation.UseVisualStyleBackColor = true;
             // 
-            // gboxQuickAction
+            // lblVersionMessages
             // 
-            this.gboxQuickAction.Controls.Add(this.btnBuildAndDeployAll);
-            this.gboxQuickAction.Controls.Add(this.btnBuildAllProjects);
-            this.gboxQuickAction.Controls.Add(this.btnBuildAndTest);
-            this.gboxQuickAction.Location = new System.Drawing.Point(775, 6);
-            this.gboxQuickAction.Name = "gboxQuickAction";
-            this.gboxQuickAction.Size = new System.Drawing.Size(453, 57);
-            this.gboxQuickAction.TabIndex = 19;
-            this.gboxQuickAction.TabStop = false;
-            this.gboxQuickAction.Text = "Quick Actions";
+            this.lblVersionMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblVersionMessages.Location = new System.Drawing.Point(1110, 27);
+            this.lblVersionMessages.Name = "lblVersionMessages";
+            this.lblVersionMessages.Size = new System.Drawing.Size(373, 23);
+            this.lblVersionMessages.TabIndex = 21;
+            this.lblVersionMessages.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // btnBuildAndTest
+            // linklblInfo
             // 
-            this.btnBuildAndTest.Location = new System.Drawing.Point(6, 19);
-            this.btnBuildAndTest.Name = "btnBuildAndTest";
-            this.btnBuildAndTest.Size = new System.Drawing.Size(143, 23);
-            this.btnBuildAndTest.TabIndex = 35;
-            this.btnBuildAndTest.Text = "Build and Test Control";
-            this.btnBuildAndTest.UseVisualStyleBackColor = true;
-            this.btnBuildAndTest.Click += new System.EventHandler(this.BtnBuildAndTest_Click);
-            // 
-            // btnBuildAllProjects
-            // 
-            this.btnBuildAllProjects.Location = new System.Drawing.Point(155, 19);
-            this.btnBuildAllProjects.Name = "btnBuildAllProjects";
-            this.btnBuildAllProjects.Size = new System.Drawing.Size(143, 23);
-            this.btnBuildAllProjects.TabIndex = 36;
-            this.btnBuildAllProjects.Text = "Build All Projects";
-            this.btnBuildAllProjects.UseVisualStyleBackColor = true;
-            this.btnBuildAllProjects.Click += new System.EventHandler(this.BtnBuildAllProjects_Click);
-            // 
-            // btnBuildAndDeployAll
-            // 
-            this.btnBuildAndDeployAll.Location = new System.Drawing.Point(304, 19);
-            this.btnBuildAndDeployAll.Name = "btnBuildAndDeployAll";
-            this.btnBuildAndDeployAll.Size = new System.Drawing.Size(143, 23);
-            this.btnBuildAndDeployAll.TabIndex = 37;
-            this.btnBuildAndDeployAll.Text = "Build All and Deploy";
-            this.btnBuildAndDeployAll.UseVisualStyleBackColor = true;
-            this.btnBuildAndDeployAll.Click += new System.EventHandler(this.BtnBuildAndDeployAll_Click);
-            // 
-            // lblBuildStatus
-            // 
-            this.lblBuildStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBuildStatus.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblBuildStatus.Location = new System.Drawing.Point(1266, 40);
-            this.lblBuildStatus.Name = "lblBuildStatus";
-            this.lblBuildStatus.Size = new System.Drawing.Size(200, 23);
-            this.lblBuildStatus.TabIndex = 20;
-            this.lblBuildStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // btnTestWithWatch
-            // 
-            this.btnTestWithWatch.Location = new System.Drawing.Point(220, 287);
-            this.btnTestWithWatch.Name = "btnTestWithWatch";
-            this.btnTestWithWatch.Size = new System.Drawing.Size(143, 23);
-            this.btnTestWithWatch.TabIndex = 62;
-            this.btnTestWithWatch.Text = "Test project with Watch";
-            this.btnTestWithWatch.UseVisualStyleBackColor = true;
-            this.btnTestWithWatch.Click += new System.EventHandler(this.BtnTestWithWatch_Click);
-            // 
-            // btnTestNewWithWatch
-            // 
-            this.btnTestNewWithWatch.Location = new System.Drawing.Point(223, 410);
-            this.btnTestNewWithWatch.Name = "btnTestNewWithWatch";
-            this.btnTestNewWithWatch.Size = new System.Drawing.Size(143, 23);
-            this.btnTestNewWithWatch.TabIndex = 63;
-            this.btnTestNewWithWatch.Text = "Test project with Watch";
-            this.btnTestNewWithWatch.UseVisualStyleBackColor = true;
-            this.btnTestNewWithWatch.Click += new System.EventHandler(this.BtnTestNewWithWatch_Click);
+            this.linklblInfo.AutoSize = true;
+            this.linklblInfo.Location = new System.Drawing.Point(281, 37);
+            this.linklblInfo.Name = "linklblInfo";
+            this.linklblInfo.Size = new System.Drawing.Size(145, 13);
+            this.linklblInfo.TabIndex = 19;
+            this.linklblInfo.TabStop = true;
+            this.linklblInfo.Text = "Click here to open in Browser";
+            this.linklblInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblInfo_LinkClicked);
             // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblVersionMessages);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.linklblCreator);
             this.Controls.Add(this.toolStripMenu);
@@ -1243,11 +1267,11 @@
             this.tabControl1.ResumeLayout(false);
             this.tabMain.ResumeLayout(false);
             this.tabMain.PerformLayout();
+            this.gboxQuickAction.ResumeLayout(false);
             this.flowMainRight.ResumeLayout(false);
             this.flowMainRight.PerformLayout();
             this.tabInformation.ResumeLayout(false);
             this.tabInformation.PerformLayout();
-            this.gboxQuickAction.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1362,5 +1386,7 @@
         private System.Windows.Forms.Label lblBuildStatus;
         private System.Windows.Forms.Button btnTestWithWatch;
         private System.Windows.Forms.Button btnTestNewWithWatch;
+        private System.Windows.Forms.Label lblVersionMessages;
+        private System.Windows.Forms.LinkLabel linklblInfo;
     }
 }
