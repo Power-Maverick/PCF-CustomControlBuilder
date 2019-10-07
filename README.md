@@ -22,6 +22,8 @@ Before you begin with your custom control you need to specify the working folder
 Once you have defined the working folder and path to VS Command Prompt you can click on either you want to create a new custom control or edit an existing one. 
 Based on that different windows will open and guide you through the process.
 
+For more details read [wiki](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/wiki)
+
 ## Screenshots
 
 ##### Creating New Custom Control
