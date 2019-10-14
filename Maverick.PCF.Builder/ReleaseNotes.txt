@@ -7,4 +7,5 @@
 2. Minor improvements
 
 ---- BUG FIXES ----
-None
+1. Paths with space handled using double quotation in the commands
+2. Build & Deploy issue fixed

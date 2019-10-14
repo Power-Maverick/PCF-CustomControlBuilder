@@ -350,6 +350,13 @@ namespace Maverick.PCF.Builder
                                 lblBuildStatus.ForeColor = Color.DarkRed;
                             }
                         }
+
+                        if (commandsToShow.Equals("npmBuild, msRestore, msRebuild") && ((string)args.Result).ToLower().Contains("succeeded"))
+                        {
+                            // The ExecuteMethod method handles connecting to an
+                            // organization if XrmToolBox is not yet connected
+                            ExecuteMethod(DeployExistingCustomControl);
+                        }
                     }
                 });
             }
@@ -815,7 +822,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                string vscodeopen = $"code {txtWorkingFolder.Text}\\{txtControlName.Text}";
+                string vscodeopen = $"code \"{txtWorkingFolder.Text}\\{txtControlName.Text}\"";
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
                 RunCommandHelper(false, "VSCode Open", vscodeopen);
@@ -828,7 +835,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                string vscodeopen = $"code {txtWorkingFolder.Text}\\{txtExistsControlName.Text}";
+                string vscodeopen = $"code \"{txtWorkingFolder.Text}\\{txtExistsControlName.Text}\"";
 
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
                 RunCommandHelper(false, "VSCode Open", vscodeopen);
@@ -1109,9 +1116,7 @@ namespace Maverick.PCF.Builder
                 //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {cdDeploymentFolder} && {msbuild_restore} && {msbuild_rebuild}");
                 RunCommandHelper(true, "npmBuild, msRestore, msRebuild", cdWorkingDir, npmBuildCommand, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
 
-                // The ExecuteMethod method handles connecting to an
-                // organization if XrmToolBox is not yet connected
-                ExecuteMethod(DeployExistingCustomControl);
+                
             }
         }
 

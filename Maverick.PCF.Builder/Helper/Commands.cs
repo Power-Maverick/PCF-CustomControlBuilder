@@ -12,17 +12,17 @@ namespace Maverick.PCF.Builder.Helper
         {
             public static string ChangeDirectory(string path)
             {
-                return $"cd {path}";
+                return $"cd \"{path}\"";
             }
 
             public static string MakeDirectory(string folderName)
             {
-                return $"mkdir {folderName}";
+                return $"mkdir \"{folderName}\"";
             }
 
             public static string RemoveDirectory(string folderName)
             {
-                return $"rmdir /s/q {folderName}";
+                return $"rmdir /s/q \"{folderName}\"";
             }
         }
 
@@ -40,7 +40,7 @@ namespace Maverick.PCF.Builder.Helper
 
             public static string SolutionAddReference(string path)
             {
-                return $"pac solution add-reference --path {path}";
+                return $"pac solution add-reference --path \"{path}\"";
             }
 
             public static string InstallLatest()
