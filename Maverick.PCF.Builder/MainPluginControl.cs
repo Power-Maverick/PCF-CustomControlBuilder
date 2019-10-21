@@ -1258,6 +1258,10 @@ namespace Maverick.PCF.Builder
             {
                 ShowInfoNotification("There is a known issue with a space in the Control location while adding it to the Solution", new Uri("https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/issues/6"));
             }
+            else
+            {
+                HideNotification();
+            }
         }
 
         private void TxtVSPromptLoc_TextChanged(object sender, EventArgs e)
