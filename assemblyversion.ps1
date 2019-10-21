@@ -15,9 +15,9 @@ function Update-AssemblyInfoVersionFile
     {
         $splitted = $buildNumber.Split('.')
         $buildIncrementalNumber = $splitted[$splitted.Length - 1]
-	$buildYear = $splitted[0].Substring(0,4)
-	$buildMonth = $splitted[0].Substring(4,2)
-	$buildDate = $splitted[0].Substring(6,2)
+		$buildYear = $splitted[0].Substring(0,4)
+		$buildMonth = $splitted[0].Substring(4,2)
+		$buildDate = $splitted[0].Substring(6,2)
     }
       
     $SrcPath = $env:BUILD_SOURCESDIRECTORY
@@ -44,8 +44,8 @@ function Update-AssemblyInfoVersionFile
         (Get-Content $file.FullName) |
         %{$_ -replace 'AssemblyVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', "AssemblyVersion(""$assemblyVersion"")" } |
         %{$_ -replace 'AssemblyFileVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', "AssemblyFileVersion(""$assemblyFileVersion"")" } |
-	%{$_ -replace 'AssemblyInformationalVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', "AssemblyInformationalVersion(""$assemblyInformationalVersion"")" } | 
-	Set-Content $file.FullName -Force
+		%{$_ -replace 'AssemblyInformationalVersion\("[0-9]+(\.([0-9]+|\*)){1,3}"\)', "AssemblyInformationalVersion(""$assemblyInformationalVersion"")" } | 
+		Set-Content $file.FullName -Force
     }
   
     return $assemblyFileVersion

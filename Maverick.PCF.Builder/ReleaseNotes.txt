@@ -1,10 +1,16 @@
 ﻿---- NEW FEATURES ----
 1. PCF CLI version detection and prompt for update
 2. npm version detection and notification for download
+3. Redesign interface to improve usability
+4. Auto-increment of version numbers
+5. Enhanced Console Prompt for instant output
 
 ---- UPDATES ----
-1. Added link to web pages on "Learn more about PCF" tab
-2. Minor improvements
+1. Minor improvements
+2. Test defaulted to "watch"
+3. OnLoad identify control details
+4. Moved browser links into Toolbar links
+5. Icon changed
 
 ---- BUG FIXES ----
 1. Paths with space handled using double quotation in the commands

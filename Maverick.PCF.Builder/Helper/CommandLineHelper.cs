@@ -9,9 +9,9 @@ namespace Maverick.PCF.Builder.Helper
 {
     public static class CommandLineHelper
     {
-        public static string RunCommand(string vsPromptLocation, string[] commands)
+        public static string RunCommand(string[] commands)
         {
-            ProcessStartInfo psi = new ProcessStartInfo("cmd", $"/K \"{vsPromptLocation}\"");
+            ProcessStartInfo psi = new ProcessStartInfo("cmd", "");
             psi.UseShellExecute = false;
             psi.RedirectStandardOutput = true;
             psi.RedirectStandardInput = true;
