@@ -33,7 +33,6 @@ namespace Maverick.PCF.Builder.Forms
         #region Private Variables
 
         private Thread searchThread;
-        private string vscmdLocation;
         private string workingDir;
 
         #endregion
@@ -101,7 +100,6 @@ namespace Maverick.PCF.Builder.Forms
                         pcfTemplate.description,
                         pcfTemplate.link,
                         pcfTemplate.download,
-                        vscmdLocation,
                         workingDir
                     );
                     template.Width = this.pnlTemplates.Width - 20;
@@ -114,11 +112,10 @@ namespace Maverick.PCF.Builder.Forms
 
         #endregion
 
-        public Templates(string _vscmdLocation, string _workingDir)
+        public Templates(string _workingDir)
         {
             InitializeComponent();
             
-            vscmdLocation = _vscmdLocation;
             workingDir = _workingDir;
         }
 

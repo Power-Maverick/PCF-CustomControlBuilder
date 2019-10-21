@@ -16,7 +16,6 @@ namespace Maverick.PCF.Builder.UserControls
     {
         #region Properties
 
-        public string VsCmdLocation { get; set; }
         public string WorkingDirLocation { get; set; }
 
         #endregion
@@ -26,7 +25,7 @@ namespace Maverick.PCF.Builder.UserControls
             InitializeComponent();
         }
 
-        public Template(Image image, string controlName, string authorName, string description, string linkToPcfGallery, string downloadLink, string vsCmdLocation, string workingDirLocation)
+        public Template(Image image, string controlName, string authorName, string description, string linkToPcfGallery, string downloadLink, string workingDirLocation)
         {
             InitializeComponent();
 
@@ -46,7 +45,6 @@ namespace Maverick.PCF.Builder.UserControls
                 DownloadTemplate(downloadLink);
             };
 
-            VsCmdLocation = vsCmdLocation;
             WorkingDirLocation = workingDirLocation;
         }
 
@@ -56,13 +54,12 @@ namespace Maverick.PCF.Builder.UserControls
         {
             try
             {
-                string vsPromptLocation = VsCmdLocation;
                 string cdWorkingDir = $"cd {WorkingDirLocation}";
                 string gitInit = $"git init";
                 string gitAddOrigin = $"git remote add origin -f {downloadUrl}";
                 string gitPull = $"git pull origin master";
 
-                System.Diagnostics.Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {gitInit} && {gitAddOrigin} && {gitPull} && exit");
+                System.Diagnostics.Process.Start("cmd", $"{cdWorkingDir} && {gitInit} && {gitAddOrigin} && {gitPull} && exit");
 
                 PcfGallery selectedTemplate = new PcfGallery();
                 selectedTemplate.author = lblAuthor.Text;

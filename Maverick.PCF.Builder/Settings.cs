@@ -16,6 +16,5 @@ namespace Maverick.PCF.Builder
     {
         public string VisualStudioCommandPromptPath { get; set; }
         public string WorkingDirectoryLocation { get; set; }
-        public bool DoNotShowWelcomeScreen { get; set; }
     }
 }
