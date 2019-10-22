@@ -1254,14 +1254,14 @@ namespace Maverick.PCF.Builder
         {
             pluginSettings.WorkingDirectoryLocation = txtWorkingFolder.Text;
 
-            if (txtWorkingFolder.Text.Contains(" "))
-            {
-                ShowInfoNotification("There is a known issue with a space in the Control location while adding it to the Solution", new Uri("https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/issues/6"));
-            }
-            else
-            {
-                HideNotification();
-            }
+            //if (txtWorkingFolder.Text.Contains(" "))
+            //{
+            //    ShowInfoNotification("There is a known issue with a space in the Control location while adding it to the Solution", new Uri("https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/issues/6"));
+            //}
+            //else
+            //{
+            //    HideNotification();
+            //}
         }
 
         private void TxtVSPromptLoc_TextChanged(object sender, EventArgs e)
@@ -1497,22 +1497,15 @@ namespace Maverick.PCF.Builder
             {
                 lblErrors.Text = string.Empty;
 
-                if (txtWorkingFolder.Text.Contains(" "))
-                {
-                    MessageBox.Show("There is a known issue with a space in the Control location while adding it to the Solution. Please use Control location with no spaces.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
-                    //string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtSolutionName.Text);
-                    string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtSolutionName.Text);
-                    //string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
-                    string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
-                    //string msbuild_restore = Commands.Msbuild.Restore();
-                    //string msbuild = Commands.Msbuild.Build();
+                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
+                //string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtSolutionName.Text);
+                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtSolutionName.Text);
+                //string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
+                string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
+                //string msbuild_restore = Commands.Msbuild.Restore();
+                //string msbuild = Commands.Msbuild.Build();
 
-                    RunCommandLine(cdWorkingDir, cdDeploymentFolder, pacCommand_AddComponent);
-                }
+                RunCommandLine(cdWorkingDir, cdDeploymentFolder, pacCommand_AddComponent);
             }
         }
 
@@ -1551,7 +1544,7 @@ namespace Maverick.PCF.Builder
         {
             SetProcessingStatus(ProcessingStatus.Running);
             StatusCheckExecution = true;
-            
+
             CurrentCommandOutput += args.Content;
 
             // This indicates end of execution
@@ -1576,7 +1569,7 @@ namespace Maverick.PCF.Builder
                             SetProcessingStatus(ProcessingStatus.Failed);
                         }
                     }
-                    
+
                     StatusCheckExecution = false;
                 }
 
