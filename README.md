@@ -1,6 +1,6 @@
-[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Danz-maveRICK.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master) [![Nuget](https://img.shields.io/nuget/v/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/) [![Gitter](https://badges.gitter.im/PCF-CustomControlBuilder/community.svg)](https://gitter.im/PCF-CustomControlBuilder/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Power-maveRICK.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master) [![Nuget](https://img.shields.io/nuget/v/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/) [![Gitter](https://badges.gitter.im/PCF-CustomControlBuilder/community.svg)](https://gitter.im/PCF-CustomControlBuilder/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-[![GitHub issues](https://img.shields.io/github/issues/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/issues) [![GitHub forks](https://img.shields.io/github/forks/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/network) [![GitHub stars](https://img.shields.io/github/stars/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/stargazers) [![GitHub license](https://img.shields.io/github/license/Danz-maveRICK/PCF-CustomControlBuilder)](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/dt/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/)
+[![GitHub issues](https://img.shields.io/github/issues/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/issues) [![GitHub forks](https://img.shields.io/github/forks/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/network) [![GitHub stars](https://img.shields.io/github/stars/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/stargazers) [![GitHub license](https://img.shields.io/github/license/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/dt/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/)
 
 [![Twitter Follow](https://img.shields.io/twitter/follow/DanzMaverick?style=social)](https://twitter.com/Danzmaverick)
 
@@ -22,7 +22,7 @@ Before you begin with your custom control you need to specify the working folder
 Once you have defined the working folder and path to VS Command Prompt you can click on either you want to create a new custom control or edit an existing one. 
 Based on that different windows will open and guide you through the process.
 
-For more details read [wiki](https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/wiki)
+For more details read [wiki](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/wiki)
 
 ## Screenshots
 
