@@ -1,17 +1,13 @@
 ﻿---- NEW FEATURES ----
-1. PCF CLI version detection and prompt for update
-2. npm version detection and notification for download
-3. Redesign interface to improve usability
-4. Auto-increment of version numbers
-5. Enhanced Console Prompt for instant output
+1. Template shows support for Model-driven app or Canvas App
+2. Template shows the License supported
 
 ---- UPDATES ----
-1. Minor improvements
-2. Test defaulted to "watch"
-3. OnLoad identify control details
-4. Moved browser links into Toolbar links
-5. Icon changed
+1. New & refreshed icon
+2. Improved initial Load time
+3. Improved template screen load time
 
 ---- BUG FIXES ----
-1. Paths with space handled using double quotation in the commands
-2. Build & Deploy issue fixed
+1. Issue #13 resolved
+2. Issue #14 should be resolved
+3. Enhancement #8 accomplished

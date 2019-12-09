@@ -15,6 +15,9 @@ namespace Maverick.PCF.Builder.DataObjects
         public string image { get; set; }
         public string download { get; set; }
         public string author { get; set; }
+        public bool model_support { get; set; }
+        public bool canvas_support { get; set; }
+        public bool license_defined { get; set; }
 
         public Image ParsedImage { get; set; }
         public string ParsedControlName { get; set; }

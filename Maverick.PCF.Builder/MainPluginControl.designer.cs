@@ -61,8 +61,9 @@
             this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
             this.btnBuildAllProjects = new System.Windows.Forms.Button();
             this.btnBuildAndTest = new System.Windows.Forms.Button();
-            this.lblVersionMessages = new System.Windows.Forms.Label();
+            this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtVSCmdPrompt = new System.Windows.Forms.TextBox();
             this.btnVSCmdPrompt = new System.Windows.Forms.Button();
@@ -105,7 +106,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtWorkingFolder = new System.Windows.Forms.TextBox();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
-            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblnpmVersionMsg = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -399,17 +400,19 @@
             this.btnBuildAndTest.UseVisualStyleBackColor = true;
             this.btnBuildAndTest.Click += new System.EventHandler(this.BtnBuildAndTest_Click);
             // 
-            // lblVersionMessages
+            // lblPCFCLIVersionMsg
             // 
-            this.lblVersionMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblVersionMessages.Location = new System.Drawing.Point(988, 0);
-            this.lblVersionMessages.Name = "lblVersionMessages";
-            this.lblVersionMessages.Size = new System.Drawing.Size(325, 23);
-            this.lblVersionMessages.TabIndex = 21;
-            this.lblVersionMessages.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblPCFCLIVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPCFCLIVersionMsg.Location = new System.Drawing.Point(1160, 0);
+            this.lblPCFCLIVersionMsg.Name = "lblPCFCLIVersionMsg";
+            this.lblPCFCLIVersionMsg.Size = new System.Drawing.Size(153, 23);
+            this.lblPCFCLIVersionMsg.TabIndex = 21;
+            this.lblPCFCLIVersionMsg.Text = "Detecting PCF CLI version.";
+            this.lblPCFCLIVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.lblnpmVersionMsg);
             this.pnlMain.Controls.Add(this.lblStatus);
             this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.txtVSCmdPrompt);
@@ -417,7 +420,7 @@
             this.pnlMain.Controls.Add(this.btnTerminateProcess);
             this.pnlMain.Controls.Add(this.btnRefreshDetails);
             this.pnlMain.Controls.Add(this.lblErrors);
-            this.pnlMain.Controls.Add(this.lblVersionMessages);
+            this.pnlMain.Controls.Add(this.lblPCFCLIVersionMsg);
             this.pnlMain.Controls.Add(this.btnDeploy);
             this.pnlMain.Controls.Add(this.gboxQuickAction);
             this.pnlMain.Controls.Add(this.groupBox3);
@@ -431,6 +434,16 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.Location = new System.Drawing.Point(346, 92);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(156, 23);
+            this.lblStatus.TabIndex = 26;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblStatus.TextChanged += new System.EventHandler(this.LblStatus_TextChanged);
             // 
             // label10
             // 
@@ -870,15 +883,15 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // lblStatus
+            // lblnpmVersionMsg
             // 
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(346, 92);
-            this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(156, 23);
-            this.lblStatus.TabIndex = 26;
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblStatus.TextChanged += new System.EventHandler(this.LblStatus_TextChanged);
+            this.lblnpmVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblnpmVersionMsg.Location = new System.Drawing.Point(1163, 23);
+            this.lblnpmVersionMsg.Name = "lblnpmVersionMsg";
+            this.lblnpmVersionMsg.Size = new System.Drawing.Size(150, 23);
+            this.lblnpmVersionMsg.TabIndex = 27;
+            this.lblnpmVersionMsg.Text = "Detecting npm version";
+            this.lblnpmVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // MainPluginControl
             // 
@@ -933,7 +946,7 @@
         private System.Windows.Forms.Button btnBuildAndDeployAll;
         private System.Windows.Forms.Button btnBuildAllProjects;
         private System.Windows.Forms.Button btnBuildAndTest;
-        private System.Windows.Forms.Label lblVersionMessages;
+        private System.Windows.Forms.Label lblPCFCLIVersionMsg;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Button btnDeploy;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -983,5 +996,6 @@
         private System.Windows.Forms.ToolStripMenuItem tspmForums;
         private System.Windows.Forms.ToolStripMenuItem tspmIdeas;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblnpmVersionMsg;
     }
 }

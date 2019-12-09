@@ -32,13 +32,14 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblSearch = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
+            this.lblCount = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlTemplates
             // 
             this.pnlTemplates.AutoScroll = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.pnlTemplates, 2);
+            this.tableLayoutPanel1.SetColumnSpan(this.pnlTemplates, 3);
             this.pnlTemplates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlTemplates.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.pnlTemplates.Location = new System.Drawing.Point(3, 32);
@@ -49,12 +50,14 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.pnlTemplates, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.lblSearch, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtSearch, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblCount, 2, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -81,9 +84,20 @@
             this.txtSearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.txtSearch.Location = new System.Drawing.Point(53, 4);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(690, 20);
+            this.txtSearch.Size = new System.Drawing.Size(646, 20);
             this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.TxtSearch_TextChanged);
+            // 
+            // lblCount
+            // 
+            this.lblCount.AutoSize = true;
+            this.lblCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblCount.Location = new System.Drawing.Point(705, 0);
+            this.lblCount.Name = "lblCount";
+            this.lblCount.Size = new System.Drawing.Size(38, 29);
+            this.lblCount.TabIndex = 3;
+            this.lblCount.Text = "Count:";
+            this.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Templates
             // 
@@ -110,5 +124,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label lblSearch;
         private System.Windows.Forms.TextBox txtSearch;
+        private System.Windows.Forms.Label lblCount;
     }
 }

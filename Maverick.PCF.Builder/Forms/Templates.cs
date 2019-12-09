@@ -32,8 +32,9 @@ namespace Maverick.PCF.Builder.Forms
 
         #region Private Variables
 
-        private Thread searchThread;
-        private string workingDir;
+        private Thread _searchThread;
+        private string _workingDir;
+        private BackgroundWorker _worker;
 
         #endregion
 
@@ -66,7 +67,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             using (WebClient wc = new WebClient())
             {
-                var json = wc.DownloadString("https://pcf.gallery/pcfbuilder.json");
+                var json = wc.DownloadString(Properties.Settings.Default["PcfGalleryTemplateUri"].ToString());
                 List<PcfGallery> lstPcfGallery = JsonHelper.FromJson<PcfGallery>(json);
 
                 // Parse Image data from URL
@@ -83,6 +84,15 @@ namespace Maverick.PCF.Builder.Forms
 
         private void LoadTemplates(object filter = null)
         {
+            _worker = new BackgroundWorker();
+            _worker.DoWork += PerformLoadTemplates;
+            _worker.RunWorkerAsync(filter);
+        }
+
+        private void PerformLoadTemplates(object worker, DoWorkEventArgs args)
+        {
+            object filter = args.Argument;
+
             Invoke(new Action(() =>
             {
                 pnlTemplates.Controls.Clear();
@@ -90,6 +100,8 @@ namespace Maverick.PCF.Builder.Forms
                 var filteredTemplates = (filter != null && filter.ToString().Length > 0
                 ? _lstPcfGallery.Where(t => t.title.ToLower().Contains(filter.ToString().ToLower()) || t.author.ToLower().Contains(filter.ToString().ToLower()))
                 : _lstPcfGallery).OrderBy(t => t.title).ToList();
+
+                lblCount.Text = $"Count: {filteredTemplates.Count}";
 
                 foreach (var pcfTemplate in filteredTemplates)
                 {
@@ -100,7 +112,10 @@ namespace Maverick.PCF.Builder.Forms
                         pcfTemplate.description,
                         pcfTemplate.link,
                         pcfTemplate.download,
-                        workingDir
+                        _workingDir,
+                        pcfTemplate.model_support,
+                        pcfTemplate.canvas_support,
+                        pcfTemplate.license_defined
                     );
                     template.Width = this.pnlTemplates.Width - 20;
 
@@ -116,7 +131,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             InitializeComponent();
             
-            workingDir = _workingDir;
+            this._workingDir = _workingDir;
         }
 
         private void Templates_Load(object sender, EventArgs e)
@@ -139,9 +154,9 @@ namespace Maverick.PCF.Builder.Forms
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
-            searchThread?.Abort();
-            searchThread = new Thread(LoadTemplates);
-            searchThread.Start(txtSearch.Text);
+            _searchThread?.Abort();
+            _searchThread = new Thread(LoadTemplates);
+            _searchThread.Start(txtSearch.Text);
         }
 
 

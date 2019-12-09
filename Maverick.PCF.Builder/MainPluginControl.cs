@@ -57,6 +57,12 @@ namespace Maverick.PCF.Builder
 
         #endregion
 
+        #region Private Variables
+
+        private BackgroundWorker _mainPluginLocalWorker;
+
+        #endregion
+
         #region Helper Functions
 
         private void InitCommandLine()
@@ -84,53 +90,6 @@ namespace Maverick.PCF.Builder
 
             consoleControl.InternalRichTextBox.ScrollToCaret();
 
-            //if (async)
-            //{
-            //    WorkAsync(new WorkAsyncInfo
-            //    {
-            //        Message = $"Running {commandsToShow} commands. Please wait.",
-            //        Work = (worker, args) =>
-            //        {
-            //            var output = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
-            //            args.Result = output;
-            //        },
-            //        PostWorkCallBack = (args) =>
-            //        {
-            //            //txtCommandPrompt.Clear();
-            //            //txtCommandPrompt.AppendText((string)args.Result);
-            //            //txtCommandPrompt.ScrollToCaret();
-
-            //            //if (commands.Contains(Commands.Npm.RunBuild()) || commands.Contains(Commands.Msbuild.Rebuild()))
-            //            //{
-            //            //    lblBuildStatus.Text = "Undetermined";
-            //            //    lblBuildStatus.ForeColor = Color.Gray;
-
-            //            //    if (((string)args.Result).ToLower().Contains("succeeded"))
-            //            //    {
-            //            //        lblBuildStatus.Text = "Succeeded";
-            //            //        lblBuildStatus.ForeColor = Color.LimeGreen;
-            //            //    }
-
-            //            //    if (((string)args.Result).ToLower().Contains("failed"))
-            //            //    {
-            //            //        lblBuildStatus.Text = "Failed";
-            //            //        lblBuildStatus.ForeColor = Color.DarkRed;
-            //            //    }
-            //            //}
-
-            //            //if (commandsToShow.Equals("npmBuild, msRestore, msRebuild") && ((string)args.Result).ToLower().Contains("succeeded"))
-            //            //{
-            //            //    // The ExecuteMethod method handles connecting to an
-            //            //    // organization if XrmToolBox is not yet connected
-            //            //    ExecuteMethod(DeployExistingCustomControl);
-            //            //}
-            //        }
-            //    });
-            //}
-            //else
-            //{
-            //    //CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
-            //}
         }
 
         #endregion
@@ -373,16 +332,17 @@ namespace Maverick.PCF.Builder
             return false;
         }
 
-        private void CheckPacVersion()
+        private void CheckPacVersion(object worker, DoWorkEventArgs args)
         {
             string[] commands = new string[] { Commands.Pac.Check() };
+            var output = CommandLineHelper.RunCommand(commands);
+
             string currentPacVersion = string.Empty;
             string latestPacVersion = string.Empty;
 
-            var output1 = CommandLineHelper.RunCommand(commands);
-            if (!string.IsNullOrEmpty(output1) && output1.ToLower().Contains("version"))
+            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("version"))
             {
-                currentPacVersion = output1.Substring(output1.IndexOf("Version: ") + 8, output1.IndexOf("+", output1.IndexOf("Version: ") + 8) - (output1.IndexOf("Version: ") + 8));
+                currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
 
                 commands = new string[] { Commands.Pac.Use() };
                 var output2 = CommandLineHelper.RunCommand(commands);
@@ -396,39 +356,38 @@ namespace Maverick.PCF.Builder
                         if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                         {
                             string pacUpdateCLI = Commands.Pac.InstallLatest();
-                            //Process.Start("cmd", pacUpdateCLI);
                             RunCommandLine(pacUpdateCLI);
                             currentPacVersion = latestPacVersion;
                         }
                     }
                 }
 
-                lblVersionMessages.Text += "Detected PCF CLI Version: " + currentPacVersion.Trim() + " | ";
+                lblPCFCLIVersionMsg.Text = "PCF CLI Version: " + currentPacVersion.Trim();
             }
             else
             {
-                lblVersionMessages.Text += "PCF CLI Not Detected | ";
+                lblPCFCLIVersionMsg.Text = "PCF CLI Not Detected";
             }
-
         }
 
-        private void CheckNpmVersion()
+        private void CheckNpmVersion(object worker, DoWorkEventArgs args)
         {
             string[] commands = new string[] { Commands.Npm.Version() };
+            var output = CommandLineHelper.RunCommand(commands);
+
             string currentNpmVersion = string.Empty;
 
-            var output1 = CommandLineHelper.RunCommand(commands);
-            if (!string.IsNullOrEmpty(output1) && output1.ToLower().Contains("npm: "))
+            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("npm: "))
             {
-                currentNpmVersion = output1.Substring(output1.IndexOf("npm: ") + 6, output1.IndexOf(",", output1.IndexOf("npm: ") + 6) - (output1.IndexOf("npm: ") + 6) - 1);
-                lblVersionMessages.Text += "Detected npm Version: " + currentNpmVersion.Trim() + " | ";
+                currentNpmVersion = output.Substring(output.IndexOf("npm: ") + 6, output.IndexOf(",", output.IndexOf("npm: ") + 6) - (output.IndexOf("npm: ") + 6) - 1);
+                lblnpmVersionMsg.Text = "npm Version: " + currentNpmVersion.Trim();
             }
             else
             {
-                lblVersionMessages.Text += "npm Not Detected | ";
+                lblnpmVersionMsg.Text = "npm Not Detected";
                 ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
             }
-
+            
         }
 
         private void IncrementComponentVersion()
@@ -558,7 +517,9 @@ namespace Maverick.PCF.Builder
 
         private void DeploySolution()
         {
-            string deploymentFolder = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}\\bin\\debug\\{txtSolutionName.Text}.zip";
+            string solutionFileLocation = chkManagedSolution.Checked ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}\\bin\\release\\{txtSolutionName.Text}.zip" : $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}\\bin\\debug\\{txtSolutionName.Text}.zip";
+
+            string deploymentFolder = solutionFileLocation;
             byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
 
             ImportSolutionInD365CE(fileBytes, txtSolutionName.Text);
@@ -657,47 +618,6 @@ namespace Maverick.PCF.Builder
             }
         }
 
-        /*
-        private void DeployNewCustomControl()
-        {
-            string deploymentFolder = $"{txtWorkingFolder1.Text}\\{txtControlName.Text}\\{txtDeploymentFolder.Text}\\bin\\debug\\{txtDeploymentFolder.Text}.zip";
-            byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
-
-            ImportSolutionInD365CE(fileBytes, txtDeploymentFolder.Text);
-        }
-
-        private void DeployExistingCustomControl()
-        {
-            string deploymentFolder = $"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}\\{txtExistsDeployFolderName.Text}\\bin\\debug\\{txtExistsDeployFolderName.Text}.zip";
-            byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
-
-            ImportSolutionInD365CE(fileBytes, txtExistsDeployFolderName.Text);
-        }
-
-        private string GetBrowserUrl()
-        {
-            var selection = cboxInfoSelection.SelectedItem;
-            string browserURL = "https://aka.ms/PCFDemos"; // Default
-            switch (selection)
-            {
-                case "Demos":
-                    browserURL = "https://aka.ms/PCFDemos ";
-                    break;
-                case "Blogs":
-                    browserURL = "https://aka.ms/PCFBlog";
-                    break;
-                case "Forums":
-                    browserURL = "https://aka.ms/PCFForum";
-                    break;
-                case "Ideas":
-                    browserURL = "https://aka.ms/PCFIdeas";
-                    break;
-            }
-
-            return browserURL;
-        }
-        */
-
         #endregion
 
         public MainPluginControl()
@@ -722,8 +642,11 @@ namespace Maverick.PCF.Builder
                 LogInfo("Settings found and loaded");
             }
 
-            CheckPacVersion();
-            CheckNpmVersion();
+            _mainPluginLocalWorker = new BackgroundWorker();
+            _mainPluginLocalWorker.DoWork += CheckPacVersion;
+            _mainPluginLocalWorker.DoWork += CheckNpmVersion;
+            _mainPluginLocalWorker.RunWorkerAsync();
+
             StatusCheckExecution = false;
             BuildDeployExecution = false;
             CurrentCommandOutput = string.Empty;
@@ -757,281 +680,6 @@ namespace Maverick.PCF.Builder
             }
         }
 
-        /*
-        private void btnNewPcfRunPacCmd_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            lblRunPacError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtNamespace.Text))
-            {
-                lblRunPacError.Text = "Namespace is required.";
-            }
-            if (string.IsNullOrEmpty(txtControlName.Text))
-            {
-                lblRunPacError.Text += "\nControl Name is required.";
-            }
-            if (cmbTemplate.SelectedIndex == -1)
-            {
-                lblRunPacError.Text += "\nTemplate selection is required.";
-            }
-
-            if (areMainControlsValid && !string.IsNullOrEmpty(txtNamespace.Text) && !string.IsNullOrEmpty(txtControlName.Text) && cmbTemplate.SelectedIndex >= 0)
-            {
-                // Check if .pcfproj does not already exists
-                var folderName = Path.GetFileName(txtWorkingFolder1.Text);
-                if (IsPcfProjectAlreadyExists(folderName))
-                {
-                    MessageBox.Show("PCF Project already exists in this directory. Please select another folder location or use \"Edit existing PCF Control\" page.");
-                    return;
-                }
-
-                lblRunPacError.Text = string.Empty;
-
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory(txtWorkingFolder1.Text);
-                string pacCommand = Commands.Pac.PcfInit(txtNamespace.Text, txtControlName.Text, cmbTemplate.SelectedItem.ToString());
-                string npmCommand = Commands.Npm.Install();
-
-                //Process.Start("cmd", "/K \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\" && dir");
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {pacCommand} && {npmCommand}");
-
-                RunCommandHelper(true, "pacInit, npmInstall", cdWorkingDir, pacCommand, npmCommand);
-            }
-        }
-
-        private void btnVSPromptLoc_Click(object sender, EventArgs e)
-        {
-            if (selectVSDevFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                txtVSPromptLoc.Text = selectVSDevFileDialog.FileName;
-                pluginSettings.VisualStudioCommandPromptPath = txtVSPromptLoc.Text;
-                VisualStudioBatchFilePath = txtVSPromptLoc.Text;
-            }
-        }
-
-        private void btnOpenProject_Click(object sender, EventArgs e)
-        {
-            var isValid = IsWorkingFolderPopulated(true);
-
-            if (isValid)
-            {
-                Process.Start("explorer.exe", txtWorkingFolder1.Text);
-                lblDevelopComments.Text = $"Navigate inside {txtControlName.Text} folder.\nEdit \"ControlManifest.Input.xml\".\nDevelop your control.";
-            }
-        }
-
-        private void btnBuild_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
-            {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtControlName.Text}");
-                string npmCommand = Commands.Npm.RunBuild();
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
-                RunCommandHelper(true, "npmBuild", cdWorkingDir, npmCommand);
-            }
-        }
-
-        private void btnTestProject_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
-            {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtControlName.Text}");
-                string npmCommand = Commands.Npm.Start();
-
-                // Using RunCommandHelper is causing issues.
-                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
-            }
-        }
-
-        private void btnCreatePackage_Click(object sender, EventArgs e)
-        {
-            lblDeploymentError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtDeploymentFolder.Text))
-            {
-                lblDeploymentError.Text = "Deployment Folder Name is required.";
-            }
-            if (string.IsNullOrEmpty(txtPublisherName.Text))
-            {
-                lblDeploymentError.Text += "\nPublisher Name is required.";
-            }
-            if (string.IsNullOrEmpty(txtPublisherPrefix.Text))
-            {
-                lblDeploymentError.Text += "\nPublisher Prefix is required.";
-            }
-
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid && !string.IsNullOrEmpty(txtDeploymentFolder.Text) && !string.IsNullOrEmpty(txtPublisherName.Text) && !string.IsNullOrEmpty(txtPublisherPrefix.Text))
-            {
-                lblDeploymentError.Text = string.Empty;
-
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtControlName.Text}");
-                string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtDeploymentFolder.Text);
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtDeploymentFolder.Text);
-                string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
-                string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder1.Text);
-                string msbuild_restore = Commands.Msbuild.Restore();
-                string msbuild = Commands.Msbuild.Build();
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent} && {msbuild_restore} && {msbuild}");
-                RunCommandHelper(true, "pacCreateSolution, pacAddComponent, msRestore, msBuild", cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent, msbuild_restore, msbuild);
-            }
-        }
-
-        private void btnDeploy_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
-            {
-                // The ExecuteMethod method handles connecting to an
-                // organization if XrmToolBox is not yet connected
-                ExecuteMethod(DeployNewCustomControl);
-            }
-        }
-
-        private void btnExistsOpenProject_Click(object sender, EventArgs e)
-        {
-            var isValid = IsWorkingFolderPopulated(true);
-
-            if (isValid)
-            {
-                Process.Start("explorer.exe", txtWorkingFolder1.Text);
-                lblExistsDevelopComments.Text = $"Navigate inside {txtControlName.Text} folder.\nEdit \"ControlManifest.Input.xml\" by incrementing the version.\nEdit your control.";
-            }
-        }
-
-        private void btnExistsBuild_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
-            {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}");
-                string npmCommand = Commands.Npm.RunBuild();
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {npmCommand}");
-                RunCommandHelper(true, "npmBuild", cdWorkingDir, npmCommand);
-            }
-        }
-
-        private void btnExistsTest_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
-            {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}");
-                string npmCommand = Commands.Npm.Start();
-
-                // Using RunCommandHelper is causing issues.
-                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
-            }
-        }
-
-        private void btnExistsCreateSolution_Click(object sender, EventArgs e)
-        {
-            lblExistsDeploymentError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
-            }
-            if (string.IsNullOrEmpty(txtExistsPublisherName.Text))
-            {
-                lblExistsDeploymentError.Text += "\nPublisher Name is required.";
-            }
-            if (string.IsNullOrEmpty(txtExistsPublisherPrefix.Text))
-            {
-                lblExistsDeploymentError.Text += "\nPublisher Prefix is required.";
-            }
-
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text) && !string.IsNullOrEmpty(txtExistsPublisherName.Text) && !string.IsNullOrEmpty(txtExistsPublisherPrefix.Text))
-            {
-                // Check if .cdsproj does not already exists
-                var folderName = Path.GetFileName(txtWorkingFolder1.Text + "\\" + txtExistsControlName.Text + "\\" + txtExistsDeployFolderName.Text);
-                var cdsprojAlreadyExists = File.Exists(txtWorkingFolder1.Text + "\\" + txtExistsControlName.Text + "\\" + txtExistsDeployFolderName.Text + "\\" + folderName + ".cdsproj");
-
-                if (cdsprojAlreadyExists)
-                {
-                    btnExistsCreateSolution.Enabled = false;
-                    cboxDeploymentFolderExists.Checked = true;
-                    MessageBox.Show("Deployment project (.cdsproj) file already exists. Use the same project to build, deploy and update the custom control.");
-                    return;
-                }
-
-                lblExistsDeploymentError.Text = string.Empty;
-
-                string cdWorkingDir = $"cd {txtWorkingFolder1.Text}\\{txtExistsControlName.Text}";
-
-                if (cboxDeploymentFolderExists.Checked)
-                {
-                    // Delete existing folder and re-create it
-
-                    string rmdirDeploymentFolder = Commands.Cmd.RemoveDirectory(txtExistsDeployFolderName.Text); ;
-                    string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtExistsDeployFolderName.Text);
-                    string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
-                    string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtExistsPublisherName.Text, txtExistsPublisherPrefix.Text);
-                    string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder1.Text);
-
-                    //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {rmdirDeploymentFolder} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent}");
-                    RunCommandHelper(true, "pacCreateSolution, pacAddComponent", cdWorkingDir, rmdirDeploymentFolder, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
-                }
-                else
-                {
-                    // No folder exists; create a folder
-
-                    string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtExistsDeployFolderName.Text);
-                    string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
-                    string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtExistsPublisherName.Text, txtExistsPublisherPrefix.Text);
-                    string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder1.Text);
-
-                    //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {mkdirDeploymentFolder} && {cdDeploymentFolder} && {pacCommand_CreateSolution} && {pacCommand_AddComponent}");
-                    RunCommandHelper(true, "pacCreateSolution, pacAddComponent", cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
-                }
-            }
-        }
-
-        private void cboxDeploymentFolderExists_CheckedChanged(object sender, EventArgs e)
-        {
-            if (cboxDeploymentFolderExists.Checked)
-            {
-                lblExistsCreateSolutionWarning.Text = "*Use the same solution package to update the custom control.";
-                btnExistsCreateSolution.Enabled = false;
-            }
-            else
-            {
-                lblExistsCreateSolutionWarning.Text = "*This will create the folder for you. Do not create deployment folder";
-                btnExistsCreateSolution.Enabled = true;
-            }
-        }
-
-        private void btnExistsDeployToD365_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            lblExistsDeploymentError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
-            }
-
-            if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                // The ExecuteMethod method handles connecting to an
-                // organization if XrmToolBox is not yet connected
-                ExecuteMethod(DeployExistingCustomControl);
-            }
-
-        }
-        */
-
         private void tspmDownloadPowerAppsCLI_Click(object sender, EventArgs e)
         {
             Process.Start("https://aka.ms/PowerAppsCLI");
@@ -1039,84 +687,13 @@ namespace Maverick.PCF.Builder
 
         private void tspmUpdatePowerAppsCLI_Click(object sender, EventArgs e)
         {
-            //var isValid = IsVSCommandPromptLocationPopulated(true);
-
-            //if (isValid)
-            //{
             string pacUpdateCLI = Commands.Pac.InstallLatest();
             RunCommandLine(pacUpdateCLI);
-            //}
+
+            _mainPluginLocalWorker = new BackgroundWorker();
+            _mainPluginLocalWorker.DoWork += CheckPacVersion;
+            _mainPluginLocalWorker.RunWorkerAsync();
         }
-
-        /*
-        private void btnOpenInVSCode_Click(object sender, EventArgs e)
-        {
-            var isValid = AreMainControlsPopulated();
-
-            if (isValid)
-            {
-                string vscodeopen = $"code \"{txtWorkingFolder1.Text}\\{txtControlName.Text}\"";
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, "VSCode Open", vscodeopen);
-            }
-        }
-
-        private void btnExistsOpenInVSCode_Click(object sender, EventArgs e)
-        {
-            var isValid = AreMainControlsPopulated();
-
-            if (isValid)
-            {
-                string vscodeopen = $"code \"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}\"";
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, "VSCode Open", vscodeopen);
-            }
-        }
-
-        private void btnBuildDeploymentProject_Click(object sender, EventArgs e)
-        {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            lblExistsDeploymentError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
-            }
-
-            if (areMainControlsValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}");
-
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtExistsDeployFolderName.Text);
-                string msbuild_restore = Commands.Msbuild.Restore();
-                string msbuild_rebuild = Commands.Msbuild.Rebuild();
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {cdWorkingDir} && {cdDeploymentFolder} && {msbuild_restore} && {msbuild_rebuild}");
-                RunCommandHelper(true, "msRestore, msRebuild", cdWorkingDir, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
-            }
-        }
-
-        private void btnEditCDSProjectFile_Click(object sender, EventArgs e)
-        {
-            var isValid = AreMainControlsPopulated();
-
-            lblExistsDeploymentError.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                lblExistsDeploymentError.Text = "Deployment Folder Name is required.";
-            }
-
-            if (isValid && !string.IsNullOrEmpty(txtExistsDeployFolderName.Text))
-            {
-                string vscodeopen = $"code {txtWorkingFolder1.Text}\\{txtExistsControlName.Text}\\{txtExistsDeployFolderName.Text}";
-
-                //Process.Start("cmd", $"/K \"{vsPromptLocation}\" && {vscodeopen} && exit");
-                RunCommandHelper(false, "VSCode Open", vscodeopen);
-            }
-        }
-        */
 
         private void tspmMSDocs_Click(object sender, EventArgs e)
         {

@@ -37,7 +37,6 @@ C:\Users\dnaglekar\Source\Repos\Maverick.PCF.Builder\Maverick.PCF.Builder\obj\De
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.MainPluginControl.resources
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Properties.Resources.resources
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csproj.GenerateResource.cache
-C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csproj.CoreCompileInputs.cache
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.dll
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.pdb
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.Templates.resources
