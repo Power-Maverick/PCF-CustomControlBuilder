@@ -102,6 +102,64 @@ namespace Maverick.PCF.Builder.Helper
             {
                 return $"pac";
             }
+
+            /// <summary>
+            /// pac auth create --url <https://xyz.crm.dynamics.com>
+            /// </summary>
+            /// <param name="url">CDS Environment Url</param>
+            /// <returns></returns>
+            public static string CreateProfile(string url)
+            {
+                return $"pac auth create --url {url}";
+            }
+
+            /// <summary>
+            /// pac auth list
+            /// </summary>
+            /// <returns></returns>
+            public static string ListProfiles()
+            {
+                return $"pac auth list";
+            }
+
+            /// <summary>
+            /// pac auth delete --index <indexoftheprofile>
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            public static string DeleteProfile(int index)
+            {
+                return $"pac auth delete --index {index}";
+            }
+
+            /// <summary>
+            /// pac auth select --index <indexoftheactiveprofile>
+            /// </summary>
+            /// <param name="index"></param>
+            /// <returns></returns>
+            public static string SwitchCurrentProfile(int index)
+            {
+                return $"pac auth select --index {index}";
+            }
+
+            /// <summary>
+            /// pac pcf push --publisher-prefix <yourpublisherprefix>
+            /// </summary>
+            /// <param name="publisherPrefix"></param>
+            /// <returns></returns>
+            public static string DeployWithoutSolution(string publisherPrefix)
+            {
+                return $"pac pcf push --publisher-prefix {publisherPrefix}";
+            }
+
+            /// <summary>
+            /// pac org who
+            /// </summary>
+            /// <returns></returns>
+            public static string OrgDetails()
+            {
+                return $"pac org who";
+            }
         }
 
         public class Npm

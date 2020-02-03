@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPluginControl));
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
             this.tsbClose = new System.Windows.Forms.ToolStripButton();
@@ -37,6 +38,10 @@
             this.tsmNewPCFTemplate = new System.Windows.Forms.ToolStripMenuItem();
             this.tsbEditControl = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAuthProfile = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmCreateProfile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmListProfiles = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tspGallery = new System.Windows.Forms.ToolStripButton();
             this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -63,6 +68,7 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lblnpmVersionMsg = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtVSCmdPrompt = new System.Windows.Forms.TextBox();
@@ -88,6 +94,7 @@
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnQuickDeploy = new System.Windows.Forms.Button();
             this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
             this.chkIncrementComponentVersion = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -106,7 +113,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtWorkingFolder = new System.Windows.Forms.TextBox();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
-            this.lblnpmVersionMsg = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
+            this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
+            this.lblCurrentProfile = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -124,6 +134,8 @@
             this.tsbNewPCFMenu,
             this.tsbEditControl,
             this.toolStripSeparator2,
+            this.tsbAuthProfile,
+            this.toolStripSeparator4,
             this.tspGallery,
             this.tspSampleControls,
             this.toolStripSeparator1,
@@ -183,14 +195,45 @@
             this.tsbEditControl.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditControl.Image")));
             this.tsbEditControl.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditControl.Name = "tsbEditControl";
-            this.tsbEditControl.Size = new System.Drawing.Size(163, 28);
-            this.tsbEditControl.Text = "Edit existing PCF control";
+            this.tsbEditControl.Size = new System.Drawing.Size(120, 28);
+            this.tsbEditControl.Text = "Edit PCF control";
             this.tsbEditControl.Click += new System.EventHandler(this.tsbEditControl_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tsbAuthProfile
+            // 
+            this.tsbAuthProfile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmCreateProfile,
+            this.tsmListProfiles});
+            this.tsbAuthProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbAuthProfile.Image")));
+            this.tsbAuthProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAuthProfile.Name = "tsbAuthProfile";
+            this.tsbAuthProfile.Size = new System.Drawing.Size(168, 28);
+            this.tsbAuthProfile.Text = "Authentication Profiles";
+            this.tsbAuthProfile.ButtonClick += new System.EventHandler(this.tsbAuthProfile_ButtonClick);
+            // 
+            // tsmCreateProfile
+            // 
+            this.tsmCreateProfile.Name = "tsmCreateProfile";
+            this.tsmCreateProfile.Size = new System.Drawing.Size(145, 22);
+            this.tsmCreateProfile.Text = "Create Profile";
+            this.tsmCreateProfile.Click += new System.EventHandler(this.tsmCreateProfile_Click);
+            // 
+            // tsmListProfiles
+            // 
+            this.tsmListProfiles.Name = "tsmListProfiles";
+            this.tsmListProfiles.Size = new System.Drawing.Size(145, 22);
+            this.tsmListProfiles.Text = "List Profiles";
+            this.tsmListProfiles.Click += new System.EventHandler(this.tsmListProfiles_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
             // 
             // tspGallery
             // 
@@ -412,7 +455,9 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.lblCurrentProfileLabel);
             this.pnlMain.Controls.Add(this.lblnpmVersionMsg);
+            this.pnlMain.Controls.Add(this.lblCurrentProfile);
             this.pnlMain.Controls.Add(this.lblStatus);
             this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.txtVSCmdPrompt);
@@ -434,6 +479,16 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // lblnpmVersionMsg
+            // 
+            this.lblnpmVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblnpmVersionMsg.Location = new System.Drawing.Point(1163, 23);
+            this.lblnpmVersionMsg.Name = "lblnpmVersionMsg";
+            this.lblnpmVersionMsg.Size = new System.Drawing.Size(150, 23);
+            this.lblnpmVersionMsg.TabIndex = 27;
+            this.lblnpmVersionMsg.Text = "Detecting npm version";
+            this.lblnpmVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblStatus
             // 
@@ -475,6 +530,7 @@
             // btnTerminateProcess
             // 
             this.btnTerminateProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTerminateProcess.Enabled = false;
             this.btnTerminateProcess.Location = new System.Drawing.Point(1127, 50);
             this.btnTerminateProcess.Name = "btnTerminateProcess";
             this.btnTerminateProcess.Size = new System.Drawing.Size(158, 23);
@@ -507,7 +563,7 @@
             // 
             // btnDeploy
             // 
-            this.btnDeploy.Location = new System.Drawing.Point(18, 413);
+            this.btnDeploy.Location = new System.Drawing.Point(20, 451);
             this.btnDeploy.Name = "btnDeploy";
             this.btnDeploy.Size = new System.Drawing.Size(117, 23);
             this.btnDeploy.TabIndex = 20;
@@ -557,7 +613,7 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.txtSolutionName);
             this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(18, 265);
+            this.groupBox2.Location = new System.Drawing.Point(20, 303);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(482, 141);
             this.groupBox2.TabIndex = 18;
@@ -686,6 +742,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linklblQuickDeployLearn);
+            this.groupBox1.Controls.Add(this.btnQuickDeploy);
             this.groupBox1.Controls.Add(this.btnOpenControlInExplorer);
             this.groupBox1.Controls.Add(this.chkIncrementComponentVersion);
             this.groupBox1.Controls.Add(this.label1);
@@ -703,10 +761,22 @@
             this.groupBox1.Controls.Add(this.cboxTemplate);
             this.groupBox1.Location = new System.Drawing.Point(18, 117);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(482, 142);
+            this.groupBox1.Size = new System.Drawing.Size(482, 180);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Component Details";
+            // 
+            // btnQuickDeploy
+            // 
+            this.btnQuickDeploy.Location = new System.Drawing.Point(328, 132);
+            this.btnQuickDeploy.Name = "btnQuickDeploy";
+            this.btnQuickDeploy.Size = new System.Drawing.Size(148, 23);
+            this.btnQuickDeploy.TabIndex = 27;
+            this.btnQuickDeploy.Text = "Deploy without Solution file";
+            this.btnQuickDeploy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolTip.SetToolTip(this.btnQuickDeploy, "This uses \'pac pcf push\' command");
+            this.btnQuickDeploy.UseVisualStyleBackColor = true;
+            this.btnQuickDeploy.Click += new System.EventHandler(this.btnQuickDeploy_Click);
             // 
             // btnOpenControlInExplorer
             // 
@@ -883,15 +953,32 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // lblnpmVersionMsg
+            // linklblQuickDeployLearn
             // 
-            this.lblnpmVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblnpmVersionMsg.Location = new System.Drawing.Point(1163, 23);
-            this.lblnpmVersionMsg.Name = "lblnpmVersionMsg";
-            this.lblnpmVersionMsg.Size = new System.Drawing.Size(150, 23);
-            this.lblnpmVersionMsg.TabIndex = 27;
-            this.lblnpmVersionMsg.Text = "Detecting npm version";
-            this.lblnpmVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.linklblQuickDeployLearn.AutoSize = true;
+            this.linklblQuickDeployLearn.Location = new System.Drawing.Point(421, 158);
+            this.linklblQuickDeployLearn.Name = "linklblQuickDeployLearn";
+            this.linklblQuickDeployLearn.Size = new System.Drawing.Size(61, 13);
+            this.linklblQuickDeployLearn.TabIndex = 28;
+            this.linklblQuickDeployLearn.TabStop = true;
+            this.linklblQuickDeployLearn.Text = "Learn More";
+            this.linklblQuickDeployLearn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblQuickDeployLearn_LinkClicked);
+            // 
+            // lblCurrentProfileLabel
+            // 
+            this.lblCurrentProfileLabel.AutoSize = true;
+            this.lblCurrentProfileLabel.Location = new System.Drawing.Point(15, 487);
+            this.lblCurrentProfileLabel.Name = "lblCurrentProfileLabel";
+            this.lblCurrentProfileLabel.Size = new System.Drawing.Size(144, 13);
+            this.lblCurrentProfileLabel.TabIndex = 30;
+            this.lblCurrentProfileLabel.Text = "Current Authentication Profile";
+            // 
+            // lblCurrentProfile
+            // 
+            this.lblCurrentProfile.Location = new System.Drawing.Point(17, 504);
+            this.lblCurrentProfile.Name = "lblCurrentProfile";
+            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 138);
+            this.lblCurrentProfile.TabIndex = 29;
             // 
             // MainPluginControl
             // 
@@ -997,5 +1084,14 @@
         private System.Windows.Forms.ToolStripMenuItem tspmIdeas;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblnpmVersionMsg;
+        private System.Windows.Forms.ToolStripSplitButton tsbAuthProfile;
+        private System.Windows.Forms.ToolStripMenuItem tsmCreateProfile;
+        private System.Windows.Forms.ToolStripMenuItem tsmListProfiles;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.Button btnQuickDeploy;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.LinkLabel linklblQuickDeployLearn;
+        private System.Windows.Forms.Label lblCurrentProfileLabel;
+        private System.Windows.Forms.Label lblCurrentProfile;
     }
 }

@@ -1,13 +1,12 @@
 ﻿---- NEW FEATURES ----
-1. Template shows support for Model-driven app or Canvas App
-2. Template shows the License supported
+1. Ability to create new Authentication Profiles
+2. List or delete existing authentication profiles
+3. Change current profile
+4. Quick deployment using 'pac pcf push' command
 
 ---- UPDATES ----
-1. New & refreshed icon
-2. Improved initial Load time
-3. Improved template screen load time
+No updates this time
 
 ---- BUG FIXES ----
-1. Issue #13 resolved
-2. Issue #14 should be resolved
-3. Enhancement #8 accomplished
+1. Issue #15 resolved
+2. Issue #16 resolved

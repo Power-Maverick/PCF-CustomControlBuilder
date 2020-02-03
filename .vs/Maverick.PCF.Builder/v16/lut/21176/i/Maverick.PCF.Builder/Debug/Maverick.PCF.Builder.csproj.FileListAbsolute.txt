@@ -1,0 +1,9 @@
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.Forms.AuthenticationProfileForm.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.Forms.InputDialog.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.Forms.SettingsForm.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.Forms.Templates.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.MainPluginControl.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.Properties.Resources.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.UserControls.Template.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.csproj.GenerateResource.cache
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\.vs\Maverick.PCF.Builder\v16\lut\0\i\Maverick.PCF.Builder\Debug\Maverick.PCF.Builder.dll

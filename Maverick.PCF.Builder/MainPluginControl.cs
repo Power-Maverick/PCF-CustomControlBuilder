@@ -19,10 +19,12 @@ using System.Xml;
 using Maverick.PCF.Builder.Forms;
 using Maverick.PCF.Builder.DataObjects;
 using Maverick.PCF.Builder.Helper;
+using XrmToolBox.Extensibility.Args;
+using System.Text.RegularExpressions;
 
 namespace Maverick.PCF.Builder
 {
-    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin, IPayPalPlugin
+    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
     {
         private Settings pluginSettings;
 
@@ -36,14 +38,19 @@ namespace Maverick.PCF.Builder
 
         public string EmailAccount => "danz@techgeek.co.in";
 
+        public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
+
         #region Properties and Enums
 
         public PcfGallery SelectedTemplate { get; set; }
-        public bool CommandPromptInitialied { get; set; }
+        public bool CommandPromptInitialized { get; set; }
         public bool StatusCheckExecution { get; set; }
         public bool BuildDeployExecution { get; set; }
         public bool ReloadDetails { get; set; }
         public string CurrentCommandOutput { get; set; }
+        public bool ListProfileExecution { get; set; }
+        public AuthProfileAction SelectedProfileAction { get; set; }
+        public int SelectedProfileIndex { get; set; }
 
         public enum ProcessingStatus
         {
@@ -53,6 +60,13 @@ namespace Maverick.PCF.Builder
             Running,
             Undetermined,
             Complete
+        }
+
+        public enum AuthProfileAction
+        {
+            ShowDetails,
+            SwitchCurrent,
+            Delete
         }
 
         #endregion
@@ -83,13 +97,22 @@ namespace Maverick.PCF.Builder
                 StatusCheckExecution = true;
             }
 
-            foreach (var cmd in commands)
+            if (commands.Contains(Commands.Pac.ListProfiles()))
             {
-                consoleControl.WriteInput(cmd, Color.White, true);
+                ListProfileExecution = true;
+            }
+            else
+            {
+                ListProfileExecution = false;
             }
 
-            consoleControl.InternalRichTextBox.ScrollToCaret();
+            foreach (var cmd in commands)
+            {
+                consoleControl.WriteInput(cmd + "\n", Color.White, true);
+            }
 
+            //consoleControl.WriteInput("\r\n", Color.White, true);
+            consoleControl.InternalRichTextBox.ScrollToCaret();
         }
 
         #endregion
@@ -187,6 +210,19 @@ namespace Maverick.PCF.Builder
             return isValid;
         }
 
+        private bool codeFileExists(string directoryPath)
+        {
+            DirectoryInfo dir = new DirectoryInfo(directoryPath);
+            FileInfo[] files = dir.GetFiles("*.ts");
+
+            if (files.Length > 0)
+            {
+                SendMessageToStatusBar.Invoke(this, new StatusBarMessageEventArgs($"Code file found with name {files[0].Name}"));
+            }
+
+            return files.Length > 0 ? true : false;
+        }
+
         private void Routine_NewComponent()
         {
             txtNamespace.Clear();
@@ -239,7 +275,7 @@ namespace Maverick.PCF.Builder
                             var filteredPcfDirs = pcfDirs.ToList().Where(l => (!l.ToLower().EndsWith("node_modules")) && (!l.ToLower().EndsWith("obj")) && (!l.ToLower().EndsWith("out")));
                             foreach (var item in filteredPcfDirs)
                             {
-                                var indexExists = File.Exists(item + "\\" + "index.ts");
+                                var indexExists = codeFileExists(item); //File.Exists(item + "\\" + "index.ts");
                                 if (indexExists)
                                 {
                                     txtControlName.Text = Path.GetFileName(item);
@@ -387,7 +423,7 @@ namespace Maverick.PCF.Builder
                 lblnpmVersionMsg.Text = "npm Not Detected";
                 ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
             }
-            
+
         }
 
         private void IncrementComponentVersion()
@@ -411,7 +447,7 @@ namespace Maverick.PCF.Builder
                                 var filteredPcfDirs = pcfDirs.ToList().Where(l => (!l.ToLower().EndsWith("node_modules")) && (!l.ToLower().EndsWith("obj")) && (!l.ToLower().EndsWith("out")));
                                 foreach (var item in filteredPcfDirs)
                                 {
-                                    var indexExists = File.Exists(item + "\\" + "index.ts");
+                                    var indexExists = codeFileExists(item); //File.Exists(item + "\\" + "index.ts");
                                     if (indexExists)
                                     {
                                         txtControlName.Text = Path.GetFileName(item);
@@ -618,6 +654,178 @@ namespace Maverick.PCF.Builder
             }
         }
 
+        private void ParseProfileList(string output)
+        {
+            try
+            {
+                if (output.ToLower().Contains("  [1]"))
+                {
+                    // Split on \r\n
+                    char[] mainDelimiterChars = { '\r', '\n' };
+                    string[] mainSplit = output.Split(mainDelimiterChars);
+
+                    List<AuthenticationProfile> lstProfiles = new List<AuthenticationProfile>();
+
+                    foreach (var list in mainSplit)
+                    {
+                        if (list.StartsWith("  ["))
+                        {
+                            string[] innerSplit = list.Trim().Split(' ');
+
+                            if (innerSplit.Length > 0)
+                            {
+                                AuthenticationProfile profile = new AuthenticationProfile();
+
+                                if (innerSplit[1] == "*")
+                                {
+                                    Regex rgxIndex = new Regex("(\\[*\\]*)");
+                                    profile.Index = int.Parse(rgxIndex.Replace(innerSplit[0].Trim(), ""));
+                                    profile.EnvironmentUrl = innerSplit[3].Trim();
+                                    profile.UserName = innerSplit[5].Trim();
+                                    profile.IsCurrent = true;
+                                }
+                                else
+                                {
+
+                                    Regex rgxIndex = new Regex("(\\[*\\]*)");
+                                    profile.Index = int.Parse(rgxIndex.Replace(innerSplit[0].Trim(), ""));
+                                    profile.EnvironmentUrl = innerSplit[4].Trim();
+                                    profile.UserName = innerSplit[6].Trim();
+                                    profile.IsCurrent = false;
+                                }
+
+                                lstProfiles.Add(profile);
+                            }
+                        }
+                    }
+
+                    // Show List Form
+                    AuthenticationProfileForm frmProfile = new AuthenticationProfileForm(lstProfiles);
+                    frmProfile.StartPosition = FormStartPosition.CenterScreen;
+                    frmProfile.ParentControl = this;
+                    frmProfile.ShowDialog();
+
+                    // Perform Delete or Switch if selected
+                    switch (SelectedProfileAction)
+                    {
+                        case AuthProfileAction.SwitchCurrent:
+                            string switchProfile = Commands.Pac.SwitchCurrentProfile(SelectedProfileIndex);
+                            RunCommandLine(switchProfile);
+                            break;
+                        case AuthProfileAction.Delete:
+                            string deleteProfile = Commands.Pac.DeleteProfile(SelectedProfileIndex);
+                            RunCommandLine(deleteProfile);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                else if (output.ToLower().Contains("no profiles were found on this computer"))
+                {
+                    MessageBox.Show("No profiles were found on this computer.", "Profile List", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex.Message);
+                MessageBox.Show("An error occured while parsing the Authentication Profile list. Please report an issue on GitHub page.");
+            }
+        }
+
+        private string ParseOrgDetails(string output)
+        {
+            string orgDetails = string.Empty;
+
+            try
+            {
+                if (output.ToLower().Contains("organization information"))
+                {
+                    // Split on \r\n
+                    char[] mainDelimiterChars = { '\r', '\n' };
+                    string[] mainSplit = output.Split(mainDelimiterChars);
+
+                    string url = string.Empty;
+                    string username = string.Empty;
+
+                    foreach (string list in mainSplit)
+                    {
+                        if (string.IsNullOrEmpty(list))
+                        {
+                            orgDetails += "\n";
+                        }
+                        else if (list.Contains("Org ID:") || list.Contains("Unique Name:") || list.Contains("Friendly Name:"))
+                        {
+                            string[] innerSplit = list.Trim().Split(':');
+
+                            if (innerSplit.Length > 0)
+                            {
+                                orgDetails += innerSplit[0].Trim();
+                                orgDetails += ":";
+                                orgDetails += innerSplit[1].Trim();
+                            }
+                        }
+                        else if (list.Contains("Org URL:"))
+                        {
+                            string[] innerSplit = list.Trim().Split(' ');
+
+                            if (innerSplit.Length > 0)
+                            {
+                                orgDetails += "Org URL:";
+                                orgDetails += innerSplit[innerSplit.Length - 1].Trim();
+                            }
+                        }
+                        else if (list.Contains("User ID:"))
+                        {
+                            string[] innerSplit = list.Trim().Split(':');
+
+                            if (innerSplit.Length > 0)
+                            {
+                                string[] userSplit = innerSplit[1].Trim().Split(' ');
+
+                                if (userSplit.Length > 0)
+                                {
+                                    orgDetails += innerSplit[0].Trim();
+                                    orgDetails += ":";
+                                    orgDetails += userSplit[0].Trim();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            orgDetails += list + "\n";
+                        }
+                    }
+
+                }
+                else if (output.ToLower().Contains("no profiles were found on this computer"))
+                {
+                    orgDetails = "No profiles were found on this computer. Please create a new profile.";
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex.Message);
+                MessageBox.Show("An error occured while parsing the Org Details for Profile. Please report an issue on GitHub page.");
+            }
+
+            return orgDetails;
+        }
+
+        private void CheckDefaultAuthenticationProfile(object worker, DoWorkEventArgs args)
+        {
+            string[] commands = new string[] { Commands.Pac.OrgDetails() };
+            var output = CommandLineHelper.RunCommand(commands);
+
+            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("organization information"))
+            {
+                lblCurrentProfile.Text = ParseOrgDetails(output.Substring(output.IndexOf("Organization Information"), output.LastIndexOf("\r\n\r\n") - output.LastIndexOf("Organization Information")));
+            }
+            else if (output.ToLower().Contains("no profiles were found on this computer"))
+            {
+                lblCurrentProfile.Text = "No profiles found";
+            }
+        }
+
         #endregion
 
         public MainPluginControl()
@@ -645,24 +853,26 @@ namespace Maverick.PCF.Builder
             _mainPluginLocalWorker = new BackgroundWorker();
             _mainPluginLocalWorker.DoWork += CheckPacVersion;
             _mainPluginLocalWorker.DoWork += CheckNpmVersion;
+            _mainPluginLocalWorker.DoWork += CheckDefaultAuthenticationProfile;
             _mainPluginLocalWorker.RunWorkerAsync();
 
             StatusCheckExecution = false;
             BuildDeployExecution = false;
+            ListProfileExecution = false;
             CurrentCommandOutput = string.Empty;
 
             var isValid = AreMainControlsPopulated();
 
             if (isValid)
             {
-                CommandPromptInitialied = true;
+                CommandPromptInitialized = true;
                 InitCommandLine();
                 IdentifyControlDetails();
                 Routine_EditComponent();
             }
             else
             {
-                CommandPromptInitialied = false;
+                CommandPromptInitialized = false;
             }
         }
 
@@ -733,7 +943,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                if (!CommandPromptInitialied)
+                if (!CommandPromptInitialized)
                 {
                     InitCommandLine();
                 }
@@ -747,7 +957,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                if (!CommandPromptInitialied)
+                if (!CommandPromptInitialized)
                 {
                     InitCommandLine();
                 }
@@ -790,7 +1000,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                if (!CommandPromptInitialied)
+                if (!CommandPromptInitialized)
                 {
                     InitCommandLine();
                 }
@@ -1001,12 +1211,10 @@ namespace Maverick.PCF.Builder
 
         private void BtnTerminateProcess_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("This will stop the running process and reset the console.  Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            if (DialogResult.Yes == MessageBox.Show("This will stop the running process and reset the console. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
-                //consoleControl.StopProcess();
-                //consoleControl.ProcessInterface.Process.Kill();
                 consoleControl.ProcessInterface.Process.Close();
-                //consoleControl.ProcessInterface.Process.CancelOutputRead();
+
                 try
                 {
                     InitCommandLine();
@@ -1015,7 +1223,9 @@ namespace Maverick.PCF.Builder
                 {
                     // This is intentional error throwing
                     consoleControl.ClearOutput();
-                    RunCommandLine("Console Reset. Ready for further commands.");
+                    RunCommandLine("echo \n");
+                    RunCommandLine("echo Console Reset. Ready for further commands.\n");
+
                     SetProcessingStatus(ProcessingStatus.Complete);
                 }
             }
@@ -1170,54 +1380,11 @@ namespace Maverick.PCF.Builder
                     ReloadDetails = false;
                 }
 
+                if (ListProfileExecution)
+                {
+                    ParseProfileList(CurrentCommandOutput);
+                }
 
-                //if (async)
-                //{
-                //    WorkAsync(new WorkAsyncInfo
-                //    {
-                //        Message = $"Running {commandsToShow} commands. Please wait.",
-                //        Work = (worker, args) =>
-                //        {
-                //            var output = CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
-                //            args.Result = output;
-                //        },
-                //        PostWorkCallBack = (args) =>
-                //        {
-                //            //txtCommandPrompt.Clear();
-                //            //txtCommandPrompt.AppendText((string)args.Result);
-                //            //txtCommandPrompt.ScrollToCaret();
-
-                //            //if (commands.Contains(Commands.Npm.RunBuild()) || commands.Contains(Commands.Msbuild.Rebuild()))
-                //            //{
-                //            //    lblBuildStatus.Text = "Undetermined";
-                //            //    lblBuildStatus.ForeColor = Color.Gray;
-
-                //            //    if (((string)args.Result).ToLower().Contains("succeeded"))
-                //            //    {
-                //            //        lblBuildStatus.Text = "Succeeded";
-                //            //        lblBuildStatus.ForeColor = Color.LimeGreen;
-                //            //    }
-
-                //            //    if (((string)args.Result).ToLower().Contains("failed"))
-                //            //    {
-                //            //        lblBuildStatus.Text = "Failed";
-                //            //        lblBuildStatus.ForeColor = Color.DarkRed;
-                //            //    }
-                //            //}
-
-                //            //if (commandsToShow.Equals("npmBuild, msRestore, msRebuild") && ((string)args.Result).ToLower().Contains("succeeded"))
-                //            //{
-                //            //    // The ExecuteMethod method handles connecting to an
-                //            //    // organization if XrmToolBox is not yet connected
-                //            //    ExecuteMethod(DeployExistingCustomControl);
-                //            //}
-                //        }
-                //    });
-                //}
-                //else
-                //{
-                //    //CommandLineHelper.RunCommand(VisualStudioBatchFilePath, commands);
-                //}
             }
 
             consoleControl.InternalRichTextBox.ScrollToCaret();
@@ -1263,7 +1430,7 @@ namespace Maverick.PCF.Builder
 
         private void LblStatus_TextChanged(object sender, EventArgs e)
         {
-            if (lblStatus.Text.ToLower().Equals("running"))
+            if (lblStatus.Text.ToLower().Equals("running") && CommandPromptInitialized)
             {
                 btnTerminateProcess.Enabled = true;
             }
@@ -1273,39 +1440,65 @@ namespace Maverick.PCF.Builder
             }
         }
 
-        /*
-        private void BtnTestWithWatch_Click(object sender, EventArgs e)
+        private void tsbAuthProfile_ButtonClick(object sender, EventArgs e)
         {
-            var areMainControlsValid = AreMainControlsPopulated();
+            tsbAuthProfile.ShowDropDown();
+        }
 
-            if (areMainControlsValid)
+        private void tsmCreateProfile_Click(object sender, EventArgs e)
+        {
+            var ctrlInputDialog = new InputDialog("Create Profile", "Enter CDS environment URL:");
+            ctrlInputDialog.StartPosition = FormStartPosition.CenterScreen;
+            if (DialogResult.OK == ctrlInputDialog.ShowDialog())
             {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtExistsControlName.Text}");
-                string npmCommand = Commands.Npm.StartWatch();
-
-                // Using RunCommandHelper is causing issues.
-                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
+                if (CommandPromptInitialized)
+                {
+                    string createProfile = Commands.Pac.CreateProfile(ctrlInputDialog.TextInputValue);
+                    RunCommandLine(createProfile);
+                }
+                else
+                {
+                    lblErrors.Text = "Command Prompt not initialized. Wait for it to be initialized.";
+                }
             }
         }
 
-        private void BtnTestNewWithWatch_Click(object sender, EventArgs e)
+        private void tsmListProfiles_Click(object sender, EventArgs e)
         {
-            var areMainControlsValid = AreMainControlsPopulated();
-
-            if (areMainControlsValid)
+            if (CommandPromptInitialized)
             {
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder1.Text}\\{txtControlName.Text}");
-                string npmCommand = Commands.Npm.StartWatch();
-
-                // Using RunCommandHelper is causing issues.
-                Process.Start("cmd", $"/K \"{VisualStudioBatchFilePath}\" && {cdWorkingDir} && {npmCommand}");
+                string listProfile = Commands.Pac.ListProfiles();
+                RunCommandLine(listProfile);
+            }
+            else
+            {
+                lblErrors.Text = "Command Prompt not initialized. Wait for it to be initialized.";
             }
         }
 
-        private void LinklblInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void linklblQuickDeployLearn_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start(GetBrowserUrl());
+            System.Diagnostics.Process.Start("https://docs.microsoft.com/en-us/powerapps/developer/component-framework/import-custom-controls#deploying-code-components");
         }
-        */
+
+        private void btnQuickDeploy_Click(object sender, EventArgs e)
+        {
+            var isValid = AreMainControlsPopulated();
+
+            if (isValid)
+            {
+                var ctrlInputDialog = new InputDialog("Quick Deploy", "Enter your preferred Publisher Prefix:");
+                ctrlInputDialog.StartPosition = FormStartPosition.CenterScreen;
+                if (DialogResult.OK == ctrlInputDialog.ShowDialog())
+                {
+                    var publisherPrefix = ctrlInputDialog.TextInputValue;
+                    string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}");
+                    string quickDeployCommand = Commands.Pac.DeployWithoutSolution(publisherPrefix);
+
+                    RunCommandLine(cdWorkingDir, quickDeployCommand);
+                }
+            }
+        }
+
     }
 }
