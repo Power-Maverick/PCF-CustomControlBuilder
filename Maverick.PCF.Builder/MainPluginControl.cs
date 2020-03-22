@@ -30,9 +30,9 @@ namespace Maverick.PCF.Builder
 
         public string RepositoryName => "PCF-CustomControlBuilder";
 
-        public string UserName => "Danz-maveRICK";
+        public string UserName => "Power-Maverick";
 
-        public string HelpUrl => "https://github.com/Danz-maveRICK/PCF-CustomControlBuilder/blob/master/README.md";
+        public string HelpUrl => "https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/README.md";
 
         public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools.";
 
@@ -108,11 +108,31 @@ namespace Maverick.PCF.Builder
 
             foreach (var cmd in commands)
             {
-                consoleControl.WriteInput(cmd + "\n", Color.White, true);
+                consoleControl.WriteInput(cmd, Color.White, true);
             }
 
             //consoleControl.WriteInput("\r\n", Color.White, true);
             consoleControl.InternalRichTextBox.ScrollToCaret();
+        }
+
+        private void LogEvent(string eventName)
+        {
+            Telemetry.TrackEvent(eventName);
+        }
+
+        private void LogEventMetrics(string eventName, string metricName, double metric)
+        {
+            var metrics = new Dictionary<string, double>
+            {
+              { metricName, metric }
+            };
+
+            Telemetry.TrackEvent(eventName, null, metrics);
+        }
+
+        private void LogException(Exception ex)
+        {
+            Telemetry.TrackException(ex);
         }
 
         #endregion
@@ -262,6 +282,7 @@ namespace Maverick.PCF.Builder
         {
             try
             {
+                var start = DateTime.Now;
                 var mainDirs = Directory.GetDirectories(txtWorkingFolder.Text);
                 if (mainDirs != null && mainDirs.Count() > 0)
                 {
@@ -343,16 +364,22 @@ namespace Maverick.PCF.Builder
                 }
 
                 Routine_EditComponent();
+
+                var end = DateTime.Now;
+                var duration = end - start;
+                LogEventMetrics("IdentifyControlDetails", "ProcessingTime", duration.TotalMilliseconds);
             }
             catch (DirectoryNotFoundException dnex)
             {
                 MessageBox.Show("Invalid directory. Could not retrieve existing PCF project and CDS solution project details.");
                 Routine_NewComponent();
+                LogException(dnex);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occured while retrieving existing project details. Please report an issue on GitHub page.");
                 Routine_NewComponent();
+                LogException(ex);
             }
         }
 
@@ -370,6 +397,8 @@ namespace Maverick.PCF.Builder
 
         private void CheckPacVersion(object worker, DoWorkEventArgs args)
         {
+            var start = DateTime.Now;
+
             string[] commands = new string[] { Commands.Pac.Check() };
             var output = CommandLineHelper.RunCommand(commands);
 
@@ -404,10 +433,15 @@ namespace Maverick.PCF.Builder
             {
                 lblPCFCLIVersionMsg.Text = "PCF CLI Not Detected";
             }
+
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("CheckPacVersion", "ProcessingTime", duration.TotalMilliseconds);
         }
 
         private void CheckNpmVersion(object worker, DoWorkEventArgs args)
         {
+            var start = DateTime.Now;
             string[] commands = new string[] { Commands.Npm.Version() };
             var output = CommandLineHelper.RunCommand(commands);
 
@@ -423,11 +457,14 @@ namespace Maverick.PCF.Builder
                 lblnpmVersionMsg.Text = "npm Not Detected";
                 ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
             }
-
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("CheckNpmVersion", "ProcessingTime", duration.TotalMilliseconds);
         }
 
         private void IncrementComponentVersion()
         {
+            var start = DateTime.Now;
             if (chkIncrementComponentVersion.Checked)
             {
                 try
@@ -471,16 +508,22 @@ namespace Maverick.PCF.Builder
                 catch (DirectoryNotFoundException dnex)
                 {
                     MessageBox.Show("Invalid directory. Could not retrieve existing PCF project.");
+                    Telemetry.TrackException(dnex);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occured while updating the version. Please report an issue on GitHub page.");
+                    Telemetry.TrackException(ex);
                 }
             }
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("IncrementComponentVersion", "ProcessingTime", duration.TotalMilliseconds);
         }
 
         private void IncrementSolutionVersion()
         {
+            var start = DateTime.Now;
             if (chkIncrementSolutionVersion.Checked)
             {
                 try
@@ -521,12 +564,17 @@ namespace Maverick.PCF.Builder
                 catch (DirectoryNotFoundException dnex)
                 {
                     MessageBox.Show("Invalid directory. Could not retrieve existing PCF project.");
+                    Telemetry.TrackException(dnex);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occured while updating the version. Please report an issue on GitHub page.");
+                    Telemetry.TrackException(ex);
                 }
             }
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("IncrementSolutionVersion", "ProcessingTime", duration.TotalMilliseconds);
         }
 
         private bool SaveSettings()
@@ -568,11 +616,17 @@ namespace Maverick.PCF.Builder
                 Message = "Importing solution package to CDS",
                 Work = (worker, args) =>
                 {
+                    var start = DateTime.Now;
+
                     ImportSolutionRequest impSolReq = new ImportSolutionRequest()
                     {
                         CustomizationFile = fileBytes
                     };
                     args.Result = Service.Execute(impSolReq);
+
+                    var end = DateTime.Now;
+                    var duration = end - start;
+                    LogEventMetrics("ImportSolutionInD365CE", "ProcessingTime", duration.TotalMilliseconds);
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -600,8 +654,14 @@ namespace Maverick.PCF.Builder
                 Message = "Publishing",
                 Work = (worker, args) =>
                 {
+                    var start = DateTime.Now;
+
                     var publishRequest = new PublishAllXmlRequest();
                     args.Result = Service.Execute(publishRequest);
+
+                    var end = DateTime.Now;
+                    var duration = end - start;
+                    LogEventMetrics("PublishAll", "ProcessingTime", duration.TotalMilliseconds);
                 },
                 PostWorkCallBack = (args) =>
                 {
@@ -656,6 +716,8 @@ namespace Maverick.PCF.Builder
 
         private void ParseProfileList(string output)
         {
+            var start = DateTime.Now;
+
             try
             {
                 if (output.ToLower().Contains("  [1]"))
@@ -729,7 +791,12 @@ namespace Maverick.PCF.Builder
             {
                 LogError(ex.Message);
                 MessageBox.Show("An error occured while parsing the Authentication Profile list. Please report an issue on GitHub page.");
+                Telemetry.TrackException(ex);
             }
+
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("ParseProfileList", "ProcessingTime", duration.TotalMilliseconds);
         }
 
         private string ParseOrgDetails(string output)
@@ -836,6 +903,7 @@ namespace Maverick.PCF.Builder
         private void MainPluginControl_Load(object sender, EventArgs e)
         {
             //ShowInfoNotification("This is a notification that can lead to XrmToolBox repository", new Uri("https://github.com/MscrmTools/XrmToolBox"));
+            var start = DateTime.Now;
 
             // Loads or creates the settings for the plugin
             if (!SettingsManager.Instance.TryLoad(GetType(), out pluginSettings))
@@ -874,10 +942,15 @@ namespace Maverick.PCF.Builder
             {
                 CommandPromptInitialized = false;
             }
+
+            var stop = DateTime.Now;
+            var duration = stop - start;
+            LogEventMetrics("Load", "LoadTime", duration.TotalMilliseconds);
         }
 
         private void tsbClose_Click(object sender, EventArgs e)
         {
+            LogEvent("Close");
             CloseTool();
         }
 
@@ -1027,7 +1100,7 @@ namespace Maverick.PCF.Builder
 
         private void LinklblCreator_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://twitter.com/DanzMaverick");
+            System.Diagnostics.Process.Start("https://twitter.com/PCFBuilder");
         }
 
         private void TspSettings_Click(object sender, EventArgs e)

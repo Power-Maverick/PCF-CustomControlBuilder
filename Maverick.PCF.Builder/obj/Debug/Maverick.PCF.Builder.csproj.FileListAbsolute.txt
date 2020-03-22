@@ -51,6 +51,6 @@ C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csproj.GenerateResource.cache
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.dll
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.pdb
-C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csprojAssemblyReference.cache
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.InputDialog.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.AuthenticationProfileForm.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csprojAssemblyReference.cache

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
+using Maverick.PCF.Builder.Helper;
 
 namespace Maverick.PCF.Builder
 {
@@ -36,6 +37,8 @@ namespace Maverick.PCF.Builder
             // If you have external assemblies that you need to load, uncomment the following to 
             // hook into the event that will fire when an Assembly fails to resolve
             // AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
+
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
         }
 
         /// <summary>
@@ -79,6 +82,18 @@ namespace Maverick.PCF.Builder
             }
 
             return loadAssembly;
+        }
+
+        /// <summary>
+        /// Event fired when unhandled exception is thrown by the tool
+        /// Exception details are sent ovet to AppInsights
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+            Telemetry.TrackException(ex);
         }
     }
 }

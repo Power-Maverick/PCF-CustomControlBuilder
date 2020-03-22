@@ -68,7 +68,9 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
             this.lblnpmVersionMsg = new System.Windows.Forms.Label();
+            this.lblCurrentProfile = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtVSCmdPrompt = new System.Windows.Forms.TextBox();
@@ -94,6 +96,7 @@
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
             this.btnQuickDeploy = new System.Windows.Forms.Button();
             this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
             this.chkIncrementComponentVersion = new System.Windows.Forms.CheckBox();
@@ -114,9 +117,6 @@
             this.txtWorkingFolder = new System.Windows.Forms.TextBox();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
-            this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
-            this.lblCurrentProfile = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -392,12 +392,12 @@
             this.linklblCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblCreator.Image = ((System.Drawing.Image)(resources.GetObject("linklblCreator.Image")));
             this.linklblCreator.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linklblCreator.Location = new System.Drawing.Point(1157, 0);
+            this.linklblCreator.Location = new System.Drawing.Point(1153, 0);
             this.linklblCreator.Name = "linklblCreator";
-            this.linklblCreator.Size = new System.Drawing.Size(156, 23);
+            this.linklblCreator.Size = new System.Drawing.Size(160, 23);
             this.linklblCreator.TabIndex = 19;
             this.linklblCreator.TabStop = true;
-            this.linklblCreator.Text = "by Danish (Danz-Maverick)";
+            this.linklblCreator.Text = "by Danish (Power Maverick)";
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
@@ -480,6 +480,15 @@
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
             // 
+            // lblCurrentProfileLabel
+            // 
+            this.lblCurrentProfileLabel.AutoSize = true;
+            this.lblCurrentProfileLabel.Location = new System.Drawing.Point(15, 487);
+            this.lblCurrentProfileLabel.Name = "lblCurrentProfileLabel";
+            this.lblCurrentProfileLabel.Size = new System.Drawing.Size(144, 13);
+            this.lblCurrentProfileLabel.TabIndex = 30;
+            this.lblCurrentProfileLabel.Text = "Current Authentication Profile";
+            // 
             // lblnpmVersionMsg
             // 
             this.lblnpmVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -489,6 +498,13 @@
             this.lblnpmVersionMsg.TabIndex = 27;
             this.lblnpmVersionMsg.Text = "Detecting npm version";
             this.lblnpmVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lblCurrentProfile
+            // 
+            this.lblCurrentProfile.Location = new System.Drawing.Point(17, 504);
+            this.lblCurrentProfile.Name = "lblCurrentProfile";
+            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 138);
+            this.lblCurrentProfile.TabIndex = 29;
             // 
             // lblStatus
             // 
@@ -766,6 +782,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Component Details";
             // 
+            // linklblQuickDeployLearn
+            // 
+            this.linklblQuickDeployLearn.AutoSize = true;
+            this.linklblQuickDeployLearn.Location = new System.Drawing.Point(421, 158);
+            this.linklblQuickDeployLearn.Name = "linklblQuickDeployLearn";
+            this.linklblQuickDeployLearn.Size = new System.Drawing.Size(61, 13);
+            this.linklblQuickDeployLearn.TabIndex = 28;
+            this.linklblQuickDeployLearn.TabStop = true;
+            this.linklblQuickDeployLearn.Text = "Learn More";
+            this.linklblQuickDeployLearn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblQuickDeployLearn_LinkClicked);
+            // 
             // btnQuickDeploy
             // 
             this.btnQuickDeploy.Location = new System.Drawing.Point(328, 132);
@@ -952,33 +979,6 @@
             this.btnWorkingFolderSelector.Text = "...";
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
-            // 
-            // linklblQuickDeployLearn
-            // 
-            this.linklblQuickDeployLearn.AutoSize = true;
-            this.linklblQuickDeployLearn.Location = new System.Drawing.Point(421, 158);
-            this.linklblQuickDeployLearn.Name = "linklblQuickDeployLearn";
-            this.linklblQuickDeployLearn.Size = new System.Drawing.Size(61, 13);
-            this.linklblQuickDeployLearn.TabIndex = 28;
-            this.linklblQuickDeployLearn.TabStop = true;
-            this.linklblQuickDeployLearn.Text = "Learn More";
-            this.linklblQuickDeployLearn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblQuickDeployLearn_LinkClicked);
-            // 
-            // lblCurrentProfileLabel
-            // 
-            this.lblCurrentProfileLabel.AutoSize = true;
-            this.lblCurrentProfileLabel.Location = new System.Drawing.Point(15, 487);
-            this.lblCurrentProfileLabel.Name = "lblCurrentProfileLabel";
-            this.lblCurrentProfileLabel.Size = new System.Drawing.Size(144, 13);
-            this.lblCurrentProfileLabel.TabIndex = 30;
-            this.lblCurrentProfileLabel.Text = "Current Authentication Profile";
-            // 
-            // lblCurrentProfile
-            // 
-            this.lblCurrentProfile.Location = new System.Drawing.Point(17, 504);
-            this.lblCurrentProfile.Name = "lblCurrentProfile";
-            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 138);
-            this.lblCurrentProfile.TabIndex = 29;
             // 
             // MainPluginControl
             // 

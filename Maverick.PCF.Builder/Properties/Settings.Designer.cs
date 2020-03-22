@@ -31,5 +31,14 @@ namespace Maverick.PCF.Builder.Properties {
                 return ((string)(this["PcfGalleryTemplateUri"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("bdd1339a-cc2f-4568-b061-7a7fcc3f5597")]
+        public string AppInsightsInstrumentationKey {
+            get {
+                return ((string)(this["AppInsightsInstrumentationKey"]));
+            }
+        }
     }
 }
