@@ -1,12 +1,9 @@
 ﻿---- NEW FEATURES ----
-1. Ability to create new Authentication Profiles
-2. List or delete existing authentication profiles
-3. Change current profile
-4. Quick deployment using 'pac pcf push' command
+1. AppInsights added to capture logs
 
 ---- UPDATES ----
-No updates this time
+1. Fixed GitHub help URL
+2. Updated PCF Builder logo
 
 ---- BUG FIXES ----
-1. Issue #15 resolved
-2. Issue #16 resolved
+No bugs reported
