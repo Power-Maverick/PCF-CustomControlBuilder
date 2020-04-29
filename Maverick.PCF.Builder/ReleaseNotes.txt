@@ -1,9 +1,9 @@
 ﻿---- NEW FEATURES ----
-1. AppInsights added to capture logs
+1. Added link to Tool Performance report
 
 ---- UPDATES ----
-1. Fixed GitHub help URL
-2. Updated PCF Builder logo
+1. Open in VS Code now opens the working directory
+2. Icon updated
 
 ---- BUG FIXES ----
 No bugs reported

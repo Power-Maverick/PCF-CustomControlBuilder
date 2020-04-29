@@ -68,6 +68,7 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.linklblPowerBiReport = new System.Windows.Forms.LinkLabel();
             this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
             this.lblnpmVersionMsg = new System.Windows.Forms.Label();
             this.lblCurrentProfile = new System.Windows.Forms.Label();
@@ -79,7 +80,7 @@
             this.btnRefreshDetails = new System.Windows.Forms.Button();
             this.lblErrors = new System.Windows.Forms.Label();
             this.btnDeploy = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.chkManagedSolution = new System.Windows.Forms.CheckBox();
@@ -120,7 +121,7 @@
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.gboxCommandPrompt.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -455,6 +456,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.linklblPowerBiReport);
             this.pnlMain.Controls.Add(this.lblCurrentProfileLabel);
             this.pnlMain.Controls.Add(this.lblnpmVersionMsg);
             this.pnlMain.Controls.Add(this.lblCurrentProfile);
@@ -468,7 +470,7 @@
             this.pnlMain.Controls.Add(this.lblPCFCLIVersionMsg);
             this.pnlMain.Controls.Add(this.btnDeploy);
             this.pnlMain.Controls.Add(this.gboxQuickAction);
-            this.pnlMain.Controls.Add(this.groupBox3);
+            this.pnlMain.Controls.Add(this.gboxCommandPrompt);
             this.pnlMain.Controls.Add(this.groupBox2);
             this.pnlMain.Controls.Add(this.groupBox1);
             this.pnlMain.Controls.Add(this.label3);
@@ -479,6 +481,18 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // linklblPowerBiReport
+            // 
+            this.linklblPowerBiReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.linklblPowerBiReport.AutoSize = true;
+            this.linklblPowerBiReport.Location = new System.Drawing.Point(1040, 725);
+            this.linklblPowerBiReport.Name = "linklblPowerBiReport";
+            this.linklblPowerBiReport.Size = new System.Drawing.Size(242, 13);
+            this.linklblPowerBiReport.TabIndex = 31;
+            this.linklblPowerBiReport.TabStop = true;
+            this.linklblPowerBiReport.Text = "Check out the report on how the tool is performing";
+            this.linklblPowerBiReport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblPowerBiReport_LinkClicked);
             // 
             // lblCurrentProfileLabel
             // 
@@ -587,18 +601,18 @@
             this.btnDeploy.UseVisualStyleBackColor = true;
             this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
             // 
-            // groupBox3
+            // gboxCommandPrompt
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gboxCommandPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.consoleControl);
-            this.groupBox3.Location = new System.Drawing.Point(529, 79);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(756, 640);
-            this.groupBox3.TabIndex = 19;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Command Prompt";
+            this.gboxCommandPrompt.Controls.Add(this.consoleControl);
+            this.gboxCommandPrompt.Location = new System.Drawing.Point(529, 79);
+            this.gboxCommandPrompt.Name = "gboxCommandPrompt";
+            this.gboxCommandPrompt.Size = new System.Drawing.Size(756, 640);
+            this.gboxCommandPrompt.TabIndex = 19;
+            this.gboxCommandPrompt.TabStop = false;
+            this.gboxCommandPrompt.Text = "Command Prompt";
             // 
             // consoleControl
             // 
@@ -799,7 +813,7 @@
             this.btnQuickDeploy.Name = "btnQuickDeploy";
             this.btnQuickDeploy.Size = new System.Drawing.Size(148, 23);
             this.btnQuickDeploy.TabIndex = 27;
-            this.btnQuickDeploy.Text = "Deploy without Solution file";
+            this.btnQuickDeploy.Text = "Quick Deploy (Testing only)";
             this.btnQuickDeploy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolTip.SetToolTip(this.btnQuickDeploy, "This uses \'pac pcf push\' command");
             this.btnQuickDeploy.UseVisualStyleBackColor = true;
@@ -995,7 +1009,7 @@
             this.gboxQuickAction.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
+            this.gboxCommandPrompt.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -1036,7 +1050,7 @@
         private System.Windows.Forms.Label lblPCFCLIVersionMsg;
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Button btnDeploy;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox gboxCommandPrompt;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnAddComponentToSolution;
         private System.Windows.Forms.Button btnCreateSolution;
@@ -1093,5 +1107,6 @@
         private System.Windows.Forms.LinkLabel linklblQuickDeployLearn;
         private System.Windows.Forms.Label lblCurrentProfileLabel;
         private System.Windows.Forms.Label lblCurrentProfile;
+        private System.Windows.Forms.LinkLabel linklblPowerBiReport;
     }
 }

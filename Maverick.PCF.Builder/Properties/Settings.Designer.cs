@@ -40,5 +40,15 @@ namespace Maverick.PCF.Builder.Properties {
                 return ((string)(this["AppInsightsInstrumentationKey"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://app.powerbi.com/view?r=eyJrIjoiZTY4N2E1ODQtZWQ5Ny00NjJmLWI5OTctNjIwYmU5MG" +
+            "UxMjNjIiwidCI6IjMxYzIwYTIzLTJlZDItNDY4ZC1iYWFiLTQyZWRmOTk4MTI4YiIsImMiOjF9")]
+        public string AppInsightsPowerBiReport {
+            get {
+                return ((string)(this["AppInsightsPowerBiReport"]));
+            }
+        }
     }
 }

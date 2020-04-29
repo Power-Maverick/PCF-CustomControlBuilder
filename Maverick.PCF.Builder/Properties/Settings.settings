@@ -8,5 +8,8 @@
     <Setting Name="AppInsightsInstrumentationKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">bdd1339a-cc2f-4568-b061-7a7fcc3f5597</Value>
     </Setting>
+    <Setting Name="AppInsightsPowerBiReport" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://app.powerbi.com/view?r=eyJrIjoiZTY4N2E1ODQtZWQ5Ny00NjJmLWI5OTctNjIwYmU5MGUxMjNjIiwidCI6IjMxYzIwYTIzLTJlZDItNDY4ZC1iYWFiLTQyZWRmOTk4MTI4YiIsImMiOjF9</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

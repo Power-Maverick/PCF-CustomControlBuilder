@@ -1248,7 +1248,7 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                string vscodeopen = $"code \"{txtWorkingFolder.Text}\\{txtControlName.Text}\"";
+                string vscodeopen = $"code \"{txtWorkingFolder.Text}\"";
 
                 RunCommandLine(vscodeopen);
             }
@@ -1573,5 +1573,9 @@ namespace Maverick.PCF.Builder
             }
         }
 
+        private void linklblPowerBiReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(Properties.Settings.Default["AppInsightsPowerBiReport"].ToString());
+        }
     }
 }
