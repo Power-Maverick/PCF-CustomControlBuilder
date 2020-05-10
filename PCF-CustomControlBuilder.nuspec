@@ -8,7 +8,7 @@
     <owners>Power-Maverick</owners>
     <projectUrl>https://github.com/Power-Maverick/PCF-CustomControlBuilder</projectUrl>
     <iconUrl>https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/icon/PCCB_Icon.png</iconUrl>
-    <icon>PCFCustomControlBuilder\bin\Release\PCCB_Icon.png</icon>
+    <icon>PCCB_Icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
