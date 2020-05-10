@@ -51,6 +51,7 @@ namespace Maverick.PCF.Builder
         public bool ListProfileExecution { get; set; }
         public AuthProfileAction SelectedProfileAction { get; set; }
         public int SelectedProfileIndex { get; set; }
+        public bool RefreshCurrentProfile { get; set; }
 
         public enum ProcessingStatus
         {
@@ -81,11 +82,15 @@ namespace Maverick.PCF.Builder
 
         private void InitCommandLine()
         {
-            consoleControl.StartProcess("cmd", $"/K \"{txtVSCmdPrompt.Text}\"");
+            consoleControl.StartProcess("cmd", $"/K powershell");
         }
 
         private void RunCommandLine(params string[] commands)
         {
+            // Make sure display is not corrupted when clicked anywhere on the console
+            consoleControl.InternalRichTextBox.SelectionStart = consoleControl.InternalRichTextBox.Text.Length;
+            consoleControl.InternalRichTextBox.SelectionLength = 0;
+
             CurrentCommandOutput = string.Empty;
             if (commands.Contains(Commands.Npm.RunBuild())
                 || commands.Contains(Commands.Msbuild.Rebuild())
@@ -104,6 +109,14 @@ namespace Maverick.PCF.Builder
             else
             {
                 ListProfileExecution = false;
+            }
+
+            // If any pac auth command found then refrsh the current auth profile details on form
+            if (commands.Any(s => s.Contains("pac auth")))
+            {
+                _mainPluginLocalWorker = new BackgroundWorker();
+                _mainPluginLocalWorker.DoWork += CheckDefaultAuthenticationProfile;
+                _mainPluginLocalWorker.RunWorkerAsync();
             }
 
             foreach (var cmd in commands)
@@ -143,44 +156,28 @@ namespace Maverick.PCF.Builder
         {
             lblErrors.Text = string.Empty;
             bool isWorkingFolderValid = true;
-            bool isVSCmdPromptValid = true;
 
-            isVSCmdPromptValid = IsVSCommandPromptLocationPopulated(true);
             isWorkingFolderValid = IsWorkingFolderPopulated(false);
 
-            if (isWorkingFolderValid && isVSCmdPromptValid)
+            if (isWorkingFolderValid)
             {
                 lblErrors.Text = string.Empty;
             }
 
-            bool isValid = isWorkingFolderValid && isVSCmdPromptValid;
-
-            return isValid;
-        }
-
-        private bool IsVSCommandPromptLocationPopulated(bool clearError)
-        {
-            if (clearError)
+            if (string.IsNullOrEmpty(txtNamespace.Text))
             {
-                lblErrors.Text = string.Empty;
+                lblErrors.Text = "Namespace is required.";
+            }
+            if (string.IsNullOrEmpty(txtControlName.Text))
+            {
+                lblErrors.Text += "\nControl Name is required.";
+            }
+            if (cboxTemplate.SelectedIndex == -1)
+            {
+                lblErrors.Text += "\nTemplate selection is required.";
             }
 
-            bool isValid = true;
-            if (string.IsNullOrEmpty(txtVSCmdPrompt.Text))
-            {
-                lblErrors.Text += "\nVisual Studio Developer Command Prompt executable location is required.";
-                isValid = false;
-            }
-            if (!string.IsNullOrEmpty(txtVSCmdPrompt.Text) && !txtVSCmdPrompt.Text.EndsWith("VsDevCmd.bat"))
-            {
-                lblErrors.Text += "\nSelect a proper Visual Studio Developer Command Prompt executable ending in \"VsDevCmd.bat\".";
-                isValid = false;
-            }
-
-            if (isValid && clearError)
-            {
-                lblErrors.Text = string.Empty;
-            }
+            bool isValid = isWorkingFolderValid && string.IsNullOrEmpty(lblErrors.Text);
 
             return isValid;
         }
@@ -213,7 +210,7 @@ namespace Maverick.PCF.Builder
             lblErrors.Text = string.Empty;
             if (string.IsNullOrEmpty(txtSolutionName.Text))
             {
-                lblErrors.Text = "Deployment Folder Name is required.";
+                lblErrors.Text = "Solution Name is required.";
                 isValid = false;
             }
             if (string.IsNullOrEmpty(txtPublisherName.Text))
@@ -255,10 +252,21 @@ namespace Maverick.PCF.Builder
             txtPublisherPrefix.Clear();
             txtSolutionVersion.Clear();
 
+            txtControlName.Enabled = true;
+            txtNamespace.Enabled = true;
             cboxTemplate.Enabled = true;
+            txtSolutionName.Enabled = true;
+            txtPublisherName.Enabled = true;
+            txtPublisherPrefix.Enabled = true;
             btnCreateComponent.Enabled = true;
             btnCreateSolution.Enabled = true;
             btnRefreshDetails.Enabled = false;
+
+            lblControlInitStatus.Text = "❌ Not Initialized";
+            lblControlInitStatus.ForeColor = Color.Firebrick;
+
+            lblSolutionInitStatus.Text = "❌ Not Initialized";
+            lblSolutionInitStatus.ForeColor = Color.Firebrick;
         }
 
         private void Routine_EditComponent()
@@ -267,14 +275,59 @@ namespace Maverick.PCF.Builder
 
             if (!string.IsNullOrEmpty(txtControlName.Text))
             {
-                cboxTemplate.Text = "N/A";
+                txtControlName.Enabled = false;
+                txtNamespace.Enabled = false;
                 cboxTemplate.Enabled = false;
                 btnCreateComponent.Enabled = false;
+
+                lblControlInitStatus.Text = "✔ Initialized";
+                lblControlInitStatus.ForeColor = Color.ForestGreen;
             }
 
             if (!string.IsNullOrEmpty(txtSolutionName.Text))
             {
+                txtSolutionName.Enabled = false;
+                txtPublisherName.Enabled = false;
+                txtPublisherPrefix.Enabled = false;
                 btnCreateSolution.Enabled = false;
+
+                lblSolutionInitStatus.Text = "✔ Initialized";
+                lblSolutionInitStatus.ForeColor = Color.ForestGreen;
+            }
+        }
+
+        private void Routine_SolutionNotFound()
+        {
+            txtSolutionName.Enabled = true;
+            txtPublisherName.Enabled = true;
+            txtPublisherPrefix.Enabled = true;
+            btnCreateSolution.Enabled = true;
+
+            txtPublisherName.Clear();
+            txtSolutionName.Clear();
+            txtPublisherPrefix.Clear();
+            txtSolutionVersion.Clear();
+
+            lblSolutionInitStatus.Text = "❌ Not Initialized";
+            lblSolutionInitStatus.ForeColor = Color.Firebrick;
+
+            TryLoadCDSDetailsFromSettings();
+        }
+
+        private void TryLoadPCFDetailsFromSettings()
+        {
+            if (pluginSettings.AlwaysLoadNamespaceFromSettings)
+            {
+                txtNamespace.Text = pluginSettings.ControlNamespace;
+            }
+        }
+
+        private void TryLoadCDSDetailsFromSettings()
+        {
+            if (pluginSettings.AlwaysLoadPublisherDetailsFromSettings)
+            {
+                txtPublisherName.Text = pluginSettings.PublisherName;
+                txtPublisherPrefix.Text = pluginSettings.PublisherPrefix;
             }
         }
 
@@ -282,6 +335,8 @@ namespace Maverick.PCF.Builder
         {
             try
             {
+                bool loadEditRoutine = true;
+
                 var start = DateTime.Now;
                 var mainDirs = Directory.GetDirectories(txtWorkingFolder.Text);
                 if (mainDirs != null && mainDirs.Count() > 0)
@@ -312,6 +367,18 @@ namespace Maverick.PCF.Builder
                                             var control_version = xmlReader.GetAttribute("version");
                                             txtComponentVersion.Text = control_version;
                                         }
+
+                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "data-set"))
+                                        {
+                                            cboxTemplate.SelectedIndex = 1;
+                                            // break - as this would be the last one
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            // Assume it is Field Type
+                                            cboxTemplate.SelectedIndex = 0;
+                                        }
                                     }
                                     xmlReader.Close();
                                     break;
@@ -321,6 +388,11 @@ namespace Maverick.PCF.Builder
                         }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Could not retrieve existing PCF project and CDS solution project details.");
+                    loadEditRoutine = false;
+                }
 
                 if (!string.IsNullOrEmpty(txtControlName.Text))
                 {
@@ -329,6 +401,12 @@ namespace Maverick.PCF.Builder
                     if (controlDirs != null && controlDirs.Count() > 0)
                     {
                         var filteredControlDirs = controlDirs.ToList().Where(l => (!l.ToLower().EndsWith("generated")));
+
+                        if (filteredControlDirs.Count() == 0)
+                        {
+                            Routine_SolutionNotFound();
+                        }
+
                         foreach (var item in filteredControlDirs)
                         {
                             var cdsprojName = Path.GetFileName(item);
@@ -336,7 +414,7 @@ namespace Maverick.PCF.Builder
                             if (cdsprojExists)
                             {
                                 txtSolutionName.Text = cdsprojName;
-                                var solutionFile = item + "\\Other\\Solution.xml";
+                                var solutionFile = File.Exists(item + "\\Other\\Solution.xml") ? item + "\\Other\\Solution.xml" : item + "\\src\\Other\\Solution.xml";
                                 XmlReader xmlReader = XmlReader.Create(solutionFile);
                                 while (xmlReader.Read())
                                 {
@@ -359,11 +437,22 @@ namespace Maverick.PCF.Builder
                                 xmlReader.Close();
                                 break;
                             }
+                            else
+                            {
+                                Routine_SolutionNotFound();
+                            }
                         }
                     }
                 }
 
-                Routine_EditComponent();
+                if (loadEditRoutine)
+                {
+                    Routine_EditComponent();
+                }
+                else
+                {
+                    Routine_NewComponent();
+                }
 
                 var end = DateTime.Now;
                 var duration = end - start;
@@ -462,6 +551,37 @@ namespace Maverick.PCF.Builder
             LogEventMetrics("CheckNpmVersion", "ProcessingTime", duration.TotalMilliseconds);
         }
 
+        private string FindMsBuildPath()
+        {
+            string msBuildPath = string.Empty;
+
+            if (!string.IsNullOrEmpty(pluginSettings.MsBuildLocation))
+            {
+                msBuildPath = pluginSettings.MsBuildLocation;
+            }
+            else
+            {
+                string[] commands = new string[] { Commands.Cmd.FindMsBuild() };
+                var output = CommandLineHelper.RunCommand(commands);
+
+                if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("msbuild.ps1"))
+                {
+                    msBuildPath = output.Substring(output.IndexOf("msbuild.ps1")).Split('\r')[1].Trim();
+                }
+
+                if (msBuildPath.Equals("Unable to find msbuild", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    MessageBox.Show(msBuildPath + ". Please install MsBuild or Visual Studio.", "MsBuild Not Found", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msBuildPath = string.Empty;
+
+                }
+
+                pluginSettings.MsBuildLocation = msBuildPath;
+            }
+
+            return msBuildPath;
+        }
+
         private void IncrementComponentVersion()
         {
             var start = DateTime.Now;
@@ -546,7 +666,7 @@ namespace Maverick.PCF.Builder
                                 if (cdsprojExists)
                                 {
                                     txtSolutionName.Text = cdsprojName;
-                                    var solutionFile = item + "\\Other\\Solution.xml";
+                                    var solutionFile = File.Exists(item + "\\Other\\Solution.xml") ? item + "\\Other\\Solution.xml" : item + "\\src\\Other\\Solution.xml";
 
                                     XmlDocument xmlDoc = new XmlDocument();
                                     xmlDoc.Load(solutionFile);
@@ -720,19 +840,20 @@ namespace Maverick.PCF.Builder
 
             try
             {
-                if (output.ToLower().Contains("  [1]"))
+                if (output.ToLower().Contains("[1]"))
                 {
                     // Split on \r\n
-                    char[] mainDelimiterChars = { '\r', '\n' };
+                    char[] mainDelimiterChars = { '[' };
                     string[] mainSplit = output.Split(mainDelimiterChars);
 
                     List<AuthenticationProfile> lstProfiles = new List<AuthenticationProfile>();
 
                     foreach (var list in mainSplit)
                     {
-                        if (list.StartsWith("  ["))
+                        if (Regex.IsMatch(list, @"^\d"))
                         {
                             string[] innerSplit = list.Trim().Split(' ');
+                            innerSplit = innerSplit.Where(isp => !string.IsNullOrEmpty(isp)).ToArray();
 
                             if (innerSplit.Length > 0)
                             {
@@ -742,8 +863,11 @@ namespace Maverick.PCF.Builder
                                 {
                                     Regex rgxIndex = new Regex("(\\[*\\]*)");
                                     profile.Index = int.Parse(rgxIndex.Replace(innerSplit[0].Trim(), ""));
+                                    profile.EnvironmentType = innerSplit[2].Trim();
                                     profile.EnvironmentUrl = innerSplit[3].Trim();
-                                    profile.UserName = innerSplit[5].Trim();
+
+                                    var username = innerSplit[5].Trim();
+                                    profile.UserName = username.EndsWith("PS") ? username.Substring(0, username.Length - 2) : username;
                                     profile.IsCurrent = true;
                                 }
                                 else
@@ -751,8 +875,11 @@ namespace Maverick.PCF.Builder
 
                                     Regex rgxIndex = new Regex("(\\[*\\]*)");
                                     profile.Index = int.Parse(rgxIndex.Replace(innerSplit[0].Trim(), ""));
-                                    profile.EnvironmentUrl = innerSplit[4].Trim();
-                                    profile.UserName = innerSplit[6].Trim();
+                                    profile.EnvironmentType = innerSplit[1].Trim();
+                                    profile.EnvironmentUrl = innerSplit[2].Trim();
+
+                                    var username = innerSplit[4].Trim();
+                                    profile.UserName = username.EndsWith("PS") ? username.Substring(0, username.Length - 2) : username;
                                     profile.IsCurrent = false;
                                 }
 
@@ -883,14 +1010,28 @@ namespace Maverick.PCF.Builder
             string[] commands = new string[] { Commands.Pac.OrgDetails() };
             var output = CommandLineHelper.RunCommand(commands);
 
+            // Sometimes wen current org is change 'org who' command doesnt quickly respond with the change.
+            // So check again to see if output changed?
+            var second_output = CommandLineHelper.RunCommand(commands);
+            if (!output.Trim().Equals(second_output.Trim(), StringComparison.InvariantCultureIgnoreCase))
+            {
+                output = second_output;
+            }
+
             if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("organization information"))
             {
                 lblCurrentProfile.Text = ParseOrgDetails(output.Substring(output.IndexOf("Organization Information"), output.LastIndexOf("\r\n\r\n") - output.LastIndexOf("Organization Information")));
+            }
+            else if (output.ToLower().Contains("error: unable to login to dynamics crm"))
+            {
+                lblCurrentProfile.Text = "Unable to login into current profile. Please delete and re-authenticate.";
             }
             else if (output.ToLower().Contains("no profiles were found on this computer"))
             {
                 lblCurrentProfile.Text = "No profiles found";
             }
+
+
         }
 
         #endregion
@@ -913,7 +1054,6 @@ namespace Maverick.PCF.Builder
             }
             else
             {
-                txtVSCmdPrompt.Text = pluginSettings.VisualStudioCommandPromptPath;
                 txtWorkingFolder.Text = pluginSettings.WorkingDirectoryLocation;
                 LogInfo("Settings found and loaded");
             }
@@ -929,7 +1069,7 @@ namespace Maverick.PCF.Builder
             ListProfileExecution = false;
             CurrentCommandOutput = string.Empty;
 
-            var isValid = AreMainControlsPopulated();
+            var isValid = IsWorkingFolderPopulated(true);
 
             if (isValid)
             {
@@ -1012,7 +1152,7 @@ namespace Maverick.PCF.Builder
 
         private void TsmNewPCFBlank_Click(object sender, EventArgs e)
         {
-            var isValid = AreMainControlsPopulated();
+            var isValid = IsWorkingFolderPopulated(true);
 
             if (isValid)
             {
@@ -1021,12 +1161,14 @@ namespace Maverick.PCF.Builder
                     InitCommandLine();
                 }
                 Routine_NewComponent();
+                TryLoadPCFDetailsFromSettings();
+                TryLoadCDSDetailsFromSettings();
             }
         }
 
         private void TsmNewPCFTemplate_Click(object sender, EventArgs e)
         {
-            var isValid = AreMainControlsPopulated();
+            var isValid = IsWorkingFolderPopulated(true);
 
             if (isValid)
             {
@@ -1069,7 +1211,7 @@ namespace Maverick.PCF.Builder
 
         private void tsbEditControl_Click(object sender, EventArgs e)
         {
-            var isValid = AreMainControlsPopulated();
+            var isValid = IsWorkingFolderPopulated(true);
 
             if (isValid)
             {
@@ -1124,11 +1266,6 @@ namespace Maverick.PCF.Builder
             //}
         }
 
-        private void TxtVSPromptLoc_TextChanged(object sender, EventArgs e)
-        {
-            pluginSettings.VisualStudioCommandPromptPath = txtVSCmdPrompt.Text;
-        }
-
         private void BtnBuildAndTest_Click(object sender, EventArgs e)
         {
             var areMainControlsValid = AreMainControlsPopulated();
@@ -1160,17 +1297,20 @@ namespace Maverick.PCF.Builder
                 IncrementComponentVersion();
                 IncrementSolutionVersion();
 
+                var msbuild_filepath = FindMsBuildPath();
+
                 string controlName = txtControlName.Text;
                 string deployFolderName = txtSolutionName.Text;
+                var projectPath = $"{txtWorkingFolder.Text}\\{controlName}\\{deployFolderName}";
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
 
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(deployFolderName);
-                string msbuild_restore = Commands.Msbuild.Restore();
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease() : Commands.Msbuild.Rebuild();
+                string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
+                string msbuild_restore = Commands.Msbuild.Restore(projectPath);
+                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
 
-                RunCommandLine(cdWorkingDir, npmBuildCommand, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
+                RunCommandLine(cdWorkingDir, npmBuildCommand, cdMsBuildDir, msbuild_restore, msbuild_rebuild);
             }
         }
 
@@ -1189,17 +1329,20 @@ namespace Maverick.PCF.Builder
                 IncrementComponentVersion();
                 IncrementSolutionVersion();
 
+                var msbuild_filepath = FindMsBuildPath();
+
                 string controlName = txtControlName.Text;
                 string deployFolderName = txtSolutionName.Text;
+                var projectPath = $"{txtWorkingFolder.Text}\\{controlName}\\{deployFolderName}";
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
 
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(deployFolderName);
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease() : Commands.Msbuild.Rebuild();
+                string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
+                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
 
                 BuildDeployExecution = true;
-                RunCommandLine(cdWorkingDir, npmBuildCommand, cdDeploymentFolder, msbuild_rebuild);
+                RunCommandLine(cdWorkingDir, npmBuildCommand, cdMsBuildDir, msbuild_rebuild);
             }
         }
 
@@ -1208,18 +1351,6 @@ namespace Maverick.PCF.Builder
             var areMainControlsValid = AreMainControlsPopulated();
 
             lblErrors.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtNamespace.Text))
-            {
-                lblErrors.Text = "Namespace is required.";
-            }
-            if (string.IsNullOrEmpty(txtControlName.Text))
-            {
-                lblErrors.Text += "\nControl Name is required.";
-            }
-            if (cboxTemplate.SelectedIndex == -1)
-            {
-                lblErrors.Text += "\nTemplate selection is required.";
-            }
 
             if (areMainControlsValid && !string.IsNullOrEmpty(txtNamespace.Text) && !string.IsNullOrEmpty(txtControlName.Text) && cboxTemplate.SelectedIndex >= 0)
             {
@@ -1278,29 +1409,37 @@ namespace Maverick.PCF.Builder
                 string npmCommand = chkNoWatch.Checked ? Commands.Npm.Start() : Commands.Npm.StartWatch();
 
                 //Process.Start("cmd", $"/K \"{txtVSCmdPrompt.Text}\" && {cdWorkingDir} && {npmCommand}");
-                RunCommandLine(cdWorkingDir, npmCommand);
+                //RunCommandLine(cdWorkingDir, npmCommand);
+                Process.Start("cmd", $"/K {cdWorkingDir} && {npmCommand} && exit");
             }
         }
 
-        private void BtnTerminateProcess_Click(object sender, EventArgs e)
+        private void BtnClearConsole_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Yes == MessageBox.Show("This will stop the running process and reset the console. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            //if (DialogResult.Yes == MessageBox.Show("This will stop the running process and reset the console. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+            //{
+            //    consoleControl.StopProcess();
+
+            //    try
+            //    {
+            //        InitCommandLine();
+            //        consoleControl.ClearOutput();
+            //        RunCommandLine("echo \"Console Reset. Ready for further commands.\"");
+            //    }
+            //    catch (Exception)
+            //    {
+            //        // This is intentional error throwing
+            //        consoleControl.ClearOutput();
+            //        RunCommandLine("echo \"Console Reset. Ready for further commands.\"");
+
+            //        SetProcessingStatus(ProcessingStatus.Complete);
+            //    }
+
+            //}
+
+            if (DialogResult.Yes == MessageBox.Show("This will clear the console and logs will be lost. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
-                consoleControl.ProcessInterface.Process.Close();
-
-                try
-                {
-                    InitCommandLine();
-                }
-                catch (Exception)
-                {
-                    // This is intentional error throwing
-                    consoleControl.ClearOutput();
-                    RunCommandLine("echo \n");
-                    RunCommandLine("echo Console Reset. Ready for further commands.\n");
-
-                    SetProcessingStatus(ProcessingStatus.Complete);
-                }
+                consoleControl.ClearOutput();
             }
         }
 
@@ -1316,15 +1455,17 @@ namespace Maverick.PCF.Builder
 
             if (areMainControlsValid && !string.IsNullOrEmpty(txtSolutionName.Text))
             {
+                var msbuild_filepath = FindMsBuildPath();
+
                 IncrementSolutionVersion();
 
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
+                string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
 
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtSolutionName.Text);
-                string msbuild_restore = Commands.Msbuild.Restore();
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease() : Commands.Msbuild.Rebuild();
+                var projectPath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}";
+                string msbuild_restore = Commands.Msbuild.Restore(projectPath);
+                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
 
-                RunCommandLine(cdWorkingDir, cdDeploymentFolder, msbuild_restore, msbuild_rebuild);
+                RunCommandLine(cdMsBuildDir, msbuild_restore, msbuild_rebuild);
             }
         }
 
@@ -1340,53 +1481,22 @@ namespace Maverick.PCF.Builder
                 string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtSolutionName.Text);
                 string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtSolutionName.Text);
                 string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
-                //string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
-                //string msbuild_restore = Commands.Msbuild.Restore();
-                //string msbuild = Commands.Msbuild.Build();
+
+                string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
 
                 ReloadDetails = true;
-                RunCommandLine(cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution);
-            }
-        }
-
-        private void BtnAddComponentToSolution_Click(object sender, EventArgs e)
-        {
-            var isValid = AreSolutionDetailsPopulated();
-
-            if (isValid)
-            {
-                lblErrors.Text = string.Empty;
-
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
-                //string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtSolutionName.Text);
-                string cdDeploymentFolder = Commands.Cmd.ChangeDirectory(txtSolutionName.Text);
-                //string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
-                string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
-                //string msbuild_restore = Commands.Msbuild.Restore();
-                //string msbuild = Commands.Msbuild.Build();
-
-                RunCommandLine(cdWorkingDir, cdDeploymentFolder, pacCommand_AddComponent);
+                RunCommandLine(cdWorkingDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
             }
         }
 
         private void BtnRefreshDetails_Click(object sender, EventArgs e)
         {
-            var isValid = AreMainControlsPopulated();
+            var isValid = IsWorkingFolderPopulated(false);
 
             if (isValid)
             {
                 IdentifyControlDetails();
                 Routine_EditComponent();
-            }
-        }
-
-        private void BtnVSCmdPrompt_Click(object sender, EventArgs e)
-        {
-            if (selectVSDevFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                txtVSCmdPrompt.Text = selectVSDevFileDialog.FileName;
-                pluginSettings.VisualStudioCommandPromptPath = txtVSCmdPrompt.Text;
-                //VisualStudioBatchFilePath = txtVSCmdPrompt.Text;
             }
         }
 
@@ -1405,10 +1515,10 @@ namespace Maverick.PCF.Builder
             SetProcessingStatus(ProcessingStatus.Running);
             StatusCheckExecution = true;
 
-            CurrentCommandOutput += args.Content;
+            CurrentCommandOutput += args.Content.Trim();
 
             // This indicates end of execution
-            if (args.Content.Contains("C:\\") && args.Content.EndsWith(">"))
+            if (args.Content.Trim().Contains("PS C:\\") && args.Content.Trim().EndsWith(">"))
             {
                 SetProcessingStatus(ProcessingStatus.Complete);
 
@@ -1501,18 +1611,6 @@ namespace Maverick.PCF.Builder
             Process.Start("https://aka.ms/PCFIdeas");
         }
 
-        private void LblStatus_TextChanged(object sender, EventArgs e)
-        {
-            if (lblStatus.Text.ToLower().Equals("running") && CommandPromptInitialized)
-            {
-                btnTerminateProcess.Enabled = true;
-            }
-            else
-            {
-                btnTerminateProcess.Enabled = false;
-            }
-        }
-
         private void tsbAuthProfile_ButtonClick(object sender, EventArgs e)
         {
             tsbAuthProfile.ShowDropDown();
@@ -1560,16 +1658,46 @@ namespace Maverick.PCF.Builder
 
             if (isValid)
             {
-                var ctrlInputDialog = new InputDialog("Quick Deploy", "Enter your preferred Publisher Prefix:");
-                ctrlInputDialog.StartPosition = FormStartPosition.CenterScreen;
-                if (DialogResult.OK == ctrlInputDialog.ShowDialog())
+                string publisherPrefix = string.Empty;
+
+                // Check if prefix exists from settings file
+                if (pluginSettings.AlwaysLoadPublisherDetailsFromSettings && !string.IsNullOrEmpty(pluginSettings.PublisherPrefix))
                 {
-                    var publisherPrefix = ctrlInputDialog.TextInputValue;
+                    var result = MessageBox.Show($"Do you want to use prefix as '{pluginSettings.PublisherPrefix}' for Quick Deploy?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.No)
+                    {
+                        var ctrlInputDialog = new InputDialog("Quick Deploy", "Enter your preferred Publisher Prefix:");
+                        ctrlInputDialog.StartPosition = FormStartPosition.CenterScreen;
+                        if (DialogResult.OK == ctrlInputDialog.ShowDialog())
+                        {
+                            publisherPrefix = ctrlInputDialog.TextInputValue;
+
+                        }
+                    }
+                    if (result == DialogResult.Yes)
+                    {
+                        publisherPrefix = pluginSettings.PublisherPrefix;
+                    }
+                }
+                else
+                {
+                    var ctrlInputDialog = new InputDialog("Quick Deploy", "Enter your preferred Publisher Prefix:");
+                    ctrlInputDialog.StartPosition = FormStartPosition.CenterScreen;
+                    if (DialogResult.OK == ctrlInputDialog.ShowDialog())
+                    {
+                        publisherPrefix = ctrlInputDialog.TextInputValue;
+
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(publisherPrefix))
+                {
                     string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}");
                     string quickDeployCommand = Commands.Pac.DeployWithoutSolution(publisherPrefix);
 
                     RunCommandLine(cdWorkingDir, quickDeployCommand);
                 }
+
             }
         }
 

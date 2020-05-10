@@ -25,8 +25,13 @@ namespace Maverick.PCF.Builder.Forms
             InitializeComponent();
             pluginSettings = localSettings;
 
-            txtSetVSCmdLoc.Text = pluginSettings.VisualStudioCommandPromptPath;
             txtSetWorkingFolder.Text = pluginSettings.WorkingDirectoryLocation;
+            txtMsBuildPath.Text = pluginSettings.MsBuildLocation;
+            txtControlNamespace.Text = pluginSettings.ControlNamespace;
+            chkboxLoadNamespace.Checked = pluginSettings.AlwaysLoadNamespaceFromSettings;
+            txtPublisherName.Text = pluginSettings.PublisherName;
+            txtPublisherPrefix.Text = pluginSettings.PublisherPrefix;
+            chkboxLoadPublisherDetails.Checked = pluginSettings.AlwaysLoadPublisherDetailsFromSettings;
         }
 
         private void BtnWorkingFolderSelector_Click(object sender, EventArgs e)
@@ -37,18 +42,19 @@ namespace Maverick.PCF.Builder.Forms
             }
         }
 
-        private void BtnVSPromptLoc_Click(object sender, EventArgs e)
-        {
-            if (selectVSDevFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                txtSetVSCmdLoc.Text = selectVSDevFileDialog.FileName;
-            }
-        }
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
             pluginSettings.WorkingDirectoryLocation = txtSetWorkingFolder.Text;
-            pluginSettings.VisualStudioCommandPromptPath = txtSetVSCmdLoc.Text;
+            pluginSettings.MsBuildLocation = txtMsBuildPath.Text;
+
+            pluginSettings.ControlNamespace = txtControlNamespace.Text;
+            pluginSettings.AlwaysLoadNamespaceFromSettings = chkboxLoadNamespace.Checked;
+
+            pluginSettings.PublisherName = txtPublisherName.Text;
+            pluginSettings.PublisherPrefix = txtPublisherPrefix.Text;
+            pluginSettings.AlwaysLoadPublisherDetailsFromSettings = chkboxLoadPublisherDetails.Checked;
+
             SettingsManager.Instance.Save(GetType(), pluginSettings);
 
             this.Close();
@@ -61,10 +67,17 @@ namespace Maverick.PCF.Builder.Forms
 
         private void BtnReset_Click(object sender, EventArgs e)
         {
-            txtSetVSCmdLoc.Text = string.Empty;
             txtSetWorkingFolder.Text = string.Empty;
             pluginSettings.WorkingDirectoryLocation = string.Empty;
-            pluginSettings.VisualStudioCommandPromptPath = string.Empty;
+            pluginSettings.MsBuildLocation = string.Empty;
+
+            pluginSettings.ControlNamespace = string.Empty;
+            pluginSettings.AlwaysLoadNamespaceFromSettings = true;
+
+            pluginSettings.PublisherName = string.Empty;
+            pluginSettings.PublisherPrefix = string.Empty;
+            pluginSettings.AlwaysLoadPublisherDetailsFromSettings = true;
+
             SettingsManager.Instance.Save(GetType(), pluginSettings);
 
             this.Close();

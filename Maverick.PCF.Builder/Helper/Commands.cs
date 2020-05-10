@@ -10,6 +10,9 @@ namespace Maverick.PCF.Builder.Helper
     {
         public class Cmd
         {
+            private const string MSBUILD_SCRIPT_FILE_LOCATION = "msbuild.ps1";
+
+
             /// <summary>
             /// cd "path"
             /// </summary>
@@ -38,6 +41,13 @@ namespace Maverick.PCF.Builder.Helper
             public static string RemoveDirectory(string folderName)
             {
                 return $"rmdir /s/q \"{folderName}\"";
+            }
+
+            public static string FindMsBuild()
+            {
+                var fullPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + MSBUILD_SCRIPT_FILE_LOCATION;
+
+                return $"powershell \"& \"\"" + fullPath + "\"\"\"";
             }
         }
 
@@ -216,45 +226,45 @@ namespace Maverick.PCF.Builder.Helper
             /// msbuild
             /// </summary>
             /// <returns></returns>
-            public static string Build()
+            public static string Build(string projectPath = "")
             {
-                return $"msbuild";
+                return $"./msbuild.exe \"{projectPath}\"";
             }
 
             /// <summary>
             /// msbuild /t:restore
             /// </summary>
             /// <returns></returns>
-            public static string Restore()
+            public static string Restore(string projectPath = "")
             {
-                return $"msbuild /t:restore";
+                return $"./msbuild.exe /t:restore \"{projectPath}\"";
             }
 
             /// <summary>
             /// msbuild /t:rebuild
             /// </summary>
             /// <returns></returns>
-            public static string Rebuild()
+            public static string Rebuild(string projectPath = "")
             {
-                return $"msbuild /t:rebuild";
+                return $"./msbuild.exe /t:rebuild \"{projectPath}\"";
             }
 
             /// <summary>
             /// msbuild /p:configuration=Release
             /// </summary>
             /// <returns></returns>
-            public static string BuildRelease()
+            public static string BuildRelease(string projectPath = "")
             {
-                return "msbuild /p:configuration=Release";
+                return $"./msbuild.exe /p:configuration=Release \"{projectPath}\"";
             }
 
             /// <summary>
             /// msbuild /t:rebuild /p:configuration=Release
             /// </summary>
             /// <returns></returns>
-            public static string RebuildRelease()
+            public static string RebuildRelease(string projectPath = "")
             {
-                return "msbuild /t:rebuild /p:configuration=Release";
+                return $"./msbuild.exe /t:rebuild /p:configuration=Release \"{projectPath}\"";
             }
         }
 

@@ -32,6 +32,7 @@ namespace Maverick.PCF.Builder.Forms
             {
                 ListViewItem lvi = new ListViewItem(item.Index.ToString());
                 lvi.SubItems.Add(item.IsCurrent ? "Yes" : "No");
+                lvi.SubItems.Add(item.EnvironmentType);
                 lvi.SubItems.Add(item.EnvironmentUrl);
                 lvi.SubItems.Add(item.UserName);
 

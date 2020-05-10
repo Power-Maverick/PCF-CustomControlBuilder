@@ -37,6 +37,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSwitchCurrent = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lstProfiles
@@ -47,6 +48,7 @@
             this.lstProfiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.colIndex,
             this.colCurrent,
+            this.colType,
             this.colUrl,
             this.colUserName});
             this.lstProfiles.FullRowSelect = true;
@@ -55,7 +57,7 @@
             this.lstProfiles.Location = new System.Drawing.Point(15, 29);
             this.lstProfiles.MultiSelect = false;
             this.lstProfiles.Name = "lstProfiles";
-            this.lstProfiles.Size = new System.Drawing.Size(535, 338);
+            this.lstProfiles.Size = new System.Drawing.Size(588, 338);
             this.lstProfiles.TabIndex = 0;
             this.lstProfiles.UseCompatibleStateImageBehavior = false;
             this.lstProfiles.View = System.Windows.Forms.View.Details;
@@ -92,7 +94,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(475, 377);
+            this.btnClose.Location = new System.Drawing.Point(528, 377);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 2;
@@ -120,11 +122,16 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // colType
+            // 
+            this.colType.Text = "Type";
+            this.colType.Width = 40;
+            // 
             // AuthenticationProfileForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(562, 412);
+            this.ClientSize = new System.Drawing.Size(615, 412);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnSwitchCurrent);
             this.Controls.Add(this.btnClose);
@@ -147,5 +154,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnSwitchCurrent;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ColumnHeader colType;
     }
 }

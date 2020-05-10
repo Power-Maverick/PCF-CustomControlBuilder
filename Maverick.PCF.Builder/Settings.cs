@@ -14,7 +14,18 @@ namespace Maverick.PCF.Builder
     /// </remarks>
     public class Settings
     {
-        public string VisualStudioCommandPromptPath { get; set; }
+        public Settings()
+        {
+            AlwaysLoadNamespaceFromSettings = true;
+            AlwaysLoadPublisherDetailsFromSettings = true;
+        }
+
         public string WorkingDirectoryLocation { get; set; }
+        public string MsBuildLocation { get; set; }
+        public string ControlNamespace { get; set; }
+        public bool AlwaysLoadNamespaceFromSettings { get; set; }
+        public string PublisherName { get; set; }
+        public string PublisherPrefix { get; set; }
+        public bool AlwaysLoadPublisherDetailsFromSettings { get; set; }
     }
 }

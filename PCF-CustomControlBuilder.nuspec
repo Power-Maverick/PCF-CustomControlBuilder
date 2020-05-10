@@ -3,26 +3,48 @@
   <metadata>
     <id>Maverick.PCF.Builder</id>
     <version>1.0.6</version>
-    <title>PCF Custom Control Builder</title>
+    <title>PCF Builder</title>
     <authors>Danish Naglekar</authors>
     <owners>Power-Maverick</owners>
     <projectUrl>https://github.com/Power-Maverick/PCF-CustomControlBuilder</projectUrl>
     <iconUrl>https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/icon/PCCB_Icon.png</iconUrl>
-	<icon>icon\PCCB_Icon.png</icon>
+    <icon>icon\PCCB_Icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/LICENSE</licenseUrl>
-	<license type="expression">MIT</license>
+    <license type="expression">MIT</license>
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
-    <releaseNotes>$releasenotes$</releaseNotes>
+    <releaseNotes>
+      ---- NEW FEATURES ----
+      1. Added link to Tool Performance report
+      2. Auto MsBuild identification. Available in settings as well
+      3. New settings added for quick and easy process
+      4. Control template identification
+      5. Initialization status for PCF and CDS project
+
+      ---- UPDATES ----
+      1. Open in VS Code now opens the working directory
+      2. UI redesign
+      3. Create CDS project automatically adds control reference
+      4. Icon updated
+      5. Current Auth Profile is always correctly reflected; even after switching it
+      6. Terminate process is now replaced to Clear Console
+      7. Test will always open in a separate command prompt instance
+      8. Renamed tool to "PCF Builder"
+
+      ---- BUG FIXES ----
+      1. Issue #17: first cd command now working
+      2. Issue #19: Console displays corrupted logs if clicked
+    </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
-    <tags>XrmToolBox, PCF, Custom Control, PCF Control Builder,Custom Builder</tags>
+    <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>
     <dependencies>
       <dependency id="XrmToolBox" version="1.2018.6.24" />
     </dependencies>
   </metadata>
   <files>
     <file src="PCFCustomControlBuilder\bin\Release\Maverick.PCF.Builder.dll" target="lib\net462\Plugins" />
-	<file src="PCFCustomControlBuilder\bin\Release\PCCB_Icon.png" target="" />
+    <file src="PCFCustomControlBuilder\bin\Release\PCCB_Icon.png" target="" />
+    <file src="PCFCustomControlBuilder\bin\Release\MsBuild.ps1" target="lib\net462\Plugins\Maverick.PCF.Builder" />
   </files>
 </package>
