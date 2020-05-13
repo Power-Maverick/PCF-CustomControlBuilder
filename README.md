@@ -32,7 +32,6 @@ For more details read [wiki](https://github.com/Power-maveRICK/PCF-CustomControl
 ##### Tool executing commands
 ![Control Running C L I](docs/Control-RunningCLI.png)
 
-## Donate
-If you liked my PCF Custom Control Builder tool then consider donating.
+## Buy me a coffee!! ☕
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK4SZ82J6GFH6&item_name=Power+Maverick+Donation&currency_code=USD&source=github)
