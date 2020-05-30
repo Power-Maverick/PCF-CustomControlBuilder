@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Power-Maverick.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master) [![Nuget](https://img.shields.io/nuget/v/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/) [![Gitter](https://badges.gitter.im/PCF-CustomControlBuilder/community.svg)](https://gitter.im/PCF-CustomControlBuilder/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Build Status](https://dev.azure.com/danishnaglekar/GitHub-CI/_apis/build/status/Power-Maverick.PCF-CustomControlBuilder?branchName=master)](https://dev.azure.com/danishnaglekar/GitHub-CI/_build/latest?definitionId=1&branchName=master) [![Nuget](https://img.shields.io/nuget/v/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/) [![Gitter](https://img.shields.io/gitter/room/Power-Maverick/PCF-Builder-VSCode)](https://gitter.im/PCF-Builder/community)
 
 [![GitHub issues](https://img.shields.io/github/issues/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/issues) [![GitHub forks](https://img.shields.io/github/forks/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/network) [![GitHub stars](https://img.shields.io/github/stars/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/stargazers) [![GitHub license](https://img.shields.io/github/license/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/dt/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/)
 
@@ -32,7 +32,6 @@ For more details read [wiki](https://github.com/Power-maveRICK/PCF-CustomControl
 ##### Tool executing commands
 ![Control Running C L I](docs/Control-RunningCLI.png)
 
-## Donate
-If you liked my PCF Custom Control Builder tool then consider donating.
+## Buy me a coffee!! ☕
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK4SZ82J6GFH6&item_name=Power+Maverick+Donation&currency_code=USD&source=github)
