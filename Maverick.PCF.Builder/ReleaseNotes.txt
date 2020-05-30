@@ -1,20 +1,11 @@
 ﻿---- NEW FEATURES ----
-1. Added link to Tool Performance report
-2. Auto MsBuild identification. Available in settings as well
-3. New settings added for quick and easy process
-4. Control template identification
-5. Initialization status for PCF & CDS project
+1. Add control to existing CDS solution (#18 enhancement on GitHub)
+2. Shows list of top 5 most recent locations
 
 ---- UPDATES ----
-1. Open in VS Code now opens the working directory
-2. UI redesign
-3. Create CDS project automatically adds control reference
-4. Icon updated
-5. Current Auth Profile is always correctly reflected; even after switching it
-6. Terminate process is now replaced to Clear Console
-7. Test will always open in a separate command prompt instance
-8. Renamed tool to "PCF Builder"
+1. Deploy button not enabled unless CDS Project is initialized
+2. CDS Solution location has changed to be on Working Folder with a new folder named "Solution"
+3. Backward compatibility for CDS Solution is still supported
 
 ---- BUG FIXES ----
-1. Issue #17: first cd command now working
-2. Issue #19: Console displays corrupted logs if clicked
+No bug fixed in this release
