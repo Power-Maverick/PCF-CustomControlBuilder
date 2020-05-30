@@ -180,8 +180,11 @@
     </Compile>
     <Compile Include="Helper\CommandLineHelper.cs" />
     <Compile Include="Helper\Commands.cs" />
+    <Compile Include="Helper\Enum.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\MetadataHelper.cs" />
     <Compile Include="Helper\Telemetry.cs" />
+    <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="MainPlugin.cs" />
     <Compile Include="MainPluginControl.cs">
       <SubType>UserControl</SubType>
@@ -200,7 +203,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SealedClasses\SolutionDetails.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="ToolSettings\MostRecentlyUsedLocations.cs" />
     <Compile Include="UserControls\Template.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -218,9 +223,13 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="Icon\MainIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Scripts\MsBuild.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Scripts\CoreTools.ps1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Forms\AuthenticationProfileForm.resx">
@@ -247,9 +256,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon\PCCB_Icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="ILMerge.exe" />
     <Content Include="ILMergeOrder.txt" />
     <Content Include="ReleaseNotes.txt" />
@@ -261,9 +267,10 @@
       IF NOT EXIST Plugins mkdir Plugins
       xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)Plugins\" /Y
       xcopy "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\" /Y
-      xcopy "msbuild.ps1" "$(TargetDir)Scripts\" /Y
-      xcopy "Scripts" "Plugins\Maverick.PCF.Builder\" /q/y
-      )</PostBuildEvent>
+      xcopy "msbuild.ps1" "Plugins\Maverick.PCF.Builder\" /q/y
+      )
+IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
+xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -275,6 +282,10 @@
   </Target>
   <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
   <Import Project="..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets" Condition="Exists('..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.9.0\build\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.targets')" />
+  <PropertyGroup>
+    <PreBuildEvent>powershell -command "set-executionpolicy unrestricted" 
+powershell -File "$(ProjectDir)Scripts\CoreTools.ps1" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.  
   <Target Name="BeforeBuild">

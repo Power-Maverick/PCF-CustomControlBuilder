@@ -2,9 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Maverick.PCF.Builder/v15/Server/sqlite3/
-/.vs/Maverick.PCF.Builder/v16/Server/sqlite3/
-
 # User-specific files
 *.suo
 *.user
@@ -27,7 +24,7 @@ bld/
 [Oo]bj/
 
 # Visual Studio 2015 cache/options directory
-.vs/
+**/.vs/*
 
 # MSTest test Results
 [Tt]est[Rr]esult*/

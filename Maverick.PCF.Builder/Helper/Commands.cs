@@ -11,8 +11,7 @@ namespace Maverick.PCF.Builder.Helper
         public class Cmd
         {
             private const string MSBUILD_SCRIPT_FILE_LOCATION = "msbuild.ps1";
-
-
+            
             /// <summary>
             /// cd "path"
             /// </summary>
@@ -170,6 +169,15 @@ namespace Maverick.PCF.Builder.Helper
             {
                 return $"pac org who";
             }
+
+            /// <summary>
+            /// pac solution clone
+            /// </summary>
+            /// <returns></returns>
+            public static string SolutionClone(string solutionName)
+            {
+                return $"pac solution clone --name {solutionName}";
+            }
         }
 
         public class Npm
@@ -268,5 +276,32 @@ namespace Maverick.PCF.Builder.Helper
             }
         }
 
+
+        public class SolutionPackager
+        {
+            private const string SOLUTION_PACKAGER_LOCATION = "CoreTools\\SolutionPackager.exe";
+
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <returns></returns>
+            public static string UnpackSolution(string zipfile, string outputFolder)
+            {
+                var solutionPackagerExe = FindSolutionPackager();
+                return $"{solutionPackagerExe} /action:Extract /zipfile:\"{zipfile}\" /folder:\"{outputFolder}\"";
+            }
+
+
+            #region Private Functions
+
+            private static string FindSolutionPackager()
+            {
+                return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + SOLUTION_PACKAGER_LOCATION;
+            }
+
+            #endregion
+
+
+        }
     }
 }

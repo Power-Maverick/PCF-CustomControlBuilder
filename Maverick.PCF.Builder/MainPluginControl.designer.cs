@@ -67,6 +67,7 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.linklblPowerBiReport = new System.Windows.Forms.LinkLabel();
             this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
             this.lblnpmVersionMsg = new System.Windows.Forms.Label();
@@ -79,6 +80,9 @@
             this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cboxSolutions = new System.Windows.Forms.ComboBox();
+            this.chkUseExistingSolution = new System.Windows.Forms.CheckBox();
+            this.lblSolutionInitStatus = new System.Windows.Forms.Label();
             this.chkManagedSolution = new System.Windows.Forms.CheckBox();
             this.chkIncrementSolutionVersion = new System.Windows.Forms.CheckBox();
             this.btnBuildSolution = new System.Windows.Forms.Button();
@@ -92,6 +96,7 @@
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblControlInitStatus = new System.Windows.Forms.Label();
             this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
             this.btnQuickDeploy = new System.Windows.Forms.Button();
             this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
@@ -113,15 +118,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label10 = new System.Windows.Forms.Label();
-            this.lblControlInitStatus = new System.Windows.Forms.Label();
-            this.lblSolutionInitStatus = new System.Windows.Forms.Label();
+            this.dgvMRULocations = new System.Windows.Forms.DataGridView();
+            this.btnShowMRULocations = new System.Windows.Forms.Button();
+            this.FolderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.gboxCommandPrompt.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -178,14 +186,14 @@
             // tsmNewPCFBlank
             // 
             this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
-            this.tsmNewPCFBlank.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFBlank.Size = new System.Drawing.Size(179, 22);
             this.tsmNewPCFBlank.Text = "New from Blank";
             this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
             // 
             // tsmNewPCFTemplate
             // 
             this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
-            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(180, 22);
+            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(179, 22);
             this.tsmNewPCFTemplate.Text = "New from Template";
             this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
             // 
@@ -448,6 +456,8 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.dgvMRULocations);
+            this.pnlMain.Controls.Add(this.btnShowMRULocations);
             this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.linklblPowerBiReport);
             this.pnlMain.Controls.Add(this.lblCurrentProfileLabel);
@@ -472,11 +482,22 @@
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
             // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(1064, 87);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(221, 13);
+            this.label10.TabIndex = 32;
+            this.label10.Text = "*This will not terminate any running processes";
+            // 
             // linklblPowerBiReport
             // 
             this.linklblPowerBiReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.linklblPowerBiReport.AutoSize = true;
-            this.linklblPowerBiReport.Location = new System.Drawing.Point(1040, 725);
+            this.linklblPowerBiReport.Location = new System.Drawing.Point(1040, 694);
             this.linklblPowerBiReport.Name = "linklblPowerBiReport";
             this.linklblPowerBiReport.Size = new System.Drawing.Size(242, 13);
             this.linklblPowerBiReport.TabIndex = 31;
@@ -554,6 +575,7 @@
             // 
             // btnDeploy
             // 
+            this.btnDeploy.Enabled = false;
             this.btnDeploy.Location = new System.Drawing.Point(19, 499);
             this.btnDeploy.Name = "btnDeploy";
             this.btnDeploy.Size = new System.Drawing.Size(117, 23);
@@ -570,7 +592,7 @@
             this.gboxCommandPrompt.Controls.Add(this.consoleControl);
             this.gboxCommandPrompt.Location = new System.Drawing.Point(529, 102);
             this.gboxCommandPrompt.Name = "gboxCommandPrompt";
-            this.gboxCommandPrompt.Size = new System.Drawing.Size(756, 617);
+            this.gboxCommandPrompt.Size = new System.Drawing.Size(756, 586);
             this.gboxCommandPrompt.TabIndex = 19;
             this.gboxCommandPrompt.TabStop = false;
             this.gboxCommandPrompt.Text = "Command Prompt";
@@ -585,12 +607,14 @@
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.SendKeyboardCommandsToProcess = true;
             this.consoleControl.ShowDiagnostics = false;
-            this.consoleControl.Size = new System.Drawing.Size(750, 598);
+            this.consoleControl.Size = new System.Drawing.Size(750, 567);
             this.consoleControl.TabIndex = 0;
             this.consoleControl.OnConsoleOutput += new ConsoleControl.ConsoleEventHandler(this.ConsoleControl_OnConsoleOutput);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cboxSolutions);
+            this.groupBox2.Controls.Add(this.chkUseExistingSolution);
             this.groupBox2.Controls.Add(this.lblSolutionInitStatus);
             this.groupBox2.Controls.Add(this.chkManagedSolution);
             this.groupBox2.Controls.Add(this.chkIncrementSolutionVersion);
@@ -611,10 +635,45 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CDS Solution Details";
             // 
+            // cboxSolutions
+            // 
+            this.cboxSolutions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxSolutions.FormattingEnabled = true;
+            this.cboxSolutions.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxSolutions.Location = new System.Drawing.Point(110, 56);
+            this.cboxSolutions.Name = "cboxSolutions";
+            this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
+            this.cboxSolutions.TabIndex = 30;
+            this.cboxSolutions.Visible = false;
+            this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
+            // 
+            // chkUseExistingSolution
+            // 
+            this.chkUseExistingSolution.AutoSize = true;
+            this.chkUseExistingSolution.Location = new System.Drawing.Point(341, 50);
+            this.chkUseExistingSolution.Name = "chkUseExistingSolution";
+            this.chkUseExistingSolution.Size = new System.Drawing.Size(125, 17);
+            this.chkUseExistingSolution.TabIndex = 37;
+            this.chkUseExistingSolution.Text = "Use Existing Solution";
+            this.chkUseExistingSolution.UseVisualStyleBackColor = true;
+            this.chkUseExistingSolution.CheckedChanged += new System.EventHandler(this.chkUseExistingSolution_CheckedChanged);
+            // 
+            // lblSolutionInitStatus
+            // 
+            this.lblSolutionInitStatus.AutoSize = true;
+            this.lblSolutionInitStatus.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblSolutionInitStatus.Location = new System.Drawing.Point(6, 21);
+            this.lblSolutionInitStatus.Name = "lblSolutionInitStatus";
+            this.lblSolutionInitStatus.Size = new System.Drawing.Size(85, 13);
+            this.lblSolutionInitStatus.TabIndex = 30;
+            this.lblSolutionInitStatus.Text = "❌ Not Initialized";
+            // 
             // chkManagedSolution
             // 
             this.chkManagedSolution.AutoSize = true;
-            this.chkManagedSolution.Location = new System.Drawing.Point(340, 111);
+            this.chkManagedSolution.Location = new System.Drawing.Point(340, 127);
             this.chkManagedSolution.Name = "chkManagedSolution";
             this.chkManagedSolution.Size = new System.Drawing.Size(112, 17);
             this.chkManagedSolution.TabIndex = 36;
@@ -635,7 +694,7 @@
             // 
             // btnBuildSolution
             // 
-            this.btnBuildSolution.Location = new System.Drawing.Point(340, 82);
+            this.btnBuildSolution.Location = new System.Drawing.Point(340, 98);
             this.btnBuildSolution.Name = "btnBuildSolution";
             this.btnBuildSolution.Size = new System.Drawing.Size(148, 23);
             this.btnBuildSolution.TabIndex = 34;
@@ -663,7 +722,7 @@
             // 
             // btnCreateSolution
             // 
-            this.btnCreateSolution.Location = new System.Drawing.Point(340, 53);
+            this.btnCreateSolution.Location = new System.Drawing.Point(340, 69);
             this.btnCreateSolution.Name = "btnCreateSolution";
             this.btnCreateSolution.Size = new System.Drawing.Size(148, 23);
             this.btnCreateSolution.TabIndex = 19;
@@ -746,6 +805,16 @@
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PCF Component Details";
+            // 
+            // lblControlInitStatus
+            // 
+            this.lblControlInitStatus.AutoSize = true;
+            this.lblControlInitStatus.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblControlInitStatus.Location = new System.Drawing.Point(6, 20);
+            this.lblControlInitStatus.Name = "lblControlInitStatus";
+            this.lblControlInitStatus.Size = new System.Drawing.Size(85, 13);
+            this.lblControlInitStatus.TabIndex = 29;
+            this.lblControlInitStatus.Text = "❌ Not Initialized";
             // 
             // linklblQuickDeployLearn
             // 
@@ -922,7 +991,7 @@
             // 
             this.txtWorkingFolder.Location = new System.Drawing.Point(115, 23);
             this.txtWorkingFolder.Name = "txtWorkingFolder";
-            this.txtWorkingFolder.Size = new System.Drawing.Size(344, 20);
+            this.txtWorkingFolder.Size = new System.Drawing.Size(320, 20);
             this.txtWorkingFolder.TabIndex = 10;
             this.txtWorkingFolder.TextChanged += new System.EventHandler(this.TxtWorkingFolder_TextChanged);
             // 
@@ -945,36 +1014,62 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // label10
+            // dgvMRULocations
             // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(1064, 87);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(221, 13);
-            this.label10.TabIndex = 32;
-            this.label10.Text = "*This will not terminate any running processes";
+            this.dgvMRULocations.AllowUserToAddRows = false;
+            this.dgvMRULocations.AllowUserToDeleteRows = false;
+            this.dgvMRULocations.AllowUserToResizeRows = false;
+            this.dgvMRULocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMRULocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FolderName,
+            this.Date,
+            this.Location});
+            this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvMRULocations.Location = new System.Drawing.Point(115, 42);
+            this.dgvMRULocations.MultiSelect = false;
+            this.dgvMRULocations.Name = "dgvMRULocations";
+            this.dgvMRULocations.ReadOnly = true;
+            this.dgvMRULocations.RowHeadersVisible = false;
+            this.dgvMRULocations.Size = new System.Drawing.Size(344, 150);
+            this.dgvMRULocations.TabIndex = 34;
+            this.dgvMRULocations.Visible = false;
+            this.dgvMRULocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMRULocations_CellClick);
+            this.dgvMRULocations.Leave += new System.EventHandler(this.dgvMRULocations_Leave);
             // 
-            // lblControlInitStatus
+            // btnShowMRULocations
             // 
-            this.lblControlInitStatus.AutoSize = true;
-            this.lblControlInitStatus.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblControlInitStatus.Location = new System.Drawing.Point(6, 20);
-            this.lblControlInitStatus.Name = "lblControlInitStatus";
-            this.lblControlInitStatus.Size = new System.Drawing.Size(85, 13);
-            this.lblControlInitStatus.TabIndex = 29;
-            this.lblControlInitStatus.Text = "❌ Not Initialized";
+            this.btnShowMRULocations.Location = new System.Drawing.Point(433, 22);
+            this.btnShowMRULocations.Name = "btnShowMRULocations";
+            this.btnShowMRULocations.Size = new System.Drawing.Size(27, 20);
+            this.btnShowMRULocations.TabIndex = 35;
+            this.btnShowMRULocations.Text = "🔽";
+            this.toolTip.SetToolTip(this.btnShowMRULocations, "Show Most Recent Used Location");
+            this.btnShowMRULocations.UseVisualStyleBackColor = true;
+            this.btnShowMRULocations.Click += new System.EventHandler(this.btnShowMRULocations_Click);
             // 
-            // lblSolutionInitStatus
+            // FolderName
             // 
-            this.lblSolutionInitStatus.AutoSize = true;
-            this.lblSolutionInitStatus.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblSolutionInitStatus.Location = new System.Drawing.Point(6, 21);
-            this.lblSolutionInitStatus.Name = "lblSolutionInitStatus";
-            this.lblSolutionInitStatus.Size = new System.Drawing.Size(85, 13);
-            this.lblSolutionInitStatus.TabIndex = 30;
-            this.lblSolutionInitStatus.Text = "❌ Not Initialized";
+            this.FolderName.DataPropertyName = "FolderName";
+            this.FolderName.HeaderText = "Folder Name";
+            this.FolderName.Name = "FolderName";
+            this.FolderName.ReadOnly = true;
+            this.FolderName.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Last Used";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 110;
+            // 
+            // Location
+            // 
+            this.Location.DataPropertyName = "Location";
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
+            this.Location.ReadOnly = true;
+            this.Location.Width = 200;
             // 
             // MainPluginControl
             // 
@@ -985,6 +1080,7 @@
             this.Controls.Add(this.toolStripMenu);
             this.Name = "MainPluginControl";
             this.Size = new System.Drawing.Size(1316, 781);
+            this.OnCloseTool += new System.EventHandler(this.MainPluginControl_OnCloseTool);
             this.Load += new System.EventHandler(this.MainPluginControl_Load);
             this.toolStripMenu.ResumeLayout(false);
             this.toolStripMenu.PerformLayout();
@@ -996,6 +1092,7 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1088,5 +1185,12 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label lblSolutionInitStatus;
         private System.Windows.Forms.Label lblControlInitStatus;
+        private System.Windows.Forms.CheckBox chkUseExistingSolution;
+        private System.Windows.Forms.ComboBox cboxSolutions;
+        private System.Windows.Forms.DataGridView dgvMRULocations;
+        private System.Windows.Forms.Button btnShowMRULocations;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FolderName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Location;
     }
 }
