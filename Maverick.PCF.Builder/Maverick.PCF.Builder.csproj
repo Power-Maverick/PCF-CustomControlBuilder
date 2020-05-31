@@ -268,9 +268,10 @@
       xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)Plugins\" /Y
       xcopy "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\" /Y
       xcopy "msbuild.ps1" "Plugins\Maverick.PCF.Builder\" /q/y
-      )
-IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
-xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y</PostBuildEvent>
+
+      IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
+      xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y
+)</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
