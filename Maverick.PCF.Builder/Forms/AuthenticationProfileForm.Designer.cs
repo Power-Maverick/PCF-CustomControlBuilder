@@ -31,13 +31,13 @@
             this.lstProfiles = new System.Windows.Forms.ListView();
             this.colIndex = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colCurrent = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUrl = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colUserName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lblTitle = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.btnSwitchCurrent = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
-            this.colType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // lstProfiles
@@ -72,6 +72,11 @@
             this.colCurrent.Text = "Current";
             this.colCurrent.Width = 50;
             // 
+            // colType
+            // 
+            this.colType.Text = "Type";
+            this.colType.Width = 40;
+            // 
             // colUrl
             // 
             this.colUrl.Text = "Environment URL";
@@ -94,6 +99,7 @@
             // 
             // btnClose
             // 
+            this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnClose.Location = new System.Drawing.Point(528, 377);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
@@ -104,6 +110,7 @@
             // 
             // btnSwitchCurrent
             // 
+            this.btnSwitchCurrent.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnSwitchCurrent.Location = new System.Drawing.Point(15, 377);
             this.btnSwitchCurrent.Name = "btnSwitchCurrent";
             this.btnSwitchCurrent.Size = new System.Drawing.Size(111, 23);
@@ -114,6 +121,7 @@
             // 
             // btnDelete
             // 
+            this.btnDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnDelete.Location = new System.Drawing.Point(132, 377);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(111, 23);
@@ -121,11 +129,6 @@
             this.btnDelete.Text = "Delete Profile";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // colType
-            // 
-            this.colType.Text = "Type";
-            this.colType.Width = 40;
             // 
             // AuthenticationProfileForm
             // 

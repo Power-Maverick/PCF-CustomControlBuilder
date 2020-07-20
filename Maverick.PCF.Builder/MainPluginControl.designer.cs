@@ -67,19 +67,23 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.grpBoxAuthProfileDetails = new System.Windows.Forms.GroupBox();
+            this.lblCurrentProfile = new System.Windows.Forms.Label();
+            this.dgvMRULocations = new System.Windows.Forms.DataGridView();
+            this.FolderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnShowMRULocations = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.linklblPowerBiReport = new System.Windows.Forms.LinkLabel();
-            this.lblCurrentProfileLabel = new System.Windows.Forms.Label();
             this.lblnpmVersionMsg = new System.Windows.Forms.Label();
-            this.lblCurrentProfile = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnClearConsole = new System.Windows.Forms.Button();
             this.btnRefreshDetails = new System.Windows.Forms.Button();
             this.lblErrors = new System.Windows.Forms.Label();
-            this.btnDeploy = new System.Windows.Forms.Button();
             this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
             this.consoleControl = new ConsoleControl.ConsoleControl();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpBoxSolutionDetails = new System.Windows.Forms.GroupBox();
             this.cboxSolutions = new System.Windows.Forms.ComboBox();
             this.chkUseExistingSolution = new System.Windows.Forms.CheckBox();
             this.lblSolutionInitStatus = new System.Windows.Forms.Label();
@@ -91,11 +95,14 @@
             this.btnCreateSolution = new System.Windows.Forms.Button();
             this.txtPublisherPrefix = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnDeploy = new System.Windows.Forms.Button();
             this.txtPublisherName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnAddPreviewImage = new System.Windows.Forms.Button();
             this.lblControlInitStatus = new System.Windows.Forms.Label();
             this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
             this.btnQuickDeploy = new System.Windows.Forms.Button();
@@ -118,18 +125,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.dgvMRULocations = new System.Windows.Forms.DataGridView();
-            this.btnShowMRULocations = new System.Windows.Forms.Button();
-            this.FolderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnAddResxFile = new System.Windows.Forms.Button();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
-            this.gboxCommandPrompt.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grpBoxAuthProfileDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
+            this.gboxCommandPrompt.SuspendLayout();
+            this.grpBoxSolutionDetails.SuspendLayout();
+            this.grpBoxComponentDetails.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -186,14 +192,14 @@
             // tsmNewPCFBlank
             // 
             this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
-            this.tsmNewPCFBlank.Size = new System.Drawing.Size(179, 22);
+            this.tsmNewPCFBlank.Size = new System.Drawing.Size(178, 22);
             this.tsmNewPCFBlank.Text = "New from Blank";
             this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
             // 
             // tsmNewPCFTemplate
             // 
             this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
-            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(179, 22);
+            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(178, 22);
             this.tsmNewPCFTemplate.Text = "New from Template";
             this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
             // 
@@ -456,23 +462,21 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.grpBoxAuthProfileDetails);
             this.pnlMain.Controls.Add(this.dgvMRULocations);
             this.pnlMain.Controls.Add(this.btnShowMRULocations);
             this.pnlMain.Controls.Add(this.label10);
             this.pnlMain.Controls.Add(this.linklblPowerBiReport);
-            this.pnlMain.Controls.Add(this.lblCurrentProfileLabel);
             this.pnlMain.Controls.Add(this.lblnpmVersionMsg);
-            this.pnlMain.Controls.Add(this.lblCurrentProfile);
             this.pnlMain.Controls.Add(this.lblStatus);
             this.pnlMain.Controls.Add(this.btnClearConsole);
             this.pnlMain.Controls.Add(this.btnRefreshDetails);
             this.pnlMain.Controls.Add(this.lblErrors);
             this.pnlMain.Controls.Add(this.lblPCFCLIVersionMsg);
-            this.pnlMain.Controls.Add(this.btnDeploy);
             this.pnlMain.Controls.Add(this.gboxQuickAction);
             this.pnlMain.Controls.Add(this.gboxCommandPrompt);
-            this.pnlMain.Controls.Add(this.groupBox2);
-            this.pnlMain.Controls.Add(this.groupBox1);
+            this.pnlMain.Controls.Add(this.grpBoxSolutionDetails);
+            this.pnlMain.Controls.Add(this.grpBoxComponentDetails);
             this.pnlMain.Controls.Add(this.txtWorkingFolder);
             this.pnlMain.Controls.Add(this.label3);
             this.pnlMain.Controls.Add(this.btnWorkingFolderSelector);
@@ -481,6 +485,83 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1316, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // grpBoxAuthProfileDetails
+            // 
+            this.grpBoxAuthProfileDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.grpBoxAuthProfileDetails.Controls.Add(this.lblCurrentProfile);
+            this.grpBoxAuthProfileDetails.Location = new System.Drawing.Point(19, 523);
+            this.grpBoxAuthProfileDetails.Name = "grpBoxAuthProfileDetails";
+            this.grpBoxAuthProfileDetails.Size = new System.Drawing.Size(494, 162);
+            this.grpBoxAuthProfileDetails.TabIndex = 36;
+            this.grpBoxAuthProfileDetails.TabStop = false;
+            this.grpBoxAuthProfileDetails.Text = "Current Authentication Profile";
+            // 
+            // lblCurrentProfile
+            // 
+            this.lblCurrentProfile.Location = new System.Drawing.Point(6, 16);
+            this.lblCurrentProfile.Name = "lblCurrentProfile";
+            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 159);
+            this.lblCurrentProfile.TabIndex = 29;
+            this.lblCurrentProfile.Text = "Loading....";
+            // 
+            // dgvMRULocations
+            // 
+            this.dgvMRULocations.AllowUserToAddRows = false;
+            this.dgvMRULocations.AllowUserToDeleteRows = false;
+            this.dgvMRULocations.AllowUserToResizeRows = false;
+            this.dgvMRULocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMRULocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FolderName,
+            this.Date,
+            this.Location});
+            this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvMRULocations.Location = new System.Drawing.Point(115, 42);
+            this.dgvMRULocations.MultiSelect = false;
+            this.dgvMRULocations.Name = "dgvMRULocations";
+            this.dgvMRULocations.ReadOnly = true;
+            this.dgvMRULocations.RowHeadersVisible = false;
+            this.dgvMRULocations.Size = new System.Drawing.Size(344, 150);
+            this.dgvMRULocations.TabIndex = 34;
+            this.dgvMRULocations.Visible = false;
+            this.dgvMRULocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMRULocations_CellClick);
+            this.dgvMRULocations.Leave += new System.EventHandler(this.dgvMRULocations_Leave);
+            // 
+            // FolderName
+            // 
+            this.FolderName.DataPropertyName = "FolderName";
+            this.FolderName.HeaderText = "Folder Name";
+            this.FolderName.Name = "FolderName";
+            this.FolderName.ReadOnly = true;
+            this.FolderName.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Last Used";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 110;
+            // 
+            // Location
+            // 
+            this.Location.DataPropertyName = "Location";
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
+            this.Location.ReadOnly = true;
+            this.Location.Width = 200;
+            // 
+            // btnShowMRULocations
+            // 
+            this.btnShowMRULocations.Location = new System.Drawing.Point(433, 22);
+            this.btnShowMRULocations.Name = "btnShowMRULocations";
+            this.btnShowMRULocations.Size = new System.Drawing.Size(27, 20);
+            this.btnShowMRULocations.TabIndex = 35;
+            this.btnShowMRULocations.Text = "🔽";
+            this.toolTip.SetToolTip(this.btnShowMRULocations, "Show Most Recent Used Location");
+            this.btnShowMRULocations.UseVisualStyleBackColor = true;
+            this.btnShowMRULocations.Click += new System.EventHandler(this.btnShowMRULocations_Click);
             // 
             // label10
             // 
@@ -505,15 +586,6 @@
             this.linklblPowerBiReport.Text = "Check out the report on how the tool is performing";
             this.linklblPowerBiReport.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblPowerBiReport_LinkClicked);
             // 
-            // lblCurrentProfileLabel
-            // 
-            this.lblCurrentProfileLabel.AutoSize = true;
-            this.lblCurrentProfileLabel.Location = new System.Drawing.Point(14, 535);
-            this.lblCurrentProfileLabel.Name = "lblCurrentProfileLabel";
-            this.lblCurrentProfileLabel.Size = new System.Drawing.Size(144, 13);
-            this.lblCurrentProfileLabel.TabIndex = 30;
-            this.lblCurrentProfileLabel.Text = "Current Authentication Profile";
-            // 
             // lblnpmVersionMsg
             // 
             this.lblnpmVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -523,13 +595,6 @@
             this.lblnpmVersionMsg.TabIndex = 27;
             this.lblnpmVersionMsg.Text = "Detecting npm version";
             this.lblnpmVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // lblCurrentProfile
-            // 
-            this.lblCurrentProfile.Location = new System.Drawing.Point(16, 552);
-            this.lblCurrentProfile.Name = "lblCurrentProfile";
-            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 138);
-            this.lblCurrentProfile.TabIndex = 29;
             // 
             // lblStatus
             // 
@@ -573,17 +638,6 @@
             this.lblErrors.TabIndex = 21;
             this.lblErrors.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             // 
-            // btnDeploy
-            // 
-            this.btnDeploy.Enabled = false;
-            this.btnDeploy.Location = new System.Drawing.Point(19, 499);
-            this.btnDeploy.Name = "btnDeploy";
-            this.btnDeploy.Size = new System.Drawing.Size(117, 23);
-            this.btnDeploy.TabIndex = 20;
-            this.btnDeploy.Text = "Deploy";
-            this.btnDeploy.UseVisualStyleBackColor = true;
-            this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
-            // 
             // gboxCommandPrompt
             // 
             this.gboxCommandPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -611,29 +665,30 @@
             this.consoleControl.TabIndex = 0;
             this.consoleControl.OnConsoleOutput += new ConsoleControl.ConsoleEventHandler(this.ConsoleControl_OnConsoleOutput);
             // 
-            // groupBox2
+            // grpBoxSolutionDetails
             // 
-            this.groupBox2.Controls.Add(this.cboxSolutions);
-            this.groupBox2.Controls.Add(this.chkUseExistingSolution);
-            this.groupBox2.Controls.Add(this.lblSolutionInitStatus);
-            this.groupBox2.Controls.Add(this.chkManagedSolution);
-            this.groupBox2.Controls.Add(this.chkIncrementSolutionVersion);
-            this.groupBox2.Controls.Add(this.btnBuildSolution);
-            this.groupBox2.Controls.Add(this.txtSolutionVersion);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.btnCreateSolution);
-            this.groupBox2.Controls.Add(this.txtPublisherPrefix);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.txtPublisherName);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.txtSolutionName);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Location = new System.Drawing.Point(19, 312);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(494, 179);
-            this.groupBox2.TabIndex = 18;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "CDS Solution Details";
+            this.grpBoxSolutionDetails.Controls.Add(this.cboxSolutions);
+            this.grpBoxSolutionDetails.Controls.Add(this.chkUseExistingSolution);
+            this.grpBoxSolutionDetails.Controls.Add(this.lblSolutionInitStatus);
+            this.grpBoxSolutionDetails.Controls.Add(this.chkManagedSolution);
+            this.grpBoxSolutionDetails.Controls.Add(this.chkIncrementSolutionVersion);
+            this.grpBoxSolutionDetails.Controls.Add(this.btnBuildSolution);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionVersion);
+            this.grpBoxSolutionDetails.Controls.Add(this.label2);
+            this.grpBoxSolutionDetails.Controls.Add(this.btnCreateSolution);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherPrefix);
+            this.grpBoxSolutionDetails.Controls.Add(this.label7);
+            this.grpBoxSolutionDetails.Controls.Add(this.btnDeploy);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherName);
+            this.grpBoxSolutionDetails.Controls.Add(this.label8);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionName);
+            this.grpBoxSolutionDetails.Controls.Add(this.label9);
+            this.grpBoxSolutionDetails.Location = new System.Drawing.Point(19, 341);
+            this.grpBoxSolutionDetails.Name = "grpBoxSolutionDetails";
+            this.grpBoxSolutionDetails.Size = new System.Drawing.Size(494, 167);
+            this.grpBoxSolutionDetails.TabIndex = 18;
+            this.grpBoxSolutionDetails.TabStop = false;
+            this.grpBoxSolutionDetails.Text = "CDS Solution Details";
             // 
             // cboxSolutions
             // 
@@ -652,7 +707,7 @@
             // chkUseExistingSolution
             // 
             this.chkUseExistingSolution.AutoSize = true;
-            this.chkUseExistingSolution.Location = new System.Drawing.Point(341, 50);
+            this.chkUseExistingSolution.Location = new System.Drawing.Point(110, 33);
             this.chkUseExistingSolution.Name = "chkUseExistingSolution";
             this.chkUseExistingSolution.Size = new System.Drawing.Size(125, 17);
             this.chkUseExistingSolution.TabIndex = 37;
@@ -673,11 +728,11 @@
             // chkManagedSolution
             // 
             this.chkManagedSolution.AutoSize = true;
-            this.chkManagedSolution.Location = new System.Drawing.Point(340, 127);
+            this.chkManagedSolution.Location = new System.Drawing.Point(413, 81);
             this.chkManagedSolution.Name = "chkManagedSolution";
-            this.chkManagedSolution.Size = new System.Drawing.Size(112, 17);
+            this.chkManagedSolution.Size = new System.Drawing.Size(71, 17);
             this.chkManagedSolution.TabIndex = 36;
-            this.chkManagedSolution.Text = "Managed Solution";
+            this.chkManagedSolution.Text = "Managed";
             this.chkManagedSolution.UseVisualStyleBackColor = true;
             // 
             // chkIncrementSolutionVersion
@@ -694,9 +749,9 @@
             // 
             // btnBuildSolution
             // 
-            this.btnBuildSolution.Location = new System.Drawing.Point(340, 98);
+            this.btnBuildSolution.Location = new System.Drawing.Point(340, 77);
             this.btnBuildSolution.Name = "btnBuildSolution";
-            this.btnBuildSolution.Size = new System.Drawing.Size(148, 23);
+            this.btnBuildSolution.Size = new System.Drawing.Size(67, 23);
             this.btnBuildSolution.TabIndex = 34;
             this.btnBuildSolution.Text = "Build";
             this.btnBuildSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -722,7 +777,7 @@
             // 
             // btnCreateSolution
             // 
-            this.btnCreateSolution.Location = new System.Drawing.Point(340, 69);
+            this.btnCreateSolution.Location = new System.Drawing.Point(340, 48);
             this.btnCreateSolution.Name = "btnCreateSolution";
             this.btnCreateSolution.Size = new System.Drawing.Size(148, 23);
             this.btnCreateSolution.TabIndex = 19;
@@ -746,6 +801,17 @@
             this.label7.Size = new System.Drawing.Size(79, 13);
             this.label7.TabIndex = 29;
             this.label7.Text = "Publisher Prefix";
+            // 
+            // btnDeploy
+            // 
+            this.btnDeploy.Enabled = false;
+            this.btnDeploy.Location = new System.Drawing.Point(340, 106);
+            this.btnDeploy.Name = "btnDeploy";
+            this.btnDeploy.Size = new System.Drawing.Size(148, 23);
+            this.btnDeploy.TabIndex = 20;
+            this.btnDeploy.Text = "Deploy";
+            this.btnDeploy.UseVisualStyleBackColor = true;
+            this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
             // 
             // txtPublisherName
             // 
@@ -779,32 +845,60 @@
             this.label9.TabIndex = 25;
             this.label9.Text = "Solution Name";
             // 
-            // groupBox1
+            // grpBoxComponentDetails
             // 
-            this.groupBox1.Controls.Add(this.lblControlInitStatus);
-            this.groupBox1.Controls.Add(this.linklblQuickDeployLearn);
-            this.groupBox1.Controls.Add(this.btnQuickDeploy);
-            this.groupBox1.Controls.Add(this.btnOpenControlInExplorer);
-            this.groupBox1.Controls.Add(this.chkIncrementComponentVersion);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtComponentVersion);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.txtNamespace);
-            this.groupBox1.Controls.Add(this.chkNoWatch);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.btnTestComponent);
-            this.groupBox1.Controls.Add(this.txtControlName);
-            this.groupBox1.Controls.Add(this.btnBuildComponent);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.btnOpenInVSCode);
-            this.groupBox1.Controls.Add(this.btnCreateComponent);
-            this.groupBox1.Controls.Add(this.cboxTemplate);
-            this.groupBox1.Location = new System.Drawing.Point(19, 102);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(494, 201);
-            this.groupBox1.TabIndex = 12;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "PCF Component Details";
+            this.grpBoxComponentDetails.Controls.Add(this.label13);
+            this.grpBoxComponentDetails.Controls.Add(this.label12);
+            this.grpBoxComponentDetails.Controls.Add(this.btnAddResxFile);
+            this.grpBoxComponentDetails.Controls.Add(this.label11);
+            this.grpBoxComponentDetails.Controls.Add(this.btnAddPreviewImage);
+            this.grpBoxComponentDetails.Controls.Add(this.lblControlInitStatus);
+            this.grpBoxComponentDetails.Controls.Add(this.linklblQuickDeployLearn);
+            this.grpBoxComponentDetails.Controls.Add(this.btnQuickDeploy);
+            this.grpBoxComponentDetails.Controls.Add(this.btnOpenControlInExplorer);
+            this.grpBoxComponentDetails.Controls.Add(this.chkIncrementComponentVersion);
+            this.grpBoxComponentDetails.Controls.Add(this.label1);
+            this.grpBoxComponentDetails.Controls.Add(this.txtComponentVersion);
+            this.grpBoxComponentDetails.Controls.Add(this.label4);
+            this.grpBoxComponentDetails.Controls.Add(this.txtNamespace);
+            this.grpBoxComponentDetails.Controls.Add(this.chkNoWatch);
+            this.grpBoxComponentDetails.Controls.Add(this.label5);
+            this.grpBoxComponentDetails.Controls.Add(this.btnTestComponent);
+            this.grpBoxComponentDetails.Controls.Add(this.txtControlName);
+            this.grpBoxComponentDetails.Controls.Add(this.btnBuildComponent);
+            this.grpBoxComponentDetails.Controls.Add(this.label6);
+            this.grpBoxComponentDetails.Controls.Add(this.btnOpenInVSCode);
+            this.grpBoxComponentDetails.Controls.Add(this.btnCreateComponent);
+            this.grpBoxComponentDetails.Controls.Add(this.cboxTemplate);
+            this.grpBoxComponentDetails.Location = new System.Drawing.Point(19, 102);
+            this.grpBoxComponentDetails.Name = "grpBoxComponentDetails";
+            this.grpBoxComponentDetails.Size = new System.Drawing.Size(494, 223);
+            this.grpBoxComponentDetails.TabIndex = 12;
+            this.grpBoxComponentDetails.TabStop = false;
+            this.grpBoxComponentDetails.Text = "PCF Component Details";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 171);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(76, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Action Buttons";
+            // 
+            // btnAddPreviewImage
+            // 
+            this.btnAddPreviewImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPreviewImage.BackgroundImage")));
+            this.btnAddPreviewImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddPreviewImage.FlatAppearance.BorderSize = 0;
+            this.btnAddPreviewImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddPreviewImage.Location = new System.Drawing.Point(119, 161);
+            this.btnAddPreviewImage.Name = "btnAddPreviewImage";
+            this.btnAddPreviewImage.Size = new System.Drawing.Size(32, 32);
+            this.btnAddPreviewImage.TabIndex = 30;
+            this.toolTip.SetToolTip(this.btnAddPreviewImage, "Add Preview Image");
+            this.btnAddPreviewImage.UseVisualStyleBackColor = true;
+            this.btnAddPreviewImage.Click += new System.EventHandler(this.btnAddPreviewImage_Click);
             // 
             // lblControlInitStatus
             // 
@@ -1014,62 +1108,38 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // dgvMRULocations
+            // btnAddResxFile
             // 
-            this.dgvMRULocations.AllowUserToAddRows = false;
-            this.dgvMRULocations.AllowUserToDeleteRows = false;
-            this.dgvMRULocations.AllowUserToResizeRows = false;
-            this.dgvMRULocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMRULocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FolderName,
-            this.Date,
-            this.Location});
-            this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvMRULocations.Location = new System.Drawing.Point(115, 42);
-            this.dgvMRULocations.MultiSelect = false;
-            this.dgvMRULocations.Name = "dgvMRULocations";
-            this.dgvMRULocations.ReadOnly = true;
-            this.dgvMRULocations.RowHeadersVisible = false;
-            this.dgvMRULocations.Size = new System.Drawing.Size(344, 150);
-            this.dgvMRULocations.TabIndex = 34;
-            this.dgvMRULocations.Visible = false;
-            this.dgvMRULocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMRULocations_CellClick);
-            this.dgvMRULocations.Leave += new System.EventHandler(this.dgvMRULocations_Leave);
+            this.btnAddResxFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddResxFile.BackgroundImage")));
+            this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddResxFile.FlatAppearance.BorderSize = 0;
+            this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddResxFile.Location = new System.Drawing.Point(189, 161);
+            this.btnAddResxFile.Name = "btnAddResxFile";
+            this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
+            this.btnAddResxFile.TabIndex = 32;
+            this.toolTip.SetToolTip(this.btnAddResxFile, "Add RESX file");
+            this.btnAddResxFile.UseVisualStyleBackColor = true;
             // 
-            // btnShowMRULocations
+            // label12
             // 
-            this.btnShowMRULocations.Location = new System.Drawing.Point(433, 22);
-            this.btnShowMRULocations.Name = "btnShowMRULocations";
-            this.btnShowMRULocations.Size = new System.Drawing.Size(27, 20);
-            this.btnShowMRULocations.TabIndex = 35;
-            this.btnShowMRULocations.Text = "🔽";
-            this.toolTip.SetToolTip(this.btnShowMRULocations, "Show Most Recent Used Location");
-            this.btnShowMRULocations.UseVisualStyleBackColor = true;
-            this.btnShowMRULocations.Click += new System.EventHandler(this.btnShowMRULocations_Click);
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(101, 196);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(68, 12);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Preview Image";
             // 
-            // FolderName
+            // label13
             // 
-            this.FolderName.DataPropertyName = "FolderName";
-            this.FolderName.HeaderText = "Folder Name";
-            this.FolderName.Name = "FolderName";
-            this.FolderName.ReadOnly = true;
-            this.FolderName.Width = 150;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Last Used";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 110;
-            // 
-            // Location
-            // 
-            this.Location.DataPropertyName = "Location";
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
-            this.Location.ReadOnly = true;
-            this.Location.Width = 200;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(186, 196);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(44, 12);
+            this.label13.TabIndex = 34;
+            this.label13.Text = "RESX file";
             // 
             // MainPluginControl
             // 
@@ -1087,12 +1157,13 @@
             this.gboxQuickAction.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
-            this.gboxCommandPrompt.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grpBoxAuthProfileDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
+            this.gboxCommandPrompt.ResumeLayout(false);
+            this.grpBoxSolutionDetails.ResumeLayout(false);
+            this.grpBoxSolutionDetails.PerformLayout();
+            this.grpBoxComponentDetails.ResumeLayout(false);
+            this.grpBoxComponentDetails.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1129,7 +1200,7 @@
         private System.Windows.Forms.Panel pnlMain;
         private System.Windows.Forms.Button btnDeploy;
         private System.Windows.Forms.GroupBox gboxCommandPrompt;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpBoxSolutionDetails;
         private System.Windows.Forms.Button btnCreateSolution;
         private System.Windows.Forms.TextBox txtPublisherPrefix;
         private System.Windows.Forms.Label label7;
@@ -1137,7 +1208,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtSolutionName;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grpBoxComponentDetails;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNamespace;
         private System.Windows.Forms.CheckBox chkNoWatch;
@@ -1179,7 +1250,6 @@
         private System.Windows.Forms.Button btnQuickDeploy;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.LinkLabel linklblQuickDeployLearn;
-        private System.Windows.Forms.Label lblCurrentProfileLabel;
         private System.Windows.Forms.Label lblCurrentProfile;
         private System.Windows.Forms.LinkLabel linklblPowerBiReport;
         private System.Windows.Forms.Label label10;
@@ -1192,5 +1262,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn FolderName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Date;
         private System.Windows.Forms.DataGridViewTextBoxColumn Location;
+        private System.Windows.Forms.GroupBox grpBoxAuthProfileDetails;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnAddPreviewImage;
+        private System.Windows.Forms.Button btnAddResxFile;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
     }
 }

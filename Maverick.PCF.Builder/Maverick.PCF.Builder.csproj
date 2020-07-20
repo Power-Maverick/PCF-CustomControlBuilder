@@ -153,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\AuthenticationProfile.cs" />
+    <Compile Include="DataObjects\ControlManifestDetails.cs" />
     <Compile Include="DataObjects\PcfGallery.cs" />
     <Compile Include="Forms\AuthenticationProfileForm.cs">
       <SubType>Form</SubType>
@@ -171,6 +172,12 @@
     </Compile>
     <Compile Include="Forms\SettingsForm.Designer.cs">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ShowPreviewImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ShowPreviewImage.Designer.cs">
+      <DependentUpon>ShowPreviewImage.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Templates.cs">
       <SubType>Form</SubType>
@@ -240,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ShowPreviewImage.resx">
+      <DependentUpon>ShowPreviewImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Templates.resx">
       <DependentUpon>Templates.cs</DependentUpon>

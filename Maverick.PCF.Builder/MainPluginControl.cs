@@ -50,6 +50,7 @@ namespace Maverick.PCF.Builder
         public AuthProfileAction SelectedProfileAction { get; set; }
         public int SelectedProfileIndex { get; set; }
         public bool RefreshCurrentProfile { get; set; }
+        public ControlManifestDetails ControlDetails { get; set; }
 
         public enum ProcessingStatus
         {
@@ -404,15 +405,98 @@ namespace Maverick.PCF.Builder
                                     txtControlName.Text = Path.GetFileName(item);
                                     var controlManifestFile = item + "\\" + "ControlManifest.Input.xml";
                                     XmlReader xmlReader = XmlReader.Create(controlManifestFile);
+                                    bool readFirstProperty = false;
+                                    bool readOfTypeGroup = false;
+                                    string ofTypeGroupName = string.Empty;
+                                    ControlDetails = new ControlManifestDetails();
                                     while (xmlReader.Read())
                                     {
-                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "control"))
+                                        if (xmlReader.NodeType == XmlNodeType.Element)
                                         {
-                                            var control_namespace = xmlReader.GetAttribute("namespace");
-                                            txtNamespace.Text = control_namespace;
+                                            switch (xmlReader.Name)
+                                            {
+                                                case "control":
+                                                    txtNamespace.Text = xmlReader.GetAttribute("namespace");
+                                                    txtComponentVersion.Text = xmlReader.GetAttribute("version");
+                                                    ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
+                                                    ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
+                                                    ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
+                                                    break;
+                                                case "property":
+                                                    if ((xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
+                                                    {
+                                                        readFirstProperty = true;
+                                                        if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type")))
+                                                        {
+                                                            ControlDetails.SupportedTypes.Add(xmlReader.GetAttribute("of-type"));
+                                                        }
+                                                        else if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type-group")))
+                                                        {
+                                                            ofTypeGroupName = xmlReader.GetAttribute("of-type-group");
+                                                        }
+                                                    }
+                                                    break;
+                                                case "type-group":
+                                                    if (xmlReader.GetAttribute("name") == ofTypeGroupName)
+                                                    {
+                                                        XmlReader xmlSubtreeReader = xmlReader.ReadSubtree();
+                                                        while (xmlSubtreeReader.Read())
+                                                        {
+                                                            if (xmlSubtreeReader.NodeType == XmlNodeType.Element && xmlSubtreeReader.Name == "type")
+                                                            {
+                                                                xmlSubtreeReader.Read();
+                                                                ControlDetails.SupportedTypes.Add(xmlSubtreeReader.ReadContentAsString());
+                                                            }
+                                                        }
+                                                        xmlSubtreeReader.Close();
+                                                    }
+                                                    break;
+                                                case "data-set":
+                                                    cboxTemplate.SelectedIndex = 1;
+                                                    break;
+                                                default:
+                                                    // Assume it is Field Type
+                                                    cboxTemplate.SelectedIndex = 0;
+                                                    break;
+                                            }
+                                        }
 
-                                            var control_version = xmlReader.GetAttribute("version");
-                                            txtComponentVersion.Text = control_version;
+                                        /*if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "control"))
+                                        {
+                                            txtNamespace.Text = xmlReader.GetAttribute("namespace");
+                                            txtComponentVersion.Text = xmlReader.GetAttribute("version");
+                                            ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
+                                            ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
+                                            ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
+                                        }
+
+                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "property") && (xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
+                                        {
+                                            readFirstProperty = true;
+
+                                            if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type")))
+                                            {
+                                                ControlDetails.SupportedTypes.Add(xmlReader.GetAttribute("of-type"));
+                                            }
+                                            else if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type-group")))
+                                            {
+                                                ofTypeGroupName = xmlReader.GetAttribute("of-type-group");
+                                            }
+                                        }
+
+                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type-group") && xmlReader.GetAttribute("name") == ofTypeGroupName)
+                                        {
+                                            readOfTypeGroup = true;
+                                        }
+                                        else if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type-group"))
+                                        {
+                                            readOfTypeGroup = false;
+                                        }
+
+                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type") && readOfTypeGroup)
+                                        {
+                                            xmlReader.Read();
+                                            ControlDetails.SupportedTypes.Add(xmlReader.ReadContentAsString());
                                         }
 
                                         if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "data-set"))
@@ -425,7 +509,7 @@ namespace Maverick.PCF.Builder
                                         {
                                             // Assume it is Field Type
                                             cboxTemplate.SelectedIndex = 0;
-                                        }
+                                        }*/
                                     }
                                     xmlReader.Close();
                                     break;
@@ -1444,7 +1528,7 @@ namespace Maverick.PCF.Builder
             {
                 pluginSettings.WorkingDirectoryLocation = txtWorkingFolder.Text;
                 MostRecentlyUsedLocations.Instance.Items.Add(new MostRecentlyUsedLocation(txtWorkingFolder.Text));
-                MostRecentlyUsedLocations.Instance.Save(); 
+                MostRecentlyUsedLocations.Instance.Save();
             }
         }
 
@@ -1629,10 +1713,10 @@ namespace Maverick.PCF.Builder
                 var projectPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
                     ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
                     : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
-                string msbuild_restore = Commands.Msbuild.Restore(projectPath);
+                //string msbuild_restore = Commands.Msbuild.Restore(projectPath);
                 string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
 
-                RunCommandLine(cdMsBuildDir, msbuild_restore, msbuild_rebuild);
+                RunCommandLine(cdMsBuildDir, msbuild_rebuild);
             }
         }
 
@@ -1922,7 +2006,7 @@ namespace Maverick.PCF.Builder
 
         private void dgvMRULocations_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            txtWorkingFolder.Text = dgvMRULocations.Rows[e.RowIndex].Cells[0].Value.ToString();
+            txtWorkingFolder.Text = dgvMRULocations.Rows[e.RowIndex].Cells[1].Value.ToString();
             ToggleMRULocationGrid();
             IdentifyControlDetails();
         }
@@ -1930,6 +2014,16 @@ namespace Maverick.PCF.Builder
         private void dgvMRULocations_Leave(object sender, EventArgs e)
         {
             ToggleMRULocationGrid();
+        }
+
+        private void btnAddPreviewImage_Click(object sender, EventArgs e)
+        {
+            ControlDetails.WorkingFolderPath = txtWorkingFolder.Text;
+            ControlDetails.ControlName = txtControlName.Text;
+
+            var showPreviewImageForm = new ShowPreviewImage(ControlDetails);
+            showPreviewImageForm.StartPosition = FormStartPosition.CenterScreen;
+            showPreviewImageForm.ShowDialog();
         }
     }
 }
