@@ -51,6 +51,7 @@ namespace Maverick.PCF.Builder
         public int SelectedProfileIndex { get; set; }
         public bool RefreshCurrentProfile { get; set; }
         public ControlManifestDetails ControlDetails { get; set; }
+        public List<LanguageCode> SelectedLcids { get; set; }
 
         public enum ProcessingStatus
         {
@@ -77,7 +78,7 @@ namespace Maverick.PCF.Builder
         private EntityCollection _solutionsCache;
         private BindingSource bindingSource = new BindingSource();
 
-        private const string SolutionFolderName = "Solution";
+        private const string SolutionFolderName = "Solutions";
 
         #endregion
 
@@ -665,7 +666,18 @@ namespace Maverick.PCF.Builder
             {
                 currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
 
-                commands = new string[] { Commands.Pac.Use() };
+                //NOTE: A newer version of Microsoft.PowerApps.CLI has been found. Please run 'pac install latest' to install the latest version.
+                if (output.ToLower().Contains("a newer version of microsoft.powerapps.cli has been found"))
+                {
+                    if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                    {
+                        string pacUpdateCLI = Commands.Pac.InstallLatest();
+                        RunCommandLine(pacUpdateCLI);
+                        currentPacVersion = latestPacVersion;
+                    }
+                }
+
+                /*commands = new string[] { Commands.Pac.Use() };
                 var output2 = CommandLineHelper.RunCommand(commands);
                 if (!string.IsNullOrEmpty(output2) && output2.ToLower().Contains("latest"))
                 {
@@ -681,7 +693,7 @@ namespace Maverick.PCF.Builder
                             currentPacVersion = latestPacVersion;
                         }
                     }
-                }
+                }*/
 
                 lblPCFCLIVersionMsg.Text = "PCF CLI Version: " + currentPacVersion.Trim();
             }
@@ -707,6 +719,32 @@ namespace Maverick.PCF.Builder
             {
                 currentNpmVersion = output.Substring(output.IndexOf("npm: ") + 6, output.IndexOf(",", output.IndexOf("npm: ") + 6) - (output.IndexOf("npm: ") + 6) - 1);
                 lblnpmVersionMsg.Text = "npm Version: " + currentNpmVersion.Trim();
+
+                // Check if pcf-generator is installed
+                string[] pcfGCommands = new string[] { Commands.Npm.CheckPcfGenerator() };
+                var pcfGOutput = CommandLineHelper.RunCommand(pcfGCommands);
+
+                if (pcfGOutput.ToLower().Contains("generator-pcf"))
+                {
+                    var pcfGVersionStr = pcfGOutput.Substring(pcfGOutput.IndexOf("generator-pcf@") + 14, 5);
+                    Version pcfGInstalledVersion = Version.Parse(pcfGVersionStr);
+                    Version pcfGMinimumVersion = Version.Parse("1.2.5");
+
+                    if (pcfGInstalledVersion < pcfGMinimumVersion)
+                    {
+                        string[] updateCommands = new string[] { Commands.Npm.UpdatePcfGenerator() };
+                        CommandLineHelper.RunCommand(updateCommands);
+
+                        ShowInfoNotification("PCF Generator was updated to latest version.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                    }
+                }
+                else
+                {
+                    string[] installCommands = new string[] { Commands.Npm.InstallYo(), Commands.Npm.InstallPcfGenerator() };
+                    CommandLineHelper.RunCommand(installCommands);
+
+                    ShowInfoNotification("PCF Generator package was installed on this machine.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                }
             }
             else
             {
@@ -1713,10 +1751,10 @@ namespace Maverick.PCF.Builder
                 var projectPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
                     ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
                     : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
-                //string msbuild_restore = Commands.Msbuild.Restore(projectPath);
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
+                string msbuild_restore = Commands.Msbuild.Restore(projectPath);
+                string msbuild_build = chkManagedSolution.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
 
-                RunCommandLine(cdMsBuildDir, msbuild_rebuild);
+                RunCommandLine(cdMsBuildDir, msbuild_restore, msbuild_build);
             }
         }
 
@@ -2024,6 +2062,37 @@ namespace Maverick.PCF.Builder
             var showPreviewImageForm = new ShowPreviewImage(ControlDetails);
             showPreviewImageForm.StartPosition = FormStartPosition.CenterScreen;
             showPreviewImageForm.ShowDialog();
+        }
+
+        private void btnAddResxFile_Click(object sender, EventArgs e)
+        {
+            var ctrlLangCodes = new LanguageCodeSelector();
+            ctrlLangCodes.StartPosition = FormStartPosition.CenterScreen;
+            ctrlLangCodes.ParentControl = this;
+            ctrlLangCodes.ShowDialog();
+
+            string controlDir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}";
+            string stringsDir = $"{controlDir}\\strings";
+
+            if (SelectedLcids != null)
+            {
+                if (!Directory.Exists(stringsDir))
+                {
+                    Directory.CreateDirectory(stringsDir);
+                }
+
+                // As of now only one LCID an be added until PCF Generator supports multiple
+                var lcid = SelectedLcids.First().Value;
+                var areMainControlsValid = AreMainControlsPopulated();
+
+                if (areMainControlsValid)
+                {
+                    string cdWorkingDir = Commands.Cmd.ChangeDirectory(txtWorkingFolder.Text);
+                    string yoCommand = Commands.Yo.AddResxFile(txtControlName.Text, lcid.ToString());
+
+                    RunCommandLine(cdWorkingDir, yoCommand);
+                }
+            }
         }
     }
 }

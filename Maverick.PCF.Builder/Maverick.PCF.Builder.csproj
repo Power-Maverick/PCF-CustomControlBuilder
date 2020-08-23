@@ -154,6 +154,7 @@
   <ItemGroup>
     <Compile Include="DataObjects\AuthenticationProfile.cs" />
     <Compile Include="DataObjects\ControlManifestDetails.cs" />
+    <Compile Include="DataObjects\LanguageCode.cs" />
     <Compile Include="DataObjects\PcfGallery.cs" />
     <Compile Include="Forms\AuthenticationProfileForm.cs">
       <SubType>Form</SubType>
@@ -166,6 +167,12 @@
     </Compile>
     <Compile Include="Forms\InputDialog.Designer.cs">
       <DependentUpon>InputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\LanguageCodeSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\LanguageCodeSelector.Designer.cs">
+      <DependentUpon>LanguageCodeSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SettingsForm.cs">
       <SubType>Form</SubType>
@@ -213,6 +220,12 @@
     <Compile Include="SealedClasses\SolutionDetails.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ToolSettings\MostRecentlyUsedLocations.cs" />
+    <Compile Include="UserControls\LcidControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\LcidControl.Designer.cs">
+      <DependentUpon>LcidControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Template.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -223,6 +236,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="ApplicationInsights.config" />
+    <Content Include="DataSampleFiles\lcid.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ILMerge.doc" />
     <None Include="ILMerge.props" />
     <None Include="packages.config" />
@@ -245,6 +261,9 @@
     <EmbeddedResource Include="Forms\InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LanguageCodeSelector.resx">
+      <DependentUpon>LanguageCodeSelector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -260,6 +279,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\LcidControl.resx">
+      <DependentUpon>LcidControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Template.resx">
       <DependentUpon>Template.cs</DependentUpon>
@@ -278,6 +300,7 @@
       xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)Plugins\" /Y
       xcopy "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\" /Y
       xcopy "msbuild.ps1" "Plugins\Maverick.PCF.Builder\" /q/y
+      xcopy "lcid.json" "Plugins\Maverick.PCF.Builder\" /q/y
 
       IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
       xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y

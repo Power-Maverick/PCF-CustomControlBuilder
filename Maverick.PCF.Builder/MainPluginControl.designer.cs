@@ -101,6 +101,9 @@
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.btnAddResxFile = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.btnAddPreviewImage = new System.Windows.Forms.Button();
             this.lblControlInitStatus = new System.Windows.Forms.Label();
@@ -125,9 +128,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.btnAddResxFile = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -136,6 +137,7 @@
             this.gboxCommandPrompt.SuspendLayout();
             this.grpBoxSolutionDetails.SuspendLayout();
             this.grpBoxComponentDetails.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -502,7 +504,7 @@
             // 
             this.lblCurrentProfile.Location = new System.Drawing.Point(6, 16);
             this.lblCurrentProfile.Name = "lblCurrentProfile";
-            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 159);
+            this.lblCurrentProfile.Size = new System.Drawing.Size(483, 143);
             this.lblCurrentProfile.TabIndex = 29;
             this.lblCurrentProfile.Text = "Loading....";
             // 
@@ -847,11 +849,8 @@
             // 
             // grpBoxComponentDetails
             // 
-            this.grpBoxComponentDetails.Controls.Add(this.label13);
-            this.grpBoxComponentDetails.Controls.Add(this.label12);
-            this.grpBoxComponentDetails.Controls.Add(this.btnAddResxFile);
+            this.grpBoxComponentDetails.Controls.Add(this.tableLayoutPanel1);
             this.grpBoxComponentDetails.Controls.Add(this.label11);
-            this.grpBoxComponentDetails.Controls.Add(this.btnAddPreviewImage);
             this.grpBoxComponentDetails.Controls.Add(this.lblControlInitStatus);
             this.grpBoxComponentDetails.Controls.Add(this.linklblQuickDeployLearn);
             this.grpBoxComponentDetails.Controls.Add(this.btnQuickDeploy);
@@ -877,6 +876,43 @@
             this.grpBoxComponentDetails.TabStop = false;
             this.grpBoxComponentDetails.Text = "PCF Component Details";
             // 
+            // label13
+            // 
+            this.label13.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(83, 41);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(44, 12);
+            this.label13.TabIndex = 34;
+            this.label13.Text = "RESX file";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(4, 41);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(68, 12);
+            this.label12.TabIndex = 33;
+            this.label12.Text = "Preview Image";
+            // 
+            // btnAddResxFile
+            // 
+            this.btnAddResxFile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAddResxFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddResxFile.BackgroundImage")));
+            this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddResxFile.FlatAppearance.BorderSize = 0;
+            this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddResxFile.Location = new System.Drawing.Point(89, 3);
+            this.btnAddResxFile.Name = "btnAddResxFile";
+            this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
+            this.btnAddResxFile.TabIndex = 32;
+            this.toolTip.SetToolTip(this.btnAddResxFile, "Add RESX file");
+            this.btnAddResxFile.UseVisualStyleBackColor = true;
+            this.btnAddResxFile.Click += new System.EventHandler(this.btnAddResxFile_Click);
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -888,11 +924,12 @@
             // 
             // btnAddPreviewImage
             // 
+            this.btnAddPreviewImage.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnAddPreviewImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPreviewImage.BackgroundImage")));
             this.btnAddPreviewImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddPreviewImage.FlatAppearance.BorderSize = 0;
             this.btnAddPreviewImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPreviewImage.Location = new System.Drawing.Point(119, 161);
+            this.btnAddPreviewImage.Location = new System.Drawing.Point(22, 3);
             this.btnAddPreviewImage.Name = "btnAddPreviewImage";
             this.btnAddPreviewImage.Size = new System.Drawing.Size(32, 32);
             this.btnAddPreviewImage.TabIndex = 30;
@@ -1108,38 +1145,22 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // btnAddResxFile
+            // tableLayoutPanel1
             // 
-            this.btnAddResxFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddResxFile.BackgroundImage")));
-            this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddResxFile.FlatAppearance.BorderSize = 0;
-            this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddResxFile.Location = new System.Drawing.Point(189, 161);
-            this.btnAddResxFile.Name = "btnAddResxFile";
-            this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
-            this.btnAddResxFile.TabIndex = 32;
-            this.toolTip.SetToolTip(this.btnAddResxFile, "Add RESX file");
-            this.btnAddResxFile.UseVisualStyleBackColor = true;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(101, 196);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 12);
-            this.label12.TabIndex = 33;
-            this.label12.Text = "Preview Image";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(186, 196);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(44, 12);
-            this.label13.TabIndex = 34;
-            this.label13.Text = "RESX file";
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56.84932F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 43.15068F));
+            this.tableLayoutPanel1.Controls.Add(this.label13, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddResxFile, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddPreviewImage, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(110, 153);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.0625F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.9375F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(134, 64);
+            this.tableLayoutPanel1.TabIndex = 35;
             // 
             // MainPluginControl
             // 
@@ -1164,6 +1185,8 @@
             this.grpBoxSolutionDetails.PerformLayout();
             this.grpBoxComponentDetails.ResumeLayout(false);
             this.grpBoxComponentDetails.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1268,5 +1291,6 @@
         private System.Windows.Forms.Button btnAddResxFile;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }

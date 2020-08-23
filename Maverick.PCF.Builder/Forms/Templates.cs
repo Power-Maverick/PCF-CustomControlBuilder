@@ -154,11 +154,14 @@ namespace Maverick.PCF.Builder.Forms
 
         private void TxtSearch_TextChanged(object sender, EventArgs e)
         {
-            _searchThread?.Abort();
-            _searchThread = new Thread(LoadTemplates);
-            _searchThread.Start(txtSearch.Text);
+            //_searchThread?.Abort();
+            //_searchThread = new Thread(LoadTemplates);
+            //_searchThread.Start(txtSearch.Text);
         }
 
-
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadTemplates(txtSearch.Text);
+        }
     }
 }

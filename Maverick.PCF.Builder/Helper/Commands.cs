@@ -226,6 +226,42 @@ namespace Maverick.PCF.Builder.Helper
             {
                 return $"npm start watch";
             }
+
+            /// <summary>
+            /// npm list -g -d=0 generator-pcf
+            /// </summary>
+            /// <returns></returns>
+            public static string CheckPcfGenerator()
+            {
+                return $"npm list -g -d=0 generator-pcf";
+            }
+
+            /// <summary>
+            /// npm install -g yo
+            /// </summary>
+            /// <returns></returns>
+            public static string InstallYo()
+            {
+                return $"npm install -g yo";
+            }
+
+            /// <summary>
+            /// npm install -g generator-pcf
+            /// </summary>
+            /// <returns></returns>
+            public static string InstallPcfGenerator()
+            {
+                return $"npm install -g generator-pcf";
+            }
+
+            /// <summary>
+            /// npm update -g generator-pcf
+            /// </summary>
+            /// <returns></returns>
+            public static string UpdatePcfGenerator()
+            {
+                return $"npm update -g generator-pcf";
+            }
         }
 
         public class Msbuild
@@ -276,7 +312,6 @@ namespace Maverick.PCF.Builder.Helper
             }
         }
 
-
         public class SolutionPackager
         {
             private const string SOLUTION_PACKAGER_LOCATION = "CoreTools\\SolutionPackager.exe";
@@ -302,6 +337,19 @@ namespace Maverick.PCF.Builder.Helper
             #endregion
 
 
+        }
+
+        public class Yo
+        {
+            /// <summary>
+            /// yo pcf:resx --lc {lcid} --force
+            /// </summary>
+            /// <param name="lcid"></param>
+            /// <returns></returns>
+            public static string AddResxFile(string controlName, string lcid)
+            {
+                return $"yo pcf:resx {controlName} --lc {lcid} --force";
+            }
         }
     }
 }

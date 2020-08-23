@@ -1,0 +1,1042 @@
+[
+  {
+    "lcidString": "af_ZA",
+    "name": "Afrikaans",
+    "value": 1078
+  },
+  {
+    "lcidString": "sq_AL",
+    "name": "Albanian",
+    "value": 1052
+  },
+  {
+    "lcidString": "gsw_FR",
+    "name": "Alsatian - France",
+    "value": 1156
+  },
+  {
+    "lcidString": "am_ET",
+    "name": "Amharic - Ethiopia",
+    "value": 1118
+  },
+  {
+    "lcidString": "ar_SA",
+    "name": "Arabic - Saudi Arabia",
+    "value": 1025
+  },
+  {
+    "lcidString": "ar_IQ",
+    "name": "Arabic - Iraq",
+    "value": 2049
+  },
+  {
+    "lcidString": "ar_EG",
+    "name": "Arabic - Egypt",
+    "value": 3073
+  },
+  {
+    "lcidString": "ar_LY",
+    "name": "Arabic - Libya",
+    "value": 4097
+  },
+  {
+    "lcidString": "ar_DZ",
+    "name": "Arabic - Algeria",
+    "value": 5121
+  },
+  {
+    "lcidString": "ar_MA",
+    "name": "Arabic - Morocco",
+    "value": 6145
+  },
+  {
+    "lcidString": "ar_TN",
+    "name": "Arabic - Tunisia",
+    "value": 7169
+  },
+  {
+    "lcidString": "ar_OM",
+    "name": "Arabic - Oman",
+    "value": 8193
+  },
+  {
+    "lcidString": "ar_YE",
+    "name": "Arabic - Yemen",
+    "value": 9217
+  },
+  {
+    "lcidString": "ar_SY",
+    "name": "Arabic - Syria",
+    "value": 10241
+  },
+  {
+    "lcidString": "ar_JO",
+    "name": "Arabic - Jordan",
+    "value": 11265
+  },
+  {
+    "lcidString": "ar_LB",
+    "name": "Arabic - Lebanon",
+    "value": 12289
+  },
+  {
+    "lcidString": "ar_KW",
+    "name": "Arabic - Kuwait",
+    "value": 13313
+  },
+  {
+    "lcidString": "ar_AE",
+    "name": "Arabic - United Arab Emirates",
+    "value": 14337
+  },
+  {
+    "lcidString": "ar_BH",
+    "name": "Arabic - Bahrain",
+    "value": 15361
+  },
+  {
+    "lcidString": "ar_QA",
+    "name": "Arabic - Qatar",
+    "value": 16385
+  },
+  {
+    "lcidString": "hy_AM",
+    "name": "Armenian",
+    "value": 1067
+  },
+  {
+    "lcidString": "as_IN",
+    "name": "Assamese - India",
+    "value": 1101
+  },
+  {
+    "lcidString": "az_AZ",
+    "name": "Azeri - Latin",
+    "value": 2092
+  },
+  {
+    "lcidString": "az_AZ",
+    "name": "Azeri - Cyrillic",
+    "value": 2092
+  },
+  {
+    "lcidString": "ba_RU",
+    "name": "Bashkir",
+    "value": 1133
+  },
+  {
+    "lcidString": "eu_ES",
+    "name": "Basque - Russia",
+    "value": 1069
+  },
+  {
+    "lcidString": "be_BY",
+    "name": "Belarusian",
+    "value": 1059
+  },
+  {
+    "lcidString": "bn_IN",
+    "name": "Begali",
+    "value": 1093
+  },
+  {
+    "lcidString": "bs_BA",
+    "name": "Bosnian - Cyrillic",
+    "value": 8218
+  },
+  {
+    "lcidString": "bs_BA",
+    "name": "Bosnian - Latin",
+    "value": 8218
+  },
+  {
+    "lcidString": "br_FR",
+    "name": "Breton - France",
+    "value": 1150
+  },
+  {
+    "lcidString": "bg_BG",
+    "name": "Bulgarian",
+    "value": 1026
+  },
+  {
+    "lcidString": "my_MM",
+    "name": "Burmese - Not supported",
+    "value": 1109
+  },
+  {
+    "lcidString": "ca_ES",
+    "name": "Catalan",
+    "value": 1027
+  },
+  {
+    "lcidString": "zh_CHS",
+    "name": "Chinese - Simplified",
+    "value": 4
+  },
+  {
+    "lcidString": "zh_TW",
+    "name": "Chinese - Taiwan",
+    "value": 1028
+  },
+  {
+    "lcidString": "zh_CN",
+    "name": "Chinese - PRC",
+    "value": 2052
+  },
+  {
+    "lcidString": "zh_HK",
+    "name": "Chinese - Hong Kong S.A.R.",
+    "value": 3076
+  },
+  {
+    "lcidString": "zh_SG",
+    "name": "Chinese - Singapore",
+    "value": 4100
+  },
+  {
+    "lcidString": "zh_MO",
+    "name": "Chinese - Macao S.A.R.",
+    "value": 5124
+  },
+  {
+    "lcidString": "zh_CHT",
+    "name": "Chinese - Traditional",
+    "value": 31748
+  },
+  {
+    "lcidString": "co_FR",
+    "name": "Corsican - France",
+    "value": 1155
+  },
+  {
+    "lcidString": "hr_HR",
+    "name": "Croatian",
+    "value": 1050
+  },
+  {
+    "lcidString": "hr_BA",
+    "name": "Croatian - Bosnia",
+    "value": 4122
+  },
+  {
+    "lcidString": "cs_CZ",
+    "name": "Czech",
+    "value": 1029
+  },
+  {
+    "lcidString": "da_DK",
+    "name": "Danish",
+    "value": 1030
+  },
+  {
+    "lcidString": "gbz_AF",
+    "name": "Dari - Afghanistan",
+    "value": 1164
+  },
+  {
+    "lcidString": "div_MV",
+    "name": "Divehi - Maldives",
+    "value": 1125
+  },
+  {
+    "lcidString": "nl_NL",
+    "name": "Dutch - The Netherlands",
+    "value": 1043
+  },
+  {
+    "lcidString": "nl_BE",
+    "name": "Dutch - Belgium",
+    "value": 2067
+  },
+  {
+    "lcidString": "en_US",
+    "name": "English - United States",
+    "value": 1033
+  },
+  {
+    "lcidString": "en_GB",
+    "name": "English - United Kingdom",
+    "value": 2057
+  },
+  {
+    "lcidString": "en_AU",
+    "name": "English - Australia",
+    "value": 3081
+  },
+  {
+    "lcidString": "en_CA",
+    "name": "English - Canada",
+    "value": 4105
+  },
+  {
+    "lcidString": "en_NZ",
+    "name": "English - New Zealand",
+    "value": 5129
+  },
+  {
+    "lcidString": "en_IE",
+    "name": "English - Ireland",
+    "value": 6153
+  },
+  {
+    "lcidString": "en_ZA",
+    "name": "English - South Africa",
+    "value": 7177
+  },
+  {
+    "lcidString": "en_JA",
+    "name": "English - Jamaica",
+    "value": 8201
+  },
+  {
+    "lcidString": "en_CB",
+    "name": "English - Caribbean",
+    "value": 9225
+  },
+  {
+    "lcidString": "en_BZ",
+    "name": "English - Belize",
+    "value": 10249
+  },
+  {
+    "lcidString": "en_TT",
+    "name": "English - Trinidad",
+    "value": 11273
+  },
+  {
+    "lcidString": "en_ZW",
+    "name": "English - Zimbabwe",
+    "value": 12297
+  },
+  {
+    "lcidString": "en_PH",
+    "name": "English - Philippines",
+    "value": 13321
+  },
+  {
+    "lcidString": "en_IN",
+    "name": "English - India",
+    "value": 18441
+  },
+  {
+    "lcidString": "en_MY",
+    "name": "English - Malaysia",
+    "value": 17417
+  },
+  {
+    "lcidString": "en_IN",
+    "name": "English - Singapore",
+    "value": 18441
+  },
+  {
+    "lcidString": "et_EE",
+    "name": "Estonian",
+    "value": 1061
+  },
+  {
+    "lcidString": "fo_FO",
+    "name": "Faroese",
+    "value": 1080
+  },
+  {
+    "lcidString": "fil_PH",
+    "name": "Filipino",
+    "value": 1124
+  },
+  {
+    "lcidString": "fi_FI",
+    "name": "Finnish",
+    "value": 1035
+  },
+  {
+    "lcidString": "fr_FR",
+    "name": "French - France",
+    "value": 1036
+  },
+  {
+    "lcidString": "fr_BE",
+    "name": "French - Belgium",
+    "value": 2060
+  },
+  {
+    "lcidString": "fr_CA",
+    "name": "French - Canada",
+    "value": 3084
+  },
+  {
+    "lcidString": "fr_CH",
+    "name": "French - Switzerland",
+    "value": 4108
+  },
+  {
+    "lcidString": "fr_LU",
+    "name": "French - Luxembourg",
+    "value": 5132
+  },
+  {
+    "lcidString": "fr_MC",
+    "name": "French - Monaco",
+    "value": 6156
+  },
+  {
+    "lcidString": "fy_NL",
+    "name": "Frisian - Netherlands",
+    "value": 1122
+  },
+  {
+    "lcidString": "gl_ES",
+    "name": "Galician",
+    "value": 1110
+  },
+  {
+    "lcidString": "ka_GE",
+    "name": "Georgian",
+    "value": 1079
+  },
+  {
+    "lcidString": "de_DE",
+    "name": "German - Germany",
+    "value": 1031
+  },
+  {
+    "lcidString": "de_CH",
+    "name": "German - Switzerland",
+    "value": 2055
+  },
+  {
+    "lcidString": "de_AT",
+    "name": "German - Austria",
+    "value": 3079
+  },
+  {
+    "lcidString": "de_LU",
+    "name": "German - Luxembourg",
+    "value": 4103
+  },
+  {
+    "lcidString": "de_LI",
+    "name": "German - Liechtenstein",
+    "value": 5127
+  },
+  {
+    "lcidString": "el_GR",
+    "name": "Greek",
+    "value": 1032
+  },
+  {
+    "lcidString": "kl_GL",
+    "name": "Greenlandic - Greenland",
+    "value": 1135
+  },
+  {
+    "lcidString": "gu_IN",
+    "name": "Gujarati",
+    "value": 1095
+  },
+  {
+    "lcidString": "ha_NG",
+    "name": "Hausa - Latin",
+    "value": 1128
+  },
+  {
+    "lcidString": "he_IL",
+    "name": "Hebrew",
+    "value": 1037
+  },
+  {
+    "lcidString": "hi_IN",
+    "name": "Hindi",
+    "value": 1081
+  },
+  {
+    "lcidString": "hu_HU",
+    "name": "Hungarian",
+    "value": 1038
+  },
+  {
+    "lcidString": "is_IS",
+    "name": "Icelandic",
+    "value": 1039
+  },
+  {
+    "lcidString": "id_ID",
+    "name": "Indonesian",
+    "value": 1057
+  },
+  {
+    "lcidString": "iu_CA",
+    "name": "Inuktitut - Syllabics",
+    "value": 2141
+  },
+  {
+    "lcidString": "iu_CA",
+    "name": "Inuktitut - Latin",
+    "value": 2141
+  },
+  {
+    "lcidString": "ga_IE",
+    "name": "Irish - Ireland",
+    "value": 2108
+  },
+  {
+    "lcidString": "it_IT",
+    "name": "Italian - Italy",
+    "value": 1040
+  },
+  {
+    "lcidString": "it_CH",
+    "name": "Italian - Switzerland",
+    "value": 2064
+  },
+  {
+    "lcidString": "ja_JP",
+    "name": "Japanese",
+    "value": 1041
+  },
+  {
+    "lcidString": "kn_IN",
+    "name": "Kannada - India",
+    "value": 1099
+  },
+  {
+    "lcidString": "kk_KZ",
+    "name": "Kazakh",
+    "value": 1087
+  },
+  {
+    "lcidString": "kh_KH",
+    "name": "Khmer - Cambodia",
+    "value": 1107
+  },
+  {
+    "lcidString": "qut_GT",
+    "name": "K'iche - Guatemala",
+    "value": 1158
+  },
+  {
+    "lcidString": "rw_RW",
+    "name": "Kinyarwanda - Rwanda",
+    "value": 1159
+  },
+  {
+    "lcidString": "kok_IN",
+    "name": "Konkani",
+    "value": 1111
+  },
+  {
+    "lcidString": "ko_KR",
+    "name": "Korean",
+    "value": 1042
+  },
+  {
+    "lcidString": "ky_KG",
+    "name": "Kyrgyz",
+    "value": 1088
+  },
+  {
+    "lcidString": "lo_LA",
+    "name": "Lao - Lao PDR",
+    "value": 1108
+  },
+  {
+    "lcidString": "lv_LV",
+    "name": "Latvian",
+    "value": 1062
+  },
+  {
+    "lcidString": "lt_LT",
+    "name": "Lithuanian",
+    "value": 1063
+  },
+  {
+    "lcidString": "dsb_DE",
+    "name": "Lower Sorbian - Germany",
+    "value": 2094
+  },
+  {
+    "lcidString": "lb_LU",
+    "name": "Luxembourgish",
+    "value": 1134
+  },
+  {
+    "lcidString": "mk_MK",
+    "name": "FYROM Macedonian",
+    "value": 1071
+  },
+  {
+    "lcidString": "ms_MY",
+    "name": "Malay - Malaysia",
+    "value": 1086
+  },
+  {
+    "lcidString": "ms_BN",
+    "name": "Malay - Brunei Darussalam",
+    "value": 2110
+  },
+  {
+    "lcidString": "ml_IN",
+    "name": "Malayalam - India",
+    "value": 1100
+  },
+  {
+    "lcidString": "mt_MT",
+    "name": "Maltese",
+    "value": 1082
+  },
+  {
+    "lcidString": "mi_NZ",
+    "name": "Maori",
+    "value": 1153
+  },
+  {
+    "lcidString": "arn_CL",
+    "name": "Mapudungun",
+    "value": 1146
+  },
+  {
+    "lcidString": "mr_IN",
+    "name": "Marathi",
+    "value": 1102
+  },
+  {
+    "lcidString": "moh_CA",
+    "name": "Mohawk - Canada",
+    "value": 1148
+  },
+  {
+    "lcidString": "mn_MN",
+    "name": "Mongolian - Cyrillic",
+    "value": 1104
+  },
+  {
+    "lcidString": "mn_CN",
+    "name": "Mongolian - PRC",
+    "value": 2128
+  },
+  {
+    "lcidString": "ne_NP",
+    "name": "Nepali",
+    "value": 1121
+  },
+  {
+    "lcidString": "nb_NO",
+    "name": "Norwegian - Bokmal",
+    "value": 1044
+  },
+  {
+    "lcidString": "nn_NO",
+    "name": "Norwegian - Nynorsk",
+    "value": 2068
+  },
+  {
+    "lcidString": "oc_FR",
+    "name": "Occitan - France",
+    "value": 1154
+  },
+  {
+    "lcidString": "or_IN",
+    "name": "Oriya - India",
+    "value": 1096
+  },
+  {
+    "lcidString": "ps_AF",
+    "name": "Pashto - Afghanistan",
+    "value": 1123
+  },
+  {
+    "lcidString": "fa_IR",
+    "name": "Persian",
+    "value": 1065
+  },
+  {
+    "lcidString": "pl_PL",
+    "name": "Polish",
+    "value": 1045
+  },
+  {
+    "lcidString": "pt_BR",
+    "name": "Portuguese - Brazil",
+    "value": 1046
+  },
+  {
+    "lcidString": "pt_PT",
+    "name": "Portuguese - Portugal",
+    "value": 2070
+  },
+  {
+    "lcidString": "pa_IN",
+    "name": "Punjabi",
+    "value": 1094
+  },
+  {
+    "lcidString": "quz_BO",
+    "name": "Quechua (Bolivia)",
+    "value": 1131
+  },
+  {
+    "lcidString": "quz_EC",
+    "name": "Quechua (Ecuador)",
+    "value": 2155
+  },
+  {
+    "lcidString": "quz_PE",
+    "name": "Quechua (Peru)",
+    "value": 3179
+  },
+  {
+    "lcidString": "ro_RO",
+    "name": "Romanian - Romania",
+    "value": 1048
+  },
+  {
+    "lcidString": "rm_CH",
+    "name": "Romansh",
+    "value": 1047
+  },
+  {
+    "lcidString": "ru_RU",
+    "name": "Russian",
+    "value": 1049
+  },
+  {
+    "lcidString": "smn_FI",
+    "name": "Sami Finland",
+    "value": 9275
+  },
+  {
+    "lcidString": "smj_NO",
+    "name": "Sami Norway",
+    "value": 4155
+  },
+  {
+    "lcidString": "smj_SE",
+    "name": "Sami Sweden",
+    "value": 5179
+  },
+  {
+    "lcidString": "se_NO",
+    "name": "Sami Northern Norway",
+    "value": 1083
+  },
+  {
+    "lcidString": "se_SE",
+    "name": "Sami Northern Sweden",
+    "value": 2107
+  },
+  {
+    "lcidString": "se_FI",
+    "name": "Sami Northern Finland",
+    "value": 3131
+  },
+  {
+    "lcidString": "sms_FI",
+    "name": "Sami Skolt",
+    "value": 8251
+  },
+  {
+    "lcidString": "sma_NO",
+    "name": "Sami Southern Norway",
+    "value": 6203
+  },
+  {
+    "lcidString": "sma_SE",
+    "name": "Sami Southern Sweden",
+    "value": 7227
+  },
+  {
+    "lcidString": "sa_IN",
+    "name": "Sanskrit",
+    "value": 1103
+  },
+  {
+    "lcidString": "sr_SP",
+    "name": "Serbian - Cyrillic",
+    "value": 3098
+  },
+  {
+    "lcidString": "sr_BA",
+    "name": "Serbian - Bosnia Cyrillic",
+    "value": 7194
+  },
+  {
+    "lcidString": "sr_SP",
+    "name": "Serbian - Latin",
+    "value": 3098
+  },
+  {
+    "lcidString": "sr_BA",
+    "name": "Serbian - Bosnia Latin",
+    "value": 7194
+  },
+  {
+    "lcidString": "si_LK",
+    "name": "Sinhala - Sri Lanka",
+    "value": 1115
+  },
+  {
+    "lcidString": "ns_ZA",
+    "name": "Northern Sotho",
+    "value": 1132
+  },
+  {
+    "lcidString": "tn_ZA",
+    "name": "Setswana - Southern Africa",
+    "value": 1074
+  },
+  {
+    "lcidString": "sk_SK",
+    "name": "Slovak",
+    "value": 1051
+  },
+  {
+    "lcidString": "sl_SI",
+    "name": "Slovenian",
+    "value": 1060
+  },
+  {
+    "lcidString": "es_ES",
+    "name": "Spanish - Spain",
+    "value": 3082
+  },
+  {
+    "lcidString": "es_MX",
+    "name": "Spanish - Mexico",
+    "value": 2058
+  },
+  {
+    "lcidString": "es_ES",
+    "name": "Spanish - Spain (Modern)",
+    "value": 3082
+  },
+  {
+    "lcidString": "es_GT",
+    "name": "Spanish - Guatemala",
+    "value": 4106
+  },
+  {
+    "lcidString": "es_CR",
+    "name": "Spanish - Costa Rica",
+    "value": 5130
+  },
+  {
+    "lcidString": "es_PA",
+    "name": "Spanish - Panama",
+    "value": 6154
+  },
+  {
+    "lcidString": "es_DO",
+    "name": "Spanish - Dominican Republic",
+    "value": 7178
+  },
+  {
+    "lcidString": "es_VE",
+    "name": "Spanish - Venezuela",
+    "value": 8202
+  },
+  {
+    "lcidString": "es_CO",
+    "name": "Spanish - Colombia",
+    "value": 9226
+  },
+  {
+    "lcidString": "es_PE",
+    "name": "Spanish - Peru",
+    "value": 10250
+  },
+  {
+    "lcidString": "es_AR",
+    "name": "Spanish - Argentina",
+    "value": 11274
+  },
+  {
+    "lcidString": "es_EC",
+    "name": "Spanish - Ecuador",
+    "value": 12298
+  },
+  {
+    "lcidString": "es_CL",
+    "name": "Spanish - Chile",
+    "value": 13322
+  },
+  {
+    "lcidString": "es_UR",
+    "name": "Spanish - Uruguay",
+    "value": 14346
+  },
+  {
+    "lcidString": "es_PY",
+    "name": "Spanish - Paraguay",
+    "value": 15370
+  },
+  {
+    "lcidString": "es_BO",
+    "name": "Spanish - Bolivia",
+    "value": 16394
+  },
+  {
+    "lcidString": "es_SV",
+    "name": "Spanish - El Salvador",
+    "value": 17418
+  },
+  {
+    "lcidString": "es_HN",
+    "name": "Spanish - Honduras",
+    "value": 18442
+  },
+  {
+    "lcidString": "es_NI",
+    "name": "Spanish - Nicaragua",
+    "value": 19466
+  },
+  {
+    "lcidString": "es_PR",
+    "name": "Spanish - Puerto Rico",
+    "value": 20490
+  },
+  {
+    "lcidString": "es_US",
+    "name": "Spanish - United States",
+    "value": 21514
+  },
+  {
+    "lcidString": "sv_SE",
+    "name": "Swedish - Sweden",
+    "value": 1053
+  },
+  {
+    "lcidString": "sv_FI",
+    "name": "Swedish - Finland",
+    "value": 2077
+  },
+  {
+    "lcidString": "syr_SY",
+    "name": "Syriac",
+    "value": 1114
+  },
+  {
+    "lcidString": "tg_TJ",
+    "name": "Tajik - Cyrillic",
+    "value": 1064
+  },
+  {
+    "lcidString": "tmz_DZ",
+    "name": "Tamazight - Latin",
+    "value": 2143
+  },
+  {
+    "lcidString": "ta_IN",
+    "name": "Tamil",
+    "value": 1097
+  },
+  {
+    "lcidString": "tt_RU",
+    "name": "Tatar",
+    "value": 1092
+  },
+  {
+    "lcidString": "te_IN",
+    "name": "Telugu",
+    "value": 1098
+  },
+  {
+    "lcidString": "th_TH",
+    "name": "Thai",
+    "value": 1054
+  },
+  {
+    "lcidString": "bo_BT",
+    "name": "Tibetan - Bhutan",
+    "value": 2129
+  },
+  {
+    "lcidString": "bo_CN",
+    "name": "Tibetan - PRC",
+    "value": 1105
+  },
+  {
+    "lcidString": "tr_TR",
+    "name": "Turkish",
+    "value": 1055
+  },
+  {
+    "lcidString": "tk_TM",
+    "name": "Turkmen - Cyrillic",
+    "value": 1090
+  },
+  {
+    "lcidString": "ug_CN",
+    "name": "Uighur - Arabic",
+    "value": 1152
+  },
+  {
+    "lcidString": "uk_UA",
+    "name": "Ukrainian",
+    "value": 1058
+  },
+  {
+    "lcidString": "wen_DE",
+    "name": "Upper Sorbian - Germany",
+    "value": 1070
+  },
+  {
+    "lcidString": "ur_PK",
+    "name": "Urdu",
+    "value": 1056
+  },
+  {
+    "lcidString": "ur_IN",
+    "name": "Urdu - India",
+    "value": 2080
+  },
+  {
+    "lcidString": "uz_UZ",
+    "name": "Uzbek - Latin",
+    "value": 2115
+  },
+  {
+    "lcidString": "uz_UZ",
+    "name": "Uzbek - Cyrillic",
+    "value": 2115
+  },
+  {
+    "lcidString": "vi_VN",
+    "name": "Vietnamese",
+    "value": 1066
+  },
+  {
+    "lcidString": "cy_GB",
+    "name": "Welsh",
+    "value": 1106
+  },
+  {
+    "lcidString": "wo_SN",
+    "name": "Wolof - Senegal",
+    "value": 1160
+  },
+  {
+    "lcidString": "xh_ZA",
+    "name": "Xhosa - South Africa",
+    "value": 1076
+  },
+  {
+    "lcidString": "sah_RU",
+    "name": "Yakut - Cyrillic",
+    "value": 1157
+  },
+  {
+    "lcidString": "ii_CN",
+    "name": "Yi - PRC",
+    "value": 1144
+  },
+  {
+    "lcidString": "yo_NG",
+    "name": "Yoruba - Nigeria",
+    "value": 1130
+  },
+  {
+    "lcidString": "zu_ZA",
+    "name": "Zulu",
+    "value": 1077
+  }
+]

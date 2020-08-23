@@ -45,13 +45,15 @@ C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.
 C:\Users\dnaglekar\Source\Repos\Danz-maveRICK\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csprojAssemblyReference.cache
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.AuthenticationProfileForm.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.InputDialog.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.LanguageCodeSelector.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.SettingsForm.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.ShowPreviewImage.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.Templates.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.MainPluginControl.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Properties.Resources.resources
+C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.UserControls.LcidControl.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.UserControls.Template.resources
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csproj.GenerateResource.cache
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.dll
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.pdb
 C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.csprojAssemblyReference.cache
-C:\Users\dnaglekar\Source\Repos\Power-Maverick\PCF-CustomControlBuilder\Maverick.PCF.Builder\obj\Debug\Maverick.PCF.Builder.Forms.ShowPreviewImage.resources

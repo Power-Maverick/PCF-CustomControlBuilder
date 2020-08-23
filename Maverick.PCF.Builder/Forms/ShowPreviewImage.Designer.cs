@@ -96,11 +96,10 @@
             // 
             // lblDescription
             // 
-            this.lblDescription.AutoSize = true;
             this.lblDescription.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDescription.Location = new System.Drawing.Point(10, 156);
+            this.lblDescription.Location = new System.Drawing.Point(9, 161);
             this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(12, 15);
+            this.lblDescription.Size = new System.Drawing.Size(276, 62);
             this.lblDescription.TabIndex = 5;
             this.lblDescription.Text = "-";
             // 
