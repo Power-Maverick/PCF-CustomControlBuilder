@@ -1,11 +1,11 @@
 ﻿---- NEW FEATURES ----
-1. Add control to existing CDS solution (#18 enhancement on GitHub)
-2. Shows list of top 5 most recent locations
+1. Feature to add preview image from the tool
+2. Ability to check the preview when user is selecting in Model-Driven app from the tool itself
+3. Ability to add RESX files
 
 ---- UPDATES ----
-1. Deploy button not enabled unless CDS Project is initialized
-2. CDS Solution location has changed to be on Working Folder with a new folder named "Solution"
-3. Backward compatibility for CDS Solution is still supported
+1. Prompts user when a new version of PCF CLI is available
+2. Silently installs prerequisite to PCF Generator
 
 ---- BUG FIXES ----
-No bug fixed in this release
+1. Bug #24: Recently used location drop-down gives error

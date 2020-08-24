@@ -735,7 +735,10 @@ namespace Maverick.PCF.Builder
                         string[] updateCommands = new string[] { Commands.Npm.UpdatePcfGenerator() };
                         CommandLineHelper.RunCommand(updateCommands);
 
-                        ShowInfoNotification("PCF Generator was updated to latest version.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                        Invoke(new Action(() =>
+                        {
+                            ShowInfoNotification("PCF Generator was updated to latest version.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                        }));
                     }
                 }
                 else
@@ -743,13 +746,19 @@ namespace Maverick.PCF.Builder
                     string[] installCommands = new string[] { Commands.Npm.InstallYo(), Commands.Npm.InstallPcfGenerator() };
                     CommandLineHelper.RunCommand(installCommands);
 
-                    ShowInfoNotification("PCF Generator package was installed on this machine.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                    Invoke(new Action(() =>
+                    {
+                        ShowInfoNotification("PCF Generator package was installed on this machine.", new Uri("https://www.npmjs.com/package/generator-pcf"));
+                    }));
                 }
             }
             else
             {
                 lblnpmVersionMsg.Text = "npm Not Detected";
-                ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
+                Invoke(new Action(() =>
+                {
+                    ShowInfoNotification("npm not detected on this machine. Please download it.", new Uri("https://nodejs.org/en/"));
+                }));
             }
             var end = DateTime.Now;
             var duration = end - start;
