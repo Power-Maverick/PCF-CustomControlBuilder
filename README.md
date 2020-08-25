@@ -2,7 +2,10 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/issues) [![GitHub forks](https://img.shields.io/github/forks/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/network) [![GitHub stars](https://img.shields.io/github/stars/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/stargazers) [![GitHub license](https://img.shields.io/github/license/Power-maveRICK/PCF-CustomControlBuilder)](https://github.com/Power-maveRICK/PCF-CustomControlBuilder/blob/master/LICENSE) [![Nuget](https://img.shields.io/nuget/dt/Maverick.PCF.Builder)](https://www.nuget.org/packages/Maverick.PCF.Builder/)
 
+[![Sponsor](https://img.shields.io/static/v1?label=Sponsor&message=%E2%9D%A4&logo=GitHub)](https://github.com/sponsors/Power-Maverick)
+
 [![Twitter Follow](https://img.shields.io/twitter/follow/DanzMaverick?style=social)](https://twitter.com/Danzmaverick)
+
 
 # PCF-CustomControlBuilder
 Xrm Toolbox Plugin for building and deploying custom control using PCF
@@ -31,7 +34,3 @@ For more details read [wiki](https://github.com/Power-maveRICK/PCF-CustomControl
 
 ##### Tool executing commands
 ![Control Running C L I](docs/Control-RunningCLI.png)
-
-## Buy me a coffee!! ☕
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=XK4SZ82J6GFH6&item_name=Power+Maverick+Donation&currency_code=USD&source=github)
