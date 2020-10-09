@@ -30,19 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowPreviewImage));
             this.gboxPreviewImage = new System.Windows.Forms.GroupBox();
+            this.pnlTypes = new System.Windows.Forms.Panel();
+            this.lblTypes = new System.Windows.Forms.Label();
+            this.btnChangePreviewImage = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.pboxPreviewImage = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.lblDisplayName = new System.Windows.Forms.Label();
-            this.lblTypes = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.btnChangePreviewImage = new System.Windows.Forms.Button();
             this.ofdPreviewImage = new System.Windows.Forms.OpenFileDialog();
-            this.pnlTypes = new System.Windows.Forms.Panel();
             this.gboxPreviewImage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxPreviewImage)).BeginInit();
             this.pnlTypes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxPreviewImage)).BeginInit();
             this.SuspendLayout();
             // 
             // gboxPreviewImage
@@ -61,6 +61,36 @@
             this.gboxPreviewImage.TabIndex = 7;
             this.gboxPreviewImage.TabStop = false;
             this.gboxPreviewImage.Text = "Preview Image";
+            // 
+            // pnlTypes
+            // 
+            this.pnlTypes.AutoScroll = true;
+            this.pnlTypes.Controls.Add(this.lblTypes);
+            this.pnlTypes.Location = new System.Drawing.Point(79, 83);
+            this.pnlTypes.Name = "pnlTypes";
+            this.pnlTypes.Size = new System.Drawing.Size(206, 68);
+            this.pnlTypes.TabIndex = 8;
+            // 
+            // lblTypes
+            // 
+            this.lblTypes.AutoSize = true;
+            this.lblTypes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTypes.Location = new System.Drawing.Point(3, 0);
+            this.lblTypes.Name = "lblTypes";
+            this.lblTypes.Size = new System.Drawing.Size(12, 15);
+            this.lblTypes.TabIndex = 4;
+            this.lblTypes.Text = "-";
+            // 
+            // btnChangePreviewImage
+            // 
+            this.btnChangePreviewImage.Location = new System.Drawing.Point(368, 200);
+            this.btnChangePreviewImage.Name = "btnChangePreviewImage";
+            this.btnChangePreviewImage.Size = new System.Drawing.Size(57, 23);
+            this.btnChangePreviewImage.TabIndex = 7;
+            this.btnChangePreviewImage.Text = "Update";
+            this.btnChangePreviewImage.UseVisualStyleBackColor = true;
+            this.btnChangePreviewImage.Visible = false;
+            this.btnChangePreviewImage.Click += new System.EventHandler(this.btnChangePreviewImage_Click);
             // 
             // label2
             // 
@@ -113,16 +143,6 @@
             this.lblDisplayName.TabIndex = 2;
             this.lblDisplayName.Text = "label2";
             // 
-            // lblTypes
-            // 
-            this.lblTypes.AutoSize = true;
-            this.lblTypes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTypes.Location = new System.Drawing.Point(3, 0);
-            this.lblTypes.Name = "lblTypes";
-            this.lblTypes.Size = new System.Drawing.Size(12, 15);
-            this.lblTypes.TabIndex = 4;
-            this.lblTypes.Text = "-";
-            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -133,29 +153,10 @@
             this.label7.TabIndex = 3;
             this.label7.Text = "Types:";
             // 
-            // btnChangePreviewImage
-            // 
-            this.btnChangePreviewImage.Location = new System.Drawing.Point(368, 200);
-            this.btnChangePreviewImage.Name = "btnChangePreviewImage";
-            this.btnChangePreviewImage.Size = new System.Drawing.Size(57, 23);
-            this.btnChangePreviewImage.TabIndex = 7;
-            this.btnChangePreviewImage.Text = "Update";
-            this.btnChangePreviewImage.UseVisualStyleBackColor = true;
-            this.btnChangePreviewImage.Click += new System.EventHandler(this.btnChangePreviewImage_Click);
-            // 
             // ofdPreviewImage
             // 
             this.ofdPreviewImage.Filter = "Image files|*.png;*.jpg;*.jpeg;*gif";
             this.ofdPreviewImage.Title = "Select new Preview Image";
-            // 
-            // pnlTypes
-            // 
-            this.pnlTypes.AutoScroll = true;
-            this.pnlTypes.Controls.Add(this.lblTypes);
-            this.pnlTypes.Location = new System.Drawing.Point(79, 83);
-            this.pnlTypes.Name = "pnlTypes";
-            this.pnlTypes.Size = new System.Drawing.Size(206, 68);
-            this.pnlTypes.TabIndex = 8;
             // 
             // ShowPreviewImage
             // 
@@ -168,11 +169,12 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "ShowPreviewImage";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShowPreviewImage_FormClosing);
             this.gboxPreviewImage.ResumeLayout(false);
             this.gboxPreviewImage.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pboxPreviewImage)).EndInit();
             this.pnlTypes.ResumeLayout(false);
             this.pnlTypes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxPreviewImage)).EndInit();
             this.ResumeLayout(false);
 
         }

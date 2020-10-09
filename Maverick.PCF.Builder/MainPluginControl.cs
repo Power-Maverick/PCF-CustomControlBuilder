@@ -38,11 +38,14 @@ namespace Maverick.PCF.Builder
         public string EmailAccount => "danz@techgeek.co.in";
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
-        #region Properties and Enums
+        #region Properties, Constants and Enums
+
+        private const string TEMPLATE_LOCATION = "Templates";
 
         public PcfGallery SelectedTemplate { get; set; }
         public bool CommandPromptInitialized { get; set; }
         public bool StatusCheckExecution { get; set; }
+        public bool ResxCheckExecution { get; set; }
         public bool BuildDeployExecution { get; set; }
         public bool ReloadDetails { get; set; }
         public string CurrentCommandOutput { get; set; }
@@ -78,7 +81,7 @@ namespace Maverick.PCF.Builder
         private EntityCollection _solutionsCache;
         private BindingSource bindingSource = new BindingSource();
 
-        private const string SolutionFolderName = "Solutions";
+        private const string SolutionFolderName = "Solution";
 
         #endregion
 
@@ -126,6 +129,11 @@ namespace Maverick.PCF.Builder
             foreach (var cmd in commands)
             {
                 consoleControl.WriteInput(cmd, Color.White, true);
+            }
+
+            if (commands.Contains("yo pcf:resx"))
+            {
+                ResxCheckExecution = true;
             }
 
             //consoleControl.WriteInput("\r\n", Color.White, true);
@@ -265,6 +273,7 @@ namespace Maverick.PCF.Builder
             txtNamespace.Clear();
             txtControlName.Clear();
             cboxTemplate.SelectedIndex = -1;
+            cboxAdditionalPackages.SelectedIndex = -1;
             txtComponentVersion.Clear();
 
             txtSolutionName.Clear();
@@ -275,6 +284,7 @@ namespace Maverick.PCF.Builder
             txtControlName.Enabled = true;
             txtNamespace.Enabled = true;
             cboxTemplate.Enabled = true;
+            cboxAdditionalPackages.Enabled = true;
             txtSolutionName.Enabled = true;
             txtPublisherName.Enabled = true;
             txtPublisherPrefix.Enabled = true;
@@ -283,10 +293,10 @@ namespace Maverick.PCF.Builder
             btnRefreshDetails.Enabled = false;
             btnDeploy.Enabled = false;
 
-            lblControlInitStatus.Text = Enum.NotInitialized();
+            lblControlInitStatus.Text = Enum.InitializationStatus(false);
             lblControlInitStatus.ForeColor = Color.Firebrick;
 
-            lblSolutionInitStatus.Text = Enum.NotInitialized();
+            lblSolutionInitStatus.Text = Enum.InitializationStatus(false);
             lblSolutionInitStatus.ForeColor = Color.Firebrick;
         }
 
@@ -299,9 +309,10 @@ namespace Maverick.PCF.Builder
                 txtControlName.Enabled = false;
                 txtNamespace.Enabled = false;
                 cboxTemplate.Enabled = false;
+                cboxAdditionalPackages.Enabled = false;
                 btnCreateComponent.Enabled = false;
 
-                lblControlInitStatus.Text = Enum.Initialized();
+                lblControlInitStatus.Text = Enum.InitializationStatus(true);
                 lblControlInitStatus.ForeColor = Color.ForestGreen;
             }
 
@@ -313,7 +324,7 @@ namespace Maverick.PCF.Builder
                 btnCreateSolution.Enabled = false;
                 cboxSolutions.Enabled = false;
 
-                lblSolutionInitStatus.Text = Enum.Initialized();
+                lblSolutionInitStatus.Text = Enum.InitializationStatus(true);
                 lblSolutionInitStatus.ForeColor = Color.ForestGreen;
                 btnDeploy.Enabled = true;
             }
@@ -332,7 +343,7 @@ namespace Maverick.PCF.Builder
             txtPublisherPrefix.Clear();
             txtSolutionVersion.Clear();
 
-            lblSolutionInitStatus.Text = Enum.NotInitialized();
+            lblSolutionInitStatus.Text = Enum.InitializationStatus(false);
             lblSolutionInitStatus.ForeColor = Color.Firebrick;
 
             if (loadFromSettings)
@@ -422,6 +433,11 @@ namespace Maverick.PCF.Builder
                                                     ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
                                                     ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
                                                     ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
+                                                    if (!string.IsNullOrEmpty(ControlDetails.PreviewImagePath))
+                                                    {
+                                                        lblPreviewImageExists.Text = Enum.ResourceExists(true, Enum.ResourceType.PreviewImage);
+                                                        lblPreviewImageExists.ForeColor = Color.ForestGreen;
+                                                    }
                                                     break;
                                                 case "property":
                                                     if ((xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
@@ -455,68 +471,32 @@ namespace Maverick.PCF.Builder
                                                 case "data-set":
                                                     cboxTemplate.SelectedIndex = 1;
                                                     break;
+                                                case "css":
+                                                    lblCssFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.CSS);
+                                                    lblCssFileExists.ForeColor = Color.ForestGreen;
+                                                    break;
+                                                case "resx":
+                                                    lblResxFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.RESX);
+                                                    lblResxFileExists.ForeColor = Color.ForestGreen;
+                                                    break;
                                                 default:
-                                                    // Assume it is Field Type
-                                                    cboxTemplate.SelectedIndex = 0;
                                                     break;
                                             }
                                         }
 
-                                        /*if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "control"))
-                                        {
-                                            txtNamespace.Text = xmlReader.GetAttribute("namespace");
-                                            txtComponentVersion.Text = xmlReader.GetAttribute("version");
-                                            ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
-                                            ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
-                                            ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
-                                        }
-
-                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "property") && (xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
-                                        {
-                                            readFirstProperty = true;
-
-                                            if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type")))
-                                            {
-                                                ControlDetails.SupportedTypes.Add(xmlReader.GetAttribute("of-type"));
-                                            }
-                                            else if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type-group")))
-                                            {
-                                                ofTypeGroupName = xmlReader.GetAttribute("of-type-group");
-                                            }
-                                        }
-
-                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type-group") && xmlReader.GetAttribute("name") == ofTypeGroupName)
-                                        {
-                                            readOfTypeGroup = true;
-                                        }
-                                        else if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type-group"))
-                                        {
-                                            readOfTypeGroup = false;
-                                        }
-
-                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "type") && readOfTypeGroup)
-                                        {
-                                            xmlReader.Read();
-                                            ControlDetails.SupportedTypes.Add(xmlReader.ReadContentAsString());
-                                        }
-
-                                        if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "data-set"))
-                                        {
-                                            cboxTemplate.SelectedIndex = 1;
-                                            // break - as this would be the last one
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            // Assume it is Field Type
-                                            cboxTemplate.SelectedIndex = 0;
-                                        }*/
                                     }
                                     xmlReader.Close();
+                                    if (cboxTemplate.SelectedIndex == -1)
+                                    {
+                                        cboxTemplate.SelectedIndex = 0;
+                                    }
                                     break;
                                 }
 
                             }
+                            _mainPluginLocalWorker = new BackgroundWorker();
+                            _mainPluginLocalWorker.DoWork += IdentifyAdditionalPackage;
+                            _mainPluginLocalWorker.RunWorkerAsync();
                         }
                     }
                 }
@@ -558,6 +538,22 @@ namespace Maverick.PCF.Builder
             }
         }
 
+        private void IdentifyAdditionalPackage(object worker, DoWorkEventArgs args)
+        {
+            // Identify additional package installs - for now only check for Fluent UI
+            var packageName = Enum.AdditionalPackages().FirstOrDefault(p => p.Value == "Fluent UI").Key;
+            string[] addPkgCommands = new string[] { Commands.Npm.CheckAdditionalPackage(packageName) };
+            var addPkgOutput = CommandLineHelper.RunCommand(addPkgCommands);
+
+            // scrub data
+            addPkgOutput = addPkgOutput.Substring(addPkgOutput.IndexOf(addPkgCommands[0]) + addPkgCommands[0].Length);
+
+            if (addPkgOutput.ToLower().Contains(packageName.ToLower()))
+            {
+                cboxAdditionalPackages.SelectedIndex = 1;
+            }
+        }
+
         private void IdentifySolutionDetails()
         {
             try
@@ -565,7 +561,7 @@ namespace Maverick.PCF.Builder
                 var start = DateTime.Now;
 
                 // Check if .cdsproj does not already exists
-                string solutionFolderPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}") ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}" : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}" : string.Empty);
+                string solutionFolderPath = GetCorrectSolutionDirectory();
 
                 if (!string.IsNullOrEmpty(solutionFolderPath))
                 {
@@ -677,24 +673,6 @@ namespace Maverick.PCF.Builder
                     }
                 }
 
-                /*commands = new string[] { Commands.Pac.Use() };
-                var output2 = CommandLineHelper.RunCommand(commands);
-                if (!string.IsNullOrEmpty(output2) && output2.ToLower().Contains("latest"))
-                {
-                    var tempString = output2.Split('\r').Where(a => a.ToLower().Contains("(latest)")).FirstOrDefault().Trim();
-                    latestPacVersion = tempString.Substring(0, tempString.IndexOf(" (Latest)"));
-
-                    if (!currentPacVersion.Trim().Equals(latestPacVersion.Trim()))
-                    {
-                        if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                        {
-                            string pacUpdateCLI = Commands.Pac.InstallLatest();
-                            RunCommandLine(pacUpdateCLI);
-                            currentPacVersion = latestPacVersion;
-                        }
-                    }
-                }*/
-
                 lblPCFCLIVersionMsg.Text = "PCF CLI Version: " + currentPacVersion.Trim();
             }
             else
@@ -723,6 +701,9 @@ namespace Maverick.PCF.Builder
                 // Check if pcf-generator is installed
                 string[] pcfGCommands = new string[] { Commands.Npm.CheckPcfGenerator() };
                 var pcfGOutput = CommandLineHelper.RunCommand(pcfGCommands);
+
+                // scrub data
+                pcfGOutput = pcfGOutput.Substring(pcfGOutput.IndexOf(pcfGCommands[0]) + pcfGCommands[0].Length);
 
                 if (pcfGOutput.ToLower().Contains("generator-pcf"))
                 {
@@ -869,7 +850,7 @@ namespace Maverick.PCF.Builder
                     if (!string.IsNullOrEmpty(txtControlName.Text))
                     {
                         // Check if .cdsproj does not already exists
-                        string solutionFolderPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}") ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}" : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}" : string.Empty);
+                        string solutionFolderPath = GetCorrectSolutionDirectory();
 
                         if (!string.IsNullOrEmpty(solutionFolderPath))
                         {
@@ -941,9 +922,7 @@ namespace Maverick.PCF.Builder
 
         private void DeploySolution()
         {
-            string solutionFolder = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
-                    ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
-                    : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
+            string solutionFolder = GetCorrectSolutionDirectory();
             string solutionFileLocation = $"{solutionFolder}\\bin\\{(chkManagedSolution.Checked ? "release" : "debug")}\\{txtSolutionName.Text}.zip";
 
             string deploymentFolder = solutionFileLocation;
@@ -1027,15 +1006,18 @@ namespace Maverick.PCF.Builder
 
         private void SetProcessingStatus(ProcessingStatus status)
         {
+            lblStatus.Location = new Point(picRunning.Location.X, lblStatus.Location.Y);
             switch (status)
             {
                 case ProcessingStatus.Succeeded:
                     lblStatus.Text = "Succeeded";
                     lblStatus.ForeColor = Color.LimeGreen;
+                    picRunning.Visible = false;
                     break;
                 case ProcessingStatus.Failed:
                     lblStatus.Text = "Failed";
                     lblStatus.ForeColor = Color.DarkRed;
+                    picRunning.Visible = false;
                     break;
                 case ProcessingStatus.NeedReview:
                     lblStatus.Text = "Need Review";
@@ -1044,15 +1026,19 @@ namespace Maverick.PCF.Builder
                 case ProcessingStatus.Running:
                     lblStatus.Text = "Running";
                     lblStatus.ForeColor = Color.DarkOrange;
+                    picRunning.Visible = true;
+                    lblStatus.Location = new Point(picRunning.Location.X + picRunning.Width + 10, lblStatus.Location.Y);
                     break;
                 case ProcessingStatus.Undetermined:
                     lblStatus.Text = "Undetermined";
                     lblStatus.ForeColor = Color.Gray;
+                    picRunning.Visible = false;
                     break;
                 case ProcessingStatus.Complete:
                 default:
                     lblStatus.Text = string.Empty;
                     lblStatus.ForeColor = Color.Black;
+                    picRunning.Visible = false;
                     break;
             }
         }
@@ -1266,7 +1252,7 @@ namespace Maverick.PCF.Builder
                 {
                     var start = DateTime.Now;
 
-                    args.Result = MetadataHelper.RetrieveSolutions(Service);
+                    args.Result = CDSHelper.RetrieveSolutions(Service);
 
                     var end = DateTime.Now;
                     var duration = end - start;
@@ -1316,7 +1302,7 @@ namespace Maverick.PCF.Builder
                 {
                     var start = DateTime.Now;
 
-                    args.Result = MetadataHelper.ExportSolution(Service, solutionName);
+                    args.Result = CDSHelper.ExportSolution(Service, solutionName);
 
                     var end = DateTime.Now;
                     var duration = end - start;
@@ -1350,6 +1336,90 @@ namespace Maverick.PCF.Builder
             });
         }
 
+        private string GetCorrectSolutionDirectory()
+        {
+            string correctSolutionDirectory = string.Empty;
+
+            string v1Dir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}";
+            string v2Dir = $"{txtWorkingFolder.Text}\\Solutions\\{txtSolutionName.Text}";
+            string v3Dir = $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}";
+
+            bool v1Exists = Directory.Exists(v1Dir);
+            bool v2Exists = Directory.Exists(v2Dir);
+            bool v3Exists = Directory.Exists(v3Dir);
+
+            correctSolutionDirectory = v1Exists ? v1Dir : (v2Exists ? v2Dir : v3Dir);
+
+            return correctSolutionDirectory;
+        }
+
+        private void CreateTemplateFiles(object worker, DoWorkEventArgs args)
+        {
+            string templateFolder = FindTemplateFolder();
+
+            // Stylesheet
+            string cssDir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\css";
+            if (!Directory.Exists(cssDir))
+            {
+                Directory.CreateDirectory(cssDir);
+            }
+            if (!File.Exists($"{cssDir}\\{txtControlName.Text}.css"))
+            {
+                File.Copy($"{templateFolder}\\sampleStyle.css", $"{cssDir}\\{txtControlName.Text}.css");
+                FindAndReplaceTemplateFile($"{cssDir}\\{txtControlName.Text}.css");
+            }
+
+            // Manifest
+            string manifestDir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}";
+            if (File.Exists($"{manifestDir}\\ControlManifest.Input.xml"))
+            {
+                string manifestTemplate = "sampleManifestField.xml"; // Field is default
+                if (cboxTemplate.SelectedIndex == 1)
+                {
+                    manifestTemplate = "sampleManifestDataset.xml";
+                }
+                File.Copy($"{templateFolder}\\{manifestTemplate}", $"{manifestDir}\\ControlManifest.Input.xml", true);
+                FindAndReplaceTemplateFile($"{manifestDir}\\ControlManifest.Input.xml");
+            }
+
+            // Preview image
+            string imgDir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\img";
+            if (!Directory.Exists(imgDir))
+            {
+                Directory.CreateDirectory(imgDir);
+            }
+            if (!File.Exists($"{imgDir}\\preview.png"))
+            {
+                File.Copy($"{templateFolder}\\samplePowerUp.png", $"{imgDir}\\preview.png");
+            }
+
+            // Resx
+            string resxDir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\strings";
+            if (!Directory.Exists(resxDir))
+            {
+                Directory.CreateDirectory(resxDir);
+            }
+            if (!File.Exists($"{resxDir}\\{txtControlName.Text}.resx"))
+            {
+                File.Copy($"{templateFolder}\\sampleLocalization.resx", $"{resxDir}\\{txtControlName.Text}.1033.resx");
+                FindAndReplaceTemplateFile($"{resxDir}\\{txtControlName.Text}.1033.resx");
+            }
+            IdentifyControlDetails();
+        }
+
+        private string FindTemplateFolder()
+        {
+            return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + TEMPLATE_LOCATION;
+        }
+
+        private void FindAndReplaceTemplateFile(string fullFilePath)
+        {
+            string replacedText = File.ReadAllText(fullFilePath);
+            replacedText = replacedText.Replace("<%= controlNamespace %>", txtNamespace.Text);
+            replacedText = replacedText.Replace("<%= controlName %>", txtControlName.Text);
+            File.WriteAllText(fullFilePath, replacedText);
+        }
+
         #endregion
 
         public MainPluginControl()
@@ -1374,6 +1444,12 @@ namespace Maverick.PCF.Builder
                 LogInfo("Settings found and loaded");
             }
 
+            Dictionary<string, string> additionalPkgSource = Enum.AdditionalPackages();
+            cboxAdditionalPackages.DataSource = new BindingSource(additionalPkgSource, null);
+            cboxAdditionalPackages.DisplayMember = "Value";
+            cboxAdditionalPackages.ValueMember = "Key";
+            picRunning.Image = Properties.Resources.running;
+
             _mainPluginLocalWorker = new BackgroundWorker();
             _mainPluginLocalWorker.DoWork += CheckPacVersion;
             _mainPluginLocalWorker.DoWork += CheckNpmVersion;
@@ -1381,6 +1457,7 @@ namespace Maverick.PCF.Builder
             _mainPluginLocalWorker.RunWorkerAsync();
 
             StatusCheckExecution = false;
+            ResxCheckExecution = false;
             BuildDeployExecution = false;
             ListProfileExecution = false;
             CurrentCommandOutput = string.Empty;
@@ -1615,9 +1692,7 @@ namespace Maverick.PCF.Builder
                 var msbuild_filepath = FindMsBuildPath();
 
                 string controlName = txtControlName.Text;
-                var solutionPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
-                    ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
-                    : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
+                var solutionPath = GetCorrectSolutionDirectory();
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
@@ -1648,9 +1723,7 @@ namespace Maverick.PCF.Builder
                 var msbuild_filepath = FindMsBuildPath();
 
                 string controlName = txtControlName.Text;
-                var solutionPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
-                    ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
-                    : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
+                var solutionPath = GetCorrectSolutionDirectory();
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
@@ -1684,9 +1757,30 @@ namespace Maverick.PCF.Builder
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory(txtWorkingFolder.Text);
                 string pacCommand = Commands.Pac.PcfInit(txtNamespace.Text, txtControlName.Text, cboxTemplate.SelectedItem.ToString());
                 string npmCommand = Commands.Npm.Install();
+                string additionalPackage = string.Empty;
+
+                if (((KeyValuePair<string, string>)cboxAdditionalPackages.SelectedItem).Value != "None")
+                {
+                    switch (((KeyValuePair<string, string>)cboxAdditionalPackages.SelectedItem).Value)
+                    {
+                        case "Fluent UI":
+                            additionalPackage = Commands.Npm.Install(((KeyValuePair<string, string>)cboxAdditionalPackages.SelectedItem).Key);
+                            break;
+                        default:
+                            break;
+                    }
+                }
 
                 ReloadDetails = true;
-                RunCommandLine(cdWorkingDir, pacCommand, npmCommand);
+                if (string.IsNullOrEmpty(additionalPackage))
+                {
+                    RunCommandLine(cdWorkingDir, pacCommand, npmCommand);
+                }
+                else
+                {
+                    RunCommandLine(cdWorkingDir, pacCommand, npmCommand, additionalPackage);
+                }
+
             }
         }
 
@@ -1736,6 +1830,7 @@ namespace Maverick.PCF.Builder
             if (DialogResult.Yes == MessageBox.Show("This will clear the console and logs will be lost. Do you want to proceed?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
             {
                 consoleControl.ClearOutput();
+                lblStatus.Text = string.Empty;
             }
         }
 
@@ -1757,9 +1852,7 @@ namespace Maverick.PCF.Builder
 
                 string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
 
-                var projectPath = Directory.Exists($"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}")
-                    ? $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}"
-                    : (Directory.Exists($"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}") ? $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}" : string.Empty);
+                var projectPath = GetCorrectSolutionDirectory();
                 string msbuild_restore = Commands.Msbuild.Restore(projectPath);
                 string msbuild_build = chkManagedSolution.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
 
@@ -1868,6 +1961,12 @@ namespace Maverick.PCF.Builder
                 {
                     IdentifyControlDetails();
 
+                    if (CurrentCommandOutput.ToLower().Contains("the powerapps component framework project was successfully created"))
+                    {
+                        _mainPluginLocalWorker = new BackgroundWorker();
+                        _mainPluginLocalWorker.DoWork += CreateTemplateFiles;
+                        _mainPluginLocalWorker.RunWorkerAsync();
+                    }
                     // Reset
                     ReloadDetails = false;
                 }
@@ -1877,6 +1976,12 @@ namespace Maverick.PCF.Builder
                     ParseProfileList(CurrentCommandOutput);
                 }
 
+                if (ResxCheckExecution)
+                {
+                    // Assuming it was success - need better way
+                    lblResxFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.RESX);
+                    lblResxFileExists.ForeColor = Color.ForestGreen;
+                }
             }
 
             consoleControl.InternalRichTextBox.ScrollToCaret();

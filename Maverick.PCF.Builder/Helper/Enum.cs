@@ -8,14 +8,53 @@ namespace Maverick.PCF.Builder.Helper
 {
     public class Enum
     {
-        public static string Initialized()
+        private const string CHECK_MARK = "✔";
+        private const string CROSS_MARK = "❌";
+
+        public enum ResourceType
         {
-            return "✔ Initialized";
+            PreviewImage,
+            CSS,
+            RESX
         }
 
-        public static string NotInitialized()
+        public static Dictionary<string, string> AdditionalPackages()
         {
-            return "❌ Not Initialized";
+            Dictionary<string, string> packages = new Dictionary<string, string>();
+            packages.Add("", "None");
+            packages.Add("@fluentui/react", "Fluent UI");
+
+            return packages;
+        }
+
+        public static string InitializationStatus(bool isInitialized)
+        {
+            return isInitialized ? $"{CHECK_MARK} Initialized" : $"{CROSS_MARK} Not Initialized";
+        }
+
+        public static string ResourceExists(bool exists, ResourceType type)
+        {
+            string initialMark;
+            if (exists)
+            {
+                initialMark = CHECK_MARK;
+            }
+            else
+            {
+                initialMark = CROSS_MARK + " No";
+            }
+
+            switch (type)
+            {
+                case ResourceType.PreviewImage:
+                    return $"{initialMark} Preview Image";
+                case ResourceType.CSS:
+                    return $"{initialMark} CSS file";
+                case ResourceType.RESX:
+                    return $"{initialMark} RESX file";
+                default:
+                    return $"{initialMark} Unknown Type";
+            }
         }
     }
 }

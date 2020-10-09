@@ -196,7 +196,7 @@
     <Compile Include="Helper\Commands.cs" />
     <Compile Include="Helper\Enum.cs" />
     <Compile Include="Helper\JsonHelper.cs" />
-    <Compile Include="Helper\MetadataHelper.cs" />
+    <Compile Include="Helper\CDSHelper.cs" />
     <Compile Include="Helper\Telemetry.cs" />
     <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="MainPlugin.cs" />
@@ -234,6 +234,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BeanEater.gif" />
+    <Content Include="Templates\samplePowerUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\sampleManifestDataset.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\sampleManifestField.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\sampleStyle.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="app.config" />
     <None Include="ApplicationInsights.config" />
     <Content Include="DataSampleFiles\lcid.json">
@@ -280,6 +293,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="Templates\sampleLocalization.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>sampleLocalization.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="UserControls\LcidControl.resx">
       <DependentUpon>LcidControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -304,6 +322,16 @@
 
       IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
       xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y
+
+       IF NOT EXIST  "Templates" mkdir "Templates"
+       IF NOT EXIST  "Plugins\Maverick.PCF.Builder\Templates" mkdir "Plugins\Maverick.PCF.Builder\Templates"
+       xcopy "sampleLocalization.resx" "Templates" /q/y
+       xcopy "sampleManifestDataset.xml" "Templates" /q/y
+       xcopy "sampleManifestField.xml" "Templates" /q/y
+       xcopy "sampleStyle.css" "Templates" /q/y
+       xcopy "samplePowerUp.png" "Templates" /q/y
+
+       xcopy  "Templates" "Plugins\Maverick.PCF.Builder\Templates" /q/y
 )</PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

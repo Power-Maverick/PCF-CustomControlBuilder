@@ -195,9 +195,9 @@ namespace Maverick.PCF.Builder.Helper
             /// npm install
             /// </summary>
             /// <returns></returns>
-            public static string Install()
+            public static string Install(string packageName = "")
             {
-                return $"npm install";
+                return $"npm install {packageName}".Trim();
             }
 
             /// <summary>
@@ -228,12 +228,21 @@ namespace Maverick.PCF.Builder.Helper
             }
 
             /// <summary>
+            /// npm list -d=0 {packageName}
+            /// </summary>
+            /// <returns></returns>
+            public static string CheckAdditionalPackage(string packageName)
+            {
+                return $"npm list --depth 0 {packageName}";
+            }
+
+            /// <summary>
             /// npm list -g -d=0 generator-pcf
             /// </summary>
             /// <returns></returns>
             public static string CheckPcfGenerator()
             {
-                return $"npm list -g -d=0 generator-pcf";
+                return $"npm list -g --depth 0 generator-pcf";
             }
 
             /// <summary>

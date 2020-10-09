@@ -47,5 +47,10 @@ namespace Maverick.PCF.Builder.Forms
                
             }
         }
+
+        private void ShowPreviewImage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            
+        }
     }
 }
