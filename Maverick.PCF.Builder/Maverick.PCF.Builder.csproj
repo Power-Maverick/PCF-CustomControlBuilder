@@ -313,7 +313,14 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF $(ConfigurationName) == Debug (
+    <PostBuildEvent>IF NOT EXIST  "Templates" mkdir "Templates"
+ xcopy "sampleLocalization.resx" "Templates" /q/y
+xcopy "sampleManifestDataset.xml" "Templates" /q/y
+xcopy "sampleManifestField.xml" "Templates" /q/y
+xcopy "sampleStyle.css" "Templates" /q/y
+xcopy "samplePowerUp.png" "Templates" /q/y
+
+IF $(ConfigurationName) == Debug (
       IF NOT EXIST Plugins mkdir Plugins
       xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)Plugins\" /Y
       xcopy "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\" /Y
@@ -323,14 +330,7 @@
       IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
       xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y
 
-       IF NOT EXIST  "Templates" mkdir "Templates"
        IF NOT EXIST  "Plugins\Maverick.PCF.Builder\Templates" mkdir "Plugins\Maverick.PCF.Builder\Templates"
-       xcopy "sampleLocalization.resx" "Templates" /q/y
-       xcopy "sampleManifestDataset.xml" "Templates" /q/y
-       xcopy "sampleManifestField.xml" "Templates" /q/y
-       xcopy "sampleStyle.css" "Templates" /q/y
-       xcopy "samplePowerUp.png" "Templates" /q/y
-
        xcopy  "Templates" "Plugins\Maverick.PCF.Builder\Templates" /q/y
 )</PostBuildEvent>
   </PropertyGroup>
