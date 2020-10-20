@@ -1,11 +1,8 @@
 ﻿---- NEW FEATURES ----
-1. Detects if CSS, Preview Image and RESX resources exists
-2. Creates PCF project with default CSS, RESX files
-3. Initiates PCF project with preview image (you will need to change it)
+None
 
 ---- UPDATES ----
-1. Animated "Running" status
-2. Update of preview image disabled
+None
 
 ---- BUG FIXES ----
-None
+Urgent bux fix . GitHub Issue #26

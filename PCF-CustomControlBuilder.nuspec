@@ -15,17 +15,14 @@
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
-      ---- NEW FEATURES ----
-      1. Detects if CSS, Preview Image and RESX resources exists
-      2. Creates PCF project with default CSS, RESX files
-      3. Initiates PCF project with preview image (you will need to change it)
+        ---- NEW FEATURES ----
+        None
 
-      ---- UPDATES ----
-      1. Animated "Running" status
-      2. Update of preview image disabled
+        ---- UPDATES ----
+        None
 
-      ---- BUG FIXES ----
-      None
+        ---- BUG FIXES ----
+        Urgent bux fix . GitHub Issue #26
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>
@@ -38,7 +35,7 @@
     <file src="PCFCustomControlBuilder\bin\Release\MainIcon.png" target="" />
     <file src="PCFCustomControlBuilder\bin\Release\lcid.json" target="lib\net462\Plugins\Maverick.PCF.Builder" />
     <file src="PCFCustomControlBuilder\bin\Release\MsBuild.ps1" target="lib\net462\Plugins\Maverick.PCF.Builder" />
-    <file src="PCFCustomControlBuilder\bin\Release\CoreTools\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder" />
-    <file src="PCFCustomControlBuilder\bin\Release\Templates\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder" />
+    <file src="PCFCustomControlBuilder\bin\Release\CoreTools\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder\CoreTools" />
+    <file src="PCFCustomControlBuilder\bin\Release\Templates\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder\Templates" />
   </files>
 </package>
