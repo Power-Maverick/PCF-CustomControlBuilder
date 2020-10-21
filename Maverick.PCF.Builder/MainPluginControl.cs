@@ -612,6 +612,10 @@ namespace Maverick.PCF.Builder
                             }
                         }
                     }
+                    else
+                    {
+                        Routine_SolutionNotFound();
+                    }
                 }
                 else
                 {
@@ -922,7 +926,7 @@ namespace Maverick.PCF.Builder
 
         private void DeploySolution()
         {
-            string solutionFolder = GetCorrectSolutionDirectory();
+            string solutionFolder = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
             string solutionFileLocation = $"{solutionFolder}\\bin\\{(chkManagedSolution.Checked ? "release" : "debug")}\\{txtSolutionName.Text}.zip";
 
             string deploymentFolder = solutionFileLocation;
@@ -1338,17 +1342,15 @@ namespace Maverick.PCF.Builder
 
         private string GetCorrectSolutionDirectory()
         {
-            string correctSolutionDirectory = string.Empty;
-
-            string v1Dir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{txtSolutionName.Text}";
-            string v2Dir = $"{txtWorkingFolder.Text}\\Solutions\\{txtSolutionName.Text}";
-            string v3Dir = $"{txtWorkingFolder.Text}\\{SolutionFolderName}\\{txtSolutionName.Text}";
+            string v1Dir = $"{txtWorkingFolder.Text}\\{txtControlName.Text}";
+            string v2Dir = $"{txtWorkingFolder.Text}\\Solutions";
+            string v3Dir = $"{txtWorkingFolder.Text}\\{SolutionFolderName}";
 
             bool v1Exists = Directory.Exists(v1Dir);
             bool v2Exists = Directory.Exists(v2Dir);
             bool v3Exists = Directory.Exists(v3Dir);
 
-            correctSolutionDirectory = v1Exists ? v1Dir : (v2Exists ? v2Dir : v3Dir);
+            string correctSolutionDirectory = v3Exists ? v3Dir : v2Exists ? v2Dir : v1Dir;
 
             return correctSolutionDirectory;
         }
@@ -1692,7 +1694,7 @@ namespace Maverick.PCF.Builder
                 var msbuild_filepath = FindMsBuildPath();
 
                 string controlName = txtControlName.Text;
-                var solutionPath = GetCorrectSolutionDirectory();
+                var solutionPath = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
@@ -1723,7 +1725,7 @@ namespace Maverick.PCF.Builder
                 var msbuild_filepath = FindMsBuildPath();
 
                 string controlName = txtControlName.Text;
-                var solutionPath = GetCorrectSolutionDirectory();
+                var solutionPath = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
 
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{controlName}");
                 string npmBuildCommand = Commands.Npm.RunBuild();
@@ -1852,7 +1854,7 @@ namespace Maverick.PCF.Builder
 
                 string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
 
-                var projectPath = GetCorrectSolutionDirectory();
+                var projectPath = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
                 string msbuild_restore = Commands.Msbuild.Restore(projectPath);
                 string msbuild_build = chkManagedSolution.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
 
