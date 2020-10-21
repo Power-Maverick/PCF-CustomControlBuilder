@@ -15,14 +15,14 @@
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
-        ---- NEW FEATURES ----
-        None
+      ---- NEW FEATURES ----
+      None
 
-        ---- UPDATES ----
-        None
+      ---- UPDATES ----
+      None
 
-        ---- BUG FIXES ----
-        Urgent bux fix . GitHub Issue #26
+      ---- BUG FIXES ----
+      Urgent bux fixes with solution creation, build and deployment. GitHub Issue #26 and #27
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>

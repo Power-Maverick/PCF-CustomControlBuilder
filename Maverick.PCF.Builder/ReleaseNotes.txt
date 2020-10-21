@@ -5,4 +5,4 @@ None
 None
 
 ---- BUG FIXES ----
-Urgent bux fix . GitHub Issue #26
+Urgent bux fixes with solution creation, build and deployment. GitHub Issue #26 and #27
