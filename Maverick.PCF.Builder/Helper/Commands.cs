@@ -42,6 +42,16 @@ namespace Maverick.PCF.Builder.Helper
                 return $"rmdir /s/q \"{folderName}\"";
             }
 
+            public static string SetExecutionPolicyToUnrestricted()
+            {
+                return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -force\"\"";
+            }
+
+            public static string ResetExecutionPolicy()
+            {
+                return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Default -Scope CurrentUser -force\"\"";
+            }
+
             public static string FindMsBuild()
             {
                 var fullPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + MSBUILD_SCRIPT_FILE_LOCATION;

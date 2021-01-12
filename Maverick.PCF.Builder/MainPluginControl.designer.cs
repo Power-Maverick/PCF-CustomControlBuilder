@@ -31,11 +31,34 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPluginControl));
             this.toolStripMenu = new System.Windows.Forms.ToolStrip();
+            this.tsbClose = new System.Windows.Forms.ToolStripButton();
             this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbNewPCFMenu = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmNewPCFBlank = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmNewPCFTemplate = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbEditControl = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsbAuthProfile = new System.Windows.Forms.ToolStripSplitButton();
+            this.tsmCreateProfile = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmListProfiles = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspGallery = new System.Windows.Forms.ToolStripButton();
+            this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspCLIHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspMoreLinks = new System.Windows.Forms.ToolStripDropDownButton();
+            this.tspmDemos = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmBlogs = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmForums = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspmIdeas = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tspSettings = new System.Windows.Forms.ToolStripButton();
             this.workingFolderBrowserDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.gboxQuickAction = new System.Windows.Forms.GroupBox();
             this.btnBuildAndDeployAll = new System.Windows.Forms.Button();
@@ -43,6 +66,7 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.picRunning = new System.Windows.Forms.PictureBox();
             this.grpBoxAuthProfileDetails = new System.Windows.Forms.GroupBox();
             this.lblCurrentProfile = new System.Windows.Forms.Label();
             this.dgvMRULocations = new System.Windows.Forms.DataGridView();
@@ -55,6 +79,7 @@
             this.lblnpmVersionMsg = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
             this.btnClearConsole = new System.Windows.Forms.Button();
+            this.btnRefreshDetails = new System.Windows.Forms.Button();
             this.lblErrors = new System.Windows.Forms.Label();
             this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
             this.consoleControl = new ConsoleControl.ConsoleControl();
@@ -76,13 +101,21 @@
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
+            this.lblResxFileExists = new System.Windows.Forms.Label();
+            this.lblCssFileExists = new System.Windows.Forms.Label();
+            this.lblPreviewImageExists = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.cboxAdditionalPackages = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
+            this.btnAddResxFile = new System.Windows.Forms.Button();
+            this.btnAddPreviewImage = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.lblControlInitStatus = new System.Windows.Forms.Label();
             this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
             this.btnQuickDeploy = new System.Windows.Forms.Button();
+            this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
             this.chkIncrementComponentVersion = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtComponentVersion = new System.Windows.Forms.TextBox();
@@ -101,50 +134,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label14 = new System.Windows.Forms.Label();
-            this.cboxAdditionalPackages = new System.Windows.Forms.ComboBox();
-            this.lblPreviewImageExists = new System.Windows.Forms.Label();
-            this.lblCssFileExists = new System.Windows.Forms.Label();
-            this.lblResxFileExists = new System.Windows.Forms.Label();
-            this.picRunning = new System.Windows.Forms.PictureBox();
-            this.btnRefreshDetails = new System.Windows.Forms.Button();
-            this.btnAddResxFile = new System.Windows.Forms.Button();
-            this.btnAddPreviewImage = new System.Windows.Forms.Button();
-            this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
-            this.tsbClose = new System.Windows.Forms.ToolStripButton();
-            this.tsbNewPCFMenu = new System.Windows.Forms.ToolStripSplitButton();
-            this.tsmNewPCFBlank = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmNewPCFTemplate = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsbEditControl = new System.Windows.Forms.ToolStripButton();
-            this.tsbAuthProfile = new System.Windows.Forms.ToolStripSplitButton();
-            this.tsmCreateProfile = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmListProfiles = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspGallery = new System.Windows.Forms.ToolStripButton();
-            this.tspSampleControls = new System.Windows.Forms.ToolStripButton();
-            this.tspCLIHelp = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tspmDownloadPowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmUpdatePowerAppsCLI = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspHelp = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tspmPCFOverview = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmMSDocs = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmPCFLimitations = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspMoreLinks = new System.Windows.Forms.ToolStripDropDownButton();
-            this.tspmDemos = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmBlogs = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmForums = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspmIdeas = new System.Windows.Forms.ToolStripMenuItem();
-            this.tspSettings = new System.Windows.Forms.ToolStripButton();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRunning)).BeginInit();
             this.grpBoxAuthProfileDetails.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
             this.gboxCommandPrompt.SuspendLayout();
             this.grpBoxSolutionDetails.SuspendLayout();
             this.grpBoxComponentDetails.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRunning)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -172,30 +172,236 @@
             this.toolStripMenu.TabIndex = 4;
             this.toolStripMenu.Text = "toolStrip1";
             // 
+            // tsbClose
+            // 
+            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
+            this.tsbClose.Name = "tsbClose";
+            this.tsbClose.Size = new System.Drawing.Size(28, 28);
+            this.tsbClose.ToolTipText = "Close tool";
+            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
+            // 
             // tssSeparator1
             // 
             this.tssSeparator1.Name = "tssSeparator1";
             this.tssSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tsbNewPCFMenu
+            // 
+            this.tsbNewPCFMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmNewPCFBlank,
+            this.tsmNewPCFTemplate});
+            this.tsbNewPCFMenu.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewPCFMenu.Image")));
+            this.tsbNewPCFMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbNewPCFMenu.Name = "tsbNewPCFMenu";
+            this.tsbNewPCFMenu.Size = new System.Drawing.Size(138, 28);
+            this.tsbNewPCFMenu.Text = "New PCF Control";
+            this.tsbNewPCFMenu.ButtonClick += new System.EventHandler(this.TsbNewPCFMenu_ButtonClick);
+            // 
+            // tsmNewPCFBlank
+            // 
+            this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
+            this.tsmNewPCFBlank.Size = new System.Drawing.Size(178, 22);
+            this.tsmNewPCFBlank.Text = "New from Blank";
+            this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
+            // 
+            // tsmNewPCFTemplate
+            // 
+            this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
+            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(178, 22);
+            this.tsmNewPCFTemplate.Text = "New from Template";
+            this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
+            // 
+            // tsbEditControl
+            // 
+            this.tsbEditControl.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditControl.Image")));
+            this.tsbEditControl.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbEditControl.Name = "tsbEditControl";
+            this.tsbEditControl.Size = new System.Drawing.Size(120, 28);
+            this.tsbEditControl.Text = "Edit PCF control";
+            this.tsbEditControl.Click += new System.EventHandler(this.tsbEditControl_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
+            // tsbAuthProfile
+            // 
+            this.tsbAuthProfile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmCreateProfile,
+            this.tsmListProfiles});
+            this.tsbAuthProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbAuthProfile.Image")));
+            this.tsbAuthProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbAuthProfile.Name = "tsbAuthProfile";
+            this.tsbAuthProfile.Size = new System.Drawing.Size(168, 28);
+            this.tsbAuthProfile.Text = "Authentication Profiles";
+            this.tsbAuthProfile.ButtonClick += new System.EventHandler(this.tsbAuthProfile_ButtonClick);
+            // 
+            // tsmCreateProfile
+            // 
+            this.tsmCreateProfile.Name = "tsmCreateProfile";
+            this.tsmCreateProfile.Size = new System.Drawing.Size(145, 22);
+            this.tsmCreateProfile.Text = "Create Profile";
+            this.tsmCreateProfile.Click += new System.EventHandler(this.tsmCreateProfile_Click);
+            // 
+            // tsmListProfiles
+            // 
+            this.tsmListProfiles.Name = "tsmListProfiles";
+            this.tsmListProfiles.Size = new System.Drawing.Size(145, 22);
+            this.tsmListProfiles.Text = "List Profiles";
+            this.tsmListProfiles.Click += new System.EventHandler(this.tsmListProfiles_Click);
+            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspGallery
+            // 
+            this.tspGallery.Image = ((System.Drawing.Image)(resources.GetObject("tspGallery.Image")));
+            this.tspGallery.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspGallery.Name = "tspGallery";
+            this.tspGallery.Size = new System.Drawing.Size(95, 28);
+            this.tspGallery.Text = "PCF Gallery";
+            this.tspGallery.Click += new System.EventHandler(this.tspGallery_Click);
+            // 
+            // tspSampleControls
+            // 
+            this.tspSampleControls.Image = ((System.Drawing.Image)(resources.GetObject("tspSampleControls.Image")));
+            this.tspSampleControls.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSampleControls.Name = "tspSampleControls";
+            this.tspSampleControls.Size = new System.Drawing.Size(122, 28);
+            this.tspSampleControls.Text = "Sample Controls";
+            this.tspSampleControls.Click += new System.EventHandler(this.tspSampleControls_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
+            // tspCLIHelp
+            // 
+            this.tspCLIHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmDownloadPowerAppsCLI,
+            this.tspmUpdatePowerAppsCLI});
+            this.tspCLIHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspCLIHelp.Image")));
+            this.tspCLIHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspCLIHelp.Name = "tspCLIHelp";
+            this.tspCLIHelp.Size = new System.Drawing.Size(124, 28);
+            this.tspCLIHelp.Text = "PowerApps CLI";
+            this.tspCLIHelp.ToolTipText = "PowerApps CLI";
+            // 
+            // tspmDownloadPowerAppsCLI
+            // 
+            this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
+            this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
+            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(211, 22);
+            this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
+            this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
+            // 
+            // tspmUpdatePowerAppsCLI
+            // 
+            this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
+            this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
+            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(211, 22);
+            this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
+            this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
+            // 
+            // tspHelp
+            // 
+            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmPCFOverview,
+            this.tspmMSDocs,
+            this.tspmPCFLimitations});
+            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
+            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspHelp.Name = "tspHelp";
+            this.tspHelp.Size = new System.Drawing.Size(69, 28);
+            this.tspHelp.Text = "Help";
+            // 
+            // tspmPCFOverview
+            // 
+            this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
+            this.tspmPCFOverview.Name = "tspmPCFOverview";
+            this.tspmPCFOverview.Size = new System.Drawing.Size(289, 22);
+            this.tspmPCFOverview.Text = "PowerApps Component Framework";
+            this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
+            // 
+            // tspmMSDocs
+            // 
+            this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
+            this.tspmMSDocs.Name = "tspmMSDocs";
+            this.tspmMSDocs.Size = new System.Drawing.Size(289, 22);
+            this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
+            this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
+            // 
+            // tspmPCFLimitations
+            // 
+            this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
+            this.tspmPCFLimitations.Name = "tspmPCFLimitations";
+            this.tspmPCFLimitations.Size = new System.Drawing.Size(289, 22);
+            this.tspmPCFLimitations.Text = "PCF Limitations";
+            this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
+            // 
+            // tspMoreLinks
+            // 
+            this.tspMoreLinks.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tspmDemos,
+            this.tspmBlogs,
+            this.tspmForums,
+            this.tspmIdeas});
+            this.tspMoreLinks.Image = ((System.Drawing.Image)(resources.GetObject("tspMoreLinks.Image")));
+            this.tspMoreLinks.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspMoreLinks.Name = "tspMoreLinks";
+            this.tspMoreLinks.Size = new System.Drawing.Size(102, 28);
+            this.tspMoreLinks.Text = "More Links";
+            // 
+            // tspmDemos
+            // 
+            this.tspmDemos.Image = ((System.Drawing.Image)(resources.GetObject("tspmDemos.Image")));
+            this.tspmDemos.Name = "tspmDemos";
+            this.tspmDemos.Size = new System.Drawing.Size(114, 22);
+            this.tspmDemos.Text = "Demos";
+            this.tspmDemos.Click += new System.EventHandler(this.TspmDemos_Click);
+            // 
+            // tspmBlogs
+            // 
+            this.tspmBlogs.Image = ((System.Drawing.Image)(resources.GetObject("tspmBlogs.Image")));
+            this.tspmBlogs.Name = "tspmBlogs";
+            this.tspmBlogs.Size = new System.Drawing.Size(114, 22);
+            this.tspmBlogs.Text = "Blogs";
+            this.tspmBlogs.Click += new System.EventHandler(this.TspmBlogs_Click);
+            // 
+            // tspmForums
+            // 
+            this.tspmForums.Image = ((System.Drawing.Image)(resources.GetObject("tspmForums.Image")));
+            this.tspmForums.Name = "tspmForums";
+            this.tspmForums.Size = new System.Drawing.Size(114, 22);
+            this.tspmForums.Text = "Forums";
+            this.tspmForums.Click += new System.EventHandler(this.TspmForums_Click);
+            // 
+            // tspmIdeas
+            // 
+            this.tspmIdeas.Image = ((System.Drawing.Image)(resources.GetObject("tspmIdeas.Image")));
+            this.tspmIdeas.Name = "tspmIdeas";
+            this.tspmIdeas.Size = new System.Drawing.Size(114, 22);
+            this.tspmIdeas.Text = "Ideas";
+            this.tspmIdeas.Click += new System.EventHandler(this.TspmIdeas_Click);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 31);
+            // 
+            // tspSettings
+            // 
+            this.tspSettings.Image = ((System.Drawing.Image)(resources.GetObject("tspSettings.Image")));
+            this.tspSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tspSettings.Name = "tspSettings";
+            this.tspSettings.Size = new System.Drawing.Size(77, 28);
+            this.tspSettings.Text = "Settings";
+            this.tspSettings.Click += new System.EventHandler(this.TspSettings_Click);
             // 
             // gboxQuickAction
             // 
@@ -242,11 +448,11 @@
             // lblPCFCLIVersionMsg
             // 
             this.lblPCFCLIVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPCFCLIVersionMsg.Location = new System.Drawing.Point(1253, 0);
+            this.lblPCFCLIVersionMsg.Location = new System.Drawing.Point(1232, 0);
             this.lblPCFCLIVersionMsg.Name = "lblPCFCLIVersionMsg";
-            this.lblPCFCLIVersionMsg.Size = new System.Drawing.Size(153, 23);
+            this.lblPCFCLIVersionMsg.Size = new System.Drawing.Size(174, 23);
             this.lblPCFCLIVersionMsg.TabIndex = 21;
-            this.lblPCFCLIVersionMsg.Text = "Detecting PCF CLI version.";
+            this.lblPCFCLIVersionMsg.Text = "Detecting Power Apps CLI version.";
             this.lblPCFCLIVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pnlMain
@@ -275,6 +481,16 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1409, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // picRunning
+            // 
+            this.picRunning.Location = new System.Drawing.Point(531, 68);
+            this.picRunning.Name = "picRunning";
+            this.picRunning.Size = new System.Drawing.Size(32, 32);
+            this.picRunning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picRunning.TabIndex = 37;
+            this.picRunning.TabStop = false;
+            this.picRunning.Visible = false;
             // 
             // grpBoxAuthProfileDetails
             // 
@@ -405,6 +621,19 @@
             this.btnClearConsole.Text = "Clear Console";
             this.btnClearConsole.UseVisualStyleBackColor = true;
             this.btnClearConsole.Click += new System.EventHandler(this.BtnClearConsole_Click);
+            // 
+            // btnRefreshDetails
+            // 
+            this.btnRefreshDetails.Image = ((System.Drawing.Image)(resources.GetObject("btnRefreshDetails.Image")));
+            this.btnRefreshDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRefreshDetails.Location = new System.Drawing.Point(115, 49);
+            this.btnRefreshDetails.Name = "btnRefreshDetails";
+            this.btnRefreshDetails.Size = new System.Drawing.Size(107, 23);
+            this.btnRefreshDetails.TabIndex = 22;
+            this.btnRefreshDetails.Text = "Reload Details";
+            this.btnRefreshDetails.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnRefreshDetails.UseVisualStyleBackColor = true;
+            this.btnRefreshDetails.Click += new System.EventHandler(this.BtnRefreshDetails_Click);
             // 
             // lblErrors
             // 
@@ -656,6 +885,54 @@
             this.grpBoxComponentDetails.TabStop = false;
             this.grpBoxComponentDetails.Text = "PCF Component Details";
             // 
+            // lblResxFileExists
+            // 
+            this.lblResxFileExists.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblResxFileExists.Location = new System.Drawing.Point(340, 236);
+            this.lblResxFileExists.Name = "lblResxFileExists";
+            this.lblResxFileExists.Size = new System.Drawing.Size(148, 16);
+            this.lblResxFileExists.TabIndex = 40;
+            this.lblResxFileExists.Text = "❌ No RESX file";
+            this.lblResxFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblCssFileExists
+            // 
+            this.lblCssFileExists.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblCssFileExists.Location = new System.Drawing.Point(340, 214);
+            this.lblCssFileExists.Name = "lblCssFileExists";
+            this.lblCssFileExists.Size = new System.Drawing.Size(148, 16);
+            this.lblCssFileExists.TabIndex = 39;
+            this.lblCssFileExists.Text = "❌ No CSS file";
+            this.lblCssFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // lblPreviewImageExists
+            // 
+            this.lblPreviewImageExists.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblPreviewImageExists.Location = new System.Drawing.Point(340, 194);
+            this.lblPreviewImageExists.Name = "lblPreviewImageExists";
+            this.lblPreviewImageExists.Size = new System.Drawing.Size(148, 16);
+            this.lblPreviewImageExists.TabIndex = 38;
+            this.lblPreviewImageExists.Text = "❌ No Preview Image";
+            this.lblPreviewImageExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(15, 130);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(55, 26);
+            this.label14.TabIndex = 36;
+            this.label14.Text = "Additional\r\nPackages";
+            // 
+            // cboxAdditionalPackages
+            // 
+            this.cboxAdditionalPackages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxAdditionalPackages.FormattingEnabled = true;
+            this.cboxAdditionalPackages.Location = new System.Drawing.Point(110, 127);
+            this.cboxAdditionalPackages.Name = "cboxAdditionalPackages";
+            this.cboxAdditionalPackages.Size = new System.Drawing.Size(175, 21);
+            this.cboxAdditionalPackages.TabIndex = 37;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -694,6 +971,36 @@
             this.label12.Size = new System.Drawing.Size(68, 12);
             this.label12.TabIndex = 33;
             this.label12.Text = "Preview Image";
+            // 
+            // btnAddResxFile
+            // 
+            this.btnAddResxFile.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAddResxFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddResxFile.BackgroundImage")));
+            this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddResxFile.FlatAppearance.BorderSize = 0;
+            this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddResxFile.Location = new System.Drawing.Point(89, 3);
+            this.btnAddResxFile.Name = "btnAddResxFile";
+            this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
+            this.btnAddResxFile.TabIndex = 32;
+            this.toolTip.SetToolTip(this.btnAddResxFile, "Add RESX file");
+            this.btnAddResxFile.UseVisualStyleBackColor = true;
+            this.btnAddResxFile.Click += new System.EventHandler(this.btnAddResxFile_Click);
+            // 
+            // btnAddPreviewImage
+            // 
+            this.btnAddPreviewImage.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnAddPreviewImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPreviewImage.BackgroundImage")));
+            this.btnAddPreviewImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAddPreviewImage.FlatAppearance.BorderSize = 0;
+            this.btnAddPreviewImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddPreviewImage.Location = new System.Drawing.Point(22, 3);
+            this.btnAddPreviewImage.Name = "btnAddPreviewImage";
+            this.btnAddPreviewImage.Size = new System.Drawing.Size(32, 32);
+            this.btnAddPreviewImage.TabIndex = 30;
+            this.toolTip.SetToolTip(this.btnAddPreviewImage, "Add Preview Image");
+            this.btnAddPreviewImage.UseVisualStyleBackColor = true;
+            this.btnAddPreviewImage.Click += new System.EventHandler(this.btnAddPreviewImage_Click);
             // 
             // label11
             // 
@@ -736,6 +1043,18 @@
             this.toolTip.SetToolTip(this.btnQuickDeploy, "This uses \'pac pcf push\' command");
             this.btnQuickDeploy.UseVisualStyleBackColor = true;
             this.btnQuickDeploy.Click += new System.EventHandler(this.btnQuickDeploy_Click);
+            // 
+            // btnOpenControlInExplorer
+            // 
+            this.btnOpenControlInExplorer.FlatAppearance.BorderSize = 0;
+            this.btnOpenControlInExplorer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnOpenControlInExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenControlInExplorer.Image")));
+            this.btnOpenControlInExplorer.Location = new System.Drawing.Point(291, 73);
+            this.btnOpenControlInExplorer.Name = "btnOpenControlInExplorer";
+            this.btnOpenControlInExplorer.Size = new System.Drawing.Size(27, 20);
+            this.btnOpenControlInExplorer.TabIndex = 26;
+            this.btnOpenControlInExplorer.UseVisualStyleBackColor = true;
+            this.btnOpenControlInExplorer.Click += new System.EventHandler(this.BtnOpenControlInExplorer_Click);
             // 
             // chkIncrementComponentVersion
             // 
@@ -900,119 +1219,6 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(15, 130);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(55, 26);
-            this.label14.TabIndex = 36;
-            this.label14.Text = "Additional\r\nPackages";
-            // 
-            // cboxAdditionalPackages
-            // 
-            this.cboxAdditionalPackages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxAdditionalPackages.FormattingEnabled = true;
-            this.cboxAdditionalPackages.Location = new System.Drawing.Point(110, 127);
-            this.cboxAdditionalPackages.Name = "cboxAdditionalPackages";
-            this.cboxAdditionalPackages.Size = new System.Drawing.Size(175, 21);
-            this.cboxAdditionalPackages.TabIndex = 37;
-            // 
-            // lblPreviewImageExists
-            // 
-            this.lblPreviewImageExists.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblPreviewImageExists.Location = new System.Drawing.Point(340, 194);
-            this.lblPreviewImageExists.Name = "lblPreviewImageExists";
-            this.lblPreviewImageExists.Size = new System.Drawing.Size(148, 16);
-            this.lblPreviewImageExists.TabIndex = 38;
-            this.lblPreviewImageExists.Text = "❌ No Preview Image";
-            this.lblPreviewImageExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblCssFileExists
-            // 
-            this.lblCssFileExists.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblCssFileExists.Location = new System.Drawing.Point(340, 214);
-            this.lblCssFileExists.Name = "lblCssFileExists";
-            this.lblCssFileExists.Size = new System.Drawing.Size(148, 16);
-            this.lblCssFileExists.TabIndex = 39;
-            this.lblCssFileExists.Text = "❌ No CSS file";
-            this.lblCssFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // lblResxFileExists
-            // 
-            this.lblResxFileExists.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblResxFileExists.Location = new System.Drawing.Point(340, 236);
-            this.lblResxFileExists.Name = "lblResxFileExists";
-            this.lblResxFileExists.Size = new System.Drawing.Size(148, 16);
-            this.lblResxFileExists.TabIndex = 40;
-            this.lblResxFileExists.Text = "❌ No RESX file";
-            this.lblResxFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // picRunning
-            // 
-            this.picRunning.Location = new System.Drawing.Point(531, 68);
-            this.picRunning.Name = "picRunning";
-            this.picRunning.Size = new System.Drawing.Size(32, 32);
-            this.picRunning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picRunning.TabIndex = 37;
-            this.picRunning.TabStop = false;
-            this.picRunning.Visible = false;
-            // 
-            // btnRefreshDetails
-            // 
-            this.btnRefreshDetails.Image = ((System.Drawing.Image)(resources.GetObject("btnRefreshDetails.Image")));
-            this.btnRefreshDetails.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnRefreshDetails.Location = new System.Drawing.Point(115, 49);
-            this.btnRefreshDetails.Name = "btnRefreshDetails";
-            this.btnRefreshDetails.Size = new System.Drawing.Size(107, 23);
-            this.btnRefreshDetails.TabIndex = 22;
-            this.btnRefreshDetails.Text = "Reload Details";
-            this.btnRefreshDetails.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnRefreshDetails.UseVisualStyleBackColor = true;
-            this.btnRefreshDetails.Click += new System.EventHandler(this.BtnRefreshDetails_Click);
-            // 
-            // btnAddResxFile
-            // 
-            this.btnAddResxFile.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAddResxFile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddResxFile.BackgroundImage")));
-            this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddResxFile.FlatAppearance.BorderSize = 0;
-            this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddResxFile.Location = new System.Drawing.Point(89, 3);
-            this.btnAddResxFile.Name = "btnAddResxFile";
-            this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
-            this.btnAddResxFile.TabIndex = 32;
-            this.toolTip.SetToolTip(this.btnAddResxFile, "Add RESX file");
-            this.btnAddResxFile.UseVisualStyleBackColor = true;
-            this.btnAddResxFile.Click += new System.EventHandler(this.btnAddResxFile_Click);
-            // 
-            // btnAddPreviewImage
-            // 
-            this.btnAddPreviewImage.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAddPreviewImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnAddPreviewImage.BackgroundImage")));
-            this.btnAddPreviewImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAddPreviewImage.FlatAppearance.BorderSize = 0;
-            this.btnAddPreviewImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPreviewImage.Location = new System.Drawing.Point(22, 3);
-            this.btnAddPreviewImage.Name = "btnAddPreviewImage";
-            this.btnAddPreviewImage.Size = new System.Drawing.Size(32, 32);
-            this.btnAddPreviewImage.TabIndex = 30;
-            this.toolTip.SetToolTip(this.btnAddPreviewImage, "Add Preview Image");
-            this.btnAddPreviewImage.UseVisualStyleBackColor = true;
-            this.btnAddPreviewImage.Click += new System.EventHandler(this.btnAddPreviewImage_Click);
-            // 
-            // btnOpenControlInExplorer
-            // 
-            this.btnOpenControlInExplorer.FlatAppearance.BorderSize = 0;
-            this.btnOpenControlInExplorer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnOpenControlInExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnOpenControlInExplorer.Image")));
-            this.btnOpenControlInExplorer.Location = new System.Drawing.Point(291, 73);
-            this.btnOpenControlInExplorer.Name = "btnOpenControlInExplorer";
-            this.btnOpenControlInExplorer.Size = new System.Drawing.Size(27, 20);
-            this.btnOpenControlInExplorer.TabIndex = 26;
-            this.btnOpenControlInExplorer.UseVisualStyleBackColor = true;
-            this.btnOpenControlInExplorer.Click += new System.EventHandler(this.BtnOpenControlInExplorer_Click);
-            // 
             // linklblCreator
             // 
             this.linklblCreator.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1026,212 +1232,6 @@
             this.linklblCreator.Text = "by Danish (Power Maverick)";
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
-            // 
-            // tsbClose
-            // 
-            this.tsbClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tsbClose.Image = ((System.Drawing.Image)(resources.GetObject("tsbClose.Image")));
-            this.tsbClose.Name = "tsbClose";
-            this.tsbClose.Size = new System.Drawing.Size(28, 28);
-            this.tsbClose.ToolTipText = "Close tool";
-            this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
-            // 
-            // tsbNewPCFMenu
-            // 
-            this.tsbNewPCFMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmNewPCFBlank,
-            this.tsmNewPCFTemplate});
-            this.tsbNewPCFMenu.Image = ((System.Drawing.Image)(resources.GetObject("tsbNewPCFMenu.Image")));
-            this.tsbNewPCFMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbNewPCFMenu.Name = "tsbNewPCFMenu";
-            this.tsbNewPCFMenu.Size = new System.Drawing.Size(138, 28);
-            this.tsbNewPCFMenu.Text = "New PCF Control";
-            this.tsbNewPCFMenu.ButtonClick += new System.EventHandler(this.TsbNewPCFMenu_ButtonClick);
-            // 
-            // tsmNewPCFBlank
-            // 
-            this.tsmNewPCFBlank.Name = "tsmNewPCFBlank";
-            this.tsmNewPCFBlank.Size = new System.Drawing.Size(178, 22);
-            this.tsmNewPCFBlank.Text = "New from Blank";
-            this.tsmNewPCFBlank.Click += new System.EventHandler(this.TsmNewPCFBlank_Click);
-            // 
-            // tsmNewPCFTemplate
-            // 
-            this.tsmNewPCFTemplate.Name = "tsmNewPCFTemplate";
-            this.tsmNewPCFTemplate.Size = new System.Drawing.Size(178, 22);
-            this.tsmNewPCFTemplate.Text = "New from Template";
-            this.tsmNewPCFTemplate.Click += new System.EventHandler(this.TsmNewPCFTemplate_Click);
-            // 
-            // tsbEditControl
-            // 
-            this.tsbEditControl.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditControl.Image")));
-            this.tsbEditControl.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbEditControl.Name = "tsbEditControl";
-            this.tsbEditControl.Size = new System.Drawing.Size(120, 28);
-            this.tsbEditControl.Text = "Edit PCF control";
-            this.tsbEditControl.Click += new System.EventHandler(this.tsbEditControl_Click);
-            // 
-            // tsbAuthProfile
-            // 
-            this.tsbAuthProfile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmCreateProfile,
-            this.tsmListProfiles});
-            this.tsbAuthProfile.Image = ((System.Drawing.Image)(resources.GetObject("tsbAuthProfile.Image")));
-            this.tsbAuthProfile.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbAuthProfile.Name = "tsbAuthProfile";
-            this.tsbAuthProfile.Size = new System.Drawing.Size(168, 28);
-            this.tsbAuthProfile.Text = "Authentication Profiles";
-            this.tsbAuthProfile.ButtonClick += new System.EventHandler(this.tsbAuthProfile_ButtonClick);
-            // 
-            // tsmCreateProfile
-            // 
-            this.tsmCreateProfile.Name = "tsmCreateProfile";
-            this.tsmCreateProfile.Size = new System.Drawing.Size(145, 22);
-            this.tsmCreateProfile.Text = "Create Profile";
-            this.tsmCreateProfile.Click += new System.EventHandler(this.tsmCreateProfile_Click);
-            // 
-            // tsmListProfiles
-            // 
-            this.tsmListProfiles.Name = "tsmListProfiles";
-            this.tsmListProfiles.Size = new System.Drawing.Size(145, 22);
-            this.tsmListProfiles.Text = "List Profiles";
-            this.tsmListProfiles.Click += new System.EventHandler(this.tsmListProfiles_Click);
-            // 
-            // tspGallery
-            // 
-            this.tspGallery.Image = ((System.Drawing.Image)(resources.GetObject("tspGallery.Image")));
-            this.tspGallery.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspGallery.Name = "tspGallery";
-            this.tspGallery.Size = new System.Drawing.Size(95, 28);
-            this.tspGallery.Text = "PCF Gallery";
-            this.tspGallery.Click += new System.EventHandler(this.tspGallery_Click);
-            // 
-            // tspSampleControls
-            // 
-            this.tspSampleControls.Image = ((System.Drawing.Image)(resources.GetObject("tspSampleControls.Image")));
-            this.tspSampleControls.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspSampleControls.Name = "tspSampleControls";
-            this.tspSampleControls.Size = new System.Drawing.Size(122, 28);
-            this.tspSampleControls.Text = "Sample Controls";
-            this.tspSampleControls.Click += new System.EventHandler(this.tspSampleControls_Click);
-            // 
-            // tspCLIHelp
-            // 
-            this.tspCLIHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspmDownloadPowerAppsCLI,
-            this.tspmUpdatePowerAppsCLI});
-            this.tspCLIHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspCLIHelp.Image")));
-            this.tspCLIHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspCLIHelp.Name = "tspCLIHelp";
-            this.tspCLIHelp.Size = new System.Drawing.Size(124, 28);
-            this.tspCLIHelp.Text = "PowerApps CLI";
-            this.tspCLIHelp.ToolTipText = "PowerApps CLI";
-            // 
-            // tspmDownloadPowerAppsCLI
-            // 
-            this.tspmDownloadPowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmDownloadPowerAppsCLI.Image")));
-            this.tspmDownloadPowerAppsCLI.Name = "tspmDownloadPowerAppsCLI";
-            this.tspmDownloadPowerAppsCLI.Size = new System.Drawing.Size(219, 30);
-            this.tspmDownloadPowerAppsCLI.Text = "Download PowerApps CLI";
-            this.tspmDownloadPowerAppsCLI.Click += new System.EventHandler(this.tspmDownloadPowerAppsCLI_Click);
-            // 
-            // tspmUpdatePowerAppsCLI
-            // 
-            this.tspmUpdatePowerAppsCLI.Image = ((System.Drawing.Image)(resources.GetObject("tspmUpdatePowerAppsCLI.Image")));
-            this.tspmUpdatePowerAppsCLI.Name = "tspmUpdatePowerAppsCLI";
-            this.tspmUpdatePowerAppsCLI.Size = new System.Drawing.Size(219, 30);
-            this.tspmUpdatePowerAppsCLI.Text = "Update PowerApps CLI";
-            this.tspmUpdatePowerAppsCLI.Click += new System.EventHandler(this.tspmUpdatePowerAppsCLI_Click);
-            // 
-            // tspHelp
-            // 
-            this.tspHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspmPCFOverview,
-            this.tspmMSDocs,
-            this.tspmPCFLimitations});
-            this.tspHelp.Image = ((System.Drawing.Image)(resources.GetObject("tspHelp.Image")));
-            this.tspHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspHelp.Name = "tspHelp";
-            this.tspHelp.Size = new System.Drawing.Size(69, 28);
-            this.tspHelp.Text = "Help";
-            // 
-            // tspmPCFOverview
-            // 
-            this.tspmPCFOverview.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFOverview.Image")));
-            this.tspmPCFOverview.Name = "tspmPCFOverview";
-            this.tspmPCFOverview.Size = new System.Drawing.Size(297, 30);
-            this.tspmPCFOverview.Text = "PowerApps Component Framework";
-            this.tspmPCFOverview.Click += new System.EventHandler(this.tspmPCFOverview_Click);
-            // 
-            // tspmMSDocs
-            // 
-            this.tspmMSDocs.Image = ((System.Drawing.Image)(resources.GetObject("tspmMSDocs.Image")));
-            this.tspmMSDocs.Name = "tspmMSDocs";
-            this.tspmMSDocs.Size = new System.Drawing.Size(297, 30);
-            this.tspmMSDocs.Text = "Microsoft Docs for Custom Components";
-            this.tspmMSDocs.Click += new System.EventHandler(this.tspmMSDocs_Click);
-            // 
-            // tspmPCFLimitations
-            // 
-            this.tspmPCFLimitations.Image = ((System.Drawing.Image)(resources.GetObject("tspmPCFLimitations.Image")));
-            this.tspmPCFLimitations.Name = "tspmPCFLimitations";
-            this.tspmPCFLimitations.Size = new System.Drawing.Size(297, 30);
-            this.tspmPCFLimitations.Text = "PCF Limitations";
-            this.tspmPCFLimitations.Click += new System.EventHandler(this.tspmPCFLimitations_Click);
-            // 
-            // tspMoreLinks
-            // 
-            this.tspMoreLinks.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tspmDemos,
-            this.tspmBlogs,
-            this.tspmForums,
-            this.tspmIdeas});
-            this.tspMoreLinks.Image = ((System.Drawing.Image)(resources.GetObject("tspMoreLinks.Image")));
-            this.tspMoreLinks.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspMoreLinks.Name = "tspMoreLinks";
-            this.tspMoreLinks.Size = new System.Drawing.Size(102, 28);
-            this.tspMoreLinks.Text = "More Links";
-            // 
-            // tspmDemos
-            // 
-            this.tspmDemos.Image = ((System.Drawing.Image)(resources.GetObject("tspmDemos.Image")));
-            this.tspmDemos.Name = "tspmDemos";
-            this.tspmDemos.Size = new System.Drawing.Size(122, 30);
-            this.tspmDemos.Text = "Demos";
-            this.tspmDemos.Click += new System.EventHandler(this.TspmDemos_Click);
-            // 
-            // tspmBlogs
-            // 
-            this.tspmBlogs.Image = ((System.Drawing.Image)(resources.GetObject("tspmBlogs.Image")));
-            this.tspmBlogs.Name = "tspmBlogs";
-            this.tspmBlogs.Size = new System.Drawing.Size(122, 30);
-            this.tspmBlogs.Text = "Blogs";
-            this.tspmBlogs.Click += new System.EventHandler(this.TspmBlogs_Click);
-            // 
-            // tspmForums
-            // 
-            this.tspmForums.Image = ((System.Drawing.Image)(resources.GetObject("tspmForums.Image")));
-            this.tspmForums.Name = "tspmForums";
-            this.tspmForums.Size = new System.Drawing.Size(122, 30);
-            this.tspmForums.Text = "Forums";
-            this.tspmForums.Click += new System.EventHandler(this.TspmForums_Click);
-            // 
-            // tspmIdeas
-            // 
-            this.tspmIdeas.Image = ((System.Drawing.Image)(resources.GetObject("tspmIdeas.Image")));
-            this.tspmIdeas.Name = "tspmIdeas";
-            this.tspmIdeas.Size = new System.Drawing.Size(122, 30);
-            this.tspmIdeas.Text = "Ideas";
-            this.tspmIdeas.Click += new System.EventHandler(this.TspmIdeas_Click);
-            // 
-            // tspSettings
-            // 
-            this.tspSettings.Image = ((System.Drawing.Image)(resources.GetObject("tspSettings.Image")));
-            this.tspSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tspSettings.Name = "tspSettings";
-            this.tspSettings.Size = new System.Drawing.Size(77, 28);
-            this.tspSettings.Text = "Settings";
-            this.tspSettings.Click += new System.EventHandler(this.TspSettings_Click);
             // 
             // MainPluginControl
             // 
@@ -1249,6 +1249,7 @@
             this.gboxQuickAction.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picRunning)).EndInit();
             this.grpBoxAuthProfileDetails.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
             this.gboxCommandPrompt.ResumeLayout(false);
@@ -1258,7 +1259,6 @@
             this.grpBoxComponentDetails.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picRunning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

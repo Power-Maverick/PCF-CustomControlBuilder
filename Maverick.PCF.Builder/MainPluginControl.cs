@@ -662,7 +662,7 @@ namespace Maverick.PCF.Builder
             string currentPacVersion = string.Empty;
             string latestPacVersion = string.Empty;
 
-            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("version"))
+            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("version:"))
             {
                 currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
 
@@ -677,11 +677,24 @@ namespace Maverick.PCF.Builder
                     }
                 }
 
-                lblPCFCLIVersionMsg.Text = "PCF CLI Version: " + currentPacVersion.Trim();
+                lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + currentPacVersion.Trim();
             }
             else
             {
-                lblPCFCLIVersionMsg.Text = "PCF CLI Not Detected";
+                lblPCFCLIVersionMsg.Text = "Power Apps CLI Not Detected";
+                Invoke(new Action(() =>
+                {
+                    ShowErrorNotification("Power Apps CLI not detected on this machine. Please download it.", new Uri("https://aka.ms/PowerAppsCLI"));
+                }));
+                var downloadPACLIResult = MessageBox.Show("Power Apps CLI not detected on this machine. Do you want to download it?", "Power Apps CLI - Not Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (downloadPACLIResult == DialogResult.Yes)
+                {
+                    Process.Start("https://aka.ms/PowerAppsCLI");
+                }
+                else
+                {
+                    CloseTool();
+                }
             }
 
             var end = DateTime.Now;
@@ -760,7 +773,7 @@ namespace Maverick.PCF.Builder
             }
             else
             {
-                string[] commands = new string[] { Commands.Cmd.FindMsBuild() };
+                string[] commands = new string[] { Commands.Cmd.SetExecutionPolicyToUnrestricted(), Commands.Cmd.FindMsBuild(), Commands.Cmd.ResetExecutionPolicy() };
                 var output = CommandLineHelper.RunCommand(commands);
 
                 if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("msbuild.ps1"))
@@ -1276,7 +1289,7 @@ namespace Maverick.PCF.Builder
                             _solutionsCache = result;
 
                             var solutionListQuery = from entity in _solutionsCache.Entities
-                                                    select (new SolutionDetails
+                                                    select (new SealedClasses.SolutionDetails
                                                     {
                                                         DisplayText = entity.GetAttributeValue<string>("friendlyname"),
                                                         MetaData = entity
@@ -2140,7 +2153,7 @@ namespace Maverick.PCF.Builder
 
         private void cboxSolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SolutionDetails selectedSolution = (SolutionDetails)cboxSolutions.SelectedItem;
+            SealedClasses.SolutionDetails selectedSolution = (SealedClasses.SolutionDetails)cboxSolutions.SelectedItem;
 
             txtPublisherPrefix.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.customizationprefix")).Value.ToString();
             txtPublisherName.Text = selectedSolution.MetaData.GetAttributeValue<EntityReference>("publisherid").Name;
