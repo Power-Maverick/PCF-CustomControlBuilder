@@ -16,14 +16,14 @@
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
 ---- NEW FEATURES ----
-None
+1. Publisher details separated out with accepting friendly names
+2. Publisher Friendly name accepts space but unique name does not accept spaces (#28)
 
 ---- UPDATES ----
-1. PCF CLI is now called Power Apps CLI
+1. Publisher prefix only accepts lowercase to align it with Dataverse (#35)
 
 ---- BUG FIXES ----
-1. GitHub Issue #32 - PowerShell Execution Policy as Restricted
-2. GitHub Issue #33 - Tool does not respond when Power Apps CLI is not installed on the machine
+No bug fixes in this release
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>

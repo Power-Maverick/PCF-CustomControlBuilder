@@ -1,8 +1,9 @@
 ﻿---- NEW FEATURES ----
-None
+1. Publisher details separated out with accepting friendly names
+2. Publisher Friendly name accepts space but unique name does not accept spaces (#28)
 
 ---- UPDATES ----
-None
+1. Publisher prefix only accepts lowercase to align it with Dataverse (#35)
 
 ---- BUG FIXES ----
-Urgent bux fixes with solution creation, build and deployment. GitHub Issue #26 and #27
+No bug fixes in this release

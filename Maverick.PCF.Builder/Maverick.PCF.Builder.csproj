@@ -377,9 +377,9 @@ IF $(ConfigurationName) == Debug (
 )</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>powershell -command "Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -force" 
+    <PreBuildEvent>powershell -command "Set-ExecutionPolicy -ExecutionPolicy Unrestricted" 
 powershell -File "$(ProjectDir)Scripts\CoreTools.ps1" "$(TargetDir)"
-powershell -command "Set-ExecutionPolicy -ExecutionPolicy Default -Scope CurrentUser -force"</PreBuildEvent>
+powershell -command "Set-ExecutionPolicy -ExecutionPolicy Default"</PreBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
