@@ -96,7 +96,7 @@
             this.txtPublisherPrefix = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnDeploy = new System.Windows.Forms.Button();
-            this.txtPublisherName = new System.Windows.Forms.TextBox();
+            this.txtPublisherUniqueName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -135,6 +135,10 @@
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtPublisherFriendlyName = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.txtSolutionFriendlyName = new System.Windows.Forms.TextBox();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -497,9 +501,9 @@
             this.grpBoxAuthProfileDetails.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.grpBoxAuthProfileDetails.Controls.Add(this.lblCurrentProfile);
-            this.grpBoxAuthProfileDetails.Location = new System.Drawing.Point(19, 552);
+            this.grpBoxAuthProfileDetails.Location = new System.Drawing.Point(19, 598);
             this.grpBoxAuthProfileDetails.Name = "grpBoxAuthProfileDetails";
-            this.grpBoxAuthProfileDetails.Size = new System.Drawing.Size(494, 133);
+            this.grpBoxAuthProfileDetails.Size = new System.Drawing.Size(494, 118);
             this.grpBoxAuthProfileDetails.TabIndex = 36;
             this.grpBoxAuthProfileDetails.TabStop = false;
             this.grpBoxAuthProfileDetails.Text = "Current Authentication Profile";
@@ -673,7 +677,10 @@
             // 
             // grpBoxSolutionDetails
             // 
-            this.grpBoxSolutionDetails.Controls.Add(this.cboxSolutions);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionFriendlyName);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherFriendlyName);
+            this.grpBoxSolutionDetails.Controls.Add(this.label16);
+            this.grpBoxSolutionDetails.Controls.Add(this.label15);
             this.grpBoxSolutionDetails.Controls.Add(this.chkUseExistingSolution);
             this.grpBoxSolutionDetails.Controls.Add(this.lblSolutionInitStatus);
             this.grpBoxSolutionDetails.Controls.Add(this.chkManagedSolution);
@@ -685,16 +692,17 @@
             this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherPrefix);
             this.grpBoxSolutionDetails.Controls.Add(this.label7);
             this.grpBoxSolutionDetails.Controls.Add(this.btnDeploy);
-            this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherName);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherUniqueName);
             this.grpBoxSolutionDetails.Controls.Add(this.label8);
-            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionName);
             this.grpBoxSolutionDetails.Controls.Add(this.label9);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionName);
+            this.grpBoxSolutionDetails.Controls.Add(this.cboxSolutions);
             this.grpBoxSolutionDetails.Location = new System.Drawing.Point(19, 379);
             this.grpBoxSolutionDetails.Name = "grpBoxSolutionDetails";
-            this.grpBoxSolutionDetails.Size = new System.Drawing.Size(494, 167);
+            this.grpBoxSolutionDetails.Size = new System.Drawing.Size(494, 213);
             this.grpBoxSolutionDetails.TabIndex = 18;
             this.grpBoxSolutionDetails.TabStop = false;
-            this.grpBoxSolutionDetails.Text = "CDS Solution Details";
+            this.grpBoxSolutionDetails.Text = "Dataverse Solution Details";
             // 
             // cboxSolutions
             // 
@@ -703,17 +711,17 @@
             this.cboxSolutions.Items.AddRange(new object[] {
             "Field",
             "Dataset"});
-            this.cboxSolutions.Location = new System.Drawing.Point(110, 56);
+            this.cboxSolutions.Location = new System.Drawing.Point(143, 53);
             this.cboxSolutions.Name = "cboxSolutions";
             this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
-            this.cboxSolutions.TabIndex = 30;
+            this.cboxSolutions.TabIndex = 28;
             this.cboxSolutions.Visible = false;
             this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
             // 
             // chkUseExistingSolution
             // 
             this.chkUseExistingSolution.AutoSize = true;
-            this.chkUseExistingSolution.Location = new System.Drawing.Point(110, 33);
+            this.chkUseExistingSolution.Location = new System.Drawing.Point(143, 33);
             this.chkUseExistingSolution.Name = "chkUseExistingSolution";
             this.chkUseExistingSolution.Size = new System.Drawing.Size(125, 17);
             this.chkUseExistingSolution.TabIndex = 37;
@@ -746,7 +754,7 @@
             this.chkIncrementSolutionVersion.AutoSize = true;
             this.chkIncrementSolutionVersion.Checked = true;
             this.chkIncrementSolutionVersion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncrementSolutionVersion.Location = new System.Drawing.Point(168, 136);
+            this.chkIncrementSolutionVersion.Location = new System.Drawing.Point(199, 182);
             this.chkIncrementSolutionVersion.Name = "chkIncrementSolutionVersion";
             this.chkIncrementSolutionVersion.Size = new System.Drawing.Size(111, 17);
             this.chkIncrementSolutionVersion.TabIndex = 35;
@@ -766,7 +774,7 @@
             // 
             // txtSolutionVersion
             // 
-            this.txtSolutionVersion.Location = new System.Drawing.Point(110, 134);
+            this.txtSolutionVersion.Location = new System.Drawing.Point(143, 180);
             this.txtSolutionVersion.Name = "txtSolutionVersion";
             this.txtSolutionVersion.ReadOnly = true;
             this.txtSolutionVersion.Size = new System.Drawing.Size(50, 20);
@@ -775,7 +783,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 134);
+            this.label2.Location = new System.Drawing.Point(10, 183);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(42, 13);
             this.label2.TabIndex = 32;
@@ -786,7 +794,7 @@
             this.btnCreateSolution.Location = new System.Drawing.Point(340, 48);
             this.btnCreateSolution.Name = "btnCreateSolution";
             this.btnCreateSolution.Size = new System.Drawing.Size(148, 23);
-            this.btnCreateSolution.TabIndex = 19;
+            this.btnCreateSolution.TabIndex = 32;
             this.btnCreateSolution.Text = "Create and Add Control";
             this.btnCreateSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCreateSolution.UseVisualStyleBackColor = true;
@@ -794,19 +802,21 @@
             // 
             // txtPublisherPrefix
             // 
-            this.txtPublisherPrefix.Location = new System.Drawing.Point(110, 108);
+            this.txtPublisherPrefix.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtPublisherPrefix.Location = new System.Drawing.Point(143, 154);
             this.txtPublisherPrefix.Name = "txtPublisherPrefix";
             this.txtPublisherPrefix.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherPrefix.TabIndex = 30;
+            this.txtPublisherPrefix.TabIndex = 31;
+            this.txtPublisherPrefix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherPrefix_KeyPress);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(10, 108);
+            this.label7.Location = new System.Drawing.Point(23, 157);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.Size = new System.Drawing.Size(33, 13);
             this.label7.TabIndex = 29;
-            this.label7.Text = "Publisher Prefix";
+            this.label7.Text = "Prefix";
             // 
             // btnDeploy
             // 
@@ -814,42 +824,44 @@
             this.btnDeploy.Location = new System.Drawing.Point(340, 106);
             this.btnDeploy.Name = "btnDeploy";
             this.btnDeploy.Size = new System.Drawing.Size(148, 23);
-            this.btnDeploy.TabIndex = 20;
+            this.btnDeploy.TabIndex = 38;
             this.btnDeploy.Text = "Deploy";
             this.btnDeploy.UseVisualStyleBackColor = true;
             this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
             // 
-            // txtPublisherName
+            // txtPublisherUniqueName
             // 
-            this.txtPublisherName.Location = new System.Drawing.Point(110, 82);
-            this.txtPublisherName.Name = "txtPublisherName";
-            this.txtPublisherName.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherName.TabIndex = 28;
+            this.txtPublisherUniqueName.Location = new System.Drawing.Point(143, 127);
+            this.txtPublisherUniqueName.Name = "txtPublisherUniqueName";
+            this.txtPublisherUniqueName.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherUniqueName.TabIndex = 30;
+            this.txtPublisherUniqueName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherUniqueName_KeyPress);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 82);
+            this.label8.Location = new System.Drawing.Point(23, 104);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(81, 13);
+            this.label8.Size = new System.Drawing.Size(74, 13);
             this.label8.TabIndex = 27;
-            this.label8.Text = "Publisher Name";
+            this.label8.Text = "Friendly Name";
             // 
             // txtSolutionName
             // 
-            this.txtSolutionName.Location = new System.Drawing.Point(110, 56);
+            this.txtSolutionName.Location = new System.Drawing.Point(313, 14);
             this.txtSolutionName.Name = "txtSolutionName";
             this.txtSolutionName.Size = new System.Drawing.Size(175, 20);
             this.txtSolutionName.TabIndex = 26;
+            this.txtSolutionName.Visible = false;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(10, 56);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(76, 13);
+            this.label9.Size = new System.Drawing.Size(115, 13);
             this.label9.TabIndex = 25;
-            this.label9.Text = "Solution Name";
+            this.label9.Text = "Solution Friendly Name";
             // 
             // grpBoxComponentDetails
             // 
@@ -1233,6 +1245,40 @@
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 81);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 13);
+            this.label15.TabIndex = 38;
+            this.label15.Text = "Publisher Details";
+            // 
+            // txtPublisherFriendlyName
+            // 
+            this.txtPublisherFriendlyName.Location = new System.Drawing.Point(143, 101);
+            this.txtPublisherFriendlyName.Name = "txtPublisherFriendlyName";
+            this.txtPublisherFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherFriendlyName.TabIndex = 29;
+            this.txtPublisherFriendlyName.TextChanged += new System.EventHandler(this.txtPublisherFriendlyName_TextChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 130);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(72, 13);
+            this.label16.TabIndex = 39;
+            this.label16.Text = "Unique Name";
+            // 
+            // txtSolutionFriendlyName
+            // 
+            this.txtSolutionFriendlyName.Location = new System.Drawing.Point(143, 53);
+            this.txtSolutionFriendlyName.Name = "txtSolutionFriendlyName";
+            this.txtSolutionFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtSolutionFriendlyName.TabIndex = 40;
+            this.txtSolutionFriendlyName.TextChanged += new System.EventHandler(this.txtSolutionFriendlyName_TextChanged);
+            // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1299,7 +1345,7 @@
         private System.Windows.Forms.Button btnCreateSolution;
         private System.Windows.Forms.TextBox txtPublisherPrefix;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtPublisherName;
+        private System.Windows.Forms.TextBox txtPublisherUniqueName;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtSolutionName;
         private System.Windows.Forms.Label label9;
@@ -1370,5 +1416,9 @@
         private System.Windows.Forms.Label lblCssFileExists;
         private System.Windows.Forms.Label lblPreviewImageExists;
         private System.Windows.Forms.PictureBox picRunning;
+        private System.Windows.Forms.TextBox txtPublisherFriendlyName;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox txtSolutionFriendlyName;
     }
 }

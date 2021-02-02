@@ -236,12 +236,12 @@ namespace Maverick.PCF.Builder
         {
             bool isValid = true;
             lblErrors.Text = string.Empty;
-            if (string.IsNullOrEmpty(txtSolutionName.Text))
+            if (string.IsNullOrEmpty(txtSolutionFriendlyName.Text))
             {
                 lblErrors.Text = "Solution Name is required.";
                 isValid = false;
             }
-            if (string.IsNullOrEmpty(txtPublisherName.Text))
+            if (string.IsNullOrEmpty(txtPublisherUniqueName.Text))
             {
                 lblErrors.Text += "\nPublisher Name is required.";
                 isValid = false;
@@ -250,6 +250,23 @@ namespace Maverick.PCF.Builder
             {
                 lblErrors.Text += "\nPublisher Prefix is required.";
                 isValid = false;
+            }
+            else
+            {
+                /*
+                 * The prefix must have at least 2 characters and start with a letter. 
+                 * It cannot start with "mscrm".
+                 * Max. Char. length: 9
+                */
+                if (Regex.Match(txtPublisherPrefix.Text, @"^\d*(?=.*[a-zA-Z]{2}).{1,9}$").Success && !txtPublisherPrefix.Text.StartsWith("mscrm"))
+                {
+                    lblErrors.Text = string.Empty;
+                }
+                else
+                {
+                    lblErrors.Text += "\nIncorrect Publisher Prefix.";
+                    isValid = false;
+                }
             }
 
             return isValid;
@@ -277,7 +294,7 @@ namespace Maverick.PCF.Builder
             txtComponentVersion.Clear();
 
             txtSolutionName.Clear();
-            txtPublisherName.Clear();
+            txtPublisherUniqueName.Clear();
             txtPublisherPrefix.Clear();
             txtSolutionVersion.Clear();
 
@@ -286,7 +303,7 @@ namespace Maverick.PCF.Builder
             cboxTemplate.Enabled = true;
             cboxAdditionalPackages.Enabled = true;
             txtSolutionName.Enabled = true;
-            txtPublisherName.Enabled = true;
+            txtPublisherUniqueName.Enabled = true;
             txtPublisherPrefix.Enabled = true;
             btnCreateComponent.Enabled = true;
             btnCreateSolution.Enabled = true;
@@ -318,8 +335,9 @@ namespace Maverick.PCF.Builder
 
             if (!string.IsNullOrEmpty(txtSolutionName.Text))
             {
+                txtSolutionFriendlyName.Enabled = false;
                 txtSolutionName.Enabled = false;
-                txtPublisherName.Enabled = false;
+                txtPublisherUniqueName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 btnCreateSolution.Enabled = false;
                 cboxSolutions.Enabled = false;
@@ -332,14 +350,18 @@ namespace Maverick.PCF.Builder
 
         private void Routine_SolutionNotFound(bool loadFromSettings = true)
         {
+            txtSolutionFriendlyName.Enabled = true;
             txtSolutionName.Enabled = true;
-            txtPublisherName.Enabled = true;
+            txtPublisherUniqueName.Enabled = true;
+            txtPublisherFriendlyName.Enabled = true;
             txtPublisherPrefix.Enabled = true;
             btnCreateSolution.Enabled = true;
             btnDeploy.Enabled = false;
 
-            txtPublisherName.Clear();
+            txtSolutionFriendlyName.Clear();
             txtSolutionName.Clear();
+            txtPublisherUniqueName.Clear();
+            txtPublisherFriendlyName.Clear();
             txtPublisherPrefix.Clear();
             txtSolutionVersion.Clear();
 
@@ -357,7 +379,7 @@ namespace Maverick.PCF.Builder
             if (chkUseExistingSolution.Checked)
             {
                 txtSolutionName.Visible = false;
-                txtPublisherName.Enabled = false;
+                txtPublisherUniqueName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 cboxSolutions.Visible = true;
                 chkManagedSolution.Enabled = false;
@@ -366,7 +388,7 @@ namespace Maverick.PCF.Builder
             else
             {
                 txtSolutionName.Visible = true;
-                txtPublisherName.Enabled = true;
+                txtPublisherUniqueName.Enabled = true;
                 txtPublisherPrefix.Enabled = true;
                 cboxSolutions.Visible = false;
                 chkManagedSolution.Enabled = true;
@@ -386,7 +408,7 @@ namespace Maverick.PCF.Builder
         {
             if (pluginSettings.AlwaysLoadPublisherDetailsFromSettings)
             {
-                txtPublisherName.Text = pluginSettings.PublisherName;
+                txtPublisherUniqueName.Text = pluginSettings.PublisherName;
                 txtPublisherPrefix.Text = pluginSettings.PublisherPrefix;
             }
         }
@@ -582,15 +604,36 @@ namespace Maverick.PCF.Builder
                             var cdsprojExists = File.Exists(item + "\\" + cdsprojName + ".cdsproj");
                             if (cdsprojExists)
                             {
-                                txtSolutionName.Text = cdsprojName;
                                 var solutionFile = File.Exists(item + "\\Other\\Solution.xml") ? item + "\\Other\\Solution.xml" : item + "\\src\\Other\\Solution.xml";
-                                XmlReader xmlReader = XmlReader.Create(solutionFile);
+
+                                XmlDocument xmlDoc = new XmlDocument();
+                                xmlDoc.Load(solutionFile);
+
+                                XmlNode uniqueSolutionNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/UniqueName");
+                                txtSolutionName.Text = uniqueSolutionNameNode.InnerText;
+
+                                XmlNode localizedSolutionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/LocalizedNames/LocalizedName[@languagecode='1033']");
+                                txtSolutionFriendlyName.Text = localizedSolutionNode.Attributes["description"].Value;
+
+                                XmlNode uniquePublisherNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/UniqueName");
+                                txtPublisherUniqueName.Text = uniquePublisherNameNode.InnerText;
+
+                                XmlNode localizedPublisherNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/LocalizedNames/LocalizedName[@languagecode='1033']");
+                                txtPublisherFriendlyName.Text = localizedPublisherNode.Attributes["description"].Value;
+
+                                XmlNode customizationPrefixNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/CustomizationPrefix");
+                                txtPublisherPrefix.Text = customizationPrefixNode.InnerText;
+
+                                XmlNode versionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Version");
+                                txtSolutionVersion.Text = versionNode.InnerText;
+
+                                /*XmlReader xmlReader = XmlReader.Create(solutionFile);
                                 while (xmlReader.Read())
                                 {
                                     if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "UniqueName"))
                                     {
                                         var publisher = xmlReader.ReadElementContentAsString();
-                                        txtPublisherName.Text = publisher;
+                                        txtPublisherUniqueName.Text = publisher;
                                     }
                                     if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "CustomizationPrefix"))
                                     {
@@ -604,6 +647,7 @@ namespace Maverick.PCF.Builder
                                     }
                                 }
                                 xmlReader.Close();
+                                */
                                 break;
                             }
                             else
@@ -891,6 +935,115 @@ namespace Maverick.PCF.Builder
                                         node.InnerText = newversion.ToString();
                                         xmlDoc.Save(solutionFile);
                                         txtSolutionVersion.Text = newversion.ToString();
+
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (DirectoryNotFoundException dnex)
+                {
+                    MessageBox.Show("Invalid directory. Could not retrieve existing PCF project.");
+                    Telemetry.TrackException(dnex);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occured while updating the version. Please report an issue on GitHub page.");
+                    Telemetry.TrackException(ex);
+                }
+            }
+            var end = DateTime.Now;
+            var duration = end - start;
+            LogEventMetrics("IncrementSolutionVersion", "ProcessingTime", duration.TotalMilliseconds);
+        }
+
+        private void SanitizeSolutionDetails()
+        {
+            var start = DateTime.Now;
+            if (chkIncrementSolutionVersion.Checked)
+            {
+                try
+                {
+                    var mainDirs = Directory.GetDirectories(txtWorkingFolder.Text);
+
+                    if (!string.IsNullOrEmpty(txtControlName.Text))
+                    {
+                        // Check if .cdsproj does not already exists
+                        string solutionFolderPath = GetCorrectSolutionDirectory();
+
+                        if (!string.IsNullOrEmpty(solutionFolderPath))
+                        {
+                            var solutionDirs = Directory.GetDirectories(solutionFolderPath);
+
+                            if (solutionDirs != null && solutionDirs.Count() > 0)
+                            {
+                                var filteredControlDirs = solutionDirs.ToList().Where(l => (!l.ToLower().EndsWith("generated")));
+                                foreach (var item in filteredControlDirs)
+                                {
+                                    var cdsprojName = Path.GetFileName(item);
+                                    var cdsprojExists = File.Exists(item + "\\" + cdsprojName + ".cdsproj");
+                                    if (cdsprojExists)
+                                    {
+                                        var solutionFile = File.Exists(item + "\\Other\\Solution.xml") ? item + "\\Other\\Solution.xml" : item + "\\src\\Other\\Solution.xml";
+
+                                        XmlDocument xmlDoc = new XmlDocument();
+                                        xmlDoc.Load(solutionFile);
+
+                                        // Solution Name Cleaning
+                                        XmlNode uniqueSolutionNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/UniqueName");
+                                        XmlNode localizedSolutionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/LocalizedNames/LocalizedName[@languagecode='1033']");
+
+                                        Regex rgx1 = new Regex(@"[^a-zA-Z0-9_]");
+                                        uniqueSolutionNameNode.InnerText = rgx1.Replace(txtSolutionName.Text, "");
+
+                                        if (localizedSolutionNode != null)
+                                        {
+                                            localizedSolutionNode.Attributes["description"].Value = txtSolutionFriendlyName.Text;
+                                        }
+                                        else
+                                        {
+                                            XmlNode temp = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/LocalizedNames");
+                                            XmlNode tempLocalizedNode = xmlDoc.CreateNode(XmlNodeType.Element, "LocalizedName", "");
+                                            XmlAttribute tempDescription = xmlDoc.CreateAttribute("description");
+                                            tempDescription.Value = txtSolutionFriendlyName.Text;
+                                            XmlAttribute tempLangCode = xmlDoc.CreateAttribute("languagecode");
+                                            tempLangCode.Value = "1033";
+
+                                            tempLocalizedNode.Attributes.Append(tempDescription);
+                                            tempLocalizedNode.Attributes.Append(tempLangCode);
+
+                                            temp.AppendChild(tempLocalizedNode);
+                                        }
+
+                                        // Publisher Cleaning
+                                        XmlNode uniquePublisherNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/UniqueName");
+                                        XmlNode localizedPublisherNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/LocalizedNames/LocalizedName[@languagecode='1033']");
+
+                                        Regex rgx2 = new Regex(@"[^a-zA-Z0-9_]");
+                                        uniquePublisherNameNode.InnerText = rgx2.Replace(txtPublisherUniqueName.Text, "").ToLower();
+
+                                        if (localizedPublisherNode != null)
+                                        {
+                                            localizedPublisherNode.Attributes["description"].Value = txtPublisherFriendlyName.Text;
+                                        }
+                                        else
+                                        {
+                                            XmlNode temp = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/LocalizedNames");
+                                            XmlNode tempLocalizedNode = xmlDoc.CreateNode(XmlNodeType.Element, "LocalizedName", "");
+                                            XmlAttribute tempDescription = xmlDoc.CreateAttribute("description");
+                                            tempDescription.Value = txtPublisherFriendlyName.Text;
+                                            XmlAttribute tempLangCode = xmlDoc.CreateAttribute("languagecode");
+                                            tempLangCode.Value = "1033";
+
+                                            tempLocalizedNode.Attributes.Append(tempDescription);
+                                            tempLocalizedNode.Attributes.Append(tempLangCode);
+
+                                            temp.AppendChild(tempLocalizedNode);
+                                        }
+
+                                        xmlDoc.Save(solutionFile);
 
                                         break;
                                     }
@@ -1342,7 +1495,7 @@ namespace Maverick.PCF.Builder
                         RunCommandLine(unpack);
 
                         // Initialize CDS Solution Project
-                        string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
+                        string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherUniqueName.Text, txtPublisherPrefix.Text);
                         RunCommandLine(pacCommand_CreateSolution);
 
                         // Add component reference
@@ -1887,6 +2040,7 @@ namespace Maverick.PCF.Builder
                 string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}");
                 string mkdirSolutionFolder = Commands.Cmd.MakeDirectory(SolutionFolderName);
                 string cdSolutionDir = Commands.Cmd.ChangeDirectory(SolutionFolderName);
+
                 string mkdirDeploymentFolder = Commands.Cmd.MakeDirectory(txtSolutionName.Text);
                 string cdDeploymentFolder = Commands.Cmd.ChangeDirectory($"{txtSolutionName.Text}");
 
@@ -1899,7 +2053,7 @@ namespace Maverick.PCF.Builder
                 }
                 else
                 {
-                    string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherName.Text, txtPublisherPrefix.Text);
+                    string pacCommand_CreateSolution = Commands.Pac.SolutionInit(txtPublisherUniqueName.Text, txtPublisherPrefix.Text);
                     string pacCommand_AddComponent = Commands.Pac.SolutionAddReference(txtWorkingFolder.Text);
                     RunCommandLine(cdWorkingDir, mkdirSolutionFolder, cdSolutionDir, mkdirDeploymentFolder, cdDeploymentFolder, pacCommand_CreateSolution, pacCommand_AddComponent);
                 }
@@ -1974,6 +2128,10 @@ namespace Maverick.PCF.Builder
                     && (CurrentCommandOutput.ToLower().Contains("the powerapps component framework project was successfully created")
                         || CurrentCommandOutput.ToLower().Contains($"cds solution project with name '{txtSolutionName.Text.ToLower()}' created successfully")))
                 {
+                    if (!chkUseExistingSolution.Checked)
+                    {
+                        SanitizeSolutionDetails();
+                    }
                     IdentifyControlDetails();
 
                     if (CurrentCommandOutput.ToLower().Contains("the powerapps component framework project was successfully created"))
@@ -2156,7 +2314,7 @@ namespace Maverick.PCF.Builder
             SealedClasses.SolutionDetails selectedSolution = (SealedClasses.SolutionDetails)cboxSolutions.SelectedItem;
 
             txtPublisherPrefix.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.customizationprefix")).Value.ToString();
-            txtPublisherName.Text = selectedSolution.MetaData.GetAttributeValue<EntityReference>("publisherid").Name;
+            txtPublisherUniqueName.Text = selectedSolution.MetaData.GetAttributeValue<EntityReference>("publisherid").Name;
             txtSolutionVersion.Text = selectedSolution.MetaData.GetAttributeValue<string>("version");
             txtSolutionName.Text = selectedSolution.MetaData.GetAttributeValue<string>("uniquename");
         }
@@ -2222,6 +2380,44 @@ namespace Maverick.PCF.Builder
                     RunCommandLine(cdWorkingDir, yoCommand);
                 }
             }
+        }
+
+        private void txtPublisherUniqueName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (Char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == '\b' || e.KeyChar == '_')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtPublisherFriendlyName_TextChanged(object sender, EventArgs e)
+        {
+            Regex rgx = new Regex(@"[^a-zA-Z0-9_]");
+            txtPublisherUniqueName.Text = rgx.Replace(txtPublisherFriendlyName.Text.ToLower(), "");
+        }
+
+        private void txtPublisherPrefix_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /*
+             * The prefix can contain only alphanumeric characters. 
+             */
+            if (Char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == '\b')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtSolutionFriendlyName_TextChanged(object sender, EventArgs e)
+        {
+            txtSolutionName.Text = Regex.Replace(txtSolutionFriendlyName.Text, @"\s+", "");
         }
     }
 }

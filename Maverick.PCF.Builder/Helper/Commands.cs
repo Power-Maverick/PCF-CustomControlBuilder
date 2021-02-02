@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Maverick.PCF.Builder.Helper
@@ -82,6 +83,7 @@ namespace Maverick.PCF.Builder.Helper
             /// <returns></returns>
             public static string SolutionInit(string publisherName, string customizationPrefix)
             {
+                publisherName = Regex.Replace(publisherName, @"\s+", "");
                 return $"pac solution init --publisher-name {publisherName} --publisher-prefix {customizationPrefix}";
             }
 
