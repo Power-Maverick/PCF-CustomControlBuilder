@@ -6,4 +6,4 @@
 1. Publisher prefix only accepts lowercase to align it with Dataverse (#35)
 
 ---- BUG FIXES ----
-No bug fixes in this release
+1. Bug fixed with use of "Existing Solution"

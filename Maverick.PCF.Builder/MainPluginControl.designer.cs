@@ -677,7 +677,6 @@
             // 
             // grpBoxSolutionDetails
             // 
-            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionFriendlyName);
             this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherFriendlyName);
             this.grpBoxSolutionDetails.Controls.Add(this.label16);
             this.grpBoxSolutionDetails.Controls.Add(this.label15);
@@ -697,6 +696,7 @@
             this.grpBoxSolutionDetails.Controls.Add(this.label9);
             this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionName);
             this.grpBoxSolutionDetails.Controls.Add(this.cboxSolutions);
+            this.grpBoxSolutionDetails.Controls.Add(this.txtSolutionFriendlyName);
             this.grpBoxSolutionDetails.Location = new System.Drawing.Point(19, 379);
             this.grpBoxSolutionDetails.Name = "grpBoxSolutionDetails";
             this.grpBoxSolutionDetails.Size = new System.Drawing.Size(494, 213);

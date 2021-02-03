@@ -13,7 +13,7 @@ using System.Xml;
 
 namespace Maverick.PCF.Builder.Helper
 {
-    public class CDSHelper
+    public class DataverseHelper
     {
         /// <summary>
         /// Retrieve list of unmanaged and visible solutions
@@ -32,7 +32,7 @@ namespace Maverick.PCF.Builder.Helper
             querySolution.Criteria.AddCondition("ismanaged", ConditionOperator.Equal, false);
             querySolution.Criteria.AddCondition("isvisible", ConditionOperator.Equal, true);
             LinkEntity linkPublisher = querySolution.AddLink("publisher", "publisherid", "publisherid");
-            linkPublisher.Columns = new ColumnSet("customizationprefix");
+            linkPublisher.Columns = new ColumnSet("customizationprefix", "uniquename", "friendlyname");
             linkPublisher.EntityAlias = "pub";
 
             return orgService.RetrieveMultiple(querySolution);

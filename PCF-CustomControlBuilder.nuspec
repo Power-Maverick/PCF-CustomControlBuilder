@@ -23,7 +23,7 @@
 1. Publisher prefix only accepts lowercase to align it with Dataverse (#35)
 
 ---- BUG FIXES ----
-No bug fixes in this release
+1. Bug fixed with use of "Existing Solution"
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>

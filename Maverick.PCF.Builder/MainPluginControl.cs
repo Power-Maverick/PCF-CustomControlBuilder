@@ -378,7 +378,9 @@ namespace Maverick.PCF.Builder
         {
             if (chkUseExistingSolution.Checked)
             {
-                txtSolutionName.Visible = false;
+                txtSolutionFriendlyName.Visible = false;
+                //txtSolutionName.Visible = false;
+                txtPublisherFriendlyName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 cboxSolutions.Visible = true;
@@ -387,7 +389,9 @@ namespace Maverick.PCF.Builder
             }
             else
             {
-                txtSolutionName.Visible = true;
+                txtSolutionFriendlyName.Visible = true;
+                //txtSolutionName.Visible = true;
+                txtPublisherFriendlyName.Enabled = true;
                 txtPublisherUniqueName.Enabled = true;
                 txtPublisherPrefix.Enabled = true;
                 cboxSolutions.Visible = false;
@@ -1422,7 +1426,7 @@ namespace Maverick.PCF.Builder
                 {
                     var start = DateTime.Now;
 
-                    args.Result = CDSHelper.RetrieveSolutions(Service);
+                    args.Result = DataverseHelper.RetrieveSolutions(Service);
 
                     var end = DateTime.Now;
                     var duration = end - start;
@@ -1472,7 +1476,7 @@ namespace Maverick.PCF.Builder
                 {
                     var start = DateTime.Now;
 
-                    args.Result = CDSHelper.ExportSolution(Service, solutionName);
+                    args.Result = DataverseHelper.ExportSolution(Service, solutionName);
 
                     var end = DateTime.Now;
                     var duration = end - start;
@@ -2313,10 +2317,12 @@ namespace Maverick.PCF.Builder
         {
             SealedClasses.SolutionDetails selectedSolution = (SealedClasses.SolutionDetails)cboxSolutions.SelectedItem;
 
-            txtPublisherPrefix.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.customizationprefix")).Value.ToString();
-            txtPublisherUniqueName.Text = selectedSolution.MetaData.GetAttributeValue<EntityReference>("publisherid").Name;
-            txtSolutionVersion.Text = selectedSolution.MetaData.GetAttributeValue<string>("version");
             txtSolutionName.Text = selectedSolution.MetaData.GetAttributeValue<string>("uniquename");
+            txtSolutionFriendlyName.Text = selectedSolution.MetaData.GetAttributeValue<string>("friendlyname");
+            txtPublisherUniqueName.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.uniquename")).Value.ToString();
+            txtPublisherFriendlyName.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.friendlyname")).Value.ToString();
+            txtPublisherPrefix.Text = (selectedSolution.MetaData.GetAttributeValue<AliasedValue>("pub.customizationprefix")).Value.ToString();
+            txtSolutionVersion.Text = selectedSolution.MetaData.GetAttributeValue<string>("version");
         }
 
         private void MainPluginControl_OnCloseTool(object sender, EventArgs e)
