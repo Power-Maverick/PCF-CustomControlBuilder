@@ -68,3 +68,4 @@ AppPackages/
 *.[Cc]ache
 # but keep track of directories ending in .cache
 !*.[Cc]ache/
+/Maverick.PCF.Builder/SealedClasses/EntityDetails.cs

@@ -185,7 +185,7 @@ namespace Maverick.PCF.Builder
             lblErrors.Text = string.Empty;
             bool isWorkingFolderValid = true;
 
-            isWorkingFolderValid = IsWorkingFolderPopulated(false);
+            isWorkingFolderValid = IsControlLocationPopulated(false);
 
             if (isWorkingFolderValid)
             {
@@ -210,7 +210,7 @@ namespace Maverick.PCF.Builder
             return isValid;
         }
 
-        private bool IsWorkingFolderPopulated(bool clearError)
+        private bool IsControlLocationPopulated(bool clearError)
         {
             if (clearError)
             {
@@ -220,7 +220,7 @@ namespace Maverick.PCF.Builder
             bool isValid = true;
             if (string.IsNullOrEmpty(txtWorkingFolder.Text))
             {
-                lblErrors.Text = "Working folder is required.";
+                lblErrors.Text = "Control Location is required.";
                 isValid = false;
             }
 
@@ -580,7 +580,7 @@ namespace Maverick.PCF.Builder
             }
         }
 
-        private void IdentifySolutionDetails()
+        private void IdentifySolutionDetails(bool suppressErrors = false)
         {
             try
             {
@@ -676,15 +676,23 @@ namespace Maverick.PCF.Builder
             }
             catch (DirectoryNotFoundException dnex)
             {
-                MessageBox.Show("Invalid directory. Could not retrieve existing CDS solution project details.");
+                if (!suppressErrors)
+                {
+                    MessageBox.Show("Invalid directory. Could not retrieve existing CDS solution project details.");
+                    LogException(dnex); 
+                }
+
                 Routine_SolutionNotFound();
-                LogException(dnex);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("An error occured while retrieving existing project details. Please report an issue on GitHub page.");
+                if (!suppressErrors)
+                {
+                    MessageBox.Show("An error occured while retrieving existing project details. Please report an issue on GitHub page.");
+                    LogException(ex);
+                }
+
                 Routine_SolutionNotFound();
-                LogException(ex);
             }
         }
 
@@ -710,7 +718,7 @@ namespace Maverick.PCF.Builder
             string currentPacVersion = string.Empty;
             string latestPacVersion = string.Empty;
 
-            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("version:"))
+            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("microsoft powerapps cli"))
             {
                 currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
 
@@ -741,7 +749,8 @@ namespace Maverick.PCF.Builder
                 }
                 else
                 {
-                    CloseTool();
+                    // Do not close the tool
+                    //CloseTool();
                 }
             }
 
@@ -1634,7 +1643,7 @@ namespace Maverick.PCF.Builder
             ListProfileExecution = false;
             CurrentCommandOutput = string.Empty;
 
-            var isValid = IsWorkingFolderPopulated(true);
+            var isValid = IsControlLocationPopulated(true);
 
             if (isValid)
             {
@@ -1718,7 +1727,7 @@ namespace Maverick.PCF.Builder
 
         private void TsmNewPCFBlank_Click(object sender, EventArgs e)
         {
-            var isValid = IsWorkingFolderPopulated(true);
+            var isValid = IsControlLocationPopulated(true);
 
             if (isValid)
             {
@@ -1734,7 +1743,7 @@ namespace Maverick.PCF.Builder
 
         private void TsmNewPCFTemplate_Click(object sender, EventArgs e)
         {
-            var isValid = IsWorkingFolderPopulated(true);
+            var isValid = IsControlLocationPopulated(true);
 
             if (isValid)
             {
@@ -1777,7 +1786,7 @@ namespace Maverick.PCF.Builder
 
         private void tsbEditControl_Click(object sender, EventArgs e)
         {
-            var isValid = IsWorkingFolderPopulated(true);
+            var isValid = IsControlLocationPopulated(true);
 
             if (isValid)
             {
@@ -2066,7 +2075,7 @@ namespace Maverick.PCF.Builder
 
         private void BtnRefreshDetails_Click(object sender, EventArgs e)
         {
-            var isValid = IsWorkingFolderPopulated(false);
+            var isValid = IsControlLocationPopulated(false);
 
             if (isValid)
             {
@@ -2077,7 +2086,7 @@ namespace Maverick.PCF.Builder
 
         private void BtnOpenControlInExplorer_Click(object sender, EventArgs e)
         {
-            var isValid = IsWorkingFolderPopulated(true);
+            var isValid = IsControlLocationPopulated(true);
 
             if (isValid)
             {
@@ -2308,7 +2317,7 @@ namespace Maverick.PCF.Builder
             else
             {
                 Routine_ExistingSolution();
-                IdentifySolutionDetails();
+                IdentifySolutionDetails(true);
                 Routine_EditComponent();
             }
         }

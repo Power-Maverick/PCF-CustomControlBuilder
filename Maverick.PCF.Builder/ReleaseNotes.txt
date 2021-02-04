@@ -7,3 +7,6 @@
 
 ---- BUG FIXES ----
 1. Bug fixed with use of "Existing Solution"
+2. GitHub #34 - Power Apps CLI not detected on this machine
+3. GitHub #39 - Terminology query Control location vs. Working folder
+4. GitHub #40 - Uncheck Existing Solution checkbox shows invalid directory error
