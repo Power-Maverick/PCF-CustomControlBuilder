@@ -337,6 +337,7 @@ namespace Maverick.PCF.Builder
             {
                 txtSolutionFriendlyName.Enabled = false;
                 txtSolutionName.Enabled = false;
+                txtPublisherFriendlyName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 btnCreateSolution.Enabled = false;
@@ -720,27 +721,34 @@ namespace Maverick.PCF.Builder
 
             if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("microsoft powerapps cli"))
             {
-                currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
-
-                //NOTE: A newer version of Microsoft.PowerApps.CLI has been found. Please run 'pac install latest' to install the latest version.
-                if (output.ToLower().Contains("a newer version of microsoft.powerapps.cli has been found"))
+                if (output.IndexOf("Version: ") > 0)
                 {
-                    if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                    {
-                        string pacUpdateCLI = Commands.Pac.InstallLatest();
-                        RunCommandLine(pacUpdateCLI);
-                        currentPacVersion = latestPacVersion;
-                    }
-                }
+                    currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
 
-                lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + currentPacVersion.Trim();
+                    //NOTE: A newer version of Microsoft.PowerApps.CLI has been found. Please run 'pac install latest' to install the latest version.
+                    if (output.ToLower().Contains("a newer version of microsoft.powerapps.cli has been found"))
+                    {
+                        if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                        {
+                            string pacUpdateCLI = Commands.Pac.InstallLatest();
+                            RunCommandLine(pacUpdateCLI);
+                            currentPacVersion = latestPacVersion;
+                        }
+                    }
+
+                    lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + currentPacVersion.Trim();
+                }
+                else
+                {
+                    lblPCFCLIVersionMsg.Text = "Unable to detect Power Apps CLI version";
+                }
             }
             else
             {
                 lblPCFCLIVersionMsg.Text = "Power Apps CLI Not Detected";
                 Invoke(new Action(() =>
                 {
-                    ShowErrorNotification("Power Apps CLI not detected on this machine. Please download it.", new Uri("https://aka.ms/PowerAppsCLI"));
+                    ShowErrorNotification("Power Apps CLI not detected on this machine. Please download it and restart the tool.", new Uri("https://aka.ms/PowerAppsCLI"));
                 }));
                 var downloadPACLIResult = MessageBox.Show("Power Apps CLI not detected on this machine. Do you want to download it?", "Power Apps CLI - Not Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (downloadPACLIResult == DialogResult.Yes)
