@@ -79,6 +79,7 @@ namespace Maverick.PCF.Builder
 
         private BackgroundWorker _mainPluginLocalWorker;
         private EntityCollection _solutionsCache;
+        private EntityCollection _publishersCache;
         private BindingSource bindingSource = new BindingSource();
 
         private const string SolutionFolderName = "Solution";
@@ -378,6 +379,7 @@ namespace Maverick.PCF.Builder
         {
             if (chkUseExistingSolution.Checked)
             {
+                chkUseExistingPublisher.Checked = false;
                 txtSolutionFriendlyName.Visible = false;
                 //txtSolutionName.Visible = false;
                 txtPublisherFriendlyName.Enabled = false;
@@ -385,6 +387,8 @@ namespace Maverick.PCF.Builder
                 txtPublisherPrefix.Enabled = false;
                 cboxSolutions.Visible = true;
                 chkManagedSolution.Enabled = false;
+                cboxPublishers.Visible = false;
+                chkUseExistingPublisher.Visible = false;
                 btnCreateSolution.Text = "Export and Add Control";
             }
             else
@@ -396,7 +400,26 @@ namespace Maverick.PCF.Builder
                 txtPublisherPrefix.Enabled = true;
                 cboxSolutions.Visible = false;
                 chkManagedSolution.Enabled = true;
+                chkUseExistingPublisher.Visible = true;
                 btnCreateSolution.Text = "Create and Add Control";
+            }
+        }
+
+        private void Routine_ExistingPublisher()
+        {
+            if (chkUseExistingPublisher.Checked)
+            {
+                txtPublisherFriendlyName.Visible = false;
+                txtPublisherUniqueName.Enabled = false;
+                txtPublisherPrefix.Enabled = false;
+                cboxPublishers.Visible = true;
+            }
+            else
+            {
+                txtPublisherFriendlyName.Visible = true;
+                txtPublisherUniqueName.Enabled = true;
+                txtPublisherPrefix.Enabled = true;
+                cboxPublishers.Visible = false;
             }
         }
 
@@ -1455,7 +1478,7 @@ namespace Maverick.PCF.Builder
                             _solutionsCache = result;
 
                             var solutionListQuery = from entity in _solutionsCache.Entities
-                                                    select (new SealedClasses.SolutionDetails
+                                                    select (new EntityDetails
                                                     {
                                                         DisplayText = entity.GetAttributeValue<string>("friendlyname"),
                                                         MetaData = entity
@@ -1469,6 +1492,56 @@ namespace Maverick.PCF.Builder
                             cboxSolutions.DisplayMember = "DisplayText";
                             cboxSolutions.DataSource = solutionList;
                             cboxSolutions.DroppedDown = true;
+                        }
+                    }
+
+                }
+            });
+        }
+
+        private void LoadPublishers()
+        {
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Loading Publishers... Please wait.",
+                Work = (worker, args) =>
+                {
+                    var start = DateTime.Now;
+
+                    args.Result = DataverseHelper.RetrievePublishers(Service);
+
+                    var end = DateTime.Now;
+                    var duration = end - start;
+                    LogEventMetrics("LoadPublishers", "ProcessingTime", duration.TotalMilliseconds);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var result = args.Result as EntityCollection;
+                        if (result != null && result.Entities != null)
+                        {
+                            _publishersCache = result;
+
+                            var publisherListQuery = from entity in _publishersCache.Entities
+                                                    select (new EntityDetails
+                                                    {
+                                                        DisplayText = entity.GetAttributeValue<string>("friendlyname"),
+                                                        MetaData = entity
+                                                    });
+
+                            var publisherList = publisherListQuery.ToList();
+                            //solutionList.Add(new ComboListItem { DisplayText = "---Select---", MetaData = null });
+                            publisherList.Sort((x, y) => string.Compare(x.DisplayText, y.DisplayText, StringComparison.Ordinal));
+
+                            Routine_ExistingPublisher();
+                            cboxPublishers.DisplayMember = "DisplayText";
+                            cboxPublishers.DataSource = publisherList;
+                            cboxPublishers.DroppedDown = true;
                         }
                     }
 
@@ -2324,7 +2397,7 @@ namespace Maverick.PCF.Builder
 
         private void cboxSolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SealedClasses.SolutionDetails selectedSolution = (SealedClasses.SolutionDetails)cboxSolutions.SelectedItem;
+            EntityDetails selectedSolution = (EntityDetails)cboxSolutions.SelectedItem;
 
             txtSolutionName.Text = selectedSolution.MetaData.GetAttributeValue<string>("uniquename");
             txtSolutionFriendlyName.Text = selectedSolution.MetaData.GetAttributeValue<string>("friendlyname");
@@ -2433,6 +2506,30 @@ namespace Maverick.PCF.Builder
         private void txtSolutionFriendlyName_TextChanged(object sender, EventArgs e)
         {
             txtSolutionName.Text = Regex.Replace(txtSolutionFriendlyName.Text, @"\s+", "");
+        }
+
+        private void chkUseExistingPublisher_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUseExistingPublisher.Checked)
+            {
+                Routine_SolutionNotFound(false);
+                ExecuteMethod(LoadPublishers);
+                cboxPublishers.Enabled = true;
+            }
+            else
+            {
+                Routine_ExistingPublisher();
+                Routine_EditComponent();
+            }
+        }
+
+        private void cboxPublishers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EntityDetails selectedPublisher = (EntityDetails)cboxPublishers.SelectedItem;
+
+            txtPublisherUniqueName.Text = selectedPublisher.MetaData.GetAttributeValue<string>("uniquename");
+            txtPublisherFriendlyName.Text = selectedPublisher.MetaData.GetAttributeValue<string>("friendlyname");
+            txtPublisherPrefix.Text = selectedPublisher.MetaData.GetAttributeValue<string>("customizationprefix");
         }
     }
 }

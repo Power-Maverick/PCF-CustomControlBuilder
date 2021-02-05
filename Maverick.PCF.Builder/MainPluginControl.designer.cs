@@ -84,7 +84,9 @@
             this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.grpBoxSolutionDetails = new System.Windows.Forms.GroupBox();
-            this.cboxSolutions = new System.Windows.Forms.ComboBox();
+            this.txtPublisherFriendlyName = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
             this.chkUseExistingSolution = new System.Windows.Forms.CheckBox();
             this.lblSolutionInitStatus = new System.Windows.Forms.Label();
             this.chkManagedSolution = new System.Windows.Forms.CheckBox();
@@ -98,8 +100,10 @@
             this.btnDeploy = new System.Windows.Forms.Button();
             this.txtPublisherUniqueName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.txtSolutionName = new System.Windows.Forms.TextBox();
+            this.cboxSolutions = new System.Windows.Forms.ComboBox();
+            this.txtSolutionFriendlyName = new System.Windows.Forms.TextBox();
             this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
             this.lblResxFileExists = new System.Windows.Forms.Label();
             this.lblCssFileExists = new System.Windows.Forms.Label();
@@ -135,10 +139,8 @@
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.txtPublisherFriendlyName = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.txtSolutionFriendlyName = new System.Windows.Forms.TextBox();
+            this.chkUseExistingPublisher = new System.Windows.Forms.CheckBox();
+            this.cboxPublishers = new System.Windows.Forms.ComboBox();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -677,6 +679,8 @@
             // 
             // grpBoxSolutionDetails
             // 
+            this.grpBoxSolutionDetails.Controls.Add(this.cboxPublishers);
+            this.grpBoxSolutionDetails.Controls.Add(this.chkUseExistingPublisher);
             this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherFriendlyName);
             this.grpBoxSolutionDetails.Controls.Add(this.label16);
             this.grpBoxSolutionDetails.Controls.Add(this.label15);
@@ -704,19 +708,31 @@
             this.grpBoxSolutionDetails.TabStop = false;
             this.grpBoxSolutionDetails.Text = "Dataverse Solution Details";
             // 
-            // cboxSolutions
+            // txtPublisherFriendlyName
             // 
-            this.cboxSolutions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxSolutions.FormattingEnabled = true;
-            this.cboxSolutions.Items.AddRange(new object[] {
-            "Field",
-            "Dataset"});
-            this.cboxSolutions.Location = new System.Drawing.Point(143, 53);
-            this.cboxSolutions.Name = "cboxSolutions";
-            this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
-            this.cboxSolutions.TabIndex = 28;
-            this.cboxSolutions.Visible = false;
-            this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
+            this.txtPublisherFriendlyName.Location = new System.Drawing.Point(143, 101);
+            this.txtPublisherFriendlyName.Name = "txtPublisherFriendlyName";
+            this.txtPublisherFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherFriendlyName.TabIndex = 29;
+            this.txtPublisherFriendlyName.TextChanged += new System.EventHandler(this.txtPublisherFriendlyName_TextChanged);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(23, 130);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(72, 13);
+            this.label16.TabIndex = 39;
+            this.label16.Text = "Unique Name";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(10, 81);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 13);
+            this.label15.TabIndex = 38;
+            this.label15.Text = "Publisher Details";
             // 
             // chkUseExistingSolution
             // 
@@ -846,14 +862,6 @@
             this.label8.TabIndex = 27;
             this.label8.Text = "Friendly Name";
             // 
-            // txtSolutionName
-            // 
-            this.txtSolutionName.Location = new System.Drawing.Point(313, 14);
-            this.txtSolutionName.Name = "txtSolutionName";
-            this.txtSolutionName.Size = new System.Drawing.Size(175, 20);
-            this.txtSolutionName.TabIndex = 26;
-            this.txtSolutionName.Visible = false;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -862,6 +870,36 @@
             this.label9.Size = new System.Drawing.Size(115, 13);
             this.label9.TabIndex = 25;
             this.label9.Text = "Solution Friendly Name";
+            // 
+            // txtSolutionName
+            // 
+            this.txtSolutionName.Location = new System.Drawing.Point(313, 14);
+            this.txtSolutionName.Name = "txtSolutionName";
+            this.txtSolutionName.Size = new System.Drawing.Size(175, 20);
+            this.txtSolutionName.TabIndex = 26;
+            this.txtSolutionName.Visible = false;
+            // 
+            // cboxSolutions
+            // 
+            this.cboxSolutions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxSolutions.FormattingEnabled = true;
+            this.cboxSolutions.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxSolutions.Location = new System.Drawing.Point(143, 53);
+            this.cboxSolutions.Name = "cboxSolutions";
+            this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
+            this.cboxSolutions.TabIndex = 28;
+            this.cboxSolutions.Visible = false;
+            this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
+            // 
+            // txtSolutionFriendlyName
+            // 
+            this.txtSolutionFriendlyName.Location = new System.Drawing.Point(143, 53);
+            this.txtSolutionFriendlyName.Name = "txtSolutionFriendlyName";
+            this.txtSolutionFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtSolutionFriendlyName.TabIndex = 40;
+            this.txtSolutionFriendlyName.TextChanged += new System.EventHandler(this.txtSolutionFriendlyName_TextChanged);
             // 
             // grpBoxComponentDetails
             // 
@@ -1245,39 +1283,30 @@
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
-            // label15
+            // chkUseExistingPublisher
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(10, 81);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(85, 13);
-            this.label15.TabIndex = 38;
-            this.label15.Text = "Publisher Details";
+            this.chkUseExistingPublisher.AutoSize = true;
+            this.chkUseExistingPublisher.Location = new System.Drawing.Point(143, 80);
+            this.chkUseExistingPublisher.Name = "chkUseExistingPublisher";
+            this.chkUseExistingPublisher.Size = new System.Drawing.Size(130, 17);
+            this.chkUseExistingPublisher.TabIndex = 41;
+            this.chkUseExistingPublisher.Text = "Use Existing Publisher";
+            this.chkUseExistingPublisher.UseVisualStyleBackColor = true;
+            this.chkUseExistingPublisher.CheckedChanged += new System.EventHandler(this.chkUseExistingPublisher_CheckedChanged);
             // 
-            // txtPublisherFriendlyName
+            // cboxPublishers
             // 
-            this.txtPublisherFriendlyName.Location = new System.Drawing.Point(143, 101);
-            this.txtPublisherFriendlyName.Name = "txtPublisherFriendlyName";
-            this.txtPublisherFriendlyName.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherFriendlyName.TabIndex = 29;
-            this.txtPublisherFriendlyName.TextChanged += new System.EventHandler(this.txtPublisherFriendlyName_TextChanged);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(23, 130);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(72, 13);
-            this.label16.TabIndex = 39;
-            this.label16.Text = "Unique Name";
-            // 
-            // txtSolutionFriendlyName
-            // 
-            this.txtSolutionFriendlyName.Location = new System.Drawing.Point(143, 53);
-            this.txtSolutionFriendlyName.Name = "txtSolutionFriendlyName";
-            this.txtSolutionFriendlyName.Size = new System.Drawing.Size(175, 20);
-            this.txtSolutionFriendlyName.TabIndex = 40;
-            this.txtSolutionFriendlyName.TextChanged += new System.EventHandler(this.txtSolutionFriendlyName_TextChanged);
+            this.cboxPublishers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxPublishers.FormattingEnabled = true;
+            this.cboxPublishers.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxPublishers.Location = new System.Drawing.Point(143, 101);
+            this.cboxPublishers.Name = "cboxPublishers";
+            this.cboxPublishers.Size = new System.Drawing.Size(175, 21);
+            this.cboxPublishers.TabIndex = 42;
+            this.cboxPublishers.Visible = false;
+            this.cboxPublishers.SelectedIndexChanged += new System.EventHandler(this.cboxPublishers_SelectedIndexChanged);
             // 
             // MainPluginControl
             // 
@@ -1420,5 +1449,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtSolutionFriendlyName;
+        private System.Windows.Forms.CheckBox chkUseExistingPublisher;
+        private System.Windows.Forms.ComboBox cboxPublishers;
     }
 }
