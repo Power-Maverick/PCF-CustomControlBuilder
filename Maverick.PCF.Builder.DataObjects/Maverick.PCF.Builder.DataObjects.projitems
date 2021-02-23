@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)AuthenticationProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControlManifestDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageCode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PacVersionParsedDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PcfGallery.cs" />
   </ItemGroup>
 </Project>

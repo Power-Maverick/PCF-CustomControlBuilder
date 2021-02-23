@@ -22,8 +22,12 @@ namespace Maverick.PCF.Builder
         ExportMetadata("BackgroundColor", "#D9D9D9"),
         ExportMetadata("PrimaryFontColor", "Blue"),
         ExportMetadata("SecondaryFontColor", "Blue")]
-    public class MainPlugin : PluginBase
+    public class MainPlugin : PluginBase, IPayPalPlugin
     {
+        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools. You will get free stickers; I will need your mailing address.";
+        public string EmailAccount => "danz@techgeek.co.in";
+
+
         public override IXrmToolBoxPluginControl GetControl()
         {
             return new MainPluginControl();

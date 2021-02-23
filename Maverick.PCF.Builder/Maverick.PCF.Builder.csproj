@@ -344,6 +344,7 @@
   <Import Project="..\Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems" Label="Shared" />
   <Import Project="..\Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems" Label="Shared" />
   <Import Project="..\Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems" Label="Shared" />
+  <Import Project="..\Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST  "Templates" mkdir "Templates"

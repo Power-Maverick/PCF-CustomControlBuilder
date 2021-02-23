@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using Maverick.PCF.Builder.SealedClasses;
 using Enum = Maverick.PCF.Builder.Helper.Enum;
 using Maverick.PCF.Builder.ToolSettings;
+using Maverick.PCF.Builder.Common;
 
 namespace Maverick.PCF.Builder
 {
@@ -34,7 +35,7 @@ namespace Maverick.PCF.Builder
         public string RepositoryName => "PCF-CustomControlBuilder";
         public string UserName => "Power-Maverick";
         public string HelpUrl => "https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/README.md";
-        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools.";
+        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools. You will get free stickers; I will need your mailing address.";
         public string EmailAccount => "danz@techgeek.co.in";
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
@@ -702,7 +703,7 @@ namespace Maverick.PCF.Builder
                 if (!suppressErrors)
                 {
                     MessageBox.Show("Invalid directory. Could not retrieve existing CDS solution project details.");
-                    LogException(dnex); 
+                    LogException(dnex);
                 }
 
                 Routine_SolutionNotFound();
@@ -731,49 +732,44 @@ namespace Maverick.PCF.Builder
             return false;
         }
 
-        private void CheckPacVersion(object worker, DoWorkEventArgs args)
+        public void CheckPacVersion(object worker, DoWorkEventArgs args)
         {
             var start = DateTime.Now;
 
             string[] commands = new string[] { Commands.Pac.Check() };
             var output = CommandLineHelper.RunCommand(commands);
 
-            string currentPacVersion = string.Empty;
-            string latestPacVersion = string.Empty;
+            StringHelper stringer = new StringHelper();
+            PacVersionParsedDetails outputParsedPacDetails = stringer.ParsePacVersionOutput(output);
 
-            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("microsoft powerapps cli"))
+            if (!outputParsedPacDetails.CLINotFound)
             {
-                currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
-
-                //NOTE: A newer version of Microsoft.PowerApps.CLI has been found. Please run 'pac install latest' to install the latest version.
-                if (output.ToLower().Contains("a newer version of microsoft.powerapps.cli has been found"))
+                if (!outputParsedPacDetails.UnableToDetectCLIVersion)
                 {
-                    if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                    if (outputParsedPacDetails.ContainsLatestVersionNotification &&
+                        DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                     {
                         string pacUpdateCLI = Commands.Pac.InstallLatest();
                         RunCommandLine(pacUpdateCLI);
-                        currentPacVersion = latestPacVersion;
                     }
+                    lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + outputParsedPacDetails.CurrentVersion;
                 }
-
-                lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + currentPacVersion.Trim();
+                else
+                {
+                    lblPCFCLIVersionMsg.Text = "Unable to detect Power Apps CLI version";
+                }
             }
             else
             {
                 lblPCFCLIVersionMsg.Text = "Power Apps CLI Not Detected";
                 Invoke(new Action(() =>
                 {
-                    ShowErrorNotification("Power Apps CLI not detected on this machine. Please download it.", new Uri("https://aka.ms/PowerAppsCLI"));
+                    ShowErrorNotification("Power Apps CLI not detected on this machine. Please download it and restart the tool.", new Uri("https://aka.ms/PowerAppsCLI"));
                 }));
                 var downloadPACLIResult = MessageBox.Show("Power Apps CLI not detected on this machine. Do you want to download it?", "Power Apps CLI - Not Detected", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (downloadPACLIResult == DialogResult.Yes)
                 {
                     Process.Start("https://aka.ms/PowerAppsCLI");
-                }
-                else
-                {
-                    // Do not close the tool
-                    //CloseTool();
                 }
             }
 
@@ -1528,11 +1524,11 @@ namespace Maverick.PCF.Builder
                             _publishersCache = result;
 
                             var publisherListQuery = from entity in _publishersCache.Entities
-                                                    select (new EntityDetails
-                                                    {
-                                                        DisplayText = entity.GetAttributeValue<string>("friendlyname"),
-                                                        MetaData = entity
-                                                    });
+                                                     select (new EntityDetails
+                                                     {
+                                                         DisplayText = entity.GetAttributeValue<string>("friendlyname"),
+                                                         MetaData = entity
+                                                     });
 
                             var publisherList = publisherListQuery.ToList();
                             //solutionList.Add(new ComboListItem { DisplayText = "---Select---", MetaData = null });
