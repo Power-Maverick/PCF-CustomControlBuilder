@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using Maverick.PCF.Builder.SealedClasses;
 using Enum = Maverick.PCF.Builder.Helper.Enum;
 using Maverick.PCF.Builder.ToolSettings;
+using Maverick.PCF.Builder.Common;
 
 namespace Maverick.PCF.Builder
 {
@@ -34,7 +35,7 @@ namespace Maverick.PCF.Builder
         public string RepositoryName => "PCF-CustomControlBuilder";
         public string UserName => "Power-Maverick";
         public string HelpUrl => "https://github.com/Power-Maverick/PCF-CustomControlBuilder/blob/master/README.md";
-        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools.";
+        public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools. You will get free stickers; I will need your mailing address.";
         public string EmailAccount => "danz@techgeek.co.in";
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
 
@@ -79,6 +80,7 @@ namespace Maverick.PCF.Builder
 
         private BackgroundWorker _mainPluginLocalWorker;
         private EntityCollection _solutionsCache;
+        private EntityCollection _publishersCache;
         private BindingSource bindingSource = new BindingSource();
 
         private const string SolutionFolderName = "Solution";
@@ -339,6 +341,7 @@ namespace Maverick.PCF.Builder
                 txtSolutionName.Enabled = false;
                 txtPublisherFriendlyName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
+                txtPublisherFriendlyName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 btnCreateSolution.Enabled = false;
                 cboxSolutions.Enabled = false;
@@ -379,6 +382,7 @@ namespace Maverick.PCF.Builder
         {
             if (chkUseExistingSolution.Checked)
             {
+                chkUseExistingPublisher.Checked = false;
                 txtSolutionFriendlyName.Visible = false;
                 //txtSolutionName.Visible = false;
                 txtPublisherFriendlyName.Enabled = false;
@@ -386,6 +390,8 @@ namespace Maverick.PCF.Builder
                 txtPublisherPrefix.Enabled = false;
                 cboxSolutions.Visible = true;
                 chkManagedSolution.Enabled = false;
+                cboxPublishers.Visible = false;
+                chkUseExistingPublisher.Visible = false;
                 btnCreateSolution.Text = "Export and Add Control";
             }
             else
@@ -397,7 +403,26 @@ namespace Maverick.PCF.Builder
                 txtPublisherPrefix.Enabled = true;
                 cboxSolutions.Visible = false;
                 chkManagedSolution.Enabled = true;
+                chkUseExistingPublisher.Visible = true;
                 btnCreateSolution.Text = "Create and Add Control";
+            }
+        }
+
+        private void Routine_ExistingPublisher()
+        {
+            if (chkUseExistingPublisher.Checked)
+            {
+                txtPublisherFriendlyName.Visible = false;
+                txtPublisherUniqueName.Enabled = false;
+                txtPublisherPrefix.Enabled = false;
+                cboxPublishers.Visible = true;
+            }
+            else
+            {
+                txtPublisherFriendlyName.Visible = true;
+                txtPublisherUniqueName.Enabled = true;
+                txtPublisherPrefix.Enabled = true;
+                cboxPublishers.Visible = false;
             }
         }
 
@@ -680,7 +705,7 @@ namespace Maverick.PCF.Builder
                 if (!suppressErrors)
                 {
                     MessageBox.Show("Invalid directory. Could not retrieve existing CDS solution project details.");
-                    LogException(dnex); 
+                    LogException(dnex);
                 }
 
                 Routine_SolutionNotFound();
@@ -709,34 +734,27 @@ namespace Maverick.PCF.Builder
             return false;
         }
 
-        private void CheckPacVersion(object worker, DoWorkEventArgs args)
+        public void CheckPacVersion(object worker, DoWorkEventArgs args)
         {
             var start = DateTime.Now;
 
             string[] commands = new string[] { Commands.Pac.Check() };
             var output = CommandLineHelper.RunCommand(commands);
 
-            string currentPacVersion = string.Empty;
-            string latestPacVersion = string.Empty;
+            StringHelper stringer = new StringHelper();
+            PacVersionParsedDetails outputParsedPacDetails = stringer.ParsePacVersionOutput(output);
 
-            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("microsoft powerapps cli"))
+            if (!outputParsedPacDetails.CLINotFound)
             {
-                if (output.IndexOf("Version: ") > 0)
+                if (!outputParsedPacDetails.UnableToDetectCLIVersion)
                 {
-                    currentPacVersion = output.Substring(output.IndexOf("Version: ") + 8, output.IndexOf("+", output.IndexOf("Version: ") + 8) - (output.IndexOf("Version: ") + 8));
-
-                    //NOTE: A newer version of Microsoft.PowerApps.CLI has been found. Please run 'pac install latest' to install the latest version.
-                    if (output.ToLower().Contains("a newer version of microsoft.powerapps.cli has been found"))
+                    if (outputParsedPacDetails.ContainsLatestVersionNotification &&
+                        DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                     {
-                        if (DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
-                        {
-                            string pacUpdateCLI = Commands.Pac.InstallLatest();
-                            RunCommandLine(pacUpdateCLI);
-                            currentPacVersion = latestPacVersion;
-                        }
+                        string pacUpdateCLI = Commands.Pac.InstallLatest();
+                        RunCommandLine(pacUpdateCLI);
                     }
-
-                    lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + currentPacVersion.Trim();
+                    lblPCFCLIVersionMsg.Text = "Power Apps CLI Version: " + outputParsedPacDetails.CurrentVersion;
                 }
                 else
                 {
@@ -754,11 +772,6 @@ namespace Maverick.PCF.Builder
                 if (downloadPACLIResult == DialogResult.Yes)
                 {
                     Process.Start("https://aka.ms/PowerAppsCLI");
-                }
-                else
-                {
-                    // Do not close the tool
-                    //CloseTool();
                 }
             }
 
@@ -1463,7 +1476,7 @@ namespace Maverick.PCF.Builder
                             _solutionsCache = result;
 
                             var solutionListQuery = from entity in _solutionsCache.Entities
-                                                    select (new SealedClasses.SolutionDetails
+                                                    select (new EntityDetails
                                                     {
                                                         DisplayText = entity.GetAttributeValue<string>("friendlyname"),
                                                         MetaData = entity
@@ -1477,6 +1490,56 @@ namespace Maverick.PCF.Builder
                             cboxSolutions.DisplayMember = "DisplayText";
                             cboxSolutions.DataSource = solutionList;
                             cboxSolutions.DroppedDown = true;
+                        }
+                    }
+
+                }
+            });
+        }
+
+        private void LoadPublishers()
+        {
+            WorkAsync(new WorkAsyncInfo
+            {
+                Message = "Loading Publishers... Please wait.",
+                Work = (worker, args) =>
+                {
+                    var start = DateTime.Now;
+
+                    args.Result = DataverseHelper.RetrievePublishers(Service);
+
+                    var end = DateTime.Now;
+                    var duration = end - start;
+                    LogEventMetrics("LoadPublishers", "ProcessingTime", duration.TotalMilliseconds);
+                },
+                PostWorkCallBack = (args) =>
+                {
+                    if (args.Error != null)
+                    {
+                        MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        var result = args.Result as EntityCollection;
+                        if (result != null && result.Entities != null)
+                        {
+                            _publishersCache = result;
+
+                            var publisherListQuery = from entity in _publishersCache.Entities
+                                                     select (new EntityDetails
+                                                     {
+                                                         DisplayText = entity.GetAttributeValue<string>("friendlyname"),
+                                                         MetaData = entity
+                                                     });
+
+                            var publisherList = publisherListQuery.ToList();
+                            //solutionList.Add(new ComboListItem { DisplayText = "---Select---", MetaData = null });
+                            publisherList.Sort((x, y) => string.Compare(x.DisplayText, y.DisplayText, StringComparison.Ordinal));
+
+                            Routine_ExistingPublisher();
+                            cboxPublishers.DisplayMember = "DisplayText";
+                            cboxPublishers.DataSource = publisherList;
+                            cboxPublishers.DroppedDown = true;
                         }
                     }
 
@@ -2332,7 +2395,7 @@ namespace Maverick.PCF.Builder
 
         private void cboxSolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SealedClasses.SolutionDetails selectedSolution = (SealedClasses.SolutionDetails)cboxSolutions.SelectedItem;
+            EntityDetails selectedSolution = (EntityDetails)cboxSolutions.SelectedItem;
 
             txtSolutionName.Text = selectedSolution.MetaData.GetAttributeValue<string>("uniquename");
             txtSolutionFriendlyName.Text = selectedSolution.MetaData.GetAttributeValue<string>("friendlyname");
@@ -2441,6 +2504,31 @@ namespace Maverick.PCF.Builder
         private void txtSolutionFriendlyName_TextChanged(object sender, EventArgs e)
         {
             txtSolutionName.Text = Regex.Replace(txtSolutionFriendlyName.Text, @"\s+", "");
+        }
+
+        private void chkUseExistingPublisher_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkUseExistingPublisher.Checked)
+            {
+                Routine_SolutionNotFound(false);
+                ExecuteMethod(LoadPublishers);
+                cboxPublishers.Enabled = true;
+            }
+            else
+            {
+                Routine_ExistingPublisher();
+                IdentifySolutionDetails(true);
+                Routine_EditComponent();
+            }
+        }
+
+        private void cboxPublishers_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            EntityDetails selectedPublisher = (EntityDetails)cboxPublishers.SelectedItem;
+
+            txtPublisherUniqueName.Text = selectedPublisher.MetaData.GetAttributeValue<string>("uniquename");
+            txtPublisherFriendlyName.Text = selectedPublisher.MetaData.GetAttributeValue<string>("friendlyname");
+            txtPublisherPrefix.Text = selectedPublisher.MetaData.GetAttributeValue<string>("customizationprefix");
         }
     }
 }

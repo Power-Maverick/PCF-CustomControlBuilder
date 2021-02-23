@@ -195,10 +195,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataObjects\AuthenticationProfile.cs" />
-    <Compile Include="DataObjects\ControlManifestDetails.cs" />
-    <Compile Include="DataObjects\LanguageCode.cs" />
-    <Compile Include="DataObjects\PcfGallery.cs" />
     <Compile Include="Forms\AuthenticationProfileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,13 +231,6 @@
     <Compile Include="Forms\Templates.Designer.cs">
       <DependentUpon>Templates.cs</DependentUpon>
     </Compile>
-    <Compile Include="Helper\CommandLineHelper.cs" />
-    <Compile Include="Helper\Commands.cs" />
-    <Compile Include="Helper\Enum.cs" />
-    <Compile Include="Helper\JsonHelper.cs" />
-    <Compile Include="Helper\DataverseHelper.cs" />
-    <Compile Include="Helper\Telemetry.cs" />
-    <Compile Include="Helper\XmlHelper.cs" />
     <Compile Include="MainPlugin.cs" />
     <Compile Include="MainPluginControl.cs">
       <SubType>UserControl</SubType>
@@ -260,7 +249,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SealedClasses\SolutionDetails.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="ToolSettings\MostRecentlyUsedLocations.cs" />
     <Compile Include="UserControls\LcidControl.cs">
@@ -353,6 +341,10 @@
     <Content Include="ReleaseNotes.txt" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems" Label="Shared" />
+  <Import Project="..\Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems" Label="Shared" />
+  <Import Project="..\Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems" Label="Shared" />
+  <Import Project="..\Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST  "Templates" mkdir "Templates"

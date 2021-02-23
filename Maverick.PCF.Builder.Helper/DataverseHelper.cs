@@ -39,6 +39,24 @@ namespace Maverick.PCF.Builder.Helper
         }
 
         /// <summary>
+        /// Retrieve list of all available publishers
+        /// </summary>
+        /// <param name="orgService"></param>
+        /// <returns></returns>
+        public static EntityCollection RetrievePublishers(IOrganizationService orgService)
+        {
+            QueryExpression queryPublisher = new QueryExpression
+            {
+                EntityName = "publisher",
+                ColumnSet = new ColumnSet(new string[] { "description", "customizationprefix", "uniquename", "friendlyname" }),
+                Criteria = new FilterExpression()
+            };
+            queryPublisher.Criteria.AddCondition("isreadonly", ConditionOperator.Equal, false);
+
+            return orgService.RetrieveMultiple(queryPublisher);
+        }
+
+        /// <summary>
         /// Exports solution as unmanaged
         /// </summary>
         /// <param name="orgService"></param>

@@ -7,7 +7,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Maverick.PCF.Builder.SealedClasses
 {
-    public sealed class SolutionDetails
+    public sealed class EntityDetails
     {
         public string DisplayText { get; set; }
         public Entity MetaData { get; set; }

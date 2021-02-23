@@ -139,6 +139,8 @@
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.linklblCreator = new System.Windows.Forms.LinkLabel();
+            this.chkUseExistingPublisher = new System.Windows.Forms.CheckBox();
+            this.cboxPublishers = new System.Windows.Forms.ComboBox();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -677,6 +679,8 @@
             // 
             // grpBoxSolutionDetails
             // 
+            this.grpBoxSolutionDetails.Controls.Add(this.cboxPublishers);
+            this.grpBoxSolutionDetails.Controls.Add(this.chkUseExistingPublisher);
             this.grpBoxSolutionDetails.Controls.Add(this.txtPublisherFriendlyName);
             this.grpBoxSolutionDetails.Controls.Add(this.label16);
             this.grpBoxSolutionDetails.Controls.Add(this.label15);
@@ -1279,6 +1283,31 @@
             this.linklblCreator.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.linklblCreator.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinklblCreator_LinkClicked);
             // 
+            // chkUseExistingPublisher
+            // 
+            this.chkUseExistingPublisher.AutoSize = true;
+            this.chkUseExistingPublisher.Location = new System.Drawing.Point(143, 80);
+            this.chkUseExistingPublisher.Name = "chkUseExistingPublisher";
+            this.chkUseExistingPublisher.Size = new System.Drawing.Size(130, 17);
+            this.chkUseExistingPublisher.TabIndex = 41;
+            this.chkUseExistingPublisher.Text = "Use Existing Publisher";
+            this.chkUseExistingPublisher.UseVisualStyleBackColor = true;
+            this.chkUseExistingPublisher.CheckedChanged += new System.EventHandler(this.chkUseExistingPublisher_CheckedChanged);
+            // 
+            // cboxPublishers
+            // 
+            this.cboxPublishers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxPublishers.FormattingEnabled = true;
+            this.cboxPublishers.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxPublishers.Location = new System.Drawing.Point(143, 101);
+            this.cboxPublishers.Name = "cboxPublishers";
+            this.cboxPublishers.Size = new System.Drawing.Size(175, 21);
+            this.cboxPublishers.TabIndex = 42;
+            this.cboxPublishers.Visible = false;
+            this.cboxPublishers.SelectedIndexChanged += new System.EventHandler(this.cboxPublishers_SelectedIndexChanged);
+            // 
             // MainPluginControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1420,5 +1449,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox txtSolutionFriendlyName;
+        private System.Windows.Forms.CheckBox chkUseExistingPublisher;
+        private System.Windows.Forms.ComboBox cboxPublishers;
     }
 }

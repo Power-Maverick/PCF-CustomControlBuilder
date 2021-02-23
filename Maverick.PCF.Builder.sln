@@ -5,7 +5,28 @@ VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maverick.PCF.Builder", "Maverick.PCF.Builder\Maverick.PCF.Builder.csproj", "{FC42397B-0A52-4491-8EEE-764A5B283282}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.Helper", "Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.shproj", "{AC1E43D7-19D3-4479-8279-A82AC07DB18A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.SealedClasses", "Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.shproj", "{4F359FA0-A3FA-4CCA-A14A-2E228DB5672E}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.DataObjects", "Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.shproj", "{59BD7754-9B8D-491C-A7B2-3707A2E88946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maverick.PCF.Builder.Tests", "Maverick.PCF.Builder.Tests\Maverick.PCF.Builder.Tests.csproj", "{7D7F3111-7C20-4A13-81B4-1D025DAAD079}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.Common", "Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.shproj", "{C4596662-C090-409D-9DD7-B48467A27BEA}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems*{4f359fa0-a3fa-4cca-a14a-2e228db5672e}*SharedItemsImports = 13
+		Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems*{59bd7754-9b8d-491c-a7b2-3707a2e88946}*SharedItemsImports = 13
+		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{7d7f3111-7c20-4a13-81b4-1d025daad079}*SharedItemsImports = 4
+		Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems*{ac1e43d7-19d3-4479-8279-a82ac07db18a}*SharedItemsImports = 13
+		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{c4596662-c090-409d-9dd7-b48467a27bea}*SharedItemsImports = 13
+		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
+		Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
+		Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
+		Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -15,6 +36,10 @@ Global
 		{FC42397B-0A52-4491-8EEE-764A5B283282}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC42397B-0A52-4491-8EEE-764A5B283282}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC42397B-0A52-4491-8EEE-764A5B283282}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7F3111-7C20-4A13-81B4-1D025DAAD079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7F3111-7C20-4A13-81B4-1D025DAAD079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7F3111-7C20-4A13-81B4-1D025DAAD079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7F3111-7C20-4A13-81B4-1D025DAAD079}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
