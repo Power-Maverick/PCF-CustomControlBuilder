@@ -1,11 +1,9 @@
 ﻿---- NEW FEATURES ----
-No new feature
+1. Added "Existing Publisher" option
+2. Automatically detects if npm packages needs to be installed and prompts to run 'npm install'
 
 ---- UPDATES ----
 No updates
 
 ---- BUG FIXES ----
-1. When solution identified; lock Publisher Friendly Name field
-2. GitHub #34 - Power Apps CLI not detected on this machine
-3. GitHub #39 - Terminology query Control location vs. Working folder
-4. GitHub #40 - Uncheck Existing Solution checkbox shows invalid directory error
+None
