@@ -1,12 +1,11 @@
 ﻿---- NEW FEATURES ----
-1. Publisher details separated out with accepting friendly names
-2. Publisher Friendly name accepts space but unique name does not accept spaces (#28)
+No new feature
 
 ---- UPDATES ----
-1. Publisher prefix only accepts lowercase to align it with Dataverse (#35)
+No updates
 
 ---- BUG FIXES ----
-1. Bug fixed with use of "Existing Solution"
+1. When solution identified; lock Publisher Friendly Name field
 2. GitHub #34 - Power Apps CLI not detected on this machine
 3. GitHub #39 - Terminology query Control location vs. Working folder
 4. GitHub #40 - Uncheck Existing Solution checkbox shows invalid directory error

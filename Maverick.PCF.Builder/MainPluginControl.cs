@@ -339,6 +339,7 @@ namespace Maverick.PCF.Builder
             {
                 txtSolutionFriendlyName.Enabled = false;
                 txtSolutionName.Enabled = false;
+                txtPublisherFriendlyName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
                 txtPublisherFriendlyName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;

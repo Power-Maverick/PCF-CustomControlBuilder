@@ -454,9 +454,9 @@
             // lblPCFCLIVersionMsg
             // 
             this.lblPCFCLIVersionMsg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPCFCLIVersionMsg.Location = new System.Drawing.Point(1232, 0);
+            this.lblPCFCLIVersionMsg.Location = new System.Drawing.Point(1188, 0);
             this.lblPCFCLIVersionMsg.Name = "lblPCFCLIVersionMsg";
-            this.lblPCFCLIVersionMsg.Size = new System.Drawing.Size(174, 23);
+            this.lblPCFCLIVersionMsg.Size = new System.Drawing.Size(218, 23);
             this.lblPCFCLIVersionMsg.TabIndex = 21;
             this.lblPCFCLIVersionMsg.Text = "Detecting Power Apps CLI version.";
             this.lblPCFCLIVersionMsg.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
