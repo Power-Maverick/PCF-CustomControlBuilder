@@ -340,6 +340,7 @@ namespace Maverick.PCF.Builder
                 txtSolutionFriendlyName.Enabled = false;
                 txtSolutionName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
+                txtPublisherFriendlyName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 btnCreateSolution.Enabled = false;
                 cboxSolutions.Enabled = false;
@@ -2515,6 +2516,7 @@ namespace Maverick.PCF.Builder
             else
             {
                 Routine_ExistingPublisher();
+                IdentifySolutionDetails(true);
                 Routine_EditComponent();
             }
         }
