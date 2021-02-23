@@ -2192,6 +2192,19 @@ namespace Maverick.PCF.Builder
                         else
                         {
                             SetProcessingStatus(ProcessingStatus.Failed);
+
+                            if (CurrentCommandOutput.ToLower().Contains(Commands.Npm.RunBuild()) && 
+                                (CurrentCommandOutput.ToLower().Contains("'pcf-scripts' is not recognized as an internal or external command")
+                                    || CurrentCommandOutput.ToLower().Contains("error: cannot find module")))
+                            {
+                                var response = MessageBox.Show("Packages not installed. Do you want to install all dependent packages?", "Missing Package Dependencies", MessageBoxButtons.YesNo);
+                                if (response.Equals(DialogResult.Yes))
+                                {
+                                    string npmInstall = Commands.Npm.Install();
+                                    string npmBuild = Commands.Npm.RunBuild();
+                                    RunCommandLine(npmInstall, npmBuild);
+                                }
+                            }
                         }
                     }
 
