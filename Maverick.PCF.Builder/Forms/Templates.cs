@@ -20,7 +20,7 @@ namespace Maverick.PCF.Builder.Forms
         #region Properties
 
         public PcfGallery SelectedTemplate { get; set; }
-        public MainPluginControl ParentControl { get; set; }
+        public PCFBuilder ParentControl { get; set; }
 
         #endregion
 
@@ -147,7 +147,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             if (this.SelectedTemplate != null)
             {
-                var parent = this.ParentControl as MainPluginControl;
+                var parent = this.ParentControl as PCFBuilder;
                 parent.SelectedTemplate = this.SelectedTemplate;
             }
         }

@@ -9,6 +9,7 @@
     <Import_RootNamespace>Maverick.PCF.Builder.Common</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ControlManifestHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)StringHelper.cs" />
   </ItemGroup>
 </Project>

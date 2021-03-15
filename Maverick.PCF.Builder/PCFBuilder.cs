@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
@@ -22,14 +23,16 @@ using Maverick.PCF.Builder.Helper;
 using XrmToolBox.Extensibility.Args;
 using System.Text.RegularExpressions;
 using Maverick.PCF.Builder.SealedClasses;
-using Enum = Maverick.PCF.Builder.Helper.Enum;
 using Maverick.PCF.Builder.ToolSettings;
 using Maverick.PCF.Builder.Common;
+using Enum = Maverick.PCF.Builder.Helper.Enum;
+using SolutionDetails = Maverick.PCF.Builder.DataObjects.SolutionDetails;
 
 namespace Maverick.PCF.Builder
 {
-    public partial class MainPluginControl : PluginControlBase, IGitHubPlugin, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
+    public partial class PCFBuilder : PluginControlBase, IGitHubPlugin, IHelpPlugin, IPayPalPlugin, IStatusBarMessenger
     {
+        #region XrmToolBox settings
         private Settings pluginSettings;
 
         public string RepositoryName => "PCF-CustomControlBuilder";
@@ -38,14 +41,14 @@ namespace Maverick.PCF.Builder
         public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools. You will get free stickers; I will need your mailing address.";
         public string EmailAccount => "danz@techgeek.co.in";
         public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
+        #endregion
 
-        #region Properties, Constants and Enums
-
-        private const string TEMPLATE_LOCATION = "Templates";
+        #region Public Properties and Enums
 
         public PcfGallery SelectedTemplate { get; set; }
         public bool CommandPromptInitialized { get; set; }
         public bool StatusCheckExecution { get; set; }
+        public ProcessingStatus ExecutionStatus { get; set; }
         public bool ResxCheckExecution { get; set; }
         public bool BuildDeployExecution { get; set; }
         public bool ReloadDetails { get; set; }
@@ -55,6 +58,7 @@ namespace Maverick.PCF.Builder
         public int SelectedProfileIndex { get; set; }
         public bool RefreshCurrentProfile { get; set; }
         public ControlManifestDetails ControlDetails { get; set; }
+        public SolutionDetails DataverseSolutionDetails { get; set; }
         public List<LanguageCode> SelectedLcids { get; set; }
 
         public enum ProcessingStatus
@@ -82,7 +86,9 @@ namespace Maverick.PCF.Builder
         private EntityCollection _solutionsCache;
         private EntityCollection _publishersCache;
         private BindingSource bindingSource = new BindingSource();
+        private ControlManifestHelper ControlManifest = new ControlManifestHelper();
 
+        private const string TEMPLATE_LOCATION = "Templates";
         private const string SolutionFolderName = "Solution";
 
         #endregion
@@ -130,7 +136,7 @@ namespace Maverick.PCF.Builder
 
             foreach (var cmd in commands)
             {
-                consoleControl.WriteInput(cmd, Color.White, true);
+                consoleControl.WriteInput(cmd, Color.White, false);
             }
 
             if (commands.Contains("yo pcf:resx"))
@@ -234,6 +240,15 @@ namespace Maverick.PCF.Builder
             return isValid;
         }
 
+        //private void SetupDockControls()
+        //{
+        //    pcfProjForm = new PCFProject(this, ControlDetails);
+        //    pcfProjForm.Show(dockContainer, DockState.Document);
+        //    solutionProjForm.Show(pcfProjForm.Pane, null);
+
+        //    pcfProjForm.Activate();
+        //}
+
         private bool AreSolutionDetailsPopulated()
         {
             bool isValid = true;
@@ -291,6 +306,8 @@ namespace Maverick.PCF.Builder
         {
             txtNamespace.Clear();
             txtControlName.Clear();
+            txtControlDisplayName.Clear();
+            txtControlDescription.Clear();
             cboxTemplate.SelectedIndex = -1;
             cboxAdditionalPackages.SelectedIndex = -1;
             txtComponentVersion.Clear();
@@ -302,6 +319,8 @@ namespace Maverick.PCF.Builder
 
             txtControlName.Enabled = true;
             txtNamespace.Enabled = true;
+            txtControlDisplayName.Enabled = true;
+            txtControlDescription.Enabled = true;
             cboxTemplate.Enabled = true;
             cboxAdditionalPackages.Enabled = true;
             txtSolutionName.Enabled = true;
@@ -330,6 +349,8 @@ namespace Maverick.PCF.Builder
                 cboxTemplate.Enabled = false;
                 cboxAdditionalPackages.Enabled = false;
                 btnCreateComponent.Enabled = false;
+                txtControlDisplayName.Enabled = false;
+                txtControlDescription.Enabled = false;
 
                 lblControlInitStatus.Text = Enum.InitializationStatus(true);
                 lblControlInitStatus.ForeColor = Color.ForestGreen;
@@ -445,12 +466,16 @@ namespace Maverick.PCF.Builder
 
         private void IdentifyControlDetails()
         {
+            ControlDetails = new ControlManifestDetails();
+
             try
             {
-                bool loadEditRoutine = true;
+                bool loadEditRoutine = false;
+                ControlDetails.FoundControlDetails = false;
 
                 var start = DateTime.Now;
                 var mainDirs = Directory.GetDirectories(txtWorkingFolder.Text);
+                ControlDetails.WorkingFolderPath = txtWorkingFolder.Text;
                 if (mainDirs != null && mainDirs.Count() > 0)
                 {
                     // Check if .pcfproj does not already exists
@@ -466,13 +491,16 @@ namespace Maverick.PCF.Builder
                                 var indexExists = codeFileExists(item); //File.Exists(item + "\\" + "index.ts");
                                 if (indexExists)
                                 {
-                                    txtControlName.Text = Path.GetFileName(item);
+                                    loadEditRoutine = true;
+                                    ControlDetails.FoundControlDetails = true;
+
+                                    ControlDetails.ControlName = Path.GetFileName(item);
                                     var controlManifestFile = item + "\\" + "ControlManifest.Input.xml";
-                                    XmlReader xmlReader = XmlReader.Create(controlManifestFile);
+                                    ControlDetails.ManifestFilePath = controlManifestFile;
+                                    XmlReader xmlReader = XmlReader.Create(ControlDetails.ManifestFilePath);
                                     bool readFirstProperty = false;
-                                    bool readOfTypeGroup = false;
                                     string ofTypeGroupName = string.Empty;
-                                    ControlDetails = new ControlManifestDetails();
+
                                     while (xmlReader.Read())
                                     {
                                         if (xmlReader.NodeType == XmlNodeType.Element)
@@ -480,16 +508,16 @@ namespace Maverick.PCF.Builder
                                             switch (xmlReader.Name)
                                             {
                                                 case "control":
-                                                    txtNamespace.Text = xmlReader.GetAttribute("namespace");
-                                                    txtComponentVersion.Text = xmlReader.GetAttribute("version");
+                                                    ControlDetails.Namespace = xmlReader.GetAttribute("namespace");
+                                                    ControlDetails.Version = xmlReader.GetAttribute("version");
                                                     ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
                                                     ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
-                                                    ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
-                                                    if (!string.IsNullOrEmpty(ControlDetails.PreviewImagePath))
+
+                                                    if (xmlReader.GetAttribute("preview-image") != null)
                                                     {
-                                                        lblPreviewImageExists.Text = Enum.ResourceExists(true, Enum.ResourceType.PreviewImage);
-                                                        lblPreviewImageExists.ForeColor = Color.ForestGreen;
+                                                        ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
                                                     }
+
                                                     break;
                                                 case "property":
                                                     if ((xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
@@ -521,15 +549,13 @@ namespace Maverick.PCF.Builder
                                                     }
                                                     break;
                                                 case "data-set":
-                                                    cboxTemplate.SelectedIndex = 1;
+                                                    ControlDetails.IsDatasetTemplate = true;
                                                     break;
                                                 case "css":
-                                                    lblCssFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.CSS);
-                                                    lblCssFileExists.ForeColor = Color.ForestGreen;
+                                                    ControlDetails.ExistsCSS = true;
                                                     break;
                                                 case "resx":
-                                                    lblResxFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.RESX);
-                                                    lblResxFileExists.ForeColor = Color.ForestGreen;
+                                                    ControlDetails.ExistsResx = true;
                                                     break;
                                                 default:
                                                     break;
@@ -538,10 +564,7 @@ namespace Maverick.PCF.Builder
 
                                     }
                                     xmlReader.Close();
-                                    if (cboxTemplate.SelectedIndex == -1)
-                                    {
-                                        cboxTemplate.SelectedIndex = 0;
-                                    }
+
                                     break;
                                 }
 
@@ -554,11 +577,12 @@ namespace Maverick.PCF.Builder
                 }
                 else
                 {
-                    MessageBox.Show("Could not retrieve existing PCF project and CDS solution project details.");
+                    //MessageBox.Show("Could not retrieve existing PCF project and CDS solution project details.");
                     loadEditRoutine = false;
+                    ControlDetails.FoundControlDetails = false;
                 }
 
-                if (!string.IsNullOrEmpty(txtControlName.Text))
+                if (!string.IsNullOrEmpty(ControlDetails.ControlName))
                 {
                     IdentifySolutionDetails();
                 }
@@ -603,6 +627,7 @@ namespace Maverick.PCF.Builder
             if (addPkgOutput.ToLower().Contains(packageName.ToLower()))
             {
                 cboxAdditionalPackages.SelectedIndex = 1;
+                ControlDetails.AdditionalPackageIndex = 1;
             }
         }
 
@@ -640,44 +665,23 @@ namespace Maverick.PCF.Builder
                                 xmlDoc.Load(solutionFile);
 
                                 XmlNode uniqueSolutionNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/UniqueName");
-                                txtSolutionName.Text = uniqueSolutionNameNode.InnerText;
+                                DataverseSolutionDetails.UniqueName = uniqueSolutionNameNode.InnerText;
 
                                 XmlNode localizedSolutionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/LocalizedNames/LocalizedName[@languagecode='1033']");
-                                txtSolutionFriendlyName.Text = localizedSolutionNode.Attributes["description"].Value;
+                                DataverseSolutionDetails.FriendlyName = localizedSolutionNode.Attributes["description"].Value;
 
                                 XmlNode uniquePublisherNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/UniqueName");
-                                txtPublisherUniqueName.Text = uniquePublisherNameNode.InnerText;
+                                DataverseSolutionDetails.Publisher.UniqueName = uniquePublisherNameNode.InnerText;
 
                                 XmlNode localizedPublisherNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/LocalizedNames/LocalizedName[@languagecode='1033']");
-                                txtPublisherFriendlyName.Text = localizedPublisherNode.Attributes["description"].Value;
+                                DataverseSolutionDetails.Publisher.FriendlyName = localizedPublisherNode.Attributes["description"].Value;
 
                                 XmlNode customizationPrefixNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Publisher/CustomizationPrefix");
-                                txtPublisherPrefix.Text = customizationPrefixNode.InnerText;
+                                DataverseSolutionDetails.Publisher.Prefix = customizationPrefixNode.InnerText;
 
                                 XmlNode versionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Version");
-                                txtSolutionVersion.Text = versionNode.InnerText;
+                                DataverseSolutionDetails.Version = versionNode.InnerText;
 
-                                /*XmlReader xmlReader = XmlReader.Create(solutionFile);
-                                while (xmlReader.Read())
-                                {
-                                    if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "UniqueName"))
-                                    {
-                                        var publisher = xmlReader.ReadElementContentAsString();
-                                        txtPublisherUniqueName.Text = publisher;
-                                    }
-                                    if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "CustomizationPrefix"))
-                                    {
-                                        var prefix = xmlReader.ReadElementContentAsString();
-                                        txtPublisherPrefix.Text = prefix;
-                                    }
-                                    if ((xmlReader.NodeType == XmlNodeType.Element) && (xmlReader.Name == "Version"))
-                                    {
-                                        var version = xmlReader.ReadElementContentAsString();
-                                        txtSolutionVersion.Text = version;
-                                    }
-                                }
-                                xmlReader.Close();
-                                */
                                 break;
                             }
                             else
@@ -696,6 +700,7 @@ namespace Maverick.PCF.Builder
                     Routine_SolutionNotFound();
                 }
 
+                PopulateSolutionDetails();
                 var end = DateTime.Now;
                 var duration = end - start;
                 LogEventMetrics("IdentifySolutionDetails", "ProcessingTime", duration.TotalMilliseconds);
@@ -720,6 +725,45 @@ namespace Maverick.PCF.Builder
 
                 Routine_SolutionNotFound();
             }
+        }
+
+        private void PopulateControlDetails()
+        {
+            txtNamespace.Text = ControlDetails.Namespace;
+            txtControlName.Text = ControlDetails.ControlName;
+            txtControlDisplayName.Text = ControlDetails.ControlDisplayName;
+            txtControlDescription.Text = ControlDetails.ControlDescription;
+            txtComponentVersion.Text = ControlDetails.Version;
+
+            cboxTemplate.SelectedIndex = ControlDetails.IsDatasetTemplate ? 1 : 0;
+
+            if (!string.IsNullOrEmpty(ControlDetails.PreviewImagePath))
+            {
+                lblPreviewImageExists.Text = Enum.ResourceExists(true, Enum.ResourceType.PreviewImage);
+                lblPreviewImageExists.ForeColor = Color.ForestGreen;
+            }
+
+            if (ControlDetails.ExistsCSS)
+            {
+                lblCssFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.CSS);
+                lblCssFileExists.ForeColor = Color.ForestGreen;
+            }
+
+            if (ControlDetails.ExistsResx)
+            {
+                lblResxFileExists.Text = Enum.ResourceExists(true, Enum.ResourceType.RESX);
+                lblResxFileExists.ForeColor = Color.ForestGreen;
+            }
+        }
+
+        private void PopulateSolutionDetails()
+        {
+            txtSolutionName.Text = DataverseSolutionDetails.UniqueName;
+            txtSolutionFriendlyName.Text = DataverseSolutionDetails.FriendlyName;
+            txtPublisherUniqueName.Text = DataverseSolutionDetails.Publisher.UniqueName;
+            txtPublisherFriendlyName.Text = DataverseSolutionDetails.Publisher.FriendlyName;
+            txtPublisherPrefix.Text = DataverseSolutionDetails.Publisher.Prefix;
+            txtSolutionVersion.Text = DataverseSolutionDetails.Version;
         }
 
         private bool IsPcfProjectAlreadyExists(string controlName)
@@ -1210,6 +1254,7 @@ namespace Maverick.PCF.Builder
 
         private void SetProcessingStatus(ProcessingStatus status)
         {
+            ExecutionStatus = status;
             lblStatus.Location = new Point(picRunning.Location.X, lblStatus.Location.Y);
             switch (status)
             {
@@ -1360,7 +1405,9 @@ namespace Maverick.PCF.Builder
                         {
                             orgDetails += "\n";
                         }
-                        else if (list.Contains("Org ID:") || list.Contains("Unique Name:") || list.Contains("Friendly Name:"))
+                        // Removed few details
+                        // list.Contains("Org ID:") || list.Contains("Unique Name:") || 
+                        else if (list.Contains("Friendly Name:"))
                         {
                             string[] innerSplit = list.Trim().Split(':');
 
@@ -1423,7 +1470,7 @@ namespace Maverick.PCF.Builder
             string[] commands = new string[] { Commands.Pac.OrgDetails() };
             var output = CommandLineHelper.RunCommand(commands);
 
-            // Sometimes wen current org is change 'org who' command doesnt quickly respond with the change.
+            // Sometimes when current org is change 'org who' command doesnt quickly respond with the change.
             // So check again to see if output changed?
             var second_output = CommandLineHelper.RunCommand(commands);
             if (!output.Trim().Equals(second_output.Trim(), StringComparison.InvariantCultureIgnoreCase))
@@ -1434,6 +1481,7 @@ namespace Maverick.PCF.Builder
             if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("organization information"))
             {
                 lblCurrentProfile.Text = ParseOrgDetails(output.Substring(output.IndexOf("Organization Information"), output.LastIndexOf("\r\n\r\n") - output.LastIndexOf("Organization Information")));
+                toolTip.SetToolTip(lblCurrentProfile, lblCurrentProfile.Text);
             }
             else if (output.ToLower().Contains("error: unable to login to dynamics crm"))
             {
@@ -1619,6 +1667,7 @@ namespace Maverick.PCF.Builder
             {
                 File.Copy($"{templateFolder}\\sampleStyle.css", $"{cssDir}\\{txtControlName.Text}.css");
                 FindAndReplaceTemplateFile($"{cssDir}\\{txtControlName.Text}.css");
+                ControlDetails.ExistsCSS = true;
             }
 
             // Manifest
@@ -1643,6 +1692,7 @@ namespace Maverick.PCF.Builder
             if (!File.Exists($"{imgDir}\\preview.png"))
             {
                 File.Copy($"{templateFolder}\\samplePowerUp.png", $"{imgDir}\\preview.png");
+                ControlDetails.PreviewImagePath = $"{imgDir}\\preview.png";
             }
 
             // Resx
@@ -1655,8 +1705,11 @@ namespace Maverick.PCF.Builder
             {
                 File.Copy($"{templateFolder}\\sampleLocalization.resx", $"{resxDir}\\{txtControlName.Text}.1033.resx");
                 FindAndReplaceTemplateFile($"{resxDir}\\{txtControlName.Text}.1033.resx");
+                ControlDetails.ExistsResx = true;
             }
             IdentifyControlDetails();
+            ControlDetails = ControlManifest.UpdateControlDetails(ControlDetails, txtControlDisplayName.Text, txtControlDescription.Text);
+            PopulateControlDetails();
         }
 
         private string FindTemplateFolder()
@@ -1674,12 +1727,21 @@ namespace Maverick.PCF.Builder
 
         #endregion
 
-        public MainPluginControl()
+        #region Constructors
+
+        public PCFBuilder()
         {
             InitializeComponent();
+            //var theme = new VS2015LightTheme();
+            //dockContainer.Theme = theme;
+            //dockContainer.Theme.Skin.DockPaneStripSkin.TextFont = Font;
         }
 
-        private void MainPluginControl_Load(object sender, EventArgs e)
+        #endregion
+
+        #region Private Event Handlers
+
+        private void PCFBuilder_Load(object sender, EventArgs e)
         {
             //ShowInfoNotification("This is a notification that can lead to XrmToolBox repository", new Uri("https://github.com/MscrmTools/XrmToolBox"));
             var start = DateTime.Now;
@@ -1721,6 +1783,7 @@ namespace Maverick.PCF.Builder
                 CommandPromptInitialized = true;
                 InitCommandLine();
                 IdentifyControlDetails();
+                PopulateControlDetails();
                 Routine_EditComponent();
                 LoadMostRecentUsedLocations();
             }
@@ -1834,6 +1897,7 @@ namespace Maverick.PCF.Builder
                 }
 
                 IdentifyControlDetails();
+                PopulateControlDetails();
 
                 if (string.IsNullOrEmpty(txtControlName.Text))
                 {
@@ -1867,6 +1931,7 @@ namespace Maverick.PCF.Builder
                 }
 
                 IdentifyControlDetails();
+                PopulateControlDetails();
                 Routine_EditComponent();
             }
         }
@@ -2151,6 +2216,7 @@ namespace Maverick.PCF.Builder
             if (isValid)
             {
                 IdentifyControlDetails();
+                PopulateControlDetails();
                 Routine_EditComponent();
             }
         }
@@ -2193,7 +2259,7 @@ namespace Maverick.PCF.Builder
                         {
                             SetProcessingStatus(ProcessingStatus.Failed);
 
-                            if (CurrentCommandOutput.ToLower().Contains(Commands.Npm.RunBuild()) && 
+                            if (CurrentCommandOutput.ToLower().Contains(Commands.Npm.RunBuild()) &&
                                 (CurrentCommandOutput.ToLower().Contains("'pcf-scripts' is not recognized as an internal or external command")
                                     || CurrentCommandOutput.ToLower().Contains("error: cannot find module")))
                             {
@@ -2237,6 +2303,7 @@ namespace Maverick.PCF.Builder
                         _mainPluginLocalWorker.DoWork += CreateTemplateFiles;
                         _mainPluginLocalWorker.RunWorkerAsync();
                     }
+
                     // Reset
                     ReloadDetails = false;
                 }
@@ -2418,7 +2485,7 @@ namespace Maverick.PCF.Builder
             txtSolutionVersion.Text = selectedSolution.MetaData.GetAttributeValue<string>("version");
         }
 
-        private void MainPluginControl_OnCloseTool(object sender, EventArgs e)
+        private void PCFBuilder_OnCloseTool(object sender, EventArgs e)
         {
             consoleControl.Dispose();
         }
@@ -2433,6 +2500,7 @@ namespace Maverick.PCF.Builder
             txtWorkingFolder.Text = dgvMRULocations.Rows[e.RowIndex].Cells[1].Value.ToString();
             ToggleMRULocationGrid();
             IdentifyControlDetails();
+            PopulateControlDetails();
         }
 
         private void dgvMRULocations_Leave(object sender, EventArgs e)
@@ -2543,5 +2611,30 @@ namespace Maverick.PCF.Builder
             txtPublisherFriendlyName.Text = selectedPublisher.MetaData.GetAttributeValue<string>("friendlyname");
             txtPublisherPrefix.Text = selectedPublisher.MetaData.GetAttributeValue<string>("customizationprefix");
         }
+
+        private void tspCreator_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://twitter.com/PCFBuilder");
+        }
+
+        private void txtControlDisplayName_TextChanged(object sender, EventArgs e)
+        {
+            if (!ControlDetails.FoundControlDetails)
+            {
+                Regex rgx = new Regex(@"[^a-zA-Z0-9_]");
+                txtControlName.Text = rgx.Replace(txtControlDisplayName.Text, "");
+            }
+        }
+
+        private void btnUpdateControlDetails_Click(object sender, EventArgs e)
+        {
+            var controlDetailsForm = new ControlDetailsForm(this);
+            controlDetailsForm.StartPosition = FormStartPosition.CenterScreen;
+            controlDetailsForm.ShowDialog();
+
+            PopulateControlDetails();
+        }
+
+        #endregion
     }
 }

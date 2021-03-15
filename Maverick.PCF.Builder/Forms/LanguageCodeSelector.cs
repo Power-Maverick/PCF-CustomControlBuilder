@@ -20,7 +20,7 @@ namespace Maverick.PCF.Builder.Forms
         #region Properties
 
         public List<LanguageCode> SelectedLcids { get; set; }
-        public MainPluginControl ParentControl { get; set; }
+        public PCFBuilder ParentControl { get; set; }
 
         #endregion
 
@@ -117,7 +117,7 @@ namespace Maverick.PCF.Builder.Forms
 
         private void btnAddLangCodes_Click(object sender, EventArgs e)
         {
-            var parent = this.ParentControl as MainPluginControl;
+            var parent = this.ParentControl as PCFBuilder;
             parent.SelectedLcids = SelectedLcids;
             this.Close();
         }
@@ -126,7 +126,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             if (this.SelectedLcids != null)
             {
-                var parent = this.ParentControl as MainPluginControl;
+                var parent = this.ParentControl as PCFBuilder;
                 parent.SelectedLcids = SelectedLcids;
             }
         }

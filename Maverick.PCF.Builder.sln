@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maverick.PCF.Builder.Tests"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.Common", "Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.shproj", "{C4596662-C090-409D-9DD7-B48467A27BEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{433E52F5-84E6-4160-852C-ADAB3124A822}"
+	ProjectSection(SolutionItems) = preProject
+		PCF-CustomControlBuilder.nuspec = PCF-CustomControlBuilder.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems*{4f359fa0-a3fa-4cca-a14a-2e228db5672e}*SharedItemsImports = 13

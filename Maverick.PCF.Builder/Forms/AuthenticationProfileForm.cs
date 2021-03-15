@@ -15,7 +15,7 @@ namespace Maverick.PCF.Builder.Forms
     {
         #region Properties
 
-        public MainPluginControl ParentControl { get; set; }
+        public PCFBuilder ParentControl { get; set; }
 
         #endregion
 
@@ -42,8 +42,8 @@ namespace Maverick.PCF.Builder.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            var parent = this.ParentControl as MainPluginControl;
-            parent.SelectedProfileAction = MainPluginControl.AuthProfileAction.ShowDetails;
+            var parent = this.ParentControl as PCFBuilder;
+            parent.SelectedProfileAction = PCFBuilder.AuthProfileAction.ShowDetails;
             this.Close();
         }
 
@@ -55,8 +55,8 @@ namespace Maverick.PCF.Builder.Forms
                 {
                     var index = lstProfiles.SelectedItems[0].SubItems[0];
 
-                    var parent = this.ParentControl as MainPluginControl;
-                    parent.SelectedProfileAction = MainPluginControl.AuthProfileAction.Delete;
+                    var parent = this.ParentControl as PCFBuilder;
+                    parent.SelectedProfileAction = PCFBuilder.AuthProfileAction.Delete;
                     parent.SelectedProfileIndex = int.Parse(index.Text);
 
                     this.Close();
@@ -72,8 +72,8 @@ namespace Maverick.PCF.Builder.Forms
                 {
                     var index = lstProfiles.SelectedItems[0].SubItems[0];
 
-                    var parent = this.ParentControl as MainPluginControl;
-                    parent.SelectedProfileAction = MainPluginControl.AuthProfileAction.SwitchCurrent;
+                    var parent = this.ParentControl as PCFBuilder;
+                    parent.SelectedProfileAction = PCFBuilder.AuthProfileAction.SwitchCurrent;
                     parent.SelectedProfileIndex = int.Parse(index.Text);
 
                     this.Close();

@@ -14,5 +14,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)LanguageCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PacVersionParsedDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PcfGallery.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PublisherDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SolutionDetails.cs" />
   </ItemGroup>
 </Project>

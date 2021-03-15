@@ -63,6 +63,7 @@
             // 
             // pnlLangCodes
             // 
+            this.pnlLangCodes.AutoScroll = true;
             this.tableLayoutPanel1.SetColumnSpan(this.pnlLangCodes, 3);
             this.pnlLangCodes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLangCodes.Location = new System.Drawing.Point(3, 29);
