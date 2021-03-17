@@ -87,6 +87,7 @@ namespace Maverick.PCF.Builder
         private EntityCollection _publishersCache;
         private BindingSource bindingSource = new BindingSource();
         private ControlManifestHelper ControlManifest = new ControlManifestHelper();
+        private SolutionDetailsHelper Solution = new SolutionDetailsHelper();
 
         private const string TEMPLATE_LOCATION = "Templates";
         private const string SolutionFolderName = "Solution";
@@ -355,7 +356,10 @@ namespace Maverick.PCF.Builder
                 lblControlInitStatus.Text = Enum.InitializationStatus(true);
                 lblControlInitStatus.ForeColor = Color.ForestGreen;
             }
+        }
 
+        private void Routine_SolutionFound()
+        {
             if (!string.IsNullOrEmpty(txtSolutionName.Text))
             {
                 txtSolutionFriendlyName.Enabled = false;
@@ -367,13 +371,17 @@ namespace Maverick.PCF.Builder
                 btnCreateSolution.Enabled = false;
                 cboxSolutions.Enabled = false;
 
+                radSolutionTypeUnmanaged.Enabled = true;
+                radSolutionTypeManaged.Enabled = true;
+                radSolutionTypeBoth.Enabled = true;
+
                 lblSolutionInitStatus.Text = Enum.InitializationStatus(true);
                 lblSolutionInitStatus.ForeColor = Color.ForestGreen;
                 btnDeploy.Enabled = true;
             }
         }
 
-        private void Routine_SolutionNotFound(bool loadFromSettings = true)
+        private void Routine_SolutionNotFound(bool loadFromSettings = true, bool clearFields = true)
         {
             txtSolutionFriendlyName.Enabled = true;
             txtSolutionName.Enabled = true;
@@ -383,12 +391,19 @@ namespace Maverick.PCF.Builder
             btnCreateSolution.Enabled = true;
             btnDeploy.Enabled = false;
 
-            txtSolutionFriendlyName.Clear();
-            txtSolutionName.Clear();
-            txtPublisherUniqueName.Clear();
-            txtPublisherFriendlyName.Clear();
-            txtPublisherPrefix.Clear();
-            txtSolutionVersion.Clear();
+            radSolutionTypeUnmanaged.Enabled = false;
+            radSolutionTypeManaged.Enabled = false;
+            radSolutionTypeBoth.Enabled = false;
+
+            if (clearFields)
+            {
+                txtSolutionFriendlyName.Clear();
+                txtSolutionName.Clear();
+                txtPublisherUniqueName.Clear();
+                txtPublisherFriendlyName.Clear();
+                txtPublisherPrefix.Clear();
+                txtSolutionVersion.Clear(); 
+            }
 
             lblSolutionInitStatus.Text = Enum.InitializationStatus(false);
             lblSolutionInitStatus.ForeColor = Color.Firebrick;
@@ -405,27 +420,35 @@ namespace Maverick.PCF.Builder
             {
                 chkUseExistingPublisher.Checked = false;
                 txtSolutionFriendlyName.Visible = false;
-                //txtSolutionName.Visible = false;
+                txtSolutionName.Enabled = false;
                 txtPublisherFriendlyName.Enabled = false;
                 txtPublisherUniqueName.Enabled = false;
                 txtPublisherPrefix.Enabled = false;
                 cboxSolutions.Visible = true;
-                chkManagedSolution.Enabled = false;
+                //chkManagedSolution.Enabled = false;
                 cboxPublishers.Visible = false;
                 chkUseExistingPublisher.Visible = false;
                 btnCreateSolution.Text = "Export and Add Control";
+
+                radSolutionTypeUnmanaged.Enabled = false;
+                radSolutionTypeManaged.Enabled = false;
+                radSolutionTypeBoth.Enabled = false;
             }
             else
             {
                 txtSolutionFriendlyName.Visible = true;
-                //txtSolutionName.Visible = true;
+                txtSolutionName.Enabled = true;
                 txtPublisherFriendlyName.Enabled = true;
                 txtPublisherUniqueName.Enabled = true;
                 txtPublisherPrefix.Enabled = true;
                 cboxSolutions.Visible = false;
-                chkManagedSolution.Enabled = true;
+                //chkManagedSolution.Enabled = true;
                 chkUseExistingPublisher.Visible = true;
                 btnCreateSolution.Text = "Create and Add Control";
+
+                radSolutionTypeUnmanaged.Enabled = true;
+                radSolutionTypeManaged.Enabled = true;
+                radSolutionTypeBoth.Enabled = true;
             }
         }
 
@@ -486,16 +509,16 @@ namespace Maverick.PCF.Builder
                         if (pcfDirs != null && pcfDirs.Count() > 0)
                         {
                             var filteredPcfDirs = pcfDirs.ToList().Where(l => (!l.ToLower().EndsWith("node_modules")) && (!l.ToLower().EndsWith("obj")) && (!l.ToLower().EndsWith("out")));
-                            foreach (var item in filteredPcfDirs)
+                            foreach (var currentDir in filteredPcfDirs)
                             {
-                                var indexExists = codeFileExists(item); //File.Exists(item + "\\" + "index.ts");
+                                var indexExists = codeFileExists(currentDir); //File.Exists(item + "\\" + "index.ts");
                                 if (indexExists)
                                 {
                                     loadEditRoutine = true;
                                     ControlDetails.FoundControlDetails = true;
 
-                                    ControlDetails.ControlName = Path.GetFileName(item);
-                                    var controlManifestFile = item + "\\" + "ControlManifest.Input.xml";
+                                    ControlDetails.ControlName = Path.GetFileName(currentDir);
+                                    var controlManifestFile = currentDir + "\\" + "ControlManifest.Input.xml";
                                     ControlDetails.ManifestFilePath = controlManifestFile;
                                     XmlReader xmlReader = XmlReader.Create(ControlDetails.ManifestFilePath);
                                     bool readFirstProperty = false;
@@ -515,7 +538,8 @@ namespace Maverick.PCF.Builder
 
                                                     if (xmlReader.GetAttribute("preview-image") != null)
                                                     {
-                                                        ControlDetails.PreviewImagePath = $"{txtWorkingFolder.Text}\\{txtControlName.Text}\\{xmlReader.GetAttribute("preview-image")}";
+                                                        var sanitizedPreviewImageRelativePath = xmlReader.GetAttribute("preview-image").Replace("/", "\\");
+                                                        ControlDetails.PreviewImagePath = $"{currentDir}\\{sanitizedPreviewImageRelativePath}";
                                                     }
 
                                                     break;
@@ -633,6 +657,7 @@ namespace Maverick.PCF.Builder
 
         private void IdentifySolutionDetails(bool suppressErrors = false)
         {
+            DataverseSolutionDetails = new SolutionDetails();
             try
             {
                 var start = DateTime.Now;
@@ -659,10 +684,12 @@ namespace Maverick.PCF.Builder
                             var cdsprojExists = File.Exists(item + "\\" + cdsprojName + ".cdsproj");
                             if (cdsprojExists)
                             {
+                                DataverseSolutionDetails.ProjectFilePath = item + "\\" + cdsprojName + ".cdsproj";
                                 var solutionFile = File.Exists(item + "\\Other\\Solution.xml") ? item + "\\Other\\Solution.xml" : item + "\\src\\Other\\Solution.xml";
+                                DataverseSolutionDetails.SolutionXMLFilePath = solutionFile;
 
                                 XmlDocument xmlDoc = new XmlDocument();
-                                xmlDoc.Load(solutionFile);
+                                xmlDoc.Load(DataverseSolutionDetails.SolutionXMLFilePath);
 
                                 XmlNode uniqueSolutionNameNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/UniqueName");
                                 DataverseSolutionDetails.UniqueName = uniqueSolutionNameNode.InnerText;
@@ -682,25 +709,57 @@ namespace Maverick.PCF.Builder
                                 XmlNode versionNode = xmlDoc.SelectSingleNode("/ImportExportXml/SolutionManifest/Version");
                                 DataverseSolutionDetails.Version = versionNode.InnerText;
 
+                                XmlDocument solutionXMLFile = new XmlDocument();
+                                solutionXMLFile.Load(DataverseSolutionDetails.ProjectFilePath);
+
+                                var childNodes = solutionXMLFile["Project"].ChildNodes;
+
+                                foreach (XmlNode node in childNodes)
+                                {
+                                    if (node.Name == "PropertyGroup")
+                                    {
+                                        var pgChildnodes = node.ChildNodes;
+                                        foreach (XmlNode pgChild in pgChildnodes)
+                                        {
+                                            if (pgChild.Name == "SolutionPackageType")
+                                            {
+                                                switch (pgChild.InnerText)
+                                                {
+                                                    case "Unmanaged":
+                                                        DataverseSolutionDetails.PackageType = SolutionPackageType.Unmanaged;
+                                                        break;
+                                                    case "Managed":
+                                                        DataverseSolutionDetails.PackageType = SolutionPackageType.Managed;
+                                                        break;
+                                                    case "Both":
+                                                        DataverseSolutionDetails.PackageType = SolutionPackageType.Both;
+                                                        break;
+                                                    default:
+                                                        DataverseSolutionDetails.PackageType = SolutionPackageType.Unmanaged;
+                                                        break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                DataverseSolutionDetails.FoundSolutionDetails = true;
+
                                 break;
-                            }
-                            else
-                            {
-                                Routine_SolutionNotFound();
                             }
                         }
                     }
-                    else
-                    {
-                        Routine_SolutionNotFound();
-                    }
+                }
+
+                PopulateSolutionDetails();
+                if (DataverseSolutionDetails.FoundSolutionDetails)
+                {
+                    Routine_SolutionFound();
                 }
                 else
                 {
                     Routine_SolutionNotFound();
                 }
-
-                PopulateSolutionDetails();
                 var end = DateTime.Now;
                 var duration = end - start;
                 LogEventMetrics("IdentifySolutionDetails", "ProcessingTime", duration.TotalMilliseconds);
@@ -764,6 +823,22 @@ namespace Maverick.PCF.Builder
             txtPublisherFriendlyName.Text = DataverseSolutionDetails.Publisher.FriendlyName;
             txtPublisherPrefix.Text = DataverseSolutionDetails.Publisher.Prefix;
             txtSolutionVersion.Text = DataverseSolutionDetails.Version;
+
+            switch (DataverseSolutionDetails.PackageType)
+            {
+                case SolutionPackageType.Unmanaged:
+                    radSolutionTypeUnmanaged.Checked = true;
+                    break;
+                case SolutionPackageType.Managed:
+                    radSolutionTypeManaged.Checked = true;
+                    break;
+                case SolutionPackageType.Both:
+                    radSolutionTypeBoth.Checked = true;
+                    break;
+                default:
+                    radSolutionTypeUnmanaged.Checked = true;
+                    break;
+            }
         }
 
         private bool IsPcfProjectAlreadyExists(string controlName)
@@ -1171,7 +1246,7 @@ namespace Maverick.PCF.Builder
         private void DeploySolution()
         {
             string solutionFolder = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
-            string solutionFileLocation = $"{solutionFolder}\\bin\\{(chkManagedSolution.Checked ? "release" : "debug")}\\{txtSolutionName.Text}.zip";
+            string solutionFileLocation = $"{solutionFolder}\\bin\\{(radReleaseTypeProd.Checked ? "release" : "debug")}\\{txtSolutionName.Text}.zip";
 
             string deploymentFolder = solutionFileLocation;
             byte[] fileBytes = File.ReadAllBytes(deploymentFolder);
@@ -1384,115 +1459,16 @@ namespace Maverick.PCF.Builder
             LogEventMetrics("ParseProfileList", "ProcessingTime", duration.TotalMilliseconds);
         }
 
-        private string ParseOrgDetails(string output)
-        {
-            string orgDetails = string.Empty;
-
-            try
-            {
-                if (output.ToLower().Contains("organization information"))
-                {
-                    // Split on \r\n
-                    char[] mainDelimiterChars = { '\r', '\n' };
-                    string[] mainSplit = output.Split(mainDelimiterChars);
-
-                    string url = string.Empty;
-                    string username = string.Empty;
-
-                    foreach (string list in mainSplit)
-                    {
-                        if (string.IsNullOrEmpty(list))
-                        {
-                            orgDetails += "\n";
-                        }
-                        // Removed few details
-                        // list.Contains("Org ID:") || list.Contains("Unique Name:") || 
-                        else if (list.Contains("Friendly Name:"))
-                        {
-                            string[] innerSplit = list.Trim().Split(':');
-
-                            if (innerSplit.Length > 0)
-                            {
-                                orgDetails += innerSplit[0].Trim();
-                                orgDetails += ":";
-                                orgDetails += innerSplit[1].Trim();
-                            }
-                        }
-                        else if (list.Contains("Org URL:"))
-                        {
-                            string[] innerSplit = list.Trim().Split(' ');
-
-                            if (innerSplit.Length > 0)
-                            {
-                                orgDetails += "Org URL:";
-                                orgDetails += innerSplit[innerSplit.Length - 1].Trim();
-                            }
-                        }
-                        else if (list.Contains("User ID:"))
-                        {
-                            string[] innerSplit = list.Trim().Split(':');
-
-                            if (innerSplit.Length > 0)
-                            {
-                                string[] userSplit = innerSplit[1].Trim().Split(' ');
-
-                                if (userSplit.Length > 0)
-                                {
-                                    orgDetails += innerSplit[0].Trim();
-                                    orgDetails += ":";
-                                    orgDetails += userSplit[0].Trim();
-                                }
-                            }
-                        }
-                        else
-                        {
-                            orgDetails += list + "\n";
-                        }
-                    }
-
-                }
-                else if (output.ToLower().Contains("no profiles were found on this computer"))
-                {
-                    orgDetails = "No profiles were found on this computer. Please create a new profile.";
-                }
-            }
-            catch (Exception ex)
-            {
-                LogError(ex.Message);
-                MessageBox.Show("An error occured while parsing the Org Details for Profile. Please report an issue on GitHub page.");
-            }
-
-            return orgDetails;
-        }
-
         private void CheckDefaultAuthenticationProfile(object worker, DoWorkEventArgs args)
         {
             string[] commands = new string[] { Commands.Pac.OrgDetails() };
             var output = CommandLineHelper.RunCommand(commands);
 
-            // Sometimes when current org is change 'org who' command doesnt quickly respond with the change.
-            // So check again to see if output changed?
-            var second_output = CommandLineHelper.RunCommand(commands);
-            if (!output.Trim().Equals(second_output.Trim(), StringComparison.InvariantCultureIgnoreCase))
+            if (!string.IsNullOrEmpty(output))
             {
-                output = second_output;
+                StringHelper helper = new StringHelper();
+                lblCurrentProfile.Text = helper.ParseOrgDetails(output);
             }
-
-            if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("organization information"))
-            {
-                lblCurrentProfile.Text = ParseOrgDetails(output.Substring(output.IndexOf("Organization Information"), output.LastIndexOf("\r\n\r\n") - output.LastIndexOf("Organization Information")));
-                toolTip.SetToolTip(lblCurrentProfile, lblCurrentProfile.Text);
-            }
-            else if (output.ToLower().Contains("error: unable to login to dynamics crm"))
-            {
-                lblCurrentProfile.Text = "Unable to login into current profile. Please delete and re-authenticate.";
-            }
-            else if (output.ToLower().Contains("no profiles were found on this computer"))
-            {
-                lblCurrentProfile.Text = "No profiles found";
-            }
-
-
         }
 
         private void LoadSolutions()
@@ -2016,7 +1992,7 @@ namespace Maverick.PCF.Builder
 
                 string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
                 string msbuild_restore = Commands.Msbuild.Restore(solutionPath);
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(solutionPath) : Commands.Msbuild.Rebuild(solutionPath);
+                string msbuild_rebuild = radReleaseTypeProd.Checked ? Commands.Msbuild.RebuildRelease(solutionPath) : Commands.Msbuild.Rebuild(solutionPath);
 
                 RunCommandLine(cdWorkingDir, npmBuildCommand, cdMsBuildDir, msbuild_restore, msbuild_rebuild);
             }
@@ -2046,7 +2022,7 @@ namespace Maverick.PCF.Builder
                 string npmBuildCommand = Commands.Npm.RunBuild();
 
                 string cdMsBuildDir = Commands.Cmd.ChangeDirectory($"{msbuild_filepath}");
-                string msbuild_rebuild = chkManagedSolution.Checked ? Commands.Msbuild.RebuildRelease(solutionPath) : Commands.Msbuild.Rebuild(solutionPath);
+                string msbuild_rebuild = radReleaseTypeProd.Checked ? Commands.Msbuild.RebuildRelease(solutionPath) : Commands.Msbuild.Rebuild(solutionPath);
 
                 BuildDeployExecution = true;
                 RunCommandLine(cdWorkingDir, npmBuildCommand, cdMsBuildDir, msbuild_rebuild);
@@ -2171,7 +2147,7 @@ namespace Maverick.PCF.Builder
 
                 var projectPath = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
                 string msbuild_restore = Commands.Msbuild.Restore(projectPath);
-                string msbuild_build = chkManagedSolution.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
+                string msbuild_build = radReleaseTypeProd.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
 
                 RunCommandLine(cdMsBuildDir, msbuild_restore, msbuild_build);
             }
@@ -2291,17 +2267,24 @@ namespace Maverick.PCF.Builder
                     && (CurrentCommandOutput.ToLower().Contains("the powerapps component framework project was successfully created")
                         || CurrentCommandOutput.ToLower().Contains($"cds solution project with name '{txtSolutionName.Text.ToLower()}' created successfully")))
                 {
-                    if (!chkUseExistingSolution.Checked)
-                    {
-                        SanitizeSolutionDetails();
-                    }
-                    IdentifyControlDetails();
-
                     if (CurrentCommandOutput.ToLower().Contains("the powerapps component framework project was successfully created"))
                     {
+                        IdentifyControlDetails();
+
                         _mainPluginLocalWorker = new BackgroundWorker();
                         _mainPluginLocalWorker.DoWork += CreateTemplateFiles;
                         _mainPluginLocalWorker.RunWorkerAsync();
+                    }
+
+                    if (CurrentCommandOutput.ToLower().Contains($"cds solution project with name '{txtSolutionName.Text.ToLower()}' created successfully"))
+                    {
+                        if (!chkUseExistingSolution.Checked)
+                        {
+                            SanitizeSolutionDetails();
+                        }
+                        IdentifySolutionDetails();
+                        Solution.UpdateSolutionPackageType(DataverseSolutionDetails);
+                        PopulateSolutionDetails();
                     }
 
                     // Reset
@@ -2464,6 +2447,7 @@ namespace Maverick.PCF.Builder
                 Routine_SolutionNotFound(false);
                 ExecuteMethod(LoadSolutions);
                 cboxSolutions.Enabled = true;
+                radSolutionTypeUnmanaged.Checked = true;
             }
             else
             {
@@ -2510,9 +2494,6 @@ namespace Maverick.PCF.Builder
 
         private void btnAddPreviewImage_Click(object sender, EventArgs e)
         {
-            ControlDetails.WorkingFolderPath = txtWorkingFolder.Text;
-            ControlDetails.ControlName = txtControlName.Text;
-
             var showPreviewImageForm = new ShowPreviewImage(ControlDetails);
             showPreviewImageForm.StartPosition = FormStartPosition.CenterScreen;
             showPreviewImageForm.ShowDialog();
@@ -2584,14 +2565,17 @@ namespace Maverick.PCF.Builder
 
         private void txtSolutionFriendlyName_TextChanged(object sender, EventArgs e)
         {
-            txtSolutionName.Text = Regex.Replace(txtSolutionFriendlyName.Text, @"\s+", "");
+            if (!DataverseSolutionDetails.FoundSolutionDetails)
+            {
+                txtSolutionName.Text = Regex.Replace(txtSolutionFriendlyName.Text, @"\s+", "");
+            }
         }
 
         private void chkUseExistingPublisher_CheckedChanged(object sender, EventArgs e)
         {
             if (chkUseExistingPublisher.Checked)
             {
-                Routine_SolutionNotFound(false);
+                Routine_SolutionNotFound(false, false);
                 ExecuteMethod(LoadPublishers);
                 cboxPublishers.Enabled = true;
             }
@@ -2635,6 +2619,61 @@ namespace Maverick.PCF.Builder
             PopulateControlDetails();
         }
 
+        private void SolutionPackageType_Changed(object sender, EventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+            if (radioButton.Checked)
+            {
+                switch (radioButton.Text)
+                {
+                    case "Unmanaged":
+                        DataverseSolutionDetails.PackageType = SolutionPackageType.Unmanaged;
+                        break;
+                    case "Managed":
+                        DataverseSolutionDetails.PackageType = SolutionPackageType.Managed;
+                        break;
+                    case "Both":
+                        DataverseSolutionDetails.PackageType = SolutionPackageType.Both;
+                        break;
+                    default:
+                        DataverseSolutionDetails.PackageType = SolutionPackageType.Unmanaged;
+                        break;
+                }
+            }
+
+            Solution.UpdateSolutionPackageType(DataverseSolutionDetails);
+        }
+
+        private void ReleaseType_Changed(object sender, EventArgs e)
+        {
+            RadioButton checkedRadioButton = pnlReleaseType.Controls
+                                        .OfType<RadioButton>()
+                                        .FirstOrDefault(r => r.Checked);
+            switch (checkedRadioButton.Text)
+            {
+                case "Dev":
+                    DataverseSolutionDetails.ReleaseType = Release.Dev;
+                    break;
+                case "Production":
+                    DataverseSolutionDetails.ReleaseType = Release.Prod;
+                    break;
+                default:
+                    DataverseSolutionDetails.ReleaseType = Release.Dev;
+                    break;
+            }
+        }
+
+
         #endregion
+
+        private void btnOpenSolutionInExplorer_Click(object sender, EventArgs e)
+        {
+            var isValid = AreSolutionDetailsPopulated();
+
+            if (isValid)
+            {
+                Process.Start("explorer.exe", string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}"));
+            }
+        }
     }
 }

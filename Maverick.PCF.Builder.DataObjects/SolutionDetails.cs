@@ -6,9 +6,9 @@ namespace Maverick.PCF.Builder.DataObjects
 {
     public enum SolutionPackageType
     {
-        Unmanaged,
-        Managed,
-        Both
+        Unmanaged = 0,
+        Managed = 1,
+        Both = 2
     }
 
     public enum Release
@@ -26,6 +26,9 @@ namespace Maverick.PCF.Builder.DataObjects
             ReleaseType = Release.Dev;
         }
 
+        public string ProjectFilePath { get; set; }
+        public string SolutionXMLFilePath { get; set; }
+        public bool FoundSolutionDetails { get; set; }
         public string UniqueName { get; set; }
         public string FriendlyName { get; set; }
         public string Version { get; set; }

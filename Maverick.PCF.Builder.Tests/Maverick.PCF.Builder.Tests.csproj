@@ -99,6 +99,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringHelperTests.cs" />
+    <Compile Include="SolutionDetailsHelperTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
