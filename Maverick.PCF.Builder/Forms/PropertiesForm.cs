@@ -171,57 +171,130 @@ namespace Maverick.PCF.Builder.Forms
         {
             if (node != null)
             {
+                tsmiAdd.Visible = true;
+                tsmiDelete.Visible = true;
+
+                string addText = "Add";
+                string deleteText = "Delete";
+
                 switch (node.Name.ToLower())
                 {
                     case "properties":
-                        tsmiAdd.Visible = true;
-                        tsmiAdd.Text = "Add Property";
+                        tsmiAdd.Text = $"{addText} Property";
+                        tsmiDelete.Visible = false;
                         break;
                     case "type-groups":
-                        tsmiAdd.Visible = true;
-                        tsmiAdd.Text = "Add Type Group";
+                        tsmiAdd.Text = $"{addText} Type Group";
+                        tsmiDelete.Visible = false;
                         break;
                     case "type-group":
-                        tsmiAdd.Visible = true;
-                        tsmiAdd.Text = "Add Type";
+                        tsmiAdd.Text = $"{addText} Type";
+                        tsmiDelete.Text = $"{deleteText} Type Group";
                         break;
                     case "type":
+                        tsmiAdd.Visible = false;
+                        tsmiDelete.Text = $"{deleteText} Type";
+                        break;
                     case "property":
                         tsmiAdd.Visible = false;
+                        tsmiDelete.Text = $"{deleteText} Property";
                         break;
                     default:
                         tsmiAdd.Visible = false;
+                        tsmiDelete.Visible = false;
                         break;
                 }
-                tsmiAdd.Tag = node.Tag;
+
+                tsmiAdd.Tag = tsmiDelete.Tag = node.Tag;
                 node.ContextMenuStrip = this.contextMenuNode;
             }
         }
 
-        private void HandleNodeMenuClick(string clickedNode, object tag)
+        private void HandleNodeMenuClick(string clickedNode, string op, object tag)
         {
-            UserControl ctrl = null;
-            pnlPropertiesContainer.Controls.Clear();
-            switch (clickedNode)
+            if (op.Equals("add"))
             {
-                case "property":
-                    ctrl = new PropertyControl(this, null, ParentControl.ControlDetails);
-                    break;
-                case "type-group":
-                    ctrl = new TypeGroupControl(this, null, ParentControl.ControlDetails);
-                    break;
-                case "type":
-                    ctrl = new TypeControl(this, null, ParentControl.ControlDetails, tag);
-                    break;
-                default:
-                    break;
+                UserControl ctrl = null;
+                pnlPropertiesContainer.Controls.Clear();
+                switch (clickedNode)
+                {
+                    case "property":
+                        ctrl = new PropertyControl(this, null, ParentControl.ControlDetails);
+                        break;
+                    case "type-group":
+                        ctrl = new TypeGroupControl(this, null, ParentControl.ControlDetails);
+                        break;
+                    case "type":
+                        ctrl = new TypeControl(this, null, ParentControl.ControlDetails, tag);
+                        break;
+                    default:
+                        break;
+                }
+                if (ctrl != null)
+                {
+                    pnlPropertiesContainer.Controls.Add(ctrl);
+                    InformProjectNeedsBuild();
+                    ctrl.BringToFront();
+                }
             }
-            if (ctrl != null)
+            else if (op.Equals("delete"))
             {
-                pnlPropertiesContainer.Controls.Add(ctrl);
-                InformProjectNeedsBuild();
-                ctrl.BringToFront();
+                contextMenuNode.Hide();
+                string mboxCaption = "Confirm Delete";
+                Dictionary<string, string> details = (Dictionary<string, string>)tag;
+                ControlManifestHelper manifestHelper = new ControlManifestHelper();
+                string mboxMessage = string.Empty;
+
+                switch (clickedNode)
+                {
+                    case "property":
+                        if (MessageBox.Show("Are you sure you want to remove this property?", mboxCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            manifestHelper.DeleteProperty(ParentControl.ControlDetails, details["Name"]);
+                        }
+                        break;
+                    case "type-group":
+                        int refCount = manifestHelper.RetrieveTypeGroupReferenceCount(ParentControl.ControlDetails, details["Name"]);
+                        mboxMessage = string.Empty;
+                        if (refCount > 0)
+                        {
+                            mboxMessage = $"There {(refCount == 1 ? "is" : "are")} {refCount} reference{(refCount == 1 ? "" : "s")} for this TypeGroup. Do you still want to remove this TypeGroup?\n" +
+                                $"Removing this TypeGroup will cause build errors. Recommendation is to select 'No' and fix the references then remove the TypeGroup.";    
+                        }
+                        else
+                        {
+                            mboxMessage = "Are you sure you want to remove this type group?";
+                        }
+
+                        if (MessageBox.Show(mboxMessage, mboxCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            manifestHelper.DeleteTypeGroup(ParentControl.ControlDetails, details["Name"]);
+                        }
+                        break;
+                    case "type":
+                        int typeCount = manifestHelper.RetrieveTypeInTypeGroupCount(ParentControl.ControlDetails, details["type-groups"]);
+                        mboxMessage = string.Empty;
+                        if (typeCount == 1)
+                        {
+                            mboxMessage = $"You are attempting to delete the last type in {details["type-groups"]} TypeGroup. Atleast one type is required in the TypeGroup. " +
+                                $"\nDo you still want to proceed?";
+                        }
+                        else
+                        {
+                            mboxMessage = "Are you sure you want to remove this type?";
+                        }
+
+                        if (MessageBox.Show(mboxMessage, mboxCaption, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            manifestHelper.DeleteTypeInTypeGroup(ParentControl.ControlDetails, details["type-groups"], details["type"]);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+                RefreshControlManifestDetails();
             }
+
         }
 
         private void InformProjectNeedsBuild()
@@ -263,6 +336,7 @@ namespace Maverick.PCF.Builder.Forms
         private void contextMenuNode_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             string nodeClickedName = string.Empty;
+            string operation = string.Empty;
 
             switch (e.ClickedItem.Text.ToLower())
             {
@@ -280,7 +354,16 @@ namespace Maverick.PCF.Builder.Forms
                     break;
             }
 
-            HandleNodeMenuClick(nodeClickedName, e.ClickedItem.Tag);
+            if (e.ClickedItem.Text.ToLower().Contains("add"))
+            {
+                operation = "add";
+            }
+            else
+            {
+                operation = "delete";
+            }
+
+            HandleNodeMenuClick(nodeClickedName, operation, e.ClickedItem.Tag);
         }
 
         private void btnCloseBuild_Click(object sender, EventArgs e)

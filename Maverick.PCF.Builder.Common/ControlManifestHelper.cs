@@ -385,5 +385,67 @@ namespace Maverick.PCF.Builder.Common
 
             manifestFile.Save(controlDetails.ManifestFilePath);
         }
+
+        public void DeleteProperty(ControlManifestDetails controlDetails, string propertyName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNode controlNode = manifestFile.SelectSingleNode($"/manifest/control");
+            XmlNode propertyNode = manifestFile.SelectSingleNode($"/manifest/control/property[@name='{propertyName}']");
+            controlNode.RemoveChild(propertyNode);
+
+            manifestFile.Save(controlDetails.ManifestFilePath);
+        }
+
+        public int RetrieveTypeGroupReferenceCount(ControlManifestDetails controlDetails, string typeGroupName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNodeList propertyNodes = manifestFile.SelectNodes($"/manifest/control/property[@of-type-group='{typeGroupName}']");
+
+            return propertyNodes.Count;
+        }
+
+        public void DeleteTypeGroup(ControlManifestDetails controlDetails, string tgName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNode controlNode = manifestFile.SelectSingleNode($"/manifest/control");
+            XmlNode typeGroupNode = manifestFile.SelectSingleNode($"manifest/control/type-group[@name='{tgName}']");
+            controlNode.RemoveChild(typeGroupNode);
+
+            manifestFile.Save(controlDetails.ManifestFilePath);
+        }
+
+        public void DeleteTypeInTypeGroup(ControlManifestDetails controlDetails, string tgName, string typeName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNode typeGroupNode = manifestFile.SelectSingleNode($"manifest/control/type-group[@name='{tgName}']");
+            XmlNodeList typeNodes = manifestFile.SelectNodes($"manifest/control/type-group[@name='{tgName}']/type");
+            foreach (XmlNode typeNode in typeNodes)
+            {
+                if (typeNode.InnerText == typeName)
+                {
+                    typeGroupNode.RemoveChild(typeNode);
+                }
+            }
+
+            manifestFile.Save(controlDetails.ManifestFilePath);
+        }
+
+        public int RetrieveTypeInTypeGroupCount(ControlManifestDetails controlDetails, string typeGroupName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNodeList tgTypeNodes = manifestFile.SelectNodes($"/manifest/control/type-group[@name='{typeGroupName}']/type");
+
+            return tgTypeNodes.Count;
+        }
     }
 }

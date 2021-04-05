@@ -37,6 +37,7 @@ namespace Maverick.PCF.Builder.Forms
             this.tvProperties = new System.Windows.Forms.TreeView();
             this.contextMenuNode = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.gboxNodeProperties.SuspendLayout();
             this.contextMenuNode.SuspendLayout();
@@ -104,17 +105,24 @@ namespace Maverick.PCF.Builder.Forms
             // contextMenuNode
             // 
             this.contextMenuNode.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmiAdd});
+            this.tsmiAdd,
+            this.tsmiDelete});
             this.contextMenuNode.Name = "contextMenuNode";
-            this.contextMenuNode.Size = new System.Drawing.Size(97, 26);
+            this.contextMenuNode.Size = new System.Drawing.Size(181, 70);
             this.contextMenuNode.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuNode_ItemClicked);
             // 
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(96, 22);
+            this.tsmiAdd.Size = new System.Drawing.Size(180, 22);
             this.tsmiAdd.Tag = "morpheus";
             this.tsmiAdd.Text = "Add";
+            // 
+            // tsmiDelete
+            // 
+            this.tsmiDelete.Name = "tsmiDelete";
+            this.tsmiDelete.Size = new System.Drawing.Size(180, 22);
+            this.tsmiDelete.Text = "Delete";
             // 
             // PropertiesForm
             // 
@@ -143,5 +151,6 @@ namespace Maverick.PCF.Builder.Forms
         private System.Windows.Forms.GroupBox gboxNodeProperties;
         private System.Windows.Forms.Panel pnlPropertiesContainer;
         private System.Windows.Forms.Button btnCloseBuild;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDelete;
     }
 }
