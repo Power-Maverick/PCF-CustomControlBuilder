@@ -20,7 +20,7 @@ namespace Maverick.PCF.Builder.Forms
         #region Properties
 
         public List<LanguageCode> SelectedLcids { get; set; }
-        public MainPluginControl ParentControl { get; set; }
+        public PCFBuilder ParentControl { get; set; }
 
         #endregion
 
@@ -42,7 +42,7 @@ namespace Maverick.PCF.Builder.Forms
         private List<LanguageCode> ProcessLanguageCodesFromJson()
         {
             List<LanguageCode> languageCodes = new List<LanguageCode>();
-            var fullLangCodeFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + "lcid.json";
+            var fullLangCodeFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\DataFiles\\lcid.json";
 
             using (StreamReader stream = File.OpenText(fullLangCodeFilePath))
             {
@@ -117,7 +117,7 @@ namespace Maverick.PCF.Builder.Forms
 
         private void btnAddLangCodes_Click(object sender, EventArgs e)
         {
-            var parent = this.ParentControl as MainPluginControl;
+            var parent = this.ParentControl as PCFBuilder;
             parent.SelectedLcids = SelectedLcids;
             this.Close();
         }
@@ -126,7 +126,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             if (this.SelectedLcids != null)
             {
-                var parent = this.ParentControl as MainPluginControl;
+                var parent = this.ParentControl as PCFBuilder;
                 parent.SelectedLcids = SelectedLcids;
             }
         }

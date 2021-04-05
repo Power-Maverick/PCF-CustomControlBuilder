@@ -73,11 +73,11 @@
             // 
             // lblTypes
             // 
-            this.lblTypes.AutoSize = true;
+            this.lblTypes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTypes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTypes.Location = new System.Drawing.Point(3, 0);
+            this.lblTypes.Location = new System.Drawing.Point(0, 0);
             this.lblTypes.Name = "lblTypes";
-            this.lblTypes.Size = new System.Drawing.Size(12, 15);
+            this.lblTypes.Size = new System.Drawing.Size(206, 68);
             this.lblTypes.TabIndex = 4;
             this.lblTypes.Text = "-";
             // 
@@ -89,7 +89,6 @@
             this.btnChangePreviewImage.TabIndex = 7;
             this.btnChangePreviewImage.Text = "Update";
             this.btnChangePreviewImage.UseVisualStyleBackColor = true;
-            this.btnChangePreviewImage.Visible = false;
             this.btnChangePreviewImage.Click += new System.EventHandler(this.btnChangePreviewImage_Click);
             // 
             // label2
@@ -116,13 +115,13 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.Firebrick;
             this.label3.Location = new System.Drawing.Point(9, 235);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(511, 13);
+            this.label3.Size = new System.Drawing.Size(192, 13);
             this.label3.TabIndex = 0;
-            this.label3.Text = "Preview Image only works for Model-driven apps. Controls with preview images migh" +
-    "t break in Canvas apps";
+            this.label3.Text = "Preview Image needs to be 17:13 ratio.";
             // 
             // lblDescription
             // 
@@ -164,16 +163,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(556, 287);
             this.Controls.Add(this.gboxPreviewImage);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "ShowPreviewImage";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "ShowPreviewImage";
+            this.Text = "Preview Control";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShowPreviewImage_FormClosing);
             this.gboxPreviewImage.ResumeLayout(false);
             this.gboxPreviewImage.PerformLayout();
             this.pnlTypes.ResumeLayout(false);
-            this.pnlTypes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxPreviewImage)).EndInit();
             this.ResumeLayout(false);
 

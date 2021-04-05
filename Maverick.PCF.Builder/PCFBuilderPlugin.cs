@@ -22,7 +22,7 @@ namespace Maverick.PCF.Builder
         ExportMetadata("BackgroundColor", "#D9D9D9"),
         ExportMetadata("PrimaryFontColor", "Blue"),
         ExportMetadata("SecondaryFontColor", "Blue")]
-    public class MainPlugin : PluginBase, IPayPalPlugin
+    public class PCFBuilderPlugin : PluginBase, IPayPalPlugin
     {
         public string DonationDescription => "Keeps the ball rolling and motivates in making awesome tools. You will get free stickers; I will need your mailing address.";
         public string EmailAccount => "danz@techgeek.co.in";
@@ -30,13 +30,13 @@ namespace Maverick.PCF.Builder
 
         public override IXrmToolBoxPluginControl GetControl()
         {
-            return new MainPluginControl();
+            return new PCFBuilder();
         }
 
         /// <summary>
         /// Constructor 
         /// </summary>
-        public MainPlugin()
+        public PCFBuilderPlugin()
         {
             // If you have external assemblies that you need to load, uncomment the following to 
             // hook into the event that will fire when an Assembly fails to resolve

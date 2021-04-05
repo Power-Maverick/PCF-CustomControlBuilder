@@ -88,7 +88,7 @@ namespace Maverick.PCF.Builder.UserControls
                 selectedTemplate.ParsedControlName = downloadUrl.Substring(downloadUrl.LastIndexOf("/", StringComparison.InvariantCultureIgnoreCase) + 1);
 
                 // 4 level: control --> flowpanel --> table --> actual form
-                var parent = this.Parent.Parent.Parent as Forms.Templates;
+                var parent = this.Parent.Parent.Parent as Forms.TemplatesForm;
                 parent.SelectedTemplate = selectedTemplate;
 
                 // Wait for GitHub code to be downloaded

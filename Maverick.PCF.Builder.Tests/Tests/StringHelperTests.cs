@@ -1,12 +1,16 @@
-﻿using Maverick.PCF.Builder.Common;
+﻿using Maverick.PCF.Builder.DataObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+#pragma warning disable CS0436 // Type conflicts with imported type
+using StringHelper = Maverick.PCF.Builder.Common.StringHelper;
+#pragma warning restore CS0436 // Type conflicts with imported type
 
 namespace Maverick.PCF.Builder.Tests
 {
     [TestClass]
     public class StringHelperTests
     {
+        #region Test Data: Parse PAC Version Output
+
         string output_English = @"Microsoft Windows [Version 10.0.19041.746]
                                 (c) 2020 Microsoft Corporation. All rights reserved.
 
@@ -96,6 +100,23 @@ namespace Maverick.PCF.Builder.Tests
 
                                         C:\Users\Danish>exit";
 
+        #endregion
+
+        #region Test Data: Parse Org Details
+
+        string output_OrgDetailsExists = @"Organization Information
+                                      Org ID:                     12345678-795b-42f2-96cf-123456781234
+                                      Unique Name:                org1234db
+                                      Friendly Name:              Sandbox Environment
+                                      Org URL:                    https://test.crm.dynamics.com/
+                                      User ID:                    admin@test.onmicrosoft.com (12345678-123b-42f2-1234-123456781234)";
+
+        string output_OrgDetailsDoNotExists = @"Error: No profiles were found on this computer. Please run 'pac auth create' to create one.";
+
+        string output_OrgDetailsError = @"Error: Unable to login to Dynamics CRM.";
+
+        #endregion
+
         [TestMethod]
         public void ParsePacVersionOutput_English_GetVersion_Test()
         {
@@ -140,5 +161,41 @@ namespace Maverick.PCF.Builder.Tests
 
             Assert.IsTrue(details.UnableToDetectCLIVersion);
         }
+
+        [TestMethod]
+        public void ExtractOrgDetails_OrgDetailsExists_Test()
+        {
+            StringHelper test = new StringHelper();
+            var details = test.ExtractOrgDetails(output_OrgDetailsExists);
+
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.Found);
+        }
+
+        [TestMethod]
+        public void ExtractOrgDetails_OrgDetailsDoNotExists_Test()
+        {
+            StringHelper test = new StringHelper();
+            var details = test.ExtractOrgDetails(output_OrgDetailsDoNotExists);
+
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.NotFound);
+        }
+
+        [TestMethod]
+        public void ExtractOrgDetails_Error_Test()
+        {
+            StringHelper test = new StringHelper();
+            var details = test.ExtractOrgDetails(output_OrgDetailsError);
+
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.Error);
+        }
+
+        [TestMethod]
+        public void ParseOrgDetails_OrgDetailsExists_Test()
+        {
+            StringHelper test = new StringHelper();
+            var details = test.ParseOrgDetails(output_OrgDetailsExists);
+
+        }
+
     }
 }

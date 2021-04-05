@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace Maverick.PCF.Builder.Helper
 {
-    public class XmlHelper
+    public static class XmlHelper
     {
         public static bool NewLineOnAttributes { get; set; }
         /// <summary>
@@ -100,6 +100,13 @@ namespace Maverick.PCF.Builder.Helper
             {
                 sr.Close();
             }
+        }
+
+        public static XmlAttribute CreateNewAttribute(this XmlDocument doc, string attributeName, string attributeValue)
+        {
+            XmlAttribute attribute = doc.CreateAttribute(attributeName);
+            attribute.Value = attributeValue;
+            return attribute;
         }
     }
 }

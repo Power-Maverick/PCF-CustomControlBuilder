@@ -1,0 +1,50 @@
+[
+  {
+    "DataTypeName": "Currency"
+  },
+  {
+    "DataTypeName": "DateAndTime.DateAndTime"
+  },
+  {
+    "DataTypeName": "DateAndTime.DateOnly"
+  },
+  {
+    "DataTypeName": "Decimal"
+  },
+  {
+    "DataTypeName": "Enum"
+  },
+  {
+    "DataTypeName": "FP"
+  },
+  {
+    "DataTypeName": "Multiple"
+  },
+  {
+    "DataTypeName": "OptionSet"
+  },
+  {
+    "DataTypeName": "SingleLine.Email"
+  },
+  {
+    "DataTypeName": "SingleLine.Phone"
+  },
+  {
+    "DataTypeName": "SingleLine.Text"
+  },
+  {
+    "DataTypeName": "SingleLine.TextArea"
+  },
+  {
+    "DataTypeName": "SingleLine.Ticker"
+  },
+  {
+    "DataTypeName": "SingleLine.URL"
+  },
+  {
+    "DataTypeName": "TwoOptions"
+  },
+  {
+    "DataTypeName": "Whole.None"
+  }
+]
