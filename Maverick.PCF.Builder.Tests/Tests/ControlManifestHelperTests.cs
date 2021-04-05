@@ -18,8 +18,10 @@ namespace Maverick.PCF.Builder.Tests
             details.ManifestFilePath = $"{details.WorkingFolderPath}\\{details.ControlName}\\ControlManifest.Input.xml";
             details.FoundControlDetails = true;
 
+#if DEBUG
             ControlManifestHelper helper = new ControlManifestHelper();
-            helper.FetchProperties(details);
+            helper.FetchProperties(details); 
+#endif
         }
     }
 }
