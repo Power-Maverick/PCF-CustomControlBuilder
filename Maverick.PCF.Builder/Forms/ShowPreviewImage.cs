@@ -25,7 +25,7 @@ namespace Maverick.PCF.Builder.Forms
             _controlDetails = details;
             lblDisplayName.Text = _controlDetails.ControlDisplayName;
             lblDescription.Text = _controlDetails.ControlDescription;
-            lblTypes.Text = String.Join(",\n", _controlDetails.SupportedTypes);
+            lblTypes.Text = String.Join(", ", _controlDetails.TypeGroups.FirstOrDefault().Types);
 
             pboxPreviewImage.ImageLocation = _controlDetails.PreviewImagePath;
         }

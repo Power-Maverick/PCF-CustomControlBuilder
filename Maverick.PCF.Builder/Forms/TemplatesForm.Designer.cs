@@ -1,6 +1,6 @@
 ﻿namespace Maverick.PCF.Builder.Forms
 {
-    partial class Templates
+    partial class TemplatesForm
     {
         /// <summary>
         /// Required designer variable.

@@ -12,10 +12,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Maverick.PCF.Builder</RootNamespace>
     <AssemblyName>Maverick.PCF.Builder</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -237,11 +238,11 @@
     <Compile Include="Forms\ShowPreviewImage.Designer.cs">
       <DependentUpon>ShowPreviewImage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Templates.cs">
+    <Compile Include="Forms\TemplatesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Templates.Designer.cs">
-      <DependentUpon>Templates.cs</DependentUpon>
+    <Compile Include="Forms\TemplatesForm.Designer.cs">
+      <DependentUpon>TemplatesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="PCFBuilderPlugin.cs" />
     <Compile Include="PCFBuilder.cs">
@@ -262,6 +263,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Templates\sampleLocalization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>sampleLocalization.resx</DependentUpon>
+    </Compile>
     <Compile Include="ToolSettings\MostRecentlyUsedLocations.cs" />
     <Compile Include="UserControls\LcidControl.cs">
       <SubType>UserControl</SubType>
@@ -269,14 +275,35 @@
     <Compile Include="UserControls\LcidControl.Designer.cs">
       <DependentUpon>LcidControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PropertyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PropertyControl.Designer.cs">
+      <DependentUpon>PropertyControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Template.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\Template.Designer.cs">
       <DependentUpon>Template.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TypeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TypeControl.Designer.cs">
+      <DependentUpon>TypeControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TypeGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\TypeGroupControl.Designer.cs">
+      <DependentUpon>TypeGroupControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataFiles\SupportedDataTypes.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ILMerge.props" />
     <None Include="Resources\BeanEater.gif" />
     <Content Include="Console.ico" />
@@ -295,7 +322,7 @@
     </Content>
     <None Include="app.config" />
     <None Include="ApplicationInsights.config" />
-    <Content Include="DataSampleFiles\lcid.json">
+    <Content Include="DataFiles\lcid.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
@@ -324,14 +351,17 @@
     <EmbeddedResource Include="Forms\LanguageCodeSelector.resx">
       <DependentUpon>LanguageCodeSelector.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PropertiesForm.resx">
+      <DependentUpon>PropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ShowPreviewImage.resx">
       <DependentUpon>ShowPreviewImage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Templates.resx">
-      <DependentUpon>Templates.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\TemplatesForm.resx">
+      <DependentUpon>TemplatesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PCFBuilder.resx">
       <DependentUpon>PCFBuilder.cs</DependentUpon>
@@ -348,8 +378,17 @@
     <EmbeddedResource Include="UserControls\LcidControl.resx">
       <DependentUpon>LcidControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PropertyControl.resx">
+      <DependentUpon>PropertyControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\Template.resx">
       <DependentUpon>Template.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TypeControl.resx">
+      <DependentUpon>TypeControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\TypeGroupControl.resx">
+      <DependentUpon>TypeGroupControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -360,27 +399,34 @@
   <Import Project="..\Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems" Label="Shared" />
   <Import Project="..\Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems" Label="Shared" />
   <Import Project="..\Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems" Label="Shared" />
+  <Import Project="..\Maverick.PCF.Builder.Extensions\Maverick.PCF.Builder.Extensions.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST  "Templates" mkdir "Templates"
- xcopy "sampleLocalization.resx" "Templates" /q/y
+xcopy "sampleLocalization.resx" "Templates" /q/y
 xcopy "sampleManifestDataset.xml" "Templates" /q/y
 xcopy "sampleManifestField.xml" "Templates" /q/y
 xcopy "sampleStyle.css" "Templates" /q/y
 xcopy "samplePowerUp.png" "Templates" /q/y
+
+IF NOT EXIST  "DataFiles" mkdir "DataFiles"
+xcopy "lcid.json" "DataFiles" /q/y
+xcopy "SupportedDataTypes.json" "DataFiles" /q/y
 
 IF $(ConfigurationName) == Debug (
       IF NOT EXIST Plugins mkdir Plugins
       xcopy "$(TargetDir)$(TargetFileName)" "$(TargetDir)Plugins\" /Y
       xcopy "$(TargetDir)$(TargetName).pdb" "$(TargetDir)Plugins\" /Y
       xcopy "msbuild.ps1" "Plugins\Maverick.PCF.Builder\" /q/y
-      xcopy "lcid.json" "Plugins\Maverick.PCF.Builder\" /q/y
 
       IF NOT EXIST "Plugins\Maverick.PCF.Builder\CoreTools" mkdir "Plugins\Maverick.PCF.Builder\CoreTools"
       xcopy "CoreTools" "Plugins\Maverick.PCF.Builder\CoreTools" /q/y
 
-       IF NOT EXIST  "Plugins\Maverick.PCF.Builder\Templates" mkdir "Plugins\Maverick.PCF.Builder\Templates"
-       xcopy  "Templates" "Plugins\Maverick.PCF.Builder\Templates" /q/y
+      IF NOT EXIST  "Plugins\Maverick.PCF.Builder\Templates" mkdir "Plugins\Maverick.PCF.Builder\Templates"
+      xcopy  "Templates" "Plugins\Maverick.PCF.Builder\Templates" /q/y
+
+      IF NOT EXIST  "Plugins\Maverick.PCF.Builder\DataFiles" mkdir "Plugins\Maverick.PCF.Builder\DataFiles"
+      xcopy  "DataFiles" "Plugins\Maverick.PCF.Builder\DataFiles" /q/y
 )</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>

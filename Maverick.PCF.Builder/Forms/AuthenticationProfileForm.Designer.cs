@@ -140,6 +140,7 @@
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lstProfiles);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AuthenticationProfileForm";
             this.Text = "AuthenticationProfiles";
             this.ResumeLayout(false);

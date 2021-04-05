@@ -60,6 +60,7 @@ namespace Maverick.PCF.Builder
         public ControlManifestDetails ControlDetails { get; set; }
         public SolutionDetails DataverseSolutionDetails { get; set; }
         public List<LanguageCode> SelectedLcids { get; set; }
+        public bool InitiatePCFProjectBuild { get; set; }
 
         public enum ProcessingStatus
         {
@@ -185,6 +186,14 @@ namespace Maverick.PCF.Builder
             btnShowMRULocations.Text = dgvMRULocations.Visible ? "🔼" : "🔽";
         }
 
+        private void BuildPCFProject()
+        {
+            string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
+            string npmCommand = Commands.Npm.RunBuild();
+
+            RunCommandLine(cdWorkingDir, npmCommand);
+        }
+
         #endregion
 
         #region Custom Functions
@@ -290,17 +299,15 @@ namespace Maverick.PCF.Builder
             return isValid;
         }
 
-        private bool codeFileExists(string directoryPath)
+        private bool VerifyCodeFileExists(string directoryPath)
         {
-            DirectoryInfo dir = new DirectoryInfo(directoryPath);
-            FileInfo[] files = dir.GetFiles("*.ts");
-
-            if (files.Length > 0)
+            var resp = ControlManifest.CodeFileExists(directoryPath);
+            if (!string.IsNullOrEmpty(resp))
             {
-                SendMessageToStatusBar.Invoke(this, new StatusBarMessageEventArgs($"Code file found with name {files[0].Name}"));
+                SendMessageToStatusBar.Invoke(this, new StatusBarMessageEventArgs($"Code file found with name {resp}"));
             }
 
-            return files.Length > 0 ? true : false;
+            return !string.IsNullOrEmpty(resp);
         }
 
         private void Routine_NewComponent()
@@ -489,129 +496,22 @@ namespace Maverick.PCF.Builder
 
         private void IdentifyControlDetails()
         {
-            ControlDetails = new ControlManifestDetails();
-
             try
             {
-                bool loadEditRoutine = false;
-                ControlDetails.FoundControlDetails = false;
-
                 var start = DateTime.Now;
-                var mainDirs = Directory.GetDirectories(txtWorkingFolder.Text);
-                ControlDetails.WorkingFolderPath = txtWorkingFolder.Text;
-                if (mainDirs != null && mainDirs.Count() > 0)
-                {
-                    // Check if .pcfproj does not already exists
-                    var filteredPcfProject = mainDirs.ToList().Where(l => (!l.ToLower().EndsWith(".pcfproj")));
-                    if (filteredPcfProject != null && filteredPcfProject.Count() > 0)
-                    {
-                        var pcfDirs = Directory.GetDirectories(txtWorkingFolder.Text);
-                        if (pcfDirs != null && pcfDirs.Count() > 0)
-                        {
-                            var filteredPcfDirs = pcfDirs.ToList().Where(l => (!l.ToLower().EndsWith("node_modules")) && (!l.ToLower().EndsWith("obj")) && (!l.ToLower().EndsWith("out")));
-                            foreach (var currentDir in filteredPcfDirs)
-                            {
-                                var indexExists = codeFileExists(currentDir); //File.Exists(item + "\\" + "index.ts");
-                                if (indexExists)
-                                {
-                                    loadEditRoutine = true;
-                                    ControlDetails.FoundControlDetails = true;
 
-                                    ControlDetails.ControlName = Path.GetFileName(currentDir);
-                                    var controlManifestFile = currentDir + "\\" + "ControlManifest.Input.xml";
-                                    ControlDetails.ManifestFilePath = controlManifestFile;
-                                    XmlReader xmlReader = XmlReader.Create(ControlDetails.ManifestFilePath);
-                                    bool readFirstProperty = false;
-                                    string ofTypeGroupName = string.Empty;
+                ControlDetails = ControlManifest.GetControlManifestDetails(txtWorkingFolder.Text);
 
-                                    while (xmlReader.Read())
-                                    {
-                                        if (xmlReader.NodeType == XmlNodeType.Element)
-                                        {
-                                            switch (xmlReader.Name)
-                                            {
-                                                case "control":
-                                                    ControlDetails.Namespace = xmlReader.GetAttribute("namespace");
-                                                    ControlDetails.Version = xmlReader.GetAttribute("version");
-                                                    ControlDetails.ControlDisplayName = xmlReader.GetAttribute("display-name-key");
-                                                    ControlDetails.ControlDescription = xmlReader.GetAttribute("description-key");
-
-                                                    if (xmlReader.GetAttribute("preview-image") != null)
-                                                    {
-                                                        var sanitizedPreviewImageRelativePath = xmlReader.GetAttribute("preview-image").Replace("/", "\\");
-                                                        ControlDetails.PreviewImagePath = $"{currentDir}\\{sanitizedPreviewImageRelativePath}";
-                                                    }
-
-                                                    break;
-                                                case "property":
-                                                    if ((xmlReader.GetAttribute("usage") == "bound") && !readFirstProperty)
-                                                    {
-                                                        readFirstProperty = true;
-                                                        if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type")))
-                                                        {
-                                                            ControlDetails.SupportedTypes.Add(xmlReader.GetAttribute("of-type"));
-                                                        }
-                                                        else if (!string.IsNullOrEmpty(xmlReader.GetAttribute("of-type-group")))
-                                                        {
-                                                            ofTypeGroupName = xmlReader.GetAttribute("of-type-group");
-                                                        }
-                                                    }
-                                                    break;
-                                                case "type-group":
-                                                    if (xmlReader.GetAttribute("name") == ofTypeGroupName)
-                                                    {
-                                                        XmlReader xmlSubtreeReader = xmlReader.ReadSubtree();
-                                                        while (xmlSubtreeReader.Read())
-                                                        {
-                                                            if (xmlSubtreeReader.NodeType == XmlNodeType.Element && xmlSubtreeReader.Name == "type")
-                                                            {
-                                                                xmlSubtreeReader.Read();
-                                                                ControlDetails.SupportedTypes.Add(xmlSubtreeReader.ReadContentAsString());
-                                                            }
-                                                        }
-                                                        xmlSubtreeReader.Close();
-                                                    }
-                                                    break;
-                                                case "data-set":
-                                                    ControlDetails.IsDatasetTemplate = true;
-                                                    break;
-                                                case "css":
-                                                    ControlDetails.ExistsCSS = true;
-                                                    break;
-                                                case "resx":
-                                                    ControlDetails.ExistsResx = true;
-                                                    break;
-                                                default:
-                                                    break;
-                                            }
-                                        }
-
-                                    }
-                                    xmlReader.Close();
-
-                                    break;
-                                }
-
-                            }
-                            _mainPluginLocalWorker = new BackgroundWorker();
-                            _mainPluginLocalWorker.DoWork += IdentifyAdditionalPackage;
-                            _mainPluginLocalWorker.RunWorkerAsync();
-                        }
-                    }
-                }
-                else
-                {
-                    //MessageBox.Show("Could not retrieve existing PCF project and CDS solution project details.");
-                    loadEditRoutine = false;
-                    ControlDetails.FoundControlDetails = false;
-                }
+                _mainPluginLocalWorker = new BackgroundWorker();
+                _mainPluginLocalWorker.DoWork += IdentifyAdditionalPackage;
+                _mainPluginLocalWorker.RunWorkerAsync();
 
                 if (!string.IsNullOrEmpty(ControlDetails.ControlName))
                 {
                     IdentifySolutionDetails();
                 }
 
-                if (loadEditRoutine)
+                if (ControlDetails.FoundControlDetails)
                 {
                     Routine_EditComponent();
                 }
@@ -1013,7 +913,7 @@ namespace Maverick.PCF.Builder
                                 var filteredPcfDirs = pcfDirs.ToList().Where(l => (!l.ToLower().EndsWith("node_modules")) && (!l.ToLower().EndsWith("obj")) && (!l.ToLower().EndsWith("out")));
                                 foreach (var item in filteredPcfDirs)
                                 {
-                                    var indexExists = codeFileExists(item); //File.Exists(item + "\\" + "index.ts");
+                                    var indexExists = VerifyCodeFileExists(item); //File.Exists(item + "\\" + "index.ts");
                                     if (indexExists)
                                     {
                                         txtControlName.Text = Path.GetFileName(item);
@@ -1862,7 +1762,7 @@ namespace Maverick.PCF.Builder
                     InitCommandLine();
                 }
 
-                var ctrlTemplates = new Templates(txtWorkingFolder.Text);
+                var ctrlTemplates = new TemplatesForm(txtWorkingFolder.Text);
                 ctrlTemplates.StartPosition = FormStartPosition.CenterScreen;
                 ctrlTemplates.ParentControl = this;
                 ctrlTemplates.ShowDialog();
@@ -2096,10 +1996,7 @@ namespace Maverick.PCF.Builder
             if (areMainControlsValid)
             {
                 IncrementComponentVersion();
-                string cdWorkingDir = Commands.Cmd.ChangeDirectory($"{txtWorkingFolder.Text}\\{txtControlName.Text}");
-                string npmCommand = Commands.Npm.RunBuild();
-
-                RunCommandLine(cdWorkingDir, npmCommand);
+                BuildPCFProject();
             }
         }
 
@@ -2474,6 +2371,19 @@ namespace Maverick.PCF.Builder
             consoleControl.Dispose();
         }
 
+        /// <summary>
+        /// This event occurs when the connection has been updated in XrmToolBox
+        /// </summary>
+        public override void UpdateConnection(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
+        {
+            base.UpdateConnection(newService, detail, actionName, parameter);
+
+            if (detail != null)
+            {
+                LogInfo("Connection has changed to: {0}", detail.WebApplicationUrl);
+            }
+        }
+
         private void btnShowMRULocations_Click(object sender, EventArgs e)
         {
             ToggleMRULocationGrid();
@@ -2662,10 +2572,7 @@ namespace Maverick.PCF.Builder
                     break;
             }
         }
-
-
-        #endregion
-
+        
         private void btnOpenSolutionInExplorer_Click(object sender, EventArgs e)
         {
             var isValid = AreSolutionDetailsPopulated();
@@ -2675,5 +2582,22 @@ namespace Maverick.PCF.Builder
                 Process.Start("explorer.exe", string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}"));
             }
         }
+
+        private void btnManageProperties_Click(object sender, EventArgs e)
+        {
+            var propertiesForm = new PropertiesForm(this);
+            propertiesForm.StartPosition = FormStartPosition.CenterScreen;
+            propertiesForm.ShowDialog();
+
+            ControlDetails = ControlManifest.GetControlManifestDetails(txtWorkingFolder.Text);
+            if (InitiatePCFProjectBuild)
+            {
+                BuildPCFProject();
+            }
+        }
+
+        #endregion
+
+
     }
 }

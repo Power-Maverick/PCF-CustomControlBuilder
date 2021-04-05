@@ -20,15 +20,18 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		PCF-CustomControlBuilder.nuspec = PCF-CustomControlBuilder.nuspec
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.Extensions", "Maverick.PCF.Builder.Extensions\Maverick.PCF.Builder.Extensions.shproj", "{135BE41D-FFC2-40B1-ACB5-EBC2309014B2}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Maverick.PCF.Builder.Extensions\Maverick.PCF.Builder.Extensions.projitems*{135be41d-ffc2-40b1-acb5-ebc2309014b2}*SharedItemsImports = 13
 		Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems*{4f359fa0-a3fa-4cca-a14a-2e228db5672e}*SharedItemsImports = 13
 		Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems*{59bd7754-9b8d-491c-a7b2-3707a2e88946}*SharedItemsImports = 13
-		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{7d7f3111-7c20-4a13-81b4-1d025daad079}*SharedItemsImports = 4
 		Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems*{ac1e43d7-19d3-4479-8279-a82ac07db18a}*SharedItemsImports = 13
 		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{c4596662-c090-409d-9dd7-b48467a27bea}*SharedItemsImports = 13
 		Maverick.PCF.Builder.Common\Maverick.PCF.Builder.Common.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
 		Maverick.PCF.Builder.DataObjects\Maverick.PCF.Builder.DataObjects.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
+		Maverick.PCF.Builder.Extensions\Maverick.PCF.Builder.Extensions.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
 		Maverick.PCF.Builder.Helper\Maverick.PCF.Builder.Helper.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
 		Maverick.PCF.Builder.SealedClasses\Maverick.PCF.Builder.SealedClasses.projitems*{fc42397b-0a52-4491-8eee-764a5b283282}*SharedItemsImports = 4
 	EndGlobalSection

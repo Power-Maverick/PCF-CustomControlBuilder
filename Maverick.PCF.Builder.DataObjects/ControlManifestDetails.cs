@@ -11,11 +11,12 @@ namespace Maverick.PCF.Builder.DataObjects
         public ControlManifestDetails()
         {
             // Atleast one value will exists
-            SupportedTypes = new List<string>();
+            TypeGroups = new List<TypeGroup>();
             IsDatasetTemplate = false;
             ExistsCSS = false;
             ExistsResx = false;
             PreviewImagePath = null;
+            Properties = new List<ControlProperty>();
         }
 
         public string WorkingFolderPath { get; set; }
@@ -25,12 +26,13 @@ namespace Maverick.PCF.Builder.DataObjects
         public string ControlName { get; set; }
         public string ControlDisplayName { get; set; }
         public string ControlDescription { get; set; }
-        public List<string> SupportedTypes { get; set; }
+        public List<TypeGroup> TypeGroups { get; set; }
         public string PreviewImagePath { get; set; }
         public string Version { get; set; }
         public bool IsDatasetTemplate { get; set; }
         public bool ExistsCSS { get; set; }
         public bool ExistsResx { get; set; }
         public int AdditionalPackageIndex { get; set; }
+        public List<ControlProperty> Properties { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace Maverick.PCF.Builder.Common
             {
                 case OrganizationInfo.Status.Found:
                     parsedOrgDetails += "Org URL:           " + extractedDetails.OrgUrl + "\n";
-                    parsedOrgDetails += "User Id:            " + extractedDetails.UserId + "\n";
+                    parsedOrgDetails += "User Id:             " + extractedDetails.UserId + "\n";
                     parsedOrgDetails += "Friendly Name:  " + extractedDetails.FriendlyName + "\n";
                     parsedOrgDetails += "Unique Name:   " + extractedDetails.UniqueName + "\n";
                     parsedOrgDetails += "Org Id:               " + extractedDetails.OrgId + "\n";

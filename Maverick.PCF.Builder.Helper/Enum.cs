@@ -18,6 +18,12 @@ namespace Maverick.PCF.Builder.Helper
             RESX
         }
 
+        public enum UsageType
+        {
+            bound,
+            input
+        }
+
         public static Dictionary<string, string> AdditionalPackages()
         {
             Dictionary<string, string> packages = new Dictionary<string, string>();
@@ -55,6 +61,13 @@ namespace Maverick.PCF.Builder.Helper
                 default:
                     return $"{initialMark} Unknown Type";
             }
+        }
+
+        public static List<System.Enum> GetEnumForDropDown(Type enumType)
+        {
+           return System.Enum.GetValues(enumType)
+                                .Cast<System.Enum>()
+                                .ToList();
         }
     }
 }

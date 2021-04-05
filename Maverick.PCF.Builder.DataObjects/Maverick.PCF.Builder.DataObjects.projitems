@@ -11,11 +11,14 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AuthenticationProfile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ControlManifestDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ControlProperty.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)OrganizationInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)LanguageCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PacVersionParsedDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PcfGallery.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PublisherDetails.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SolutionDetails.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SupportedDataTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TypeGroup.cs" />
   </ItemGroup>
 </Project>

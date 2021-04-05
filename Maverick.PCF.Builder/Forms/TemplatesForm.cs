@@ -15,7 +15,7 @@ using Maverick.PCF.Builder.UserControls;
 
 namespace Maverick.PCF.Builder.Forms
 {
-    public partial class Templates : Form
+    public partial class TemplatesForm : Form
     {
         #region Properties
 
@@ -127,7 +127,7 @@ namespace Maverick.PCF.Builder.Forms
 
         #endregion
 
-        public Templates(string _workingDir)
+        public TemplatesForm(string _workingDir)
         {
             InitializeComponent();
             

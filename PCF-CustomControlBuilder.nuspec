@@ -34,7 +34,8 @@ None
   <files>
     <file src="PCFCustomControlBuilder\bin\Release\Maverick.PCF.Builder.dll" target="lib\net462\Plugins" />
     <file src="PCFCustomControlBuilder\bin\Release\MainIcon.png" target="" />
-    <file src="PCFCustomControlBuilder\bin\Release\lcid.json" target="lib\net462\Plugins\Maverick.PCF.Builder" />
+    <file src="PCFCustomControlBuilder\bin\Release\lcid.json" target="lib\net462\Plugins\Maverick.PCF.Builder\DataFiles" />
+    <file src="PCFCustomControlBuilder\bin\Release\SupportedDataTypes.json" target="lib\net462\Plugins\Maverick.PCF.Builder\DataFiles" />
     <file src="PCFCustomControlBuilder\bin\Release\MsBuild.ps1" target="lib\net462\Plugins\Maverick.PCF.Builder" />
     <file src="PCFCustomControlBuilder\bin\Release\CoreTools\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder\CoreTools" />
     <file src="PCFCustomControlBuilder\bin\Release\Templates\*.*" target="lib\net462\Plugins\Maverick.PCF.Builder\Templates" />

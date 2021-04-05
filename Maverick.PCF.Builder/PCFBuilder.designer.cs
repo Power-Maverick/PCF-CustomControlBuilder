@@ -757,6 +757,7 @@
             this.btnManageProperties.TabIndex = 37;
             this.toolTip.SetToolTip(this.btnManageProperties, "Update Control Details (Display Name, Description, etc.)");
             this.btnManageProperties.UseVisualStyleBackColor = true;
+            this.btnManageProperties.Click += new System.EventHandler(this.btnManageProperties_Click);
             // 
             // lblControlInitStatus
             // 

@@ -42,7 +42,7 @@ namespace Maverick.PCF.Builder.Forms
         private List<LanguageCode> ProcessLanguageCodesFromJson()
         {
             List<LanguageCode> languageCodes = new List<LanguageCode>();
-            var fullLangCodeFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\" + "lcid.json";
+            var fullLangCodeFilePath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Name + "\\DataFiles\\lcid.json";
 
             using (StreamReader stream = File.OpenText(fullLangCodeFilePath))
             {
