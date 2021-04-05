@@ -168,7 +168,7 @@ namespace Maverick.PCF.Builder.Tests
             StringHelper test = new StringHelper();
             var details = test.ExtractOrgDetails(output_OrgDetailsExists);
 
-            Assert.Equals(details.ParseStatus, OrganizationInfo.Status.Found);
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.Found);
         }
 
         [TestMethod]
@@ -177,7 +177,7 @@ namespace Maverick.PCF.Builder.Tests
             StringHelper test = new StringHelper();
             var details = test.ExtractOrgDetails(output_OrgDetailsDoNotExists);
 
-            Assert.Equals(details.ParseStatus, OrganizationInfo.Status.NotFound);
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.NotFound);
         }
 
         [TestMethod]
@@ -186,7 +186,7 @@ namespace Maverick.PCF.Builder.Tests
             StringHelper test = new StringHelper();
             var details = test.ExtractOrgDetails(output_OrgDetailsError);
 
-            Assert.Equals(details.ParseStatus, OrganizationInfo.Status.Error);
+            Assert.AreEqual(details.ParseStatus, OrganizationInfo.Status.Error);
         }
 
         [TestMethod]

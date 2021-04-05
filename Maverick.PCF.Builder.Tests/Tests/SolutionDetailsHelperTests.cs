@@ -14,10 +14,10 @@ namespace Maverick.PCF.Builder.Tests
             solutionDetails.FoundSolutionDetails = true;
             solutionDetails.PackageType = SolutionPackageType.Managed;
             solutionDetails.ProjectFilePath = @"C:\PowerMeUpExamples\TestNewDesign\Solution\TestingSolution\TestingSolution.cdsproj";
-
-
+#if DEBUG
             SolutionDetailsHelper helper = new SolutionDetailsHelper();
             helper.UpdateSolutionPackageType(solutionDetails);
+#endif
         }
 
         [TestMethod]
@@ -28,9 +28,10 @@ namespace Maverick.PCF.Builder.Tests
             solutionDetails.PackageType = SolutionPackageType.Unmanaged;
             solutionDetails.ProjectFilePath = @"C:\PowerMeUpExamples\TestNewDesign\Solution\TestingSolution\TestingSolution.cdsproj";
 
-
+#if DEBUG
             SolutionDetailsHelper helper = new SolutionDetailsHelper();
             helper.UpdateSolutionPackageType(solutionDetails);
+#endif
         }
 
         [TestMethod]
@@ -41,9 +42,10 @@ namespace Maverick.PCF.Builder.Tests
             solutionDetails.PackageType = SolutionPackageType.Both;
             solutionDetails.ProjectFilePath = @"C:\PowerMeUpExamples\TestNewDesign\Solution\TestingSolution\TestingSolution.cdsproj";
 
-
+#if DEBUG
             SolutionDetailsHelper helper = new SolutionDetailsHelper();
             helper.UpdateSolutionPackageType(solutionDetails);
+#endif
         }
     }
 }
