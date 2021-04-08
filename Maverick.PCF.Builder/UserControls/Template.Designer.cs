@@ -41,10 +41,12 @@
             this.imgCanvasApp = new System.Windows.Forms.PictureBox();
             this.imgLicense = new System.Windows.Forms.PictureBox();
             this.toolTipTemplate = new System.Windows.Forms.ToolTip(this.components);
+            this.imgPortals = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgPcfControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgModelDriven)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgCanvasApp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLicense)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPortals)).BeginInit();
             this.SuspendLayout();
             // 
             // imgPcfControl
@@ -98,7 +100,7 @@
             this.btnDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDownload.Image = ((System.Drawing.Image)(resources.GetObject("btnDownload.Image")));
-            this.btnDownload.Location = new System.Drawing.Point(617, 39);
+            this.btnDownload.Location = new System.Drawing.Point(617, 14);
             this.btnDownload.Name = "btnDownload";
             this.btnDownload.Size = new System.Drawing.Size(60, 60);
             this.btnDownload.TabIndex = 5;
@@ -108,7 +110,7 @@
             // lblDownload
             // 
             this.lblDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblDownload.Location = new System.Drawing.Point(617, 106);
+            this.lblDownload.Location = new System.Drawing.Point(617, 81);
             this.lblDownload.Name = "lblDownload";
             this.lblDownload.Size = new System.Drawing.Size(60, 23);
             this.lblDownload.TabIndex = 6;
@@ -142,7 +144,7 @@
             // imgLicense
             // 
             this.imgLicense.Image = ((System.Drawing.Image)(resources.GetObject("imgLicense.Image")));
-            this.imgLicense.Location = new System.Drawing.Point(214, 36);
+            this.imgLicense.Location = new System.Drawing.Point(653, 117);
             this.imgLicense.Name = "imgLicense";
             this.imgLicense.Size = new System.Drawing.Size(24, 24);
             this.imgLicense.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -151,11 +153,24 @@
             this.imgLicense.Visible = false;
             this.imgLicense.MouseHover += new System.EventHandler(this.imgLicense_MouseHover);
             // 
+            // imgPortals
+            // 
+            this.imgPortals.Image = ((System.Drawing.Image)(resources.GetObject("imgPortals.Image")));
+            this.imgPortals.Location = new System.Drawing.Point(214, 36);
+            this.imgPortals.Name = "imgPortals";
+            this.imgPortals.Size = new System.Drawing.Size(24, 24);
+            this.imgPortals.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgPortals.TabIndex = 10;
+            this.imgPortals.TabStop = false;
+            this.imgPortals.Visible = false;
+            this.imgPortals.MouseHover += new System.EventHandler(this.imgPortals_MouseHover);
+            // 
             // Template
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.Controls.Add(this.imgPortals);
             this.Controls.Add(this.imgLicense);
             this.Controls.Add(this.imgCanvasApp);
             this.Controls.Add(this.imgModelDriven);
@@ -172,6 +187,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.imgModelDriven)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgCanvasApp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgLicense)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgPortals)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,5 +206,6 @@
         private System.Windows.Forms.PictureBox imgCanvasApp;
         private System.Windows.Forms.PictureBox imgLicense;
         private System.Windows.Forms.ToolTip toolTipTemplate;
+        private System.Windows.Forms.PictureBox imgPortals;
     }
 }

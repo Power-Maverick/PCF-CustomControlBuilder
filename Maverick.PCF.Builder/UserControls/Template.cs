@@ -25,7 +25,7 @@ namespace Maverick.PCF.Builder.UserControls
             InitializeComponent();
         }
 
-        public Template(Image image, string controlName, string authorName, string description, string linkToPcfGallery, string downloadLink, string workingDirLocation, bool supportModelDrivenApp, bool supportCanvasApp, bool containsLicense)
+        public Template(Image image, string controlName, string authorName, string description, string linkToPcfGallery, string downloadLink, string workingDirLocation, bool supportModelDrivenApp, bool supportCanvasApp, bool supportPortals, bool containsLicense)
         {
             InitializeComponent();
 
@@ -49,6 +49,7 @@ namespace Maverick.PCF.Builder.UserControls
 
             imgModelDriven.Visible = supportModelDrivenApp;
             imgCanvasApp.Visible = supportCanvasApp;
+            imgPortals.Visible = supportPortals;
             imgLicense.Visible = containsLicense;
         }
 
@@ -65,6 +66,11 @@ namespace Maverick.PCF.Builder.UserControls
         private void imgLicense_MouseHover(object sender, EventArgs e)
         {
             toolTipTemplate.SetToolTip(this.imgLicense, "License defined for this template");
+        }
+
+        private void imgPortals_MouseHover(object sender, EventArgs e)
+        {
+            toolTipTemplate.SetToolTip(this.imgPortals, "Supports Portal apps");
         }
 
         #region Private Method
@@ -113,6 +119,7 @@ namespace Maverick.PCF.Builder.UserControls
         }
 
         #endregion
+
         
     }
 }

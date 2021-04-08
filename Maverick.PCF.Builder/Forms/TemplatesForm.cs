@@ -115,6 +115,7 @@ namespace Maverick.PCF.Builder.Forms
                         _workingDir,
                         pcfTemplate.model_support,
                         pcfTemplate.canvas_support,
+                        pcfTemplate.portals_support,
                         pcfTemplate.license_defined
                     );
                     template.Width = this.pnlTemplates.Width - 20;
