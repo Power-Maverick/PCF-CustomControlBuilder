@@ -68,16 +68,28 @@
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
+            this.pnlCCD = new System.Windows.Forms.Panel();
+            this.lblControlInitStatus = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.cboxTemplate = new System.Windows.Forms.ComboBox();
             this.txtControlDescription = new System.Windows.Forms.TextBox();
+            this.btnCreateComponent = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
+            this.btnOpenInVSCode = new System.Windows.Forms.Button();
             this.txtControlDisplayName = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.btnBuildComponent = new System.Windows.Forms.Button();
             this.lblResxFileExists = new System.Windows.Forms.Label();
+            this.txtControlName = new System.Windows.Forms.TextBox();
             this.lblCssFileExists = new System.Windows.Forms.Label();
+            this.btnTestComponent = new System.Windows.Forms.Button();
             this.lblPreviewImageExists = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
+            this.chkNoWatch = new System.Windows.Forms.CheckBox();
             this.cboxAdditionalPackages = new System.Windows.Forms.ComboBox();
+            this.txtNamespace = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -87,25 +99,14 @@
             this.btnAddPreviewImage = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
             this.btnManageProperties = new System.Windows.Forms.Button();
-            this.lblControlInitStatus = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtComponentVersion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.linklblQuickDeployLearn = new System.Windows.Forms.LinkLabel();
+            this.chkIncrementComponentVersion = new System.Windows.Forms.CheckBox();
             this.btnQuickDeploy = new System.Windows.Forms.Button();
             this.btnOpenControlInExplorer = new System.Windows.Forms.Button();
-            this.chkIncrementComponentVersion = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtComponentVersion = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtNamespace = new System.Windows.Forms.TextBox();
-            this.chkNoWatch = new System.Windows.Forms.CheckBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.btnTestComponent = new System.Windows.Forms.Button();
-            this.txtControlName = new System.Windows.Forms.TextBox();
-            this.btnBuildComponent = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.btnOpenInVSCode = new System.Windows.Forms.Button();
-            this.btnCreateComponent = new System.Windows.Forms.Button();
-            this.cboxTemplate = new System.Windows.Forms.ComboBox();
             this.picRunning = new System.Windows.Forms.PictureBox();
             this.grpBoxAuthProfileDetails = new System.Windows.Forms.GroupBox();
             this.lblCurrentProfile = new System.Windows.Forms.Label();
@@ -124,59 +125,58 @@
             this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.grpBoxSolutionDetails = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnOpenSolutionInExplorer = new System.Windows.Forms.Button();
+            this.lblSolutionInitStatus = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.txtSolutionFriendlyName = new System.Windows.Forms.TextBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.cboxSolutions = new System.Windows.Forms.ComboBox();
             this.pnlReleaseType = new System.Windows.Forms.Panel();
             this.radReleaseTypeProd = new System.Windows.Forms.RadioButton();
             this.radReleaseTypeDev = new System.Windows.Forms.RadioButton();
+            this.txtSolutionName = new System.Windows.Forms.TextBox();
             this.pnlSolutionPackageType = new System.Windows.Forms.Panel();
             this.radSolutionTypeBoth = new System.Windows.Forms.RadioButton();
             this.radSolutionTypeManaged = new System.Windows.Forms.RadioButton();
             this.radSolutionTypeUnmanaged = new System.Windows.Forms.RadioButton();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cboxPublishers = new System.Windows.Forms.ComboBox();
-            this.chkUseExistingPublisher = new System.Windows.Forms.CheckBox();
-            this.txtPublisherFriendlyName = new System.Windows.Forms.TextBox();
-            this.lblSolutionInitStatus = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.chkUseExistingSolution = new System.Windows.Forms.CheckBox();
-            this.chkIncrementSolutionVersion = new System.Windows.Forms.CheckBox();
-            this.btnBuildSolution = new System.Windows.Forms.Button();
-            this.txtSolutionVersion = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnCreateSolution = new System.Windows.Forms.Button();
-            this.txtPublisherPrefix = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.btnDeploy = new System.Windows.Forms.Button();
-            this.txtPublisherUniqueName = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtSolutionName = new System.Windows.Forms.TextBox();
-            this.cboxSolutions = new System.Windows.Forms.ComboBox();
-            this.txtSolutionFriendlyName = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.txtPublisherUniqueName = new System.Windows.Forms.TextBox();
+            this.cboxPublishers = new System.Windows.Forms.ComboBox();
+            this.btnDeploy = new System.Windows.Forms.Button();
+            this.chkUseExistingPublisher = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtPublisherFriendlyName = new System.Windows.Forms.TextBox();
+            this.txtPublisherPrefix = new System.Windows.Forms.TextBox();
+            this.btnCreateSolution = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.txtSolutionVersion = new System.Windows.Forms.TextBox();
+            this.chkUseExistingSolution = new System.Windows.Forms.CheckBox();
+            this.btnBuildSolution = new System.Windows.Forms.Button();
+            this.chkIncrementSolutionVersion = new System.Windows.Forms.CheckBox();
             this.txtWorkingFolder = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.pnlCCD = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnOpenSolutionInExplorer = new System.Windows.Forms.Button();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
             this.grpBoxComponentDetails.SuspendLayout();
+            this.pnlCCD.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRunning)).BeginInit();
             this.grpBoxAuthProfileDetails.SuspendLayout();
             this.gboxCommandPrompt.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
             this.grpBoxSolutionDetails.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pnlReleaseType.SuspendLayout();
             this.pnlSolutionPackageType.SuspendLayout();
-            this.pnlCCD.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripMenu
@@ -452,16 +452,16 @@
             this.gboxQuickAction.Controls.Add(this.btnBuildAndDeployAll);
             this.gboxQuickAction.Controls.Add(this.btnBuildAllProjects);
             this.gboxQuickAction.Controls.Add(this.btnBuildAndTest);
-            this.gboxQuickAction.Location = new System.Drawing.Point(529, 15);
+            this.gboxQuickAction.Location = new System.Drawing.Point(529, 49);
             this.gboxQuickAction.Name = "gboxQuickAction";
-            this.gboxQuickAction.Size = new System.Drawing.Size(453, 57);
+            this.gboxQuickAction.Size = new System.Drawing.Size(494, 57);
             this.gboxQuickAction.TabIndex = 19;
             this.gboxQuickAction.TabStop = false;
             this.gboxQuickAction.Text = "Quick Actions";
             // 
             // btnBuildAndDeployAll
             // 
-            this.btnBuildAndDeployAll.Location = new System.Drawing.Point(304, 19);
+            this.btnBuildAndDeployAll.Location = new System.Drawing.Point(340, 19);
             this.btnBuildAndDeployAll.Name = "btnBuildAndDeployAll";
             this.btnBuildAndDeployAll.Size = new System.Drawing.Size(143, 23);
             this.btnBuildAndDeployAll.TabIndex = 37;
@@ -471,7 +471,7 @@
             // 
             // btnBuildAllProjects
             // 
-            this.btnBuildAllProjects.Location = new System.Drawing.Point(155, 19);
+            this.btnBuildAllProjects.Location = new System.Drawing.Point(176, 19);
             this.btnBuildAllProjects.Name = "btnBuildAllProjects";
             this.btnBuildAllProjects.Size = new System.Drawing.Size(143, 23);
             this.btnBuildAllProjects.TabIndex = 36;
@@ -481,7 +481,7 @@
             // 
             // btnBuildAndTest
             // 
-            this.btnBuildAndTest.Location = new System.Drawing.Point(6, 19);
+            this.btnBuildAndTest.Location = new System.Drawing.Point(14, 19);
             this.btnBuildAndTest.Name = "btnBuildAndTest";
             this.btnBuildAndTest.Size = new System.Drawing.Size(143, 23);
             this.btnBuildAndTest.TabIndex = 35;
@@ -537,6 +537,55 @@
             this.grpBoxComponentDetails.TabStop = false;
             this.grpBoxComponentDetails.Text = "Code Component Details";
             // 
+            // pnlCCD
+            // 
+            this.pnlCCD.AutoScroll = true;
+            this.pnlCCD.Controls.Add(this.lblControlInitStatus);
+            this.pnlCCD.Controls.Add(this.label17);
+            this.pnlCCD.Controls.Add(this.cboxTemplate);
+            this.pnlCCD.Controls.Add(this.txtControlDescription);
+            this.pnlCCD.Controls.Add(this.btnCreateComponent);
+            this.pnlCCD.Controls.Add(this.label18);
+            this.pnlCCD.Controls.Add(this.btnOpenInVSCode);
+            this.pnlCCD.Controls.Add(this.txtControlDisplayName);
+            this.pnlCCD.Controls.Add(this.label6);
+            this.pnlCCD.Controls.Add(this.label19);
+            this.pnlCCD.Controls.Add(this.btnBuildComponent);
+            this.pnlCCD.Controls.Add(this.lblResxFileExists);
+            this.pnlCCD.Controls.Add(this.txtControlName);
+            this.pnlCCD.Controls.Add(this.lblCssFileExists);
+            this.pnlCCD.Controls.Add(this.btnTestComponent);
+            this.pnlCCD.Controls.Add(this.lblPreviewImageExists);
+            this.pnlCCD.Controls.Add(this.label5);
+            this.pnlCCD.Controls.Add(this.label14);
+            this.pnlCCD.Controls.Add(this.chkNoWatch);
+            this.pnlCCD.Controls.Add(this.cboxAdditionalPackages);
+            this.pnlCCD.Controls.Add(this.txtNamespace);
+            this.pnlCCD.Controls.Add(this.tableLayoutPanel1);
+            this.pnlCCD.Controls.Add(this.label4);
+            this.pnlCCD.Controls.Add(this.txtComponentVersion);
+            this.pnlCCD.Controls.Add(this.label11);
+            this.pnlCCD.Controls.Add(this.label1);
+            this.pnlCCD.Controls.Add(this.linklblQuickDeployLearn);
+            this.pnlCCD.Controls.Add(this.chkIncrementComponentVersion);
+            this.pnlCCD.Controls.Add(this.btnQuickDeploy);
+            this.pnlCCD.Controls.Add(this.btnOpenControlInExplorer);
+            this.pnlCCD.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCCD.Location = new System.Drawing.Point(3, 16);
+            this.pnlCCD.Name = "pnlCCD";
+            this.pnlCCD.Size = new System.Drawing.Size(488, 610);
+            this.pnlCCD.TabIndex = 71;
+            // 
+            // lblControlInitStatus
+            // 
+            this.lblControlInitStatus.AutoSize = true;
+            this.lblControlInitStatus.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblControlInitStatus.Location = new System.Drawing.Point(3, 5);
+            this.lblControlInitStatus.Name = "lblControlInitStatus";
+            this.lblControlInitStatus.Size = new System.Drawing.Size(85, 13);
+            this.lblControlInitStatus.TabIndex = 29;
+            this.lblControlInitStatus.Text = "❌ Not Initialized";
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -546,6 +595,18 @@
             this.label17.TabIndex = 70;
             this.label17.Text = "Description";
             // 
+            // cboxTemplate
+            // 
+            this.cboxTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxTemplate.FormattingEnabled = true;
+            this.cboxTemplate.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxTemplate.Location = new System.Drawing.Point(129, 196);
+            this.cboxTemplate.Name = "cboxTemplate";
+            this.cboxTemplate.Size = new System.Drawing.Size(175, 21);
+            this.cboxTemplate.TabIndex = 6;
+            // 
             // txtControlDescription
             // 
             this.txtControlDescription.Location = new System.Drawing.Point(129, 126);
@@ -553,6 +614,17 @@
             this.txtControlDescription.Name = "txtControlDescription";
             this.txtControlDescription.Size = new System.Drawing.Size(175, 64);
             this.txtControlDescription.TabIndex = 5;
+            // 
+            // btnCreateComponent
+            // 
+            this.btnCreateComponent.Location = new System.Drawing.Point(337, 28);
+            this.btnCreateComponent.Name = "btnCreateComponent";
+            this.btnCreateComponent.Size = new System.Drawing.Size(148, 23);
+            this.btnCreateComponent.TabIndex = 8;
+            this.btnCreateComponent.Text = "Create";
+            this.btnCreateComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateComponent.UseVisualStyleBackColor = true;
+            this.btnCreateComponent.Click += new System.EventHandler(this.BtnCreateComponent_Click);
             // 
             // label18
             // 
@@ -563,6 +635,17 @@
             this.label18.TabIndex = 69;
             this.label18.Text = "Display Name";
             // 
+            // btnOpenInVSCode
+            // 
+            this.btnOpenInVSCode.Location = new System.Drawing.Point(337, 57);
+            this.btnOpenInVSCode.Name = "btnOpenInVSCode";
+            this.btnOpenInVSCode.Size = new System.Drawing.Size(148, 23);
+            this.btnOpenInVSCode.TabIndex = 9;
+            this.btnOpenInVSCode.Text = "Open in VS Code";
+            this.btnOpenInVSCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOpenInVSCode.UseVisualStyleBackColor = true;
+            this.btnOpenInVSCode.Click += new System.EventHandler(this.BtnOpenInVSCode_Click);
+            // 
             // txtControlDisplayName
             // 
             this.txtControlDisplayName.Location = new System.Drawing.Point(129, 74);
@@ -570,6 +653,15 @@
             this.txtControlDisplayName.Size = new System.Drawing.Size(175, 20);
             this.txtControlDisplayName.TabIndex = 3;
             this.txtControlDisplayName.TextChanged += new System.EventHandler(this.txtControlDisplayName_TextChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 199);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(51, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Template";
             // 
             // label19
             // 
@@ -579,6 +671,17 @@
             this.label19.Size = new System.Drawing.Size(75, 13);
             this.label19.TabIndex = 68;
             this.label19.Text = "Control Details";
+            // 
+            // btnBuildComponent
+            // 
+            this.btnBuildComponent.Location = new System.Drawing.Point(337, 86);
+            this.btnBuildComponent.Name = "btnBuildComponent";
+            this.btnBuildComponent.Size = new System.Drawing.Size(148, 23);
+            this.btnBuildComponent.TabIndex = 10;
+            this.btnBuildComponent.Text = "Build";
+            this.btnBuildComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuildComponent.UseVisualStyleBackColor = true;
+            this.btnBuildComponent.Click += new System.EventHandler(this.BtnBuildComponent_Click);
             // 
             // lblResxFileExists
             // 
@@ -590,6 +693,13 @@
             this.lblResxFileExists.Text = "❌ No RESX file";
             this.lblResxFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // txtControlName
+            // 
+            this.txtControlName.Location = new System.Drawing.Point(129, 100);
+            this.txtControlName.Name = "txtControlName";
+            this.txtControlName.Size = new System.Drawing.Size(175, 20);
+            this.txtControlName.TabIndex = 4;
+            // 
             // lblCssFileExists
             // 
             this.lblCssFileExists.ForeColor = System.Drawing.Color.Firebrick;
@@ -599,6 +709,17 @@
             this.lblCssFileExists.TabIndex = 39;
             this.lblCssFileExists.Text = "❌ No CSS file";
             this.lblCssFileExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // btnTestComponent
+            // 
+            this.btnTestComponent.Location = new System.Drawing.Point(337, 115);
+            this.btnTestComponent.Name = "btnTestComponent";
+            this.btnTestComponent.Size = new System.Drawing.Size(67, 23);
+            this.btnTestComponent.TabIndex = 11;
+            this.btnTestComponent.Text = "Test";
+            this.btnTestComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTestComponent.UseVisualStyleBackColor = true;
+            this.btnTestComponent.Click += new System.EventHandler(this.BtnTestComponent_Click);
             // 
             // lblPreviewImageExists
             // 
@@ -610,6 +731,15 @@
             this.lblPreviewImageExists.Text = "❌ No Preview Image";
             this.lblPreviewImageExists.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(38, 103);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Control Name";
+            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -619,6 +749,16 @@
             this.label14.TabIndex = 36;
             this.label14.Text = "Additional Packages";
             // 
+            // chkNoWatch
+            // 
+            this.chkNoWatch.AutoSize = true;
+            this.chkNoWatch.Location = new System.Drawing.Point(410, 119);
+            this.chkNoWatch.Name = "chkNoWatch";
+            this.chkNoWatch.Size = new System.Drawing.Size(75, 17);
+            this.chkNoWatch.TabIndex = 17;
+            this.chkNoWatch.Text = "No Watch";
+            this.chkNoWatch.UseVisualStyleBackColor = true;
+            // 
             // cboxAdditionalPackages
             // 
             this.cboxAdditionalPackages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -627,6 +767,13 @@
             this.cboxAdditionalPackages.Name = "cboxAdditionalPackages";
             this.cboxAdditionalPackages.Size = new System.Drawing.Size(175, 21);
             this.cboxAdditionalPackages.TabIndex = 7;
+            // 
+            // txtNamespace
+            // 
+            this.txtNamespace.Location = new System.Drawing.Point(129, 28);
+            this.txtNamespace.Name = "txtNamespace";
+            this.txtNamespace.Size = new System.Drawing.Size(175, 20);
+            this.txtNamespace.TabIndex = 2;
             // 
             // tableLayoutPanel1
             // 
@@ -759,15 +906,22 @@
             this.btnManageProperties.UseVisualStyleBackColor = true;
             this.btnManageProperties.Click += new System.EventHandler(this.btnManageProperties_Click);
             // 
-            // lblControlInitStatus
+            // label4
             // 
-            this.lblControlInitStatus.AutoSize = true;
-            this.lblControlInitStatus.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblControlInitStatus.Location = new System.Drawing.Point(3, 5);
-            this.lblControlInitStatus.Name = "lblControlInitStatus";
-            this.lblControlInitStatus.Size = new System.Drawing.Size(85, 13);
-            this.lblControlInitStatus.TabIndex = 29;
-            this.lblControlInitStatus.Text = "❌ Not Initialized";
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Namespace";
+            // 
+            // txtComponentVersion
+            // 
+            this.txtComponentVersion.Location = new System.Drawing.Point(129, 250);
+            this.txtComponentVersion.Name = "txtComponentVersion";
+            this.txtComponentVersion.ReadOnly = true;
+            this.txtComponentVersion.Size = new System.Drawing.Size(50, 20);
+            this.txtComponentVersion.TabIndex = 19;
             // 
             // label11
             // 
@@ -777,6 +931,15 @@
             this.label11.Size = new System.Drawing.Size(76, 13);
             this.label11.TabIndex = 31;
             this.label11.Text = "Action Buttons";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 253);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Version";
             // 
             // linklblQuickDeployLearn
             // 
@@ -788,6 +951,18 @@
             this.linklblQuickDeployLearn.TabStop = true;
             this.linklblQuickDeployLearn.Text = "Learn more about Quick Deploy";
             this.linklblQuickDeployLearn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblQuickDeployLearn_LinkClicked);
+            // 
+            // chkIncrementComponentVersion
+            // 
+            this.chkIncrementComponentVersion.AutoSize = true;
+            this.chkIncrementComponentVersion.Checked = true;
+            this.chkIncrementComponentVersion.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIncrementComponentVersion.Location = new System.Drawing.Point(185, 252);
+            this.chkIncrementComponentVersion.Name = "chkIncrementComponentVersion";
+            this.chkIncrementComponentVersion.Size = new System.Drawing.Size(111, 17);
+            this.chkIncrementComponentVersion.TabIndex = 22;
+            this.chkIncrementComponentVersion.Text = "Increment Version";
+            this.chkIncrementComponentVersion.UseVisualStyleBackColor = true;
             // 
             // btnQuickDeploy
             // 
@@ -813,142 +988,6 @@
             this.toolTip.SetToolTip(this.btnOpenControlInExplorer, "Open in file explorer");
             this.btnOpenControlInExplorer.UseVisualStyleBackColor = true;
             this.btnOpenControlInExplorer.Click += new System.EventHandler(this.BtnOpenControlInExplorer_Click);
-            // 
-            // chkIncrementComponentVersion
-            // 
-            this.chkIncrementComponentVersion.AutoSize = true;
-            this.chkIncrementComponentVersion.Checked = true;
-            this.chkIncrementComponentVersion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncrementComponentVersion.Location = new System.Drawing.Point(185, 252);
-            this.chkIncrementComponentVersion.Name = "chkIncrementComponentVersion";
-            this.chkIncrementComponentVersion.Size = new System.Drawing.Size(111, 17);
-            this.chkIncrementComponentVersion.TabIndex = 22;
-            this.chkIncrementComponentVersion.Text = "Increment Version";
-            this.chkIncrementComponentVersion.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 253);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Version";
-            // 
-            // txtComponentVersion
-            // 
-            this.txtComponentVersion.Location = new System.Drawing.Point(129, 250);
-            this.txtComponentVersion.Name = "txtComponentVersion";
-            this.txtComponentVersion.ReadOnly = true;
-            this.txtComponentVersion.Size = new System.Drawing.Size(50, 20);
-            this.txtComponentVersion.TabIndex = 19;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Namespace";
-            // 
-            // txtNamespace
-            // 
-            this.txtNamespace.Location = new System.Drawing.Point(129, 28);
-            this.txtNamespace.Name = "txtNamespace";
-            this.txtNamespace.Size = new System.Drawing.Size(175, 20);
-            this.txtNamespace.TabIndex = 2;
-            // 
-            // chkNoWatch
-            // 
-            this.chkNoWatch.AutoSize = true;
-            this.chkNoWatch.Location = new System.Drawing.Point(410, 119);
-            this.chkNoWatch.Name = "chkNoWatch";
-            this.chkNoWatch.Size = new System.Drawing.Size(75, 17);
-            this.chkNoWatch.TabIndex = 17;
-            this.chkNoWatch.Text = "No Watch";
-            this.chkNoWatch.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(38, 103);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "Control Name";
-            // 
-            // btnTestComponent
-            // 
-            this.btnTestComponent.Location = new System.Drawing.Point(337, 115);
-            this.btnTestComponent.Name = "btnTestComponent";
-            this.btnTestComponent.Size = new System.Drawing.Size(67, 23);
-            this.btnTestComponent.TabIndex = 11;
-            this.btnTestComponent.Text = "Test";
-            this.btnTestComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnTestComponent.UseVisualStyleBackColor = true;
-            this.btnTestComponent.Click += new System.EventHandler(this.BtnTestComponent_Click);
-            // 
-            // txtControlName
-            // 
-            this.txtControlName.Location = new System.Drawing.Point(129, 100);
-            this.txtControlName.Name = "txtControlName";
-            this.txtControlName.Size = new System.Drawing.Size(175, 20);
-            this.txtControlName.TabIndex = 4;
-            // 
-            // btnBuildComponent
-            // 
-            this.btnBuildComponent.Location = new System.Drawing.Point(337, 86);
-            this.btnBuildComponent.Name = "btnBuildComponent";
-            this.btnBuildComponent.Size = new System.Drawing.Size(148, 23);
-            this.btnBuildComponent.TabIndex = 10;
-            this.btnBuildComponent.Text = "Build";
-            this.btnBuildComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuildComponent.UseVisualStyleBackColor = true;
-            this.btnBuildComponent.Click += new System.EventHandler(this.BtnBuildComponent_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 199);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(51, 13);
-            this.label6.TabIndex = 12;
-            this.label6.Text = "Template";
-            // 
-            // btnOpenInVSCode
-            // 
-            this.btnOpenInVSCode.Location = new System.Drawing.Point(337, 57);
-            this.btnOpenInVSCode.Name = "btnOpenInVSCode";
-            this.btnOpenInVSCode.Size = new System.Drawing.Size(148, 23);
-            this.btnOpenInVSCode.TabIndex = 9;
-            this.btnOpenInVSCode.Text = "Open in VS Code";
-            this.btnOpenInVSCode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOpenInVSCode.UseVisualStyleBackColor = true;
-            this.btnOpenInVSCode.Click += new System.EventHandler(this.BtnOpenInVSCode_Click);
-            // 
-            // btnCreateComponent
-            // 
-            this.btnCreateComponent.Location = new System.Drawing.Point(337, 28);
-            this.btnCreateComponent.Name = "btnCreateComponent";
-            this.btnCreateComponent.Size = new System.Drawing.Size(148, 23);
-            this.btnCreateComponent.TabIndex = 8;
-            this.btnCreateComponent.Text = "Create";
-            this.btnCreateComponent.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateComponent.UseVisualStyleBackColor = true;
-            this.btnCreateComponent.Click += new System.EventHandler(this.BtnCreateComponent_Click);
-            // 
-            // cboxTemplate
-            // 
-            this.cboxTemplate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxTemplate.FormattingEnabled = true;
-            this.cboxTemplate.Items.AddRange(new object[] {
-            "Field",
-            "Dataset"});
-            this.cboxTemplate.Location = new System.Drawing.Point(129, 196);
-            this.cboxTemplate.Name = "cboxTemplate";
-            this.cboxTemplate.Size = new System.Drawing.Size(175, 21);
-            this.cboxTemplate.TabIndex = 6;
             // 
             // picRunning
             // 
@@ -1155,393 +1194,6 @@
             this.grpBoxSolutionDetails.TabStop = false;
             this.grpBoxSolutionDetails.Text = "Dataverse Solution Details";
             // 
-            // pnlReleaseType
-            // 
-            this.pnlReleaseType.Controls.Add(this.radReleaseTypeProd);
-            this.pnlReleaseType.Controls.Add(this.radReleaseTypeDev);
-            this.pnlReleaseType.Location = new System.Drawing.Point(140, 255);
-            this.pnlReleaseType.Name = "pnlReleaseType";
-            this.pnlReleaseType.Size = new System.Drawing.Size(163, 25);
-            this.pnlReleaseType.TabIndex = 30;
-            // 
-            // radReleaseTypeProd
-            // 
-            this.radReleaseTypeProd.AutoSize = true;
-            this.radReleaseTypeProd.Location = new System.Drawing.Point(56, 2);
-            this.radReleaseTypeProd.Name = "radReleaseTypeProd";
-            this.radReleaseTypeProd.Size = new System.Drawing.Size(76, 17);
-            this.radReleaseTypeProd.TabIndex = 45;
-            this.radReleaseTypeProd.Text = "Production";
-            this.radReleaseTypeProd.UseVisualStyleBackColor = true;
-            // 
-            // radReleaseTypeDev
-            // 
-            this.radReleaseTypeDev.AutoSize = true;
-            this.radReleaseTypeDev.Checked = true;
-            this.radReleaseTypeDev.Location = new System.Drawing.Point(0, 2);
-            this.radReleaseTypeDev.Name = "radReleaseTypeDev";
-            this.radReleaseTypeDev.Size = new System.Drawing.Size(45, 17);
-            this.radReleaseTypeDev.TabIndex = 44;
-            this.radReleaseTypeDev.TabStop = true;
-            this.radReleaseTypeDev.Text = "Dev";
-            this.radReleaseTypeDev.UseVisualStyleBackColor = true;
-            this.radReleaseTypeDev.CheckedChanged += new System.EventHandler(this.ReleaseType_Changed);
-            // 
-            // pnlSolutionPackageType
-            // 
-            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeBoth);
-            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeManaged);
-            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeUnmanaged);
-            this.pnlSolutionPackageType.Location = new System.Drawing.Point(140, 231);
-            this.pnlSolutionPackageType.Name = "pnlSolutionPackageType";
-            this.pnlSolutionPackageType.Size = new System.Drawing.Size(246, 24);
-            this.pnlSolutionPackageType.TabIndex = 49;
-            // 
-            // radSolutionTypeBoth
-            // 
-            this.radSolutionTypeBoth.AutoSize = true;
-            this.radSolutionTypeBoth.Location = new System.Drawing.Point(165, 3);
-            this.radSolutionTypeBoth.Name = "radSolutionTypeBoth";
-            this.radSolutionTypeBoth.Size = new System.Drawing.Size(47, 17);
-            this.radSolutionTypeBoth.TabIndex = 49;
-            this.radSolutionTypeBoth.Text = "Both";
-            this.radSolutionTypeBoth.UseVisualStyleBackColor = true;
-            this.radSolutionTypeBoth.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
-            // 
-            // radSolutionTypeManaged
-            // 
-            this.radSolutionTypeManaged.AutoSize = true;
-            this.radSolutionTypeManaged.Location = new System.Drawing.Point(89, 3);
-            this.radSolutionTypeManaged.Name = "radSolutionTypeManaged";
-            this.radSolutionTypeManaged.Size = new System.Drawing.Size(70, 17);
-            this.radSolutionTypeManaged.TabIndex = 48;
-            this.radSolutionTypeManaged.Text = "Managed";
-            this.radSolutionTypeManaged.UseVisualStyleBackColor = true;
-            this.radSolutionTypeManaged.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
-            // 
-            // radSolutionTypeUnmanaged
-            // 
-            this.radSolutionTypeUnmanaged.AutoSize = true;
-            this.radSolutionTypeUnmanaged.Checked = true;
-            this.radSolutionTypeUnmanaged.Location = new System.Drawing.Point(0, 3);
-            this.radSolutionTypeUnmanaged.Name = "radSolutionTypeUnmanaged";
-            this.radSolutionTypeUnmanaged.Size = new System.Drawing.Size(83, 17);
-            this.radSolutionTypeUnmanaged.TabIndex = 47;
-            this.radSolutionTypeUnmanaged.TabStop = true;
-            this.radSolutionTypeUnmanaged.Text = "Unmanaged";
-            this.radSolutionTypeUnmanaged.UseVisualStyleBackColor = true;
-            this.radSolutionTypeUnmanaged.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 236);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(118, 13);
-            this.label23.TabIndex = 46;
-            this.label23.Text = "Solution Package Type";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(7, 259);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(73, 13);
-            this.label22.TabIndex = 43;
-            this.label22.Text = "Release Type";
-            // 
-            // cboxPublishers
-            // 
-            this.cboxPublishers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxPublishers.FormattingEnabled = true;
-            this.cboxPublishers.Items.AddRange(new object[] {
-            "Field",
-            "Dataset"});
-            this.cboxPublishers.Location = new System.Drawing.Point(140, 127);
-            this.cboxPublishers.Name = "cboxPublishers";
-            this.cboxPublishers.Size = new System.Drawing.Size(175, 21);
-            this.cboxPublishers.TabIndex = 42;
-            this.cboxPublishers.Visible = false;
-            this.cboxPublishers.SelectedIndexChanged += new System.EventHandler(this.cboxPublishers_SelectedIndexChanged);
-            // 
-            // chkUseExistingPublisher
-            // 
-            this.chkUseExistingPublisher.AutoSize = true;
-            this.chkUseExistingPublisher.Location = new System.Drawing.Point(140, 106);
-            this.chkUseExistingPublisher.Name = "chkUseExistingPublisher";
-            this.chkUseExistingPublisher.Size = new System.Drawing.Size(130, 17);
-            this.chkUseExistingPublisher.TabIndex = 41;
-            this.chkUseExistingPublisher.Text = "Use Existing Publisher";
-            this.chkUseExistingPublisher.UseVisualStyleBackColor = true;
-            this.chkUseExistingPublisher.CheckedChanged += new System.EventHandler(this.chkUseExistingPublisher_CheckedChanged);
-            // 
-            // txtPublisherFriendlyName
-            // 
-            this.txtPublisherFriendlyName.Location = new System.Drawing.Point(140, 127);
-            this.txtPublisherFriendlyName.Name = "txtPublisherFriendlyName";
-            this.txtPublisherFriendlyName.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherFriendlyName.TabIndex = 29;
-            this.txtPublisherFriendlyName.TextChanged += new System.EventHandler(this.txtPublisherFriendlyName_TextChanged);
-            // 
-            // lblSolutionInitStatus
-            // 
-            this.lblSolutionInitStatus.AutoSize = true;
-            this.lblSolutionInitStatus.ForeColor = System.Drawing.Color.Firebrick;
-            this.lblSolutionInitStatus.Location = new System.Drawing.Point(3, 5);
-            this.lblSolutionInitStatus.Name = "lblSolutionInitStatus";
-            this.lblSolutionInitStatus.Size = new System.Drawing.Size(85, 13);
-            this.lblSolutionInitStatus.TabIndex = 30;
-            this.lblSolutionInitStatus.Text = "❌ Not Initialized";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(34, 156);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(72, 13);
-            this.label16.TabIndex = 39;
-            this.label16.Text = "Unique Name";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 107);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(85, 13);
-            this.label15.TabIndex = 38;
-            this.label15.Text = "Publisher Details";
-            // 
-            // chkUseExistingSolution
-            // 
-            this.chkUseExistingSolution.AutoSize = true;
-            this.chkUseExistingSolution.Location = new System.Drawing.Point(140, 30);
-            this.chkUseExistingSolution.Name = "chkUseExistingSolution";
-            this.chkUseExistingSolution.Size = new System.Drawing.Size(125, 17);
-            this.chkUseExistingSolution.TabIndex = 37;
-            this.chkUseExistingSolution.Text = "Use Existing Solution";
-            this.chkUseExistingSolution.UseVisualStyleBackColor = true;
-            this.chkUseExistingSolution.CheckedChanged += new System.EventHandler(this.chkUseExistingSolution_CheckedChanged);
-            // 
-            // chkIncrementSolutionVersion
-            // 
-            this.chkIncrementSolutionVersion.AutoSize = true;
-            this.chkIncrementSolutionVersion.Checked = true;
-            this.chkIncrementSolutionVersion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncrementSolutionVersion.Location = new System.Drawing.Point(196, 208);
-            this.chkIncrementSolutionVersion.Name = "chkIncrementSolutionVersion";
-            this.chkIncrementSolutionVersion.Size = new System.Drawing.Size(111, 17);
-            this.chkIncrementSolutionVersion.TabIndex = 35;
-            this.chkIncrementSolutionVersion.Text = "Increment Version";
-            this.chkIncrementSolutionVersion.UseVisualStyleBackColor = true;
-            // 
-            // btnBuildSolution
-            // 
-            this.btnBuildSolution.Location = new System.Drawing.Point(337, 82);
-            this.btnBuildSolution.Name = "btnBuildSolution";
-            this.btnBuildSolution.Size = new System.Drawing.Size(148, 23);
-            this.btnBuildSolution.TabIndex = 34;
-            this.btnBuildSolution.Text = "Build";
-            this.btnBuildSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBuildSolution.UseVisualStyleBackColor = true;
-            this.btnBuildSolution.Click += new System.EventHandler(this.BtnBuildSolution_Click);
-            // 
-            // txtSolutionVersion
-            // 
-            this.txtSolutionVersion.Location = new System.Drawing.Point(140, 206);
-            this.txtSolutionVersion.Name = "txtSolutionVersion";
-            this.txtSolutionVersion.ReadOnly = true;
-            this.txtSolutionVersion.Size = new System.Drawing.Size(50, 20);
-            this.txtSolutionVersion.TabIndex = 33;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 209);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 13);
-            this.label2.TabIndex = 32;
-            this.label2.Text = "Version";
-            // 
-            // btnCreateSolution
-            // 
-            this.btnCreateSolution.Location = new System.Drawing.Point(337, 53);
-            this.btnCreateSolution.Name = "btnCreateSolution";
-            this.btnCreateSolution.Size = new System.Drawing.Size(148, 23);
-            this.btnCreateSolution.TabIndex = 32;
-            this.btnCreateSolution.Text = "Create and Add Control";
-            this.btnCreateSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateSolution.UseVisualStyleBackColor = true;
-            this.btnCreateSolution.Click += new System.EventHandler(this.BtnCreateSolution_Click);
-            // 
-            // txtPublisherPrefix
-            // 
-            this.txtPublisherPrefix.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
-            this.txtPublisherPrefix.Location = new System.Drawing.Point(140, 180);
-            this.txtPublisherPrefix.Name = "txtPublisherPrefix";
-            this.txtPublisherPrefix.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherPrefix.TabIndex = 31;
-            this.txtPublisherPrefix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherPrefix_KeyPress);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(34, 183);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(33, 13);
-            this.label7.TabIndex = 29;
-            this.label7.Text = "Prefix";
-            // 
-            // btnDeploy
-            // 
-            this.btnDeploy.Enabled = false;
-            this.btnDeploy.Location = new System.Drawing.Point(337, 111);
-            this.btnDeploy.Name = "btnDeploy";
-            this.btnDeploy.Size = new System.Drawing.Size(148, 23);
-            this.btnDeploy.TabIndex = 38;
-            this.btnDeploy.Text = "Deploy";
-            this.btnDeploy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDeploy.UseVisualStyleBackColor = true;
-            this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
-            // 
-            // txtPublisherUniqueName
-            // 
-            this.txtPublisherUniqueName.Location = new System.Drawing.Point(140, 153);
-            this.txtPublisherUniqueName.Name = "txtPublisherUniqueName";
-            this.txtPublisherUniqueName.Size = new System.Drawing.Size(175, 20);
-            this.txtPublisherUniqueName.TabIndex = 30;
-            this.txtPublisherUniqueName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherUniqueName_KeyPress);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(34, 130);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(74, 13);
-            this.label8.TabIndex = 27;
-            this.label8.Text = "Friendly Name";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(34, 56);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(74, 13);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "Friendly Name";
-            // 
-            // txtSolutionName
-            // 
-            this.txtSolutionName.Location = new System.Drawing.Point(140, 80);
-            this.txtSolutionName.Name = "txtSolutionName";
-            this.txtSolutionName.Size = new System.Drawing.Size(175, 20);
-            this.txtSolutionName.TabIndex = 26;
-            // 
-            // cboxSolutions
-            // 
-            this.cboxSolutions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboxSolutions.FormattingEnabled = true;
-            this.cboxSolutions.Items.AddRange(new object[] {
-            "Field",
-            "Dataset"});
-            this.cboxSolutions.Location = new System.Drawing.Point(140, 53);
-            this.cboxSolutions.Name = "cboxSolutions";
-            this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
-            this.cboxSolutions.TabIndex = 28;
-            this.cboxSolutions.Visible = false;
-            this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
-            // 
-            // txtSolutionFriendlyName
-            // 
-            this.txtSolutionFriendlyName.Location = new System.Drawing.Point(140, 53);
-            this.txtSolutionFriendlyName.Name = "txtSolutionFriendlyName";
-            this.txtSolutionFriendlyName.Size = new System.Drawing.Size(175, 20);
-            this.txtSolutionFriendlyName.TabIndex = 40;
-            this.txtSolutionFriendlyName.TextChanged += new System.EventHandler(this.txtSolutionFriendlyName_TextChanged);
-            // 
-            // txtWorkingFolder
-            // 
-            this.txtWorkingFolder.Location = new System.Drawing.Point(118, 20);
-            this.txtWorkingFolder.Name = "txtWorkingFolder";
-            this.txtWorkingFolder.Size = new System.Drawing.Size(320, 20);
-            this.txtWorkingFolder.TabIndex = 1;
-            this.txtWorkingFolder.TextChanged += new System.EventHandler(this.TxtWorkingFolder_TextChanged);
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(23, 23);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Control Location";
-            // 
-            // btnWorkingFolderSelector
-            // 
-            this.btnWorkingFolderSelector.Location = new System.Drawing.Point(469, 20);
-            this.btnWorkingFolderSelector.Name = "btnWorkingFolderSelector";
-            this.btnWorkingFolderSelector.Size = new System.Drawing.Size(27, 20);
-            this.btnWorkingFolderSelector.TabIndex = 11;
-            this.btnWorkingFolderSelector.Text = "...";
-            this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
-            this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(7, 31);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(80, 13);
-            this.label24.TabIndex = 50;
-            this.label24.Text = "Solution Details";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(34, 83);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(72, 13);
-            this.label25.TabIndex = 52;
-            this.label25.Text = "Unique Name";
-            // 
-            // pnlCCD
-            // 
-            this.pnlCCD.AutoScroll = true;
-            this.pnlCCD.Controls.Add(this.lblControlInitStatus);
-            this.pnlCCD.Controls.Add(this.label17);
-            this.pnlCCD.Controls.Add(this.cboxTemplate);
-            this.pnlCCD.Controls.Add(this.txtControlDescription);
-            this.pnlCCD.Controls.Add(this.btnCreateComponent);
-            this.pnlCCD.Controls.Add(this.label18);
-            this.pnlCCD.Controls.Add(this.btnOpenInVSCode);
-            this.pnlCCD.Controls.Add(this.txtControlDisplayName);
-            this.pnlCCD.Controls.Add(this.label6);
-            this.pnlCCD.Controls.Add(this.label19);
-            this.pnlCCD.Controls.Add(this.btnBuildComponent);
-            this.pnlCCD.Controls.Add(this.lblResxFileExists);
-            this.pnlCCD.Controls.Add(this.txtControlName);
-            this.pnlCCD.Controls.Add(this.lblCssFileExists);
-            this.pnlCCD.Controls.Add(this.btnTestComponent);
-            this.pnlCCD.Controls.Add(this.lblPreviewImageExists);
-            this.pnlCCD.Controls.Add(this.label5);
-            this.pnlCCD.Controls.Add(this.label14);
-            this.pnlCCD.Controls.Add(this.chkNoWatch);
-            this.pnlCCD.Controls.Add(this.cboxAdditionalPackages);
-            this.pnlCCD.Controls.Add(this.txtNamespace);
-            this.pnlCCD.Controls.Add(this.tableLayoutPanel1);
-            this.pnlCCD.Controls.Add(this.label4);
-            this.pnlCCD.Controls.Add(this.txtComponentVersion);
-            this.pnlCCD.Controls.Add(this.label11);
-            this.pnlCCD.Controls.Add(this.label1);
-            this.pnlCCD.Controls.Add(this.linklblQuickDeployLearn);
-            this.pnlCCD.Controls.Add(this.chkIncrementComponentVersion);
-            this.pnlCCD.Controls.Add(this.btnQuickDeploy);
-            this.pnlCCD.Controls.Add(this.btnOpenControlInExplorer);
-            this.pnlCCD.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCCD.Location = new System.Drawing.Point(3, 16);
-            this.pnlCCD.Name = "pnlCCD";
-            this.pnlCCD.Size = new System.Drawing.Size(488, 610);
-            this.pnlCCD.TabIndex = 71;
-            // 
             // panel1
             // 
             this.panel1.AutoScroll = true;
@@ -1592,6 +1244,354 @@
             this.btnOpenSolutionInExplorer.UseVisualStyleBackColor = true;
             this.btnOpenSolutionInExplorer.Click += new System.EventHandler(this.btnOpenSolutionInExplorer_Click);
             // 
+            // lblSolutionInitStatus
+            // 
+            this.lblSolutionInitStatus.AutoSize = true;
+            this.lblSolutionInitStatus.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblSolutionInitStatus.Location = new System.Drawing.Point(3, 5);
+            this.lblSolutionInitStatus.Name = "lblSolutionInitStatus";
+            this.lblSolutionInitStatus.Size = new System.Drawing.Size(85, 13);
+            this.lblSolutionInitStatus.TabIndex = 30;
+            this.lblSolutionInitStatus.Text = "❌ Not Initialized";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(34, 83);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(72, 13);
+            this.label25.TabIndex = 52;
+            this.label25.Text = "Unique Name";
+            // 
+            // txtSolutionFriendlyName
+            // 
+            this.txtSolutionFriendlyName.Location = new System.Drawing.Point(140, 53);
+            this.txtSolutionFriendlyName.Name = "txtSolutionFriendlyName";
+            this.txtSolutionFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtSolutionFriendlyName.TabIndex = 40;
+            this.txtSolutionFriendlyName.TextChanged += new System.EventHandler(this.txtSolutionFriendlyName_TextChanged);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(7, 31);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(80, 13);
+            this.label24.TabIndex = 50;
+            this.label24.Text = "Solution Details";
+            // 
+            // cboxSolutions
+            // 
+            this.cboxSolutions.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxSolutions.FormattingEnabled = true;
+            this.cboxSolutions.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxSolutions.Location = new System.Drawing.Point(140, 53);
+            this.cboxSolutions.Name = "cboxSolutions";
+            this.cboxSolutions.Size = new System.Drawing.Size(175, 21);
+            this.cboxSolutions.TabIndex = 28;
+            this.cboxSolutions.Visible = false;
+            this.cboxSolutions.SelectedIndexChanged += new System.EventHandler(this.cboxSolutions_SelectedIndexChanged);
+            // 
+            // pnlReleaseType
+            // 
+            this.pnlReleaseType.Controls.Add(this.radReleaseTypeProd);
+            this.pnlReleaseType.Controls.Add(this.radReleaseTypeDev);
+            this.pnlReleaseType.Location = new System.Drawing.Point(140, 255);
+            this.pnlReleaseType.Name = "pnlReleaseType";
+            this.pnlReleaseType.Size = new System.Drawing.Size(163, 25);
+            this.pnlReleaseType.TabIndex = 30;
+            // 
+            // radReleaseTypeProd
+            // 
+            this.radReleaseTypeProd.AutoSize = true;
+            this.radReleaseTypeProd.Location = new System.Drawing.Point(56, 2);
+            this.radReleaseTypeProd.Name = "radReleaseTypeProd";
+            this.radReleaseTypeProd.Size = new System.Drawing.Size(76, 17);
+            this.radReleaseTypeProd.TabIndex = 45;
+            this.radReleaseTypeProd.Text = "Production";
+            this.radReleaseTypeProd.UseVisualStyleBackColor = true;
+            // 
+            // radReleaseTypeDev
+            // 
+            this.radReleaseTypeDev.AutoSize = true;
+            this.radReleaseTypeDev.Checked = true;
+            this.radReleaseTypeDev.Location = new System.Drawing.Point(0, 2);
+            this.radReleaseTypeDev.Name = "radReleaseTypeDev";
+            this.radReleaseTypeDev.Size = new System.Drawing.Size(45, 17);
+            this.radReleaseTypeDev.TabIndex = 44;
+            this.radReleaseTypeDev.TabStop = true;
+            this.radReleaseTypeDev.Text = "Dev";
+            this.radReleaseTypeDev.UseVisualStyleBackColor = true;
+            this.radReleaseTypeDev.CheckedChanged += new System.EventHandler(this.ReleaseType_Changed);
+            // 
+            // txtSolutionName
+            // 
+            this.txtSolutionName.Location = new System.Drawing.Point(140, 80);
+            this.txtSolutionName.Name = "txtSolutionName";
+            this.txtSolutionName.Size = new System.Drawing.Size(175, 20);
+            this.txtSolutionName.TabIndex = 26;
+            // 
+            // pnlSolutionPackageType
+            // 
+            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeBoth);
+            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeManaged);
+            this.pnlSolutionPackageType.Controls.Add(this.radSolutionTypeUnmanaged);
+            this.pnlSolutionPackageType.Location = new System.Drawing.Point(140, 231);
+            this.pnlSolutionPackageType.Name = "pnlSolutionPackageType";
+            this.pnlSolutionPackageType.Size = new System.Drawing.Size(246, 24);
+            this.pnlSolutionPackageType.TabIndex = 49;
+            // 
+            // radSolutionTypeBoth
+            // 
+            this.radSolutionTypeBoth.AutoSize = true;
+            this.radSolutionTypeBoth.Location = new System.Drawing.Point(165, 3);
+            this.radSolutionTypeBoth.Name = "radSolutionTypeBoth";
+            this.radSolutionTypeBoth.Size = new System.Drawing.Size(47, 17);
+            this.radSolutionTypeBoth.TabIndex = 49;
+            this.radSolutionTypeBoth.Text = "Both";
+            this.radSolutionTypeBoth.UseVisualStyleBackColor = true;
+            this.radSolutionTypeBoth.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
+            // 
+            // radSolutionTypeManaged
+            // 
+            this.radSolutionTypeManaged.AutoSize = true;
+            this.radSolutionTypeManaged.Location = new System.Drawing.Point(89, 3);
+            this.radSolutionTypeManaged.Name = "radSolutionTypeManaged";
+            this.radSolutionTypeManaged.Size = new System.Drawing.Size(70, 17);
+            this.radSolutionTypeManaged.TabIndex = 48;
+            this.radSolutionTypeManaged.Text = "Managed";
+            this.radSolutionTypeManaged.UseVisualStyleBackColor = true;
+            this.radSolutionTypeManaged.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
+            // 
+            // radSolutionTypeUnmanaged
+            // 
+            this.radSolutionTypeUnmanaged.AutoSize = true;
+            this.radSolutionTypeUnmanaged.Checked = true;
+            this.radSolutionTypeUnmanaged.Location = new System.Drawing.Point(0, 3);
+            this.radSolutionTypeUnmanaged.Name = "radSolutionTypeUnmanaged";
+            this.radSolutionTypeUnmanaged.Size = new System.Drawing.Size(83, 17);
+            this.radSolutionTypeUnmanaged.TabIndex = 47;
+            this.radSolutionTypeUnmanaged.TabStop = true;
+            this.radSolutionTypeUnmanaged.Text = "Unmanaged";
+            this.radSolutionTypeUnmanaged.UseVisualStyleBackColor = true;
+            this.radSolutionTypeUnmanaged.CheckedChanged += new System.EventHandler(this.SolutionPackageType_Changed);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(34, 56);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(74, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Friendly Name";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(8, 236);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(118, 13);
+            this.label23.TabIndex = 46;
+            this.label23.Text = "Solution Package Type";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(34, 130);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(74, 13);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "Friendly Name";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(7, 259);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(73, 13);
+            this.label22.TabIndex = 43;
+            this.label22.Text = "Release Type";
+            // 
+            // txtPublisherUniqueName
+            // 
+            this.txtPublisherUniqueName.Location = new System.Drawing.Point(140, 153);
+            this.txtPublisherUniqueName.Name = "txtPublisherUniqueName";
+            this.txtPublisherUniqueName.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherUniqueName.TabIndex = 30;
+            this.txtPublisherUniqueName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherUniqueName_KeyPress);
+            // 
+            // cboxPublishers
+            // 
+            this.cboxPublishers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxPublishers.FormattingEnabled = true;
+            this.cboxPublishers.Items.AddRange(new object[] {
+            "Field",
+            "Dataset"});
+            this.cboxPublishers.Location = new System.Drawing.Point(140, 127);
+            this.cboxPublishers.Name = "cboxPublishers";
+            this.cboxPublishers.Size = new System.Drawing.Size(175, 21);
+            this.cboxPublishers.TabIndex = 42;
+            this.cboxPublishers.Visible = false;
+            this.cboxPublishers.SelectedIndexChanged += new System.EventHandler(this.cboxPublishers_SelectedIndexChanged);
+            // 
+            // btnDeploy
+            // 
+            this.btnDeploy.Enabled = false;
+            this.btnDeploy.Location = new System.Drawing.Point(337, 111);
+            this.btnDeploy.Name = "btnDeploy";
+            this.btnDeploy.Size = new System.Drawing.Size(148, 23);
+            this.btnDeploy.TabIndex = 38;
+            this.btnDeploy.Text = "Deploy";
+            this.btnDeploy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeploy.UseVisualStyleBackColor = true;
+            this.btnDeploy.Click += new System.EventHandler(this.BtnDeploy_Click);
+            // 
+            // chkUseExistingPublisher
+            // 
+            this.chkUseExistingPublisher.AutoSize = true;
+            this.chkUseExistingPublisher.Location = new System.Drawing.Point(140, 106);
+            this.chkUseExistingPublisher.Name = "chkUseExistingPublisher";
+            this.chkUseExistingPublisher.Size = new System.Drawing.Size(130, 17);
+            this.chkUseExistingPublisher.TabIndex = 41;
+            this.chkUseExistingPublisher.Text = "Use Existing Publisher";
+            this.chkUseExistingPublisher.UseVisualStyleBackColor = true;
+            this.chkUseExistingPublisher.CheckedChanged += new System.EventHandler(this.chkUseExistingPublisher_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(34, 183);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(33, 13);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Prefix";
+            // 
+            // txtPublisherFriendlyName
+            // 
+            this.txtPublisherFriendlyName.Location = new System.Drawing.Point(140, 127);
+            this.txtPublisherFriendlyName.Name = "txtPublisherFriendlyName";
+            this.txtPublisherFriendlyName.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherFriendlyName.TabIndex = 29;
+            this.txtPublisherFriendlyName.TextChanged += new System.EventHandler(this.txtPublisherFriendlyName_TextChanged);
+            // 
+            // txtPublisherPrefix
+            // 
+            this.txtPublisherPrefix.CharacterCasing = System.Windows.Forms.CharacterCasing.Lower;
+            this.txtPublisherPrefix.Location = new System.Drawing.Point(140, 180);
+            this.txtPublisherPrefix.Name = "txtPublisherPrefix";
+            this.txtPublisherPrefix.Size = new System.Drawing.Size(175, 20);
+            this.txtPublisherPrefix.TabIndex = 31;
+            this.txtPublisherPrefix.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPublisherPrefix_KeyPress);
+            // 
+            // btnCreateSolution
+            // 
+            this.btnCreateSolution.Location = new System.Drawing.Point(337, 53);
+            this.btnCreateSolution.Name = "btnCreateSolution";
+            this.btnCreateSolution.Size = new System.Drawing.Size(148, 23);
+            this.btnCreateSolution.TabIndex = 32;
+            this.btnCreateSolution.Text = "Create and Add Control";
+            this.btnCreateSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateSolution.UseVisualStyleBackColor = true;
+            this.btnCreateSolution.Click += new System.EventHandler(this.BtnCreateSolution_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(34, 156);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(72, 13);
+            this.label16.TabIndex = 39;
+            this.label16.Text = "Unique Name";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 209);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(42, 13);
+            this.label2.TabIndex = 32;
+            this.label2.Text = "Version";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 107);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 13);
+            this.label15.TabIndex = 38;
+            this.label15.Text = "Publisher Details";
+            // 
+            // txtSolutionVersion
+            // 
+            this.txtSolutionVersion.Location = new System.Drawing.Point(140, 206);
+            this.txtSolutionVersion.Name = "txtSolutionVersion";
+            this.txtSolutionVersion.ReadOnly = true;
+            this.txtSolutionVersion.Size = new System.Drawing.Size(50, 20);
+            this.txtSolutionVersion.TabIndex = 33;
+            // 
+            // chkUseExistingSolution
+            // 
+            this.chkUseExistingSolution.AutoSize = true;
+            this.chkUseExistingSolution.Location = new System.Drawing.Point(140, 30);
+            this.chkUseExistingSolution.Name = "chkUseExistingSolution";
+            this.chkUseExistingSolution.Size = new System.Drawing.Size(125, 17);
+            this.chkUseExistingSolution.TabIndex = 37;
+            this.chkUseExistingSolution.Text = "Use Existing Solution";
+            this.chkUseExistingSolution.UseVisualStyleBackColor = true;
+            this.chkUseExistingSolution.CheckedChanged += new System.EventHandler(this.chkUseExistingSolution_CheckedChanged);
+            // 
+            // btnBuildSolution
+            // 
+            this.btnBuildSolution.Location = new System.Drawing.Point(337, 82);
+            this.btnBuildSolution.Name = "btnBuildSolution";
+            this.btnBuildSolution.Size = new System.Drawing.Size(148, 23);
+            this.btnBuildSolution.TabIndex = 34;
+            this.btnBuildSolution.Text = "Build";
+            this.btnBuildSolution.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBuildSolution.UseVisualStyleBackColor = true;
+            this.btnBuildSolution.Click += new System.EventHandler(this.BtnBuildSolution_Click);
+            // 
+            // chkIncrementSolutionVersion
+            // 
+            this.chkIncrementSolutionVersion.AutoSize = true;
+            this.chkIncrementSolutionVersion.Checked = true;
+            this.chkIncrementSolutionVersion.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkIncrementSolutionVersion.Location = new System.Drawing.Point(196, 208);
+            this.chkIncrementSolutionVersion.Name = "chkIncrementSolutionVersion";
+            this.chkIncrementSolutionVersion.Size = new System.Drawing.Size(111, 17);
+            this.chkIncrementSolutionVersion.TabIndex = 35;
+            this.chkIncrementSolutionVersion.Text = "Increment Version";
+            this.chkIncrementSolutionVersion.UseVisualStyleBackColor = true;
+            // 
+            // txtWorkingFolder
+            // 
+            this.txtWorkingFolder.Location = new System.Drawing.Point(118, 20);
+            this.txtWorkingFolder.Name = "txtWorkingFolder";
+            this.txtWorkingFolder.Size = new System.Drawing.Size(320, 20);
+            this.txtWorkingFolder.TabIndex = 1;
+            this.txtWorkingFolder.TextChanged += new System.EventHandler(this.TxtWorkingFolder_TextChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(23, 23);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Control Location";
+            // 
+            // btnWorkingFolderSelector
+            // 
+            this.btnWorkingFolderSelector.Location = new System.Drawing.Point(469, 20);
+            this.btnWorkingFolderSelector.Name = "btnWorkingFolderSelector";
+            this.btnWorkingFolderSelector.Size = new System.Drawing.Size(27, 20);
+            this.btnWorkingFolderSelector.TabIndex = 11;
+            this.btnWorkingFolderSelector.Text = "...";
+            this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
+            this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
+            // 
             // PCFBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1608,6 +1608,8 @@
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
             this.grpBoxComponentDetails.ResumeLayout(false);
+            this.pnlCCD.ResumeLayout(false);
+            this.pnlCCD.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRunning)).EndInit();
@@ -1616,14 +1618,12 @@
             this.gboxCommandPrompt.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
             this.grpBoxSolutionDetails.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.pnlReleaseType.ResumeLayout(false);
             this.pnlReleaseType.PerformLayout();
             this.pnlSolutionPackageType.ResumeLayout(false);
             this.pnlSolutionPackageType.PerformLayout();
-            this.pnlCCD.ResumeLayout(false);
-            this.pnlCCD.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
