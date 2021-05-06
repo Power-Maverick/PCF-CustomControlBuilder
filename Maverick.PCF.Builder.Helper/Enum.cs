@@ -24,6 +24,18 @@ namespace Maverick.PCF.Builder.Helper
             input
         }
 
+        public enum FeatureType
+        {
+            CaptureAudio,
+            CaptureVideo,
+            CaptureImage,
+            GetBarcode,
+            GetCurrentPosition,
+            PickFile,
+            Utility,
+            WebApi
+        }
+
         public static Dictionary<string, string> AdditionalPackages()
         {
             Dictionary<string, string> packages = new Dictionary<string, string>();

@@ -67,6 +67,10 @@
             this.btnBuildAndTest = new System.Windows.Forms.Button();
             this.lblPCFCLIVersionMsg = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.dgvMRULocations = new System.Windows.Forms.DataGridView();
+            this.FolderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.grpBoxComponentDetails = new System.Windows.Forms.GroupBox();
             this.pnlCCD = new System.Windows.Forms.Panel();
             this.lblControlInitStatus = new System.Windows.Forms.Label();
@@ -94,11 +98,13 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.btnUpdateControlDetails = new System.Windows.Forms.Button();
+            this.btnManageProperties = new System.Windows.Forms.Button();
             this.btnAddResxFile = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.btnAddPreviewImage = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnManageProperties = new System.Windows.Forms.Button();
+            this.btnManageFeatures = new System.Windows.Forms.Button();
+            this.label26 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtComponentVersion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -119,10 +125,6 @@
             this.btnRefreshDetails = new System.Windows.Forms.Button();
             this.lblErrors = new System.Windows.Forms.Label();
             this.gboxCommandPrompt = new System.Windows.Forms.GroupBox();
-            this.dgvMRULocations = new System.Windows.Forms.DataGridView();
-            this.FolderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Location = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.grpBoxSolutionDetails = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -163,16 +165,17 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.lblSolutionNote = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
             this.grpBoxComponentDetails.SuspendLayout();
             this.pnlCCD.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picRunning)).BeginInit();
             this.grpBoxAuthProfileDetails.SuspendLayout();
             this.gboxCommandPrompt.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).BeginInit();
             this.grpBoxSolutionDetails.SuspendLayout();
             this.panel1.SuspendLayout();
             this.pnlReleaseType.SuspendLayout();
@@ -501,6 +504,7 @@
             // 
             // pnlMain
             // 
+            this.pnlMain.Controls.Add(this.dgvMRULocations);
             this.pnlMain.Controls.Add(this.grpBoxComponentDetails);
             this.pnlMain.Controls.Add(this.picRunning);
             this.pnlMain.Controls.Add(this.grpBoxAuthProfileDetails);
@@ -524,6 +528,52 @@
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1409, 750);
             this.pnlMain.TabIndex = 22;
+            // 
+            // dgvMRULocations
+            // 
+            this.dgvMRULocations.AllowUserToAddRows = false;
+            this.dgvMRULocations.AllowUserToDeleteRows = false;
+            this.dgvMRULocations.AllowUserToResizeRows = false;
+            this.dgvMRULocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMRULocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FolderName,
+            this.Date,
+            this.Location});
+            this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dgvMRULocations.Location = new System.Drawing.Point(118, 41);
+            this.dgvMRULocations.MultiSelect = false;
+            this.dgvMRULocations.Name = "dgvMRULocations";
+            this.dgvMRULocations.ReadOnly = true;
+            this.dgvMRULocations.RowHeadersVisible = false;
+            this.dgvMRULocations.Size = new System.Drawing.Size(347, 150);
+            this.dgvMRULocations.TabIndex = 34;
+            this.dgvMRULocations.Visible = false;
+            this.dgvMRULocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMRULocations_CellClick);
+            this.dgvMRULocations.Leave += new System.EventHandler(this.dgvMRULocations_Leave);
+            // 
+            // FolderName
+            // 
+            this.FolderName.DataPropertyName = "FolderName";
+            this.FolderName.HeaderText = "Folder Name";
+            this.FolderName.Name = "FolderName";
+            this.FolderName.ReadOnly = true;
+            this.FolderName.Width = 150;
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Last Used";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 110;
+            // 
+            // Location
+            // 
+            this.Location.DataPropertyName = "Location";
+            this.Location.HeaderText = "Location";
+            this.Location.Name = "Location";
+            this.Location.ReadOnly = true;
+            this.Location.Width = 200;
             // 
             // grpBoxComponentDetails
             // 
@@ -777,25 +827,28 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 4;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnCount = 5;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.Controls.Add(this.label21, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label20, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnUpdateControlDetails, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnAddResxFile, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label13, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnAddPreviewImage, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label12, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnManageProperties, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddResxFile, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label13, 4, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnAddPreviewImage, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label12, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnManageFeatures, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label26, 2, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 304);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.0625F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.9375F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 67);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(389, 67);
             this.tableLayoutPanel1.TabIndex = 35;
             // 
             // label21
@@ -803,7 +856,7 @@
             this.label21.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(78, 42);
+            this.label21.Location = new System.Drawing.Point(86, 42);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(59, 24);
             this.label21.TabIndex = 71;
@@ -815,9 +868,9 @@
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(3, 42);
+            this.label20.Location = new System.Drawing.Point(5, 42);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(66, 24);
+            this.label20.Size = new System.Drawing.Size(67, 24);
             this.label20.TabIndex = 36;
             this.label20.Text = "Update Control Details";
             this.label20.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -829,13 +882,28 @@
             this.btnUpdateControlDetails.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnUpdateControlDetails.FlatAppearance.BorderSize = 0;
             this.btnUpdateControlDetails.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateControlDetails.Location = new System.Drawing.Point(20, 3);
+            this.btnUpdateControlDetails.Location = new System.Drawing.Point(22, 3);
             this.btnUpdateControlDetails.Name = "btnUpdateControlDetails";
             this.btnUpdateControlDetails.Size = new System.Drawing.Size(32, 32);
             this.btnUpdateControlDetails.TabIndex = 35;
             this.toolTip.SetToolTip(this.btnUpdateControlDetails, "Update Control Details (Display Name, Description, etc.)");
             this.btnUpdateControlDetails.UseVisualStyleBackColor = true;
             this.btnUpdateControlDetails.Click += new System.EventHandler(this.btnUpdateControlDetails_Click);
+            // 
+            // btnManageProperties
+            // 
+            this.btnManageProperties.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageProperties.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnManageProperties.BackgroundImage")));
+            this.btnManageProperties.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnManageProperties.FlatAppearance.BorderSize = 0;
+            this.btnManageProperties.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageProperties.Location = new System.Drawing.Point(99, 3);
+            this.btnManageProperties.Name = "btnManageProperties";
+            this.btnManageProperties.Size = new System.Drawing.Size(32, 32);
+            this.btnManageProperties.TabIndex = 37;
+            this.toolTip.SetToolTip(this.btnManageProperties, "Update Control Details (Display Name, Description, etc.)");
+            this.btnManageProperties.UseVisualStyleBackColor = true;
+            this.btnManageProperties.Click += new System.EventHandler(this.btnManageProperties_Click);
             // 
             // btnAddResxFile
             // 
@@ -844,7 +912,7 @@
             this.btnAddResxFile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddResxFile.FlatAppearance.BorderSize = 0;
             this.btnAddResxFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddResxFile.Location = new System.Drawing.Point(236, 3);
+            this.btnAddResxFile.Location = new System.Drawing.Point(332, 3);
             this.btnAddResxFile.Name = "btnAddResxFile";
             this.btnAddResxFile.Size = new System.Drawing.Size(32, 32);
             this.btnAddResxFile.TabIndex = 32;
@@ -857,7 +925,7 @@
             this.label13.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(220, 42);
+            this.label13.Location = new System.Drawing.Point(316, 42);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(64, 24);
             this.label13.TabIndex = 34;
@@ -871,7 +939,7 @@
             this.btnAddPreviewImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnAddPreviewImage.FlatAppearance.BorderSize = 0;
             this.btnAddPreviewImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddPreviewImage.Location = new System.Drawing.Point(164, 3);
+            this.btnAddPreviewImage.Location = new System.Drawing.Point(253, 3);
             this.btnAddPreviewImage.Name = "btnAddPreviewImage";
             this.btnAddPreviewImage.Size = new System.Drawing.Size(32, 32);
             this.btnAddPreviewImage.TabIndex = 30;
@@ -884,27 +952,39 @@
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(152, 42);
+            this.label12.Location = new System.Drawing.Point(235, 42);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(55, 25);
+            this.label12.Size = new System.Drawing.Size(68, 24);
             this.label12.TabIndex = 33;
             this.label12.Text = "Add/Update Preview Image";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnManageProperties
+            // btnManageFeatures
             // 
-            this.btnManageProperties.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnManageProperties.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnManageProperties.BackgroundImage")));
-            this.btnManageProperties.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnManageProperties.FlatAppearance.BorderSize = 0;
-            this.btnManageProperties.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnManageProperties.Location = new System.Drawing.Point(92, 3);
-            this.btnManageProperties.Name = "btnManageProperties";
-            this.btnManageProperties.Size = new System.Drawing.Size(32, 32);
-            this.btnManageProperties.TabIndex = 37;
-            this.toolTip.SetToolTip(this.btnManageProperties, "Update Control Details (Display Name, Description, etc.)");
-            this.btnManageProperties.UseVisualStyleBackColor = true;
-            this.btnManageProperties.Click += new System.EventHandler(this.btnManageProperties_Click);
+            this.btnManageFeatures.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageFeatures.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnManageFeatures.BackgroundImage")));
+            this.btnManageFeatures.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnManageFeatures.FlatAppearance.BorderSize = 0;
+            this.btnManageFeatures.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnManageFeatures.Location = new System.Drawing.Point(176, 3);
+            this.btnManageFeatures.Name = "btnManageFeatures";
+            this.btnManageFeatures.Size = new System.Drawing.Size(32, 32);
+            this.btnManageFeatures.TabIndex = 72;
+            this.toolTip.SetToolTip(this.btnManageFeatures, "Update Control Details (Display Name, Description, etc.)");
+            this.btnManageFeatures.UseVisualStyleBackColor = true;
+            this.btnManageFeatures.Click += new System.EventHandler(this.btnManageFeatures_Click);
+            // 
+            // label26
+            // 
+            this.label26.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(159, 42);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(67, 24);
+            this.label26.TabIndex = 73;
+            this.label26.Text = "Enable/Disable Features";
+            this.label26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
@@ -1113,7 +1193,6 @@
             this.gboxCommandPrompt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gboxCommandPrompt.Controls.Add(this.dgvMRULocations);
             this.gboxCommandPrompt.Controls.Add(this.consoleControl);
             this.gboxCommandPrompt.Location = new System.Drawing.Point(1034, 118);
             this.gboxCommandPrompt.Name = "gboxCommandPrompt";
@@ -1121,52 +1200,6 @@
             this.gboxCommandPrompt.TabIndex = 19;
             this.gboxCommandPrompt.TabStop = false;
             this.gboxCommandPrompt.Text = "Command Prompt";
-            // 
-            // dgvMRULocations
-            // 
-            this.dgvMRULocations.AllowUserToAddRows = false;
-            this.dgvMRULocations.AllowUserToDeleteRows = false;
-            this.dgvMRULocations.AllowUserToResizeRows = false;
-            this.dgvMRULocations.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMRULocations.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FolderName,
-            this.Date,
-            this.Location});
-            this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvMRULocations.Location = new System.Drawing.Point(0, 89);
-            this.dgvMRULocations.MultiSelect = false;
-            this.dgvMRULocations.Name = "dgvMRULocations";
-            this.dgvMRULocations.ReadOnly = true;
-            this.dgvMRULocations.RowHeadersVisible = false;
-            this.dgvMRULocations.Size = new System.Drawing.Size(344, 150);
-            this.dgvMRULocations.TabIndex = 34;
-            this.dgvMRULocations.Visible = false;
-            this.dgvMRULocations.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMRULocations_CellClick);
-            this.dgvMRULocations.Leave += new System.EventHandler(this.dgvMRULocations_Leave);
-            // 
-            // FolderName
-            // 
-            this.FolderName.DataPropertyName = "FolderName";
-            this.FolderName.HeaderText = "Folder Name";
-            this.FolderName.Name = "FolderName";
-            this.FolderName.ReadOnly = true;
-            this.FolderName.Width = 150;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Last Used";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 110;
-            // 
-            // Location
-            // 
-            this.Location.DataPropertyName = "Location";
-            this.Location.HeaderText = "Location";
-            this.Location.Name = "Location";
-            this.Location.ReadOnly = true;
-            this.Location.Width = 200;
             // 
             // consoleControl
             // 
@@ -1197,6 +1230,7 @@
             // panel1
             // 
             this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.lblSolutionNote);
             this.panel1.Controls.Add(this.btnOpenSolutionInExplorer);
             this.panel1.Controls.Add(this.lblSolutionInitStatus);
             this.panel1.Controls.Add(this.label25);
@@ -1306,11 +1340,11 @@
             // radReleaseTypeProd
             // 
             this.radReleaseTypeProd.AutoSize = true;
-            this.radReleaseTypeProd.Location = new System.Drawing.Point(56, 2);
+            this.radReleaseTypeProd.Location = new System.Drawing.Point(63, 2);
             this.radReleaseTypeProd.Name = "radReleaseTypeProd";
-            this.radReleaseTypeProd.Size = new System.Drawing.Size(76, 17);
+            this.radReleaseTypeProd.Size = new System.Drawing.Size(64, 17);
             this.radReleaseTypeProd.TabIndex = 45;
-            this.radReleaseTypeProd.Text = "Production";
+            this.radReleaseTypeProd.Text = "Release";
             this.radReleaseTypeProd.UseVisualStyleBackColor = true;
             // 
             // radReleaseTypeDev
@@ -1319,10 +1353,10 @@
             this.radReleaseTypeDev.Checked = true;
             this.radReleaseTypeDev.Location = new System.Drawing.Point(0, 2);
             this.radReleaseTypeDev.Name = "radReleaseTypeDev";
-            this.radReleaseTypeDev.Size = new System.Drawing.Size(45, 17);
+            this.radReleaseTypeDev.Size = new System.Drawing.Size(57, 17);
             this.radReleaseTypeDev.TabIndex = 44;
             this.radReleaseTypeDev.TabStop = true;
-            this.radReleaseTypeDev.Text = "Dev";
+            this.radReleaseTypeDev.Text = "Debug";
             this.radReleaseTypeDev.UseVisualStyleBackColor = true;
             this.radReleaseTypeDev.CheckedChanged += new System.EventHandler(this.ReleaseType_Changed);
             // 
@@ -1410,9 +1444,9 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(7, 259);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(73, 13);
+            this.label22.Size = new System.Drawing.Size(60, 13);
             this.label22.TabIndex = 43;
-            this.label22.Text = "Release Type";
+            this.label22.Text = "Build Mode";
             // 
             // txtPublisherUniqueName
             // 
@@ -1592,6 +1626,20 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
+            // lblSolutionNote
+            // 
+            this.lblSolutionNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSolutionNote.ForeColor = System.Drawing.Color.BlueViolet;
+            this.lblSolutionNote.Location = new System.Drawing.Point(8, 327);
+            this.lblSolutionNote.Name = "lblSolutionNote";
+            this.lblSolutionNote.Size = new System.Drawing.Size(472, 62);
+            this.lblSolutionNote.TabIndex = 54;
+            this.lblSolutionNote.Text = "*When \"Solution Package Type\" is selected as \"Both\"; only unmanaged solution will" +
+    " be deployed to your Dataverse environment.";
+            this.lblSolutionNote.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.lblSolutionNote.Visible = false;
+            // 
             // PCFBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1607,6 +1655,7 @@
             this.gboxQuickAction.ResumeLayout(false);
             this.pnlMain.ResumeLayout(false);
             this.pnlMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
             this.grpBoxComponentDetails.ResumeLayout(false);
             this.pnlCCD.ResumeLayout(false);
             this.pnlCCD.PerformLayout();
@@ -1616,7 +1665,6 @@
             this.grpBoxAuthProfileDetails.ResumeLayout(false);
             this.grpBoxAuthProfileDetails.PerformLayout();
             this.gboxCommandPrompt.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvMRULocations)).EndInit();
             this.grpBoxSolutionDetails.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1763,5 +1811,8 @@
         private System.Windows.Forms.Panel pnlCCD;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnOpenSolutionInExplorer;
+        private System.Windows.Forms.Button btnManageFeatures;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label lblSolutionNote;
     }
 }

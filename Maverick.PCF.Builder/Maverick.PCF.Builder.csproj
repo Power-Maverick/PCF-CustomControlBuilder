@@ -208,6 +208,12 @@
     <Compile Include="Forms\ControlDetailsForm.Designer.cs">
       <DependentUpon>ControlDetailsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FeaturesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FeaturesForm.Designer.cs">
+      <DependentUpon>FeaturesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\InputDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,6 +350,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ControlDetailsForm.resx">
       <DependentUpon>ControlDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FeaturesForm.resx">
+      <DependentUpon>FeaturesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
