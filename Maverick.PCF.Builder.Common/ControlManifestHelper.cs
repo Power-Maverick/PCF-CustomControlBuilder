@@ -82,6 +82,7 @@ namespace Maverick.PCF.Builder.Common
                                 ControlManifestHelper manifestHelper = new ControlManifestHelper();
                                 ControlDetails = manifestHelper.FetchProperties(ControlDetails);
                                 ControlDetails = manifestHelper.FetchTypeGroups(ControlDetails);
+                                ControlDetails = manifestHelper.FetchFeatures(ControlDetails);
                                 break;
                             }
 
@@ -201,6 +202,91 @@ namespace Maverick.PCF.Builder.Common
             }
 
             return controlDetails;
+        }
+
+        public ControlManifestDetails FetchFeatures(ControlManifestDetails controlDetails)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNodeList featureNodes = manifestFile.SelectNodes("/manifest/control/feature-usage/uses-feature");
+            foreach (XmlNode node in featureNodes)
+            {
+                Feature feature = new Feature();
+
+                try
+                {
+                    feature.Name = (node.Attributes["name"]?.Value) ?? string.Empty;
+                    feature.Required = bool.Parse(node.Attributes["required"]?.Value ?? "false");
+                    feature.Type = feature.IdentifyType(feature.Name);
+
+                    feature.IsValid = true;
+                }
+                catch (Exception ex)
+                {
+                    feature.IsValid = false;
+                }
+
+                controlDetails.Features.Add(feature);
+            }
+
+            return controlDetails;
+        }
+
+        public void AddFeature(ControlManifestDetails controlDetails, string featureName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNode controlNode = manifestFile.SelectSingleNode($"/manifest/control");
+            XmlNode featureUsageNode = manifestFile.SelectSingleNode($"/manifest/control/feature-usage");
+            if (featureUsageNode == null)
+            {
+                XmlElement featureUsageNodeElement = manifestFile.CreateElement("feature-usage");
+                controlNode.AppendChild(featureUsageNodeElement);
+                featureUsageNode = manifestFile.SelectSingleNode($"/manifest/control/feature-usage");
+            }
+
+            XmlNode featureNode = manifestFile.SelectSingleNode($"/manifest/control/feature-usage/uses-feature[@name='{featureName}']");
+
+            if (featureNode != null)
+            {
+                XmlAttribute attrRequired = featureNode.Attributes["required"];
+                attrRequired.Value = "true";
+            }
+            else
+            {
+                XmlElement featureNodeElement = manifestFile.CreateElement("uses-feature");
+
+                featureNodeElement.SetAttribute("name", featureName);
+                featureNodeElement.SetAttribute("required", "true");
+                featureUsageNode.AppendChild(featureNodeElement);
+            }
+
+            manifestFile.Save(controlDetails.ManifestFilePath);
+        }
+
+        public void RemoveFeature(ControlManifestDetails controlDetails, string featureName)
+        {
+            XmlDocument manifestFile = new XmlDocument();
+            manifestFile.Load(controlDetails.ManifestFilePath);
+
+            XmlNode controlNode = manifestFile.SelectSingleNode($"/manifest/control");
+            XmlNode featureUsageNode = manifestFile.SelectSingleNode($"/manifest/control/feature-usage");
+            XmlNode featureNode = manifestFile.SelectSingleNode($"/manifest/control/feature-usage/uses-feature[@name='{featureName}']");
+
+            if (featureNode != null)
+            {
+                featureUsageNode.RemoveChild(featureNode);
+            }
+
+            XmlNodeList featureNodes = manifestFile.SelectNodes("/manifest/control/feature-usage/uses-feature");
+            if (featureNodes.Count == 0)
+            {
+                controlNode.RemoveChild(featureUsageNode);
+            }
+
+            manifestFile.Save(controlDetails.ManifestFilePath);
         }
 
         public ControlManifestDetails UpdatePropertyDetails(string propertyName, ControlManifestDetails controlDetails, ControlProperty property)

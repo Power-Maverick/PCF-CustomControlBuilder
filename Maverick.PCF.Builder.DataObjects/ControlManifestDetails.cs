@@ -17,6 +17,7 @@ namespace Maverick.PCF.Builder.DataObjects
             ExistsResx = false;
             PreviewImagePath = null;
             Properties = new List<ControlProperty>();
+            Features = new List<Feature>();
         }
 
         public string WorkingFolderPath { get; set; }
@@ -34,5 +35,6 @@ namespace Maverick.PCF.Builder.DataObjects
         public bool ExistsResx { get; set; }
         public int AdditionalPackageIndex { get; set; }
         public List<ControlProperty> Properties { get; set; }
+        public List<Feature> Features { get; set; }
     }
 }

@@ -2044,7 +2044,7 @@ namespace Maverick.PCF.Builder
 
                 var projectPath = string.Concat(GetCorrectSolutionDirectory(), $"\\{txtSolutionName.Text}");
                 string msbuild_restore = Commands.Msbuild.Restore(projectPath);
-                string msbuild_build = radReleaseTypeProd.Checked ? Commands.Msbuild.BuildRelease(projectPath) : Commands.Msbuild.Build(projectPath);
+                string msbuild_build = radReleaseTypeProd.Checked ? Commands.Msbuild.RebuildRelease(projectPath) : Commands.Msbuild.Rebuild(projectPath);
 
                 RunCommandLine(cdMsBuildDir, msbuild_restore, msbuild_build);
             }
@@ -2532,6 +2532,7 @@ namespace Maverick.PCF.Builder
         private void SolutionPackageType_Changed(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
+            lblSolutionNote.Visible = false;
             if (radioButton.Checked)
             {
                 switch (radioButton.Text)
@@ -2544,6 +2545,7 @@ namespace Maverick.PCF.Builder
                         break;
                     case "Both":
                         DataverseSolutionDetails.PackageType = SolutionPackageType.Both;
+                        lblSolutionNote.Visible = true;
                         break;
                     default:
                         DataverseSolutionDetails.PackageType = SolutionPackageType.Unmanaged;
@@ -2588,6 +2590,19 @@ namespace Maverick.PCF.Builder
             var propertiesForm = new PropertiesForm(this);
             propertiesForm.StartPosition = FormStartPosition.CenterScreen;
             propertiesForm.ShowDialog();
+
+            ControlDetails = ControlManifest.GetControlManifestDetails(txtWorkingFolder.Text);
+            if (InitiatePCFProjectBuild)
+            {
+                BuildPCFProject();
+            }
+        }
+
+        private void btnManageFeatures_Click(object sender, EventArgs e)
+        {
+            var featuresForm = new FeaturesForm(this);
+            featuresForm.StartPosition = FormStartPosition.CenterScreen;
+            featuresForm.ShowDialog();
 
             ControlDetails = ControlManifest.GetControlManifestDetails(txtWorkingFolder.Text);
             if (InitiatePCFProjectBuild)
