@@ -1,50 +1,78 @@
 [
   {
-    "DataTypeName": "Currency"
+    "DataTypeName": "Currency",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "DateAndTime.DateAndTime"
+    "DataTypeName": "DateAndTime.DateAndTime",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "DateAndTime.DateOnly"
+    "DataTypeName": "DateAndTime.DateOnly",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "Decimal"
+    "DataTypeName": "Decimal",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "Enum"
+    "DataTypeName": "Enum",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "FP"
+    "DataTypeName": "FP",
+    "IsDeprecated":  false
   },
   {
-    "DataTypeName": "Multiple"
+    "DataTypeName": "Multiple",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "OptionSet"
+    "DataTypeName": "OptionSet",
+    "IsDeprecated": true
   },
   {
-    "DataTypeName": "SingleLine.Email"
+    "DataTypeName": "SingleLine.Email",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "SingleLine.Phone"
+    "DataTypeName": "SingleLine.Phone",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "SingleLine.Text"
+    "DataTypeName": "SingleLine.Text",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "SingleLine.TextArea"
+    "DataTypeName": "SingleLine.TextArea",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "SingleLine.Ticker"
+    "DataTypeName": "SingleLine.Ticker",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "SingleLine.URL"
+    "DataTypeName": "SingleLine.URL",
+    "IsDeprecated": false
   },
   {
-    "DataTypeName": "TwoOptions"
+    "DataTypeName": "TwoOptions",
+    "IsDeprecated": true
   },
   {
-    "DataTypeName": "Whole.None"
+    "DataTypeName": "Whole.None",
+    "IsDeprecated": false
+  },
+  {
+    "DataTypeName": "Choice",
+    "IsDeprecated": false
+  },
+  {
+    "DataTypeName": "Yes/No",
+    "IsDeprecated": false
+  },
+  {
+    "DataTypeName": "Lookup.Simple",
+    "IsDeprecated": false
   }
 ]

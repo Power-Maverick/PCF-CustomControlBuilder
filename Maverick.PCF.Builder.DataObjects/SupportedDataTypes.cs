@@ -9,6 +9,9 @@ namespace Maverick.PCF.Builder.DataObjects
     {
         [JsonProperty("DataTypeName")]
         public string DataTypeName { get; set; }
-       
+
+        [JsonProperty("IsDeprecated")]
+        public bool IsDeprecated { get; set; }
+
     }
 }

@@ -42,6 +42,7 @@ namespace Maverick.PCF.Builder.UserControls
             this.chkRequired = new System.Windows.Forms.CheckBox();
             this.chkUseTypeGroup = new System.Windows.Forms.CheckBox();
             this.btnUpdate = new System.Windows.Forms.Button();
+            this.lblPropertyNotes = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblName
@@ -66,7 +67,7 @@ namespace Maverick.PCF.Builder.UserControls
             // 
             this.txtDisplayNameKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDisplayNameKey.Location = new System.Drawing.Point(6, 74);
+            this.txtDisplayNameKey.Location = new System.Drawing.Point(6, 69);
             this.txtDisplayNameKey.Name = "txtDisplayNameKey";
             this.txtDisplayNameKey.Size = new System.Drawing.Size(199, 20);
             this.txtDisplayNameKey.TabIndex = 3;
@@ -74,7 +75,7 @@ namespace Maverick.PCF.Builder.UserControls
             // lblDisplayName
             // 
             this.lblDisplayName.AutoSize = true;
-            this.lblDisplayName.Location = new System.Drawing.Point(3, 58);
+            this.lblDisplayName.Location = new System.Drawing.Point(3, 53);
             this.lblDisplayName.Name = "lblDisplayName";
             this.lblDisplayName.Size = new System.Drawing.Size(99, 13);
             this.lblDisplayName.TabIndex = 2;
@@ -84,7 +85,7 @@ namespace Maverick.PCF.Builder.UserControls
             // 
             this.txtDescriptionKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescriptionKey.Location = new System.Drawing.Point(6, 120);
+            this.txtDescriptionKey.Location = new System.Drawing.Point(6, 110);
             this.txtDescriptionKey.Multiline = true;
             this.txtDescriptionKey.Name = "txtDescriptionKey";
             this.txtDescriptionKey.Size = new System.Drawing.Size(199, 80);
@@ -93,7 +94,7 @@ namespace Maverick.PCF.Builder.UserControls
             // lblDescription
             // 
             this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(3, 104);
+            this.lblDescription.Location = new System.Drawing.Point(3, 94);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(87, 13);
             this.lblDescription.TabIndex = 4;
@@ -102,7 +103,7 @@ namespace Maverick.PCF.Builder.UserControls
             // lblType
             // 
             this.lblType.AutoSize = true;
-            this.lblType.Location = new System.Drawing.Point(3, 240);
+            this.lblType.Location = new System.Drawing.Point(3, 222);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(90, 13);
             this.lblType.TabIndex = 6;
@@ -111,7 +112,7 @@ namespace Maverick.PCF.Builder.UserControls
             // lblUsage
             // 
             this.lblUsage.AutoSize = true;
-            this.lblUsage.Location = new System.Drawing.Point(3, 292);
+            this.lblUsage.Location = new System.Drawing.Point(3, 270);
             this.lblUsage.Name = "lblUsage";
             this.lblUsage.Size = new System.Drawing.Size(38, 13);
             this.lblUsage.TabIndex = 8;
@@ -119,19 +120,24 @@ namespace Maverick.PCF.Builder.UserControls
             // 
             // ddOfType
             // 
+            this.ddOfType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ddOfType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddOfType.FormattingEnabled = true;
-            this.ddOfType.Location = new System.Drawing.Point(6, 257);
+            this.ddOfType.Location = new System.Drawing.Point(6, 239);
             this.ddOfType.MaxDropDownItems = 4;
             this.ddOfType.Name = "ddOfType";
             this.ddOfType.Size = new System.Drawing.Size(199, 21);
             this.ddOfType.TabIndex = 12;
+            this.ddOfType.SelectedIndexChanged += new System.EventHandler(this.ddOfType_SelectedIndexChanged);
             // 
             // ddUsage
             // 
+            this.ddUsage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ddUsage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ddUsage.FormattingEnabled = true;
-            this.ddUsage.Location = new System.Drawing.Point(6, 308);
+            this.ddUsage.Location = new System.Drawing.Point(6, 286);
             this.ddUsage.MaxDropDownItems = 4;
             this.ddUsage.Name = "ddUsage";
             this.ddUsage.Size = new System.Drawing.Size(199, 21);
@@ -140,7 +146,7 @@ namespace Maverick.PCF.Builder.UserControls
             // chkRequired
             // 
             this.chkRequired.AutoSize = true;
-            this.chkRequired.Location = new System.Drawing.Point(6, 345);
+            this.chkRequired.Location = new System.Drawing.Point(3, 313);
             this.chkRequired.Name = "chkRequired";
             this.chkRequired.Size = new System.Drawing.Size(69, 17);
             this.chkRequired.TabIndex = 14;
@@ -150,7 +156,7 @@ namespace Maverick.PCF.Builder.UserControls
             // chkUseTypeGroup
             // 
             this.chkUseTypeGroup.AutoSize = true;
-            this.chkUseTypeGroup.Location = new System.Drawing.Point(6, 212);
+            this.chkUseTypeGroup.Location = new System.Drawing.Point(6, 196);
             this.chkUseTypeGroup.Name = "chkUseTypeGroup";
             this.chkUseTypeGroup.Size = new System.Drawing.Size(104, 17);
             this.chkUseTypeGroup.TabIndex = 15;
@@ -160,7 +166,9 @@ namespace Maverick.PCF.Builder.UserControls
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(6, 386);
+            this.btnUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUpdate.Location = new System.Drawing.Point(6, 412);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(199, 23);
             this.btnUpdate.TabIndex = 16;
@@ -168,10 +176,26 @@ namespace Maverick.PCF.Builder.UserControls
             this.btnUpdate.UseVisualStyleBackColor = true;
             this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
+            // lblPropertyNotes
+            // 
+            this.lblPropertyNotes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblPropertyNotes.AutoEllipsis = true;
+            this.lblPropertyNotes.ForeColor = System.Drawing.Color.BlueViolet;
+            this.lblPropertyNotes.Location = new System.Drawing.Point(3, 344);
+            this.lblPropertyNotes.Name = "lblPropertyNotes";
+            this.lblPropertyNotes.Size = new System.Drawing.Size(202, 50);
+            this.lblPropertyNotes.TabIndex = 17;
+            this.lblPropertyNotes.Text = "*The selected \'Type\' is deprecated and will not work with newer version of Power " +
+    "Apps CLI";
+            this.lblPropertyNotes.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.lblPropertyNotes.Visible = false;
+            // 
             // PropertyControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lblPropertyNotes);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.chkUseTypeGroup);
             this.Controls.Add(this.chkRequired);
@@ -186,7 +210,7 @@ namespace Maverick.PCF.Builder.UserControls
             this.Controls.Add(this.txtPropertyName);
             this.Controls.Add(this.lblName);
             this.Name = "PropertyControl";
-            this.Size = new System.Drawing.Size(218, 433);
+            this.Size = new System.Drawing.Size(218, 448);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -207,5 +231,6 @@ namespace Maverick.PCF.Builder.UserControls
         private System.Windows.Forms.CheckBox chkRequired;
         private System.Windows.Forms.CheckBox chkUseTypeGroup;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Label lblPropertyNotes;
     }
 }

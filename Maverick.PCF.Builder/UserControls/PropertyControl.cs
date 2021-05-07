@@ -176,5 +176,17 @@ namespace Maverick.PCF.Builder.UserControls
         {
             ToggleTypeDataset();
         }
+
+        private void ddOfType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            lblPropertyNotes.Visible = false;
+            if (!chkUseTypeGroup.Checked)
+            {
+                if (((SupportedDataTypes)ddOfType.SelectedItem).IsDeprecated)
+                {
+                    lblPropertyNotes.Visible = true;
+                }
+            }
+        }
     }
 }

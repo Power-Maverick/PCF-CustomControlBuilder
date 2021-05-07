@@ -82,7 +82,8 @@ namespace Maverick.PCF.Builder.Forms
             // 
             // pnlPropertiesContainer
             // 
-            this.pnlPropertiesContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlPropertiesContainer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlPropertiesContainer.Location = new System.Drawing.Point(3, 16);
             this.pnlPropertiesContainer.Name = "pnlPropertiesContainer";
             this.pnlPropertiesContainer.Size = new System.Drawing.Size(243, 438);
@@ -108,20 +109,20 @@ namespace Maverick.PCF.Builder.Forms
             this.tsmiAdd,
             this.tsmiDelete});
             this.contextMenuNode.Name = "contextMenuNode";
-            this.contextMenuNode.Size = new System.Drawing.Size(181, 70);
+            this.contextMenuNode.Size = new System.Drawing.Size(108, 48);
             this.contextMenuNode.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuNode_ItemClicked);
             // 
             // tsmiAdd
             // 
             this.tsmiAdd.Name = "tsmiAdd";
-            this.tsmiAdd.Size = new System.Drawing.Size(180, 22);
+            this.tsmiAdd.Size = new System.Drawing.Size(107, 22);
             this.tsmiAdd.Tag = "morpheus";
             this.tsmiAdd.Text = "Add";
             // 
             // tsmiDelete
             // 
             this.tsmiDelete.Name = "tsmiDelete";
-            this.tsmiDelete.Size = new System.Drawing.Size(180, 22);
+            this.tsmiDelete.Size = new System.Drawing.Size(107, 22);
             this.tsmiDelete.Text = "Delete";
             // 
             // PropertiesForm
