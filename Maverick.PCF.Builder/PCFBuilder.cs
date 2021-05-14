@@ -784,7 +784,7 @@ namespace Maverick.PCF.Builder
                 if (!outputParsedPacDetails.UnableToDetectCLIVersion)
                 {
                     if (outputParsedPacDetails.ContainsLatestVersionNotification &&
-                        DialogResult.Yes == MessageBox.Show("New version of PCF CLI is available. Do you want to update it now?", "PCF CLI Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
+                        DialogResult.Yes == MessageBox.Show("New version of Power Apps CLI is available. Do you want to update it now?", "PCF Power Apps Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information))
                     {
                         string pacUpdateCLI = Commands.Pac.InstallLatest();
                         RunCommandLine(pacUpdateCLI);
