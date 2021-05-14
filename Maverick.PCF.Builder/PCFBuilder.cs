@@ -321,7 +321,9 @@ namespace Maverick.PCF.Builder
             txtComponentVersion.Clear();
 
             txtSolutionName.Clear();
+            txtSolutionFriendlyName.Clear();
             txtPublisherUniqueName.Clear();
+            txtPublisherFriendlyName.Clear();
             txtPublisherPrefix.Clear();
             txtSolutionVersion.Clear();
 
@@ -332,12 +334,20 @@ namespace Maverick.PCF.Builder
             cboxTemplate.Enabled = true;
             cboxAdditionalPackages.Enabled = true;
             txtSolutionName.Enabled = true;
+            txtSolutionFriendlyName.Enabled = true;
             txtPublisherUniqueName.Enabled = true;
+            txtPublisherFriendlyName.Enabled = true;
             txtPublisherPrefix.Enabled = true;
             btnCreateComponent.Enabled = true;
             btnCreateSolution.Enabled = true;
             btnRefreshDetails.Enabled = false;
             btnDeploy.Enabled = false;
+
+            btnUpdateControlDetails.Enabled = false;
+            btnManageProperties.Enabled = false;
+            btnManageFeatures.Enabled = false;
+            btnAddPreviewImage.Enabled = false;
+            btnAddResxFile.Enabled = false;
 
             lblControlInitStatus.Text = Enum.InitializationStatus(false);
             lblControlInitStatus.ForeColor = Color.Firebrick;
@@ -359,6 +369,12 @@ namespace Maverick.PCF.Builder
                 btnCreateComponent.Enabled = false;
                 txtControlDisplayName.Enabled = false;
                 txtControlDescription.Enabled = false;
+
+                btnUpdateControlDetails.Enabled = true;
+                btnManageProperties.Enabled = true;
+                btnManageFeatures.Enabled = true;
+                btnAddPreviewImage.Enabled = true;
+                btnAddResxFile.Enabled = true;
 
                 lblControlInitStatus.Text = Enum.InitializationStatus(true);
                 lblControlInitStatus.ForeColor = Color.ForestGreen;
@@ -1973,6 +1989,8 @@ namespace Maverick.PCF.Builder
                 {
                     RunCommandLine(cdWorkingDir, pacCommand, npmCommand, additionalPackage);
                 }
+
+                // Create VS Code Workspace file
 
             }
         }

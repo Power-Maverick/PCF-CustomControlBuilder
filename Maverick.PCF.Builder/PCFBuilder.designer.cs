@@ -128,6 +128,7 @@
             this.consoleControl = new ConsoleControl.ConsoleControl();
             this.grpBoxSolutionDetails = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lblSolutionNote = new System.Windows.Forms.Label();
             this.btnOpenSolutionInExplorer = new System.Windows.Forms.Button();
             this.lblSolutionInitStatus = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -165,7 +166,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.lblSolutionNote = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -1265,6 +1265,20 @@
             this.panel1.Size = new System.Drawing.Size(488, 402);
             this.panel1.TabIndex = 53;
             // 
+            // lblSolutionNote
+            // 
+            this.lblSolutionNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblSolutionNote.ForeColor = System.Drawing.Color.BlueViolet;
+            this.lblSolutionNote.Location = new System.Drawing.Point(8, 327);
+            this.lblSolutionNote.Name = "lblSolutionNote";
+            this.lblSolutionNote.Size = new System.Drawing.Size(472, 62);
+            this.lblSolutionNote.TabIndex = 54;
+            this.lblSolutionNote.Text = "*When \"Solution Package Type\" is selected as \"Both\"; only unmanaged solution will" +
+    " be deployed to your Dataverse environment.";
+            this.lblSolutionNote.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.lblSolutionNote.Visible = false;
+            // 
             // btnOpenSolutionInExplorer
             // 
             this.btnOpenSolutionInExplorer.FlatAppearance.BorderSize = 0;
@@ -1424,7 +1438,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(8, 236);
+            this.label23.Location = new System.Drawing.Point(7, 236);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(118, 13);
             this.label23.TabIndex = 46;
@@ -1625,20 +1639,6 @@
             this.btnWorkingFolderSelector.Text = "...";
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
-            // 
-            // lblSolutionNote
-            // 
-            this.lblSolutionNote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblSolutionNote.ForeColor = System.Drawing.Color.BlueViolet;
-            this.lblSolutionNote.Location = new System.Drawing.Point(8, 327);
-            this.lblSolutionNote.Name = "lblSolutionNote";
-            this.lblSolutionNote.Size = new System.Drawing.Size(472, 62);
-            this.lblSolutionNote.TabIndex = 54;
-            this.lblSolutionNote.Text = "*When \"Solution Package Type\" is selected as \"Both\"; only unmanaged solution will" +
-    " be deployed to your Dataverse environment.";
-            this.lblSolutionNote.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.lblSolutionNote.Visible = false;
             // 
             // PCFBuilder
             // 
