@@ -92,7 +92,7 @@ namespace Maverick.PCF.Builder.UserControls
                         default:
                             break;
                     }
-                } 
+                }
             }
         }
 
@@ -117,7 +117,7 @@ namespace Maverick.PCF.Builder.UserControls
                 ddOfType.DisplayMember = "Name";
                 ddOfType.ValueMember = "Name";
 
-                lblType.Text = "Type Group (Data Type)";
+                lblType.Text = "Type Group (Data Type)*";
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Maverick.PCF.Builder.UserControls
                 ddOfType.DisplayMember = "DataTypeName";
                 ddOfType.ValueMember = "DataTypeName";
 
-                lblType.Text = "Type (Data Type)";
+                lblType.Text = "Type (Data Type)*";
             }
         }
 
@@ -143,33 +143,52 @@ namespace Maverick.PCF.Builder.UserControls
             newProperty = false;
         }
 
+        private bool validatePropertyData()
+        {
+            bool isValid = false;
+
+            if (!string.IsNullOrEmpty(txtPropertyName.Text) && !string.IsNullOrEmpty(txtDisplayNameKey.Text))
+            {
+                isValid = true;
+            }
+
+            return isValid;
+        }
+
         #endregion
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            ControlProperty controlProperty = new ControlProperty();
-            controlProperty.Name = txtPropertyName.Text;
-            controlProperty.DisplayNameKey = txtDisplayNameKey.Text;
-            controlProperty.DescriptionNameKey = txtDescriptionKey.Text;
-            controlProperty.Usage = (Enum.UsageType)ddUsage.SelectedItem;
-            controlProperty.IsRequired = chkRequired.Checked;
-            controlProperty.IsUsingTypeGroup = chkUseTypeGroup.Checked;
-            controlProperty.TypeOrTypeGroup = ddOfType.SelectedValue.ToString();
-
-            ControlManifestHelper manifestHelper = new ControlManifestHelper();
-
-            if (newProperty)
+            if (validatePropertyData())
             {
-                manifestHelper.CreateNewProperty(manifestDetails, controlProperty);
-                Routine_EditControl();
+                ControlProperty controlProperty = new ControlProperty();
+                controlProperty.Name = txtPropertyName.Text;
+                controlProperty.DisplayNameKey = txtDisplayNameKey.Text;
+                controlProperty.DescriptionNameKey = txtDescriptionKey.Text;
+                controlProperty.Usage = (Enum.UsageType)ddUsage.SelectedItem;
+                controlProperty.IsRequired = chkRequired.Checked;
+                controlProperty.IsUsingTypeGroup = chkUseTypeGroup.Checked;
+                controlProperty.TypeOrTypeGroup = ddOfType.SelectedValue.ToString();
+
+                ControlManifestHelper manifestHelper = new ControlManifestHelper();
+
+                if (newProperty)
+                {
+                    manifestHelper.CreateNewProperty(manifestDetails, controlProperty);
+                    Routine_EditControl();
+                }
+                else
+                {
+                    manifestDetails = manifestHelper.UpdatePropertyDetails(persistedPropertyName, manifestDetails, controlProperty);
+                }
+
+                persistedPropertyName = controlProperty.Name;
+                ParentControl.RefreshControlManifestDetails();
             }
             else
             {
-                manifestDetails = manifestHelper.UpdatePropertyDetails(persistedPropertyName, manifestDetails, controlProperty);
+                MessageBox.Show("The property entry is invalid. Please populate all required fields.", "Invalid Propert State", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            persistedPropertyName = controlProperty.Name;
-            ParentControl.RefreshControlManifestDetails();
         }
 
         private void chkUseTypeGroup_CheckedChanged(object sender, EventArgs e)

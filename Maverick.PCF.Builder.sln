@@ -18,6 +18,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{433E52F5-84E6-4160-852C-ADAB3124A822}"
 	ProjectSection(SolutionItems) = preProject
 		PCF-CustomControlBuilder.nuspec = PCF-CustomControlBuilder.nuspec
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Maverick.PCF.Builder.Extensions", "Maverick.PCF.Builder.Extensions\Maverick.PCF.Builder.Extensions.shproj", "{135BE41D-FFC2-40B1-ACB5-EBC2309014B2}"

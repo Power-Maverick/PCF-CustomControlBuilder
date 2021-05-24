@@ -50,9 +50,9 @@ namespace Maverick.PCF.Builder.UserControls
             this.lblName.AutoSize = true;
             this.lblName.Location = new System.Drawing.Point(3, 12);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(35, 13);
+            this.lblName.Size = new System.Drawing.Size(39, 13);
             this.lblName.TabIndex = 0;
-            this.lblName.Text = "Name";
+            this.lblName.Text = "Name*";
             // 
             // txtPropertyName
             // 
@@ -77,9 +77,9 @@ namespace Maverick.PCF.Builder.UserControls
             this.lblDisplayName.AutoSize = true;
             this.lblDisplayName.Location = new System.Drawing.Point(3, 53);
             this.lblDisplayName.Name = "lblDisplayName";
-            this.lblDisplayName.Size = new System.Drawing.Size(99, 13);
+            this.lblDisplayName.Size = new System.Drawing.Size(103, 13);
             this.lblDisplayName.TabIndex = 2;
-            this.lblDisplayName.Text = "Display Name (Key)";
+            this.lblDisplayName.Text = "Display Name (Key)*";
             // 
             // txtDescriptionKey
             // 
@@ -105,18 +105,18 @@ namespace Maverick.PCF.Builder.UserControls
             this.lblType.AutoSize = true;
             this.lblType.Location = new System.Drawing.Point(3, 222);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(90, 13);
+            this.lblType.Size = new System.Drawing.Size(94, 13);
             this.lblType.TabIndex = 6;
-            this.lblType.Text = "Type (Data Type)";
+            this.lblType.Text = "Type (Data Type)*";
             // 
             // lblUsage
             // 
             this.lblUsage.AutoSize = true;
             this.lblUsage.Location = new System.Drawing.Point(3, 270);
             this.lblUsage.Name = "lblUsage";
-            this.lblUsage.Size = new System.Drawing.Size(38, 13);
+            this.lblUsage.Size = new System.Drawing.Size(42, 13);
             this.lblUsage.TabIndex = 8;
-            this.lblUsage.Text = "Usage";
+            this.lblUsage.Text = "Usage*";
             // 
             // ddOfType
             // 
@@ -186,8 +186,8 @@ namespace Maverick.PCF.Builder.UserControls
             this.lblPropertyNotes.Name = "lblPropertyNotes";
             this.lblPropertyNotes.Size = new System.Drawing.Size(202, 50);
             this.lblPropertyNotes.TabIndex = 17;
-            this.lblPropertyNotes.Text = "*The selected \'Type\' is deprecated and will not work with newer version of Power " +
-    "Apps CLI";
+            this.lblPropertyNotes.Text = "The selected \'Type\' is deprecated and will not work with newer version of Power A" +
+    "pps CLI";
             this.lblPropertyNotes.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.lblPropertyNotes.Visible = false;
             // 

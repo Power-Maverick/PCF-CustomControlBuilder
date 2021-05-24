@@ -25,7 +25,9 @@ namespace Maverick.PCF.Builder.Forms
             _controlDetails = details;
             lblDisplayName.Text = _controlDetails.ControlDisplayName;
             lblDescription.Text = _controlDetails.ControlDescription;
-            lblTypes.Text = String.Join(", ", _controlDetails.TypeGroups.FirstOrDefault().Types);
+            lblTypes.Text = String.Join(", ", _controlDetails.Properties
+                .Where(p => p.IsUsingTypeGroup == false && p.Usage == Helper.Enum.UsageType.bound)
+                .Select(p => p.TypeOrTypeGroup));
 
             pboxPreviewImage.ImageLocation = _controlDetails.PreviewImagePath;
         }
@@ -44,13 +46,13 @@ namespace Maverick.PCF.Builder.Forms
 
                 File.Copy(ofdPreviewImage.FileName, $"{filePath}\\{fileName}", true);
                 pboxPreviewImage.ImageLocation = $"{filePath}\\{fileName}";
-               
+
             }
         }
 
         private void ShowPreviewImage_FormClosing(object sender, FormClosingEventArgs e)
         {
-            
+
         }
     }
 }
