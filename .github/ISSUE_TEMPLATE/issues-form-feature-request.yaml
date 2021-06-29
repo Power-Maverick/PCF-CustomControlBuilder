@@ -22,8 +22,8 @@ body:
     attributes:
       label: Is your feature request related to a problem?
       options:
-        - Yes
-        - No
+        - 'Yes'
+        - 'No'
     validations:
       required: true
   - type: textarea
