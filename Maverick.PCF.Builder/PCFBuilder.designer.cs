@@ -515,8 +515,8 @@
             this.pnlMain.Controls.Add(this.lblStatus);
             this.pnlMain.Controls.Add(this.btnClearConsole);
             this.pnlMain.Controls.Add(this.btnRefreshDetails);
-            this.pnlMain.Controls.Add(this.lblErrors);
             this.pnlMain.Controls.Add(this.lblPCFCLIVersionMsg);
+            this.pnlMain.Controls.Add(this.lblErrors);
             this.pnlMain.Controls.Add(this.gboxQuickAction);
             this.pnlMain.Controls.Add(this.gboxCommandPrompt);
             this.pnlMain.Controls.Add(this.grpBoxSolutionDetails);
@@ -540,7 +540,7 @@
             this.Date,
             this.Location});
             this.dgvMRULocations.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvMRULocations.Location = new System.Drawing.Point(118, 41);
+            this.dgvMRULocations.Location = new System.Drawing.Point(118, 42);
             this.dgvMRULocations.MultiSelect = false;
             this.dgvMRULocations.Name = "dgvMRULocations";
             this.dgvMRULocations.ReadOnly = true;
@@ -1182,9 +1182,9 @@
             // lblErrors
             // 
             this.lblErrors.ForeColor = System.Drawing.Color.Red;
-            this.lblErrors.Location = new System.Drawing.Point(290, 49);
+            this.lblErrors.Location = new System.Drawing.Point(231, 46);
             this.lblErrors.Name = "lblErrors";
-            this.lblErrors.Size = new System.Drawing.Size(203, 51);
+            this.lblErrors.Size = new System.Drawing.Size(263, 51);
             this.lblErrors.TabIndex = 21;
             this.lblErrors.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 

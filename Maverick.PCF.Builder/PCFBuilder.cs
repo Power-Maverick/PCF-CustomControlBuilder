@@ -222,6 +222,10 @@ namespace Maverick.PCF.Builder
             {
                 lblErrors.Text += "\nTemplate selection is required.";
             }
+            if (cboxAdditionalPackages.SelectedIndex == -1)
+            {
+                lblErrors.Text += "\nAdditional Package selection is required.";
+            }
 
             bool isValid = isWorkingFolderValid && string.IsNullOrEmpty(lblErrors.Text);
 
@@ -1948,8 +1952,6 @@ namespace Maverick.PCF.Builder
         private void BtnCreateComponent_Click(object sender, EventArgs e)
         {
             var areMainControlsValid = AreMainControlsPopulated();
-
-            lblErrors.Text = string.Empty;
 
             if (areMainControlsValid && !string.IsNullOrEmpty(txtNamespace.Text) && !string.IsNullOrEmpty(txtControlName.Text) && cboxTemplate.SelectedIndex >= 0)
             {

@@ -15,31 +15,9 @@
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
----- NEW FEATURES ----
-1. Separation of Display name and Control name for PCF Project initialization
-2. Ability to update control display name and description right from the tool after creation
-3. Full properties and type-group management
-4. Enable and Disable features
-5. Add or update Preview image with ease
-6. Added "Existing Solution" option
-7. Automatically detects if npm packages needs to be installed and prompts to run 'npm install'
-8. Ability to add solution Friendly name and Unique name
-9. Added solution package type option
-10. Build mode for creating a regular or optimized packages
-
----- UPDATES ----
-1. UI Rearranged
-2. Automatically identify if node_modules are missing and runs 'npm install'
-
 ---- BUG FIXES ----
-None
+#57 - Fixed the issue with unhandled error and also now properly show validation error
 
-Enhancements and Issues reported by the community fixed in this version:
-- #31: Add fields for control property (Rappen)
-- #35: Managed should be renamed to Release (Power-Maverick)
-- #46: Ability to select Managed/Unmanaged/Both (Power-Maverick)
-- #38: Use existing publisher option similar to use existing solution (OliverFlint)
-- #44: Create a new button to just install dependencies (Power-Maverick)
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
     <tags>XrmToolBox, PCF, Power Apps, Power Apps Component Framework, PCF Builder</tags>
