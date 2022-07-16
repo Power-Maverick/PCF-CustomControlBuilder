@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Maverick.PCF.Builder</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>PCF Builder</title>
     <authors>Danish Naglekar</authors>
     <owners>Power-Maverick</owners>
@@ -16,7 +16,7 @@
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
 ---- BUG FIXES ----
-#57 - Fixed the issue with unhandled error and also now properly show validation error
+AdHoc - Updated the regex for publisher naming check to include numbers in the prefix name. For e.g. b2c
 
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>
