@@ -289,7 +289,7 @@ namespace Maverick.PCF.Builder
                  * It cannot start with "mscrm".
                  * Max. Char. length: 9
                 */
-                if (Regex.Match(txtPublisherPrefix.Text, @"^\d*(?=.*[a-zA-Z]{2}).{1,9}$").Success && !txtPublisherPrefix.Text.StartsWith("mscrm"))
+                if (Regex.Match(txtPublisherPrefix.Text, @"^[A-Za-z][A-Za-z0-9]{1,8}$").Success && !txtPublisherPrefix.Text.StartsWith("mscrm"))
                 {
                     lblErrors.Text = string.Empty;
                 }
