@@ -62,6 +62,11 @@ namespace Maverick.PCF.Builder.Common
                                                     ControlDetails.PreviewImagePath = $"{currentDir}\\{sanitizedPreviewImageRelativePath}";
                                                 }
 
+                                                if (xmlReader.GetAttribute("control-type") != null && xmlReader.GetAttribute("control-type") == "virtual")
+                                                {
+                                                    ControlDetails.IsVirtual = true;
+                                                }
+
                                                 break;
                                             case "data-set":
                                                 ControlDetails.IsDatasetTemplate = true;

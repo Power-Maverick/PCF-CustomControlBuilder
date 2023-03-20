@@ -76,6 +76,18 @@ namespace Maverick.PCF.Builder.Helper
             }
 
             /// <summary>
+            /// pac pcf init --namespace controlNamespace --name controlName --template controlTemplate.ToLower() --framework react
+            /// </summary>
+            /// <param name="controlNamespace"></param>
+            /// <param name="controlName"></param>
+            /// <param name="controlTemplate"></param>
+            /// <returns></returns>
+            public static string PcfInitVirtual(string controlNamespace, string controlName, string controlTemplate)
+            {
+                return $"pac pcf init --namespace {controlNamespace} --name {controlName} --template {controlTemplate.ToLower()} --framework react";
+            }
+
+            /// <summary>
             /// pac solution init --publisher-name publisherName --publisher-prefix customizationPrefix
             /// </summary>
             /// <param name="publisherName"></param>

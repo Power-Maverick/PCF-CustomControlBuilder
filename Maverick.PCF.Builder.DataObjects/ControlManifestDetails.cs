@@ -18,6 +18,7 @@ namespace Maverick.PCF.Builder.DataObjects
             PreviewImagePath = null;
             Properties = new List<ControlProperty>();
             Features = new List<Feature>();
+            IsVirtual = false;
         }
 
         public string WorkingFolderPath { get; set; }
@@ -27,6 +28,7 @@ namespace Maverick.PCF.Builder.DataObjects
         public string ControlName { get; set; }
         public string ControlDisplayName { get; set; }
         public string ControlDescription { get; set; }
+        public bool IsVirtual { get; set; }
         public List<TypeGroup> TypeGroups { get; set; }
         public string PreviewImagePath { get; set; }
         public string Version { get; set; }

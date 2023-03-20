@@ -15,8 +15,11 @@
     <description>Easily create, build and deployment solution for your custom control using PCF.</description>
     <summary>Easily create, build and deployment solution for your custom control using PCF.</summary>
     <releaseNotes>
+---- NEW FEATURE ----
+#65 - Added support for React control and platform libraries (virtual control)
+
 ---- BUG FIXES ----
-AdHoc - Updated the regex for publisher naming check to include numbers in the prefix name. For e.g. b2c
+#58 - Additional packages not loaded with existing control
 
     </releaseNotes>
     <copyright>Copyright © Danish Naglekar</copyright>

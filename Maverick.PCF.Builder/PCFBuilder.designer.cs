@@ -166,6 +166,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnWorkingFolderSelector = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.cboxControlType = new System.Windows.Forms.ComboBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.toolStripMenu.SuspendLayout();
             this.gboxQuickAction.SuspendLayout();
             this.pnlMain.SuspendLayout();
@@ -590,6 +592,8 @@
             // pnlCCD
             // 
             this.pnlCCD.AutoScroll = true;
+            this.pnlCCD.Controls.Add(this.cboxControlType);
+            this.pnlCCD.Controls.Add(this.label27);
             this.pnlCCD.Controls.Add(this.lblControlInitStatus);
             this.pnlCCD.Controls.Add(this.label17);
             this.pnlCCD.Controls.Add(this.cboxTemplate);
@@ -652,7 +656,7 @@
             this.cboxTemplate.Items.AddRange(new object[] {
             "Field",
             "Dataset"});
-            this.cboxTemplate.Location = new System.Drawing.Point(129, 196);
+            this.cboxTemplate.Location = new System.Drawing.Point(129, 223);
             this.cboxTemplate.Name = "cboxTemplate";
             this.cboxTemplate.Size = new System.Drawing.Size(175, 21);
             this.cboxTemplate.TabIndex = 6;
@@ -707,7 +711,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 199);
+            this.label6.Location = new System.Drawing.Point(12, 226);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(51, 13);
             this.label6.TabIndex = 12;
@@ -793,7 +797,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(12, 226);
+            this.label14.Location = new System.Drawing.Point(12, 253);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(104, 13);
             this.label14.TabIndex = 36;
@@ -813,7 +817,7 @@
             // 
             this.cboxAdditionalPackages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxAdditionalPackages.FormattingEnabled = true;
-            this.cboxAdditionalPackages.Location = new System.Drawing.Point(129, 223);
+            this.cboxAdditionalPackages.Location = new System.Drawing.Point(129, 250);
             this.cboxAdditionalPackages.Name = "cboxAdditionalPackages";
             this.cboxAdditionalPackages.Size = new System.Drawing.Size(175, 21);
             this.cboxAdditionalPackages.TabIndex = 7;
@@ -843,7 +847,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label12, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnManageFeatures, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label26, 2, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 304);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(15, 331);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 64.0625F));
@@ -997,7 +1001,7 @@
             // 
             // txtComponentVersion
             // 
-            this.txtComponentVersion.Location = new System.Drawing.Point(129, 250);
+            this.txtComponentVersion.Location = new System.Drawing.Point(129, 277);
             this.txtComponentVersion.Name = "txtComponentVersion";
             this.txtComponentVersion.ReadOnly = true;
             this.txtComponentVersion.Size = new System.Drawing.Size(50, 20);
@@ -1006,7 +1010,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 288);
+            this.label11.Location = new System.Drawing.Point(12, 315);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(76, 13);
             this.label11.TabIndex = 31;
@@ -1015,7 +1019,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 253);
+            this.label1.Location = new System.Drawing.Point(12, 280);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 18;
@@ -1037,7 +1041,7 @@
             this.chkIncrementComponentVersion.AutoSize = true;
             this.chkIncrementComponentVersion.Checked = true;
             this.chkIncrementComponentVersion.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkIncrementComponentVersion.Location = new System.Drawing.Point(185, 252);
+            this.chkIncrementComponentVersion.Location = new System.Drawing.Point(185, 279);
             this.chkIncrementComponentVersion.Name = "chkIncrementComponentVersion";
             this.chkIncrementComponentVersion.Size = new System.Drawing.Size(111, 17);
             this.chkIncrementComponentVersion.TabIndex = 22;
@@ -1208,6 +1212,7 @@
             this.consoleControl.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.consoleControl.IsInputEnabled = false;
             this.consoleControl.Location = new System.Drawing.Point(3, 16);
+            this.consoleControl.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.consoleControl.Name = "consoleControl";
             this.consoleControl.SendKeyboardCommandsToProcess = true;
             this.consoleControl.ShowDiagnostics = false;
@@ -1640,6 +1645,28 @@
             this.btnWorkingFolderSelector.UseVisualStyleBackColor = true;
             this.btnWorkingFolderSelector.Click += new System.EventHandler(this.btnWorkingFolderSelector_Click);
             // 
+            // cboxControlType
+            // 
+            this.cboxControlType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxControlType.FormattingEnabled = true;
+            this.cboxControlType.Items.AddRange(new object[] {
+            "Standard",
+            "Virtual"});
+            this.cboxControlType.Location = new System.Drawing.Point(129, 196);
+            this.cboxControlType.Name = "cboxControlType";
+            this.cboxControlType.Size = new System.Drawing.Size(175, 21);
+            this.cboxControlType.TabIndex = 71;
+            this.cboxControlType.SelectedIndexChanged += new System.EventHandler(this.cboxControlType_SelectedIndexChanged);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(12, 199);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(67, 13);
+            this.label27.TabIndex = 72;
+            this.label27.Text = "Control Type";
+            // 
             // PCFBuilder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1814,5 +1841,7 @@
         private System.Windows.Forms.Button btnManageFeatures;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label lblSolutionNote;
+        private System.Windows.Forms.ComboBox cboxControlType;
+        private System.Windows.Forms.Label label27;
     }
 }

@@ -320,6 +320,7 @@ namespace Maverick.PCF.Builder
             txtControlName.Clear();
             txtControlDisplayName.Clear();
             txtControlDescription.Clear();
+            cboxControlType.SelectedIndex = -1;
             cboxTemplate.SelectedIndex = -1;
             cboxAdditionalPackages.SelectedIndex = -1;
             txtComponentVersion.Clear();
@@ -335,6 +336,7 @@ namespace Maverick.PCF.Builder
             txtNamespace.Enabled = true;
             txtControlDisplayName.Enabled = true;
             txtControlDescription.Enabled = true;
+            cboxControlType.Enabled = true;
             cboxTemplate.Enabled = true;
             cboxAdditionalPackages.Enabled = true;
             txtSolutionName.Enabled = true;
@@ -368,6 +370,7 @@ namespace Maverick.PCF.Builder
             {
                 txtControlName.Enabled = false;
                 txtNamespace.Enabled = false;
+                cboxControlType.Enabled = false;
                 cboxTemplate.Enabled = false;
                 cboxAdditionalPackages.Enabled = false;
                 btnCreateComponent.Enabled = false;
@@ -522,9 +525,11 @@ namespace Maverick.PCF.Builder
 
                 ControlDetails = ControlManifest.GetControlManifestDetails(txtWorkingFolder.Text);
 
-                _mainPluginLocalWorker = new BackgroundWorker();
-                _mainPluginLocalWorker.DoWork += IdentifyAdditionalPackage;
-                _mainPluginLocalWorker.RunWorkerAsync();
+                //_mainPluginLocalWorker = new BackgroundWorker();
+                //_mainPluginLocalWorker.DoWork += IdentifyAdditionalPackage;
+                //_mainPluginLocalWorker.RunWorkerAsync();
+
+                IdentifyAdditionalPackage_New();
 
                 if (!string.IsNullOrEmpty(ControlDetails.ControlName))
                 {
@@ -559,6 +564,23 @@ namespace Maverick.PCF.Builder
         }
 
         private void IdentifyAdditionalPackage(object worker, DoWorkEventArgs args)
+        {
+            // Identify additional package installs - for now only check for Fluent UI
+            var packageName = Enum.AdditionalPackages().FirstOrDefault(p => p.Value == "Fluent UI").Key;
+            string[] addPkgCommands = new string[] { Commands.Npm.CheckAdditionalPackage(packageName) };
+            var addPkgOutput = CommandLineHelper.RunCommand(addPkgCommands);
+
+            // scrub data
+            addPkgOutput = addPkgOutput.Substring(addPkgOutput.IndexOf(addPkgCommands[0]) + addPkgCommands[0].Length);
+
+            if (addPkgOutput.ToLower().Contains(packageName.ToLower()))
+            {
+                cboxAdditionalPackages.SelectedIndex = 1;
+                ControlDetails.AdditionalPackageIndex = 1;
+            }
+        }
+
+        private void IdentifyAdditionalPackage_New()
         {
             // Identify additional package installs - for now only check for Fluent UI
             var packageName = Enum.AdditionalPackages().FirstOrDefault(p => p.Value == "Fluent UI").Key;
@@ -714,6 +736,7 @@ namespace Maverick.PCF.Builder
             txtControlDescription.Text = ControlDetails.ControlDescription;
             txtComponentVersion.Text = ControlDetails.Version;
 
+            cboxControlType.SelectedIndex = ControlDetails.IsVirtual ? 1 : 0;
             cboxTemplate.SelectedIndex = ControlDetails.IsDatasetTemplate ? 1 : 0;
 
             if (!string.IsNullOrEmpty(ControlDetails.PreviewImagePath))
@@ -1983,14 +2006,24 @@ namespace Maverick.PCF.Builder
                 }
 
                 ReloadDetails = true;
-                if (string.IsNullOrEmpty(additionalPackage))
+                if ((string)cboxControlType.SelectedItem == "Virtual")
                 {
-                    RunCommandLine(cdWorkingDir, pacCommand, npmCommand);
+                    string pacCommandVirtual = Commands.Pac.PcfInitVirtual(txtNamespace.Text, txtControlName.Text, cboxTemplate.SelectedItem.ToString());
+                    RunCommandLine(cdWorkingDir, pacCommandVirtual, npmCommand);
+                    
                 }
                 else
                 {
-                    RunCommandLine(cdWorkingDir, pacCommand, npmCommand, additionalPackage);
+                    if (string.IsNullOrEmpty(additionalPackage))
+                    {
+                        RunCommandLine(cdWorkingDir, pacCommand, npmCommand);
+                    }
+                    else
+                    {
+                        RunCommandLine(cdWorkingDir, pacCommand, npmCommand, additionalPackage);
+                    }
                 }
+                
 
                 // Create VS Code Workspace file
 
@@ -2628,6 +2661,15 @@ namespace Maverick.PCF.Builder
             if (InitiatePCFProjectBuild)
             {
                 BuildPCFProject();
+            }
+        }
+
+        private void cboxControlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((string)cboxControlType.SelectedItem == "Virtual")
+            {
+                cboxAdditionalPackages.SelectedIndex = 1;
+                cboxAdditionalPackages.Enabled = false;
             }
         }
 
