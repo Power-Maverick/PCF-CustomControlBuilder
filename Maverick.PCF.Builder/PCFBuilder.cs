@@ -99,7 +99,7 @@ namespace Maverick.PCF.Builder
 
         private void InitCommandLine()
         {
-            consoleControl.StartProcess("cmd", $"/K powershell");
+            consoleControl.StartProcess("cmd", $"/K powershell -Command \"{Commands.Cmd.SetExecutionPolicyBypassProcess()}\"");
         }
 
         private void RunCommandLine(params string[] commands)

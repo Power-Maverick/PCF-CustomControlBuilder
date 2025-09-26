@@ -48,6 +48,11 @@ namespace Maverick.PCF.Builder.Helper
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -force\"\"";
             }
 
+            public static string SetExecutionPolicyBypassProcess()
+            {
+                return $"Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -force";
+            }
+
             public static string ResetExecutionPolicy()
             {
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Default -Scope CurrentUser -force\"\"";
