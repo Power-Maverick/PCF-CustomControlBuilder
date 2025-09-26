@@ -913,7 +913,7 @@ namespace Maverick.PCF.Builder
             }
             else
             {
-                string[] commands = new string[] { Commands.Cmd.SetExecutionPolicyToUnrestricted(), Commands.Cmd.FindMsBuild(), Commands.Cmd.ResetExecutionPolicy() };
+                string[] commands = new string[] { Commands.Cmd.SetExecutionPolicyBypassProcessWrapped(), Commands.Cmd.FindMsBuild() };
                 var output = CommandLineHelper.RunCommand(commands);
 
                 if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("msbuild.ps1"))
