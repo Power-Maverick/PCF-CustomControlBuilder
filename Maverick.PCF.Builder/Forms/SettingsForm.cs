@@ -27,6 +27,7 @@ namespace Maverick.PCF.Builder.Forms
 
             txtSetWorkingFolder.Text = pluginSettings.WorkingDirectoryLocation;
             txtMsBuildPath.Text = pluginSettings.MsBuildLocation;
+            txtCustomExecutionPolicy.Text = pluginSettings.CustomExecutionPolicy;
             txtControlNamespace.Text = pluginSettings.ControlNamespace;
             chkboxLoadNamespace.Checked = pluginSettings.AlwaysLoadNamespaceFromSettings;
             txtPublisherName.Text = pluginSettings.PublisherName;
@@ -47,6 +48,7 @@ namespace Maverick.PCF.Builder.Forms
         {
             pluginSettings.WorkingDirectoryLocation = txtSetWorkingFolder.Text;
             pluginSettings.MsBuildLocation = txtMsBuildPath.Text;
+            pluginSettings.CustomExecutionPolicy = txtCustomExecutionPolicy.Text;
 
             pluginSettings.ControlNamespace = txtControlNamespace.Text;
             pluginSettings.AlwaysLoadNamespaceFromSettings = chkboxLoadNamespace.Checked;
@@ -70,6 +72,7 @@ namespace Maverick.PCF.Builder.Forms
             txtSetWorkingFolder.Text = string.Empty;
             pluginSettings.WorkingDirectoryLocation = string.Empty;
             pluginSettings.MsBuildLocation = string.Empty;
+            pluginSettings.CustomExecutionPolicy = string.Empty;
 
             pluginSettings.ControlNamespace = string.Empty;
             pluginSettings.AlwaysLoadNamespaceFromSettings = true;

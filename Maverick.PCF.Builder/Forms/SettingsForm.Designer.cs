@@ -47,6 +47,8 @@
             this.selectVSDevFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.txtMsBuildPath = new System.Windows.Forms.TextBox();
             this.lblMsBuildPath = new System.Windows.Forms.Label();
+            this.txtCustomExecutionPolicy = new System.Windows.Forms.TextBox();
+            this.lblCustomExecutionPolicy = new System.Windows.Forms.Label();
             this.gboxSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +56,8 @@
             // 
             this.gboxSettings.Controls.Add(this.txtMsBuildPath);
             this.gboxSettings.Controls.Add(this.lblMsBuildPath);
+            this.gboxSettings.Controls.Add(this.txtCustomExecutionPolicy);
+            this.gboxSettings.Controls.Add(this.lblCustomExecutionPolicy);
             this.gboxSettings.Controls.Add(this.chkboxLoadPublisherDetails);
             this.gboxSettings.Controls.Add(this.chkboxLoadNamespace);
             this.gboxSettings.Controls.Add(this.txtControlNamespace);
@@ -78,7 +82,7 @@
             // chkboxLoadPublisherDetails
             // 
             this.chkboxLoadPublisherDetails.AutoSize = true;
-            this.chkboxLoadPublisherDetails.Location = new System.Drawing.Point(172, 206);
+            this.chkboxLoadPublisherDetails.Location = new System.Drawing.Point(172, 232);
             this.chkboxLoadPublisherDetails.Name = "chkboxLoadPublisherDetails";
             this.chkboxLoadPublisherDetails.Size = new System.Drawing.Size(231, 17);
             this.chkboxLoadPublisherDetails.TabIndex = 24;
@@ -88,7 +92,7 @@
             // chkboxLoadNamespace
             // 
             this.chkboxLoadNamespace.AutoSize = true;
-            this.chkboxLoadNamespace.Location = new System.Drawing.Point(172, 132);
+            this.chkboxLoadNamespace.Location = new System.Drawing.Point(172, 158);
             this.chkboxLoadNamespace.Name = "chkboxLoadNamespace";
             this.chkboxLoadNamespace.Size = new System.Drawing.Size(210, 17);
             this.chkboxLoadNamespace.TabIndex = 23;
@@ -97,7 +101,7 @@
             // 
             // txtControlNamespace
             // 
-            this.txtControlNamespace.Location = new System.Drawing.Point(172, 106);
+            this.txtControlNamespace.Location = new System.Drawing.Point(172, 132);
             this.txtControlNamespace.Name = "txtControlNamespace";
             this.txtControlNamespace.Size = new System.Drawing.Size(345, 20);
             this.txtControlNamespace.TabIndex = 22;
@@ -105,7 +109,7 @@
             // lblControlNamespace
             // 
             this.lblControlNamespace.AutoSize = true;
-            this.lblControlNamespace.Location = new System.Drawing.Point(12, 109);
+            this.lblControlNamespace.Location = new System.Drawing.Point(12, 135);
             this.lblControlNamespace.Name = "lblControlNamespace";
             this.lblControlNamespace.Size = new System.Drawing.Size(64, 13);
             this.lblControlNamespace.TabIndex = 21;
@@ -113,7 +117,7 @@
             // 
             // txtPublisherPrefix
             // 
-            this.txtPublisherPrefix.Location = new System.Drawing.Point(172, 180);
+            this.txtPublisherPrefix.Location = new System.Drawing.Point(172, 206);
             this.txtPublisherPrefix.Name = "txtPublisherPrefix";
             this.txtPublisherPrefix.Size = new System.Drawing.Size(345, 20);
             this.txtPublisherPrefix.TabIndex = 20;
@@ -121,7 +125,7 @@
             // lblPublisherPrefix
             // 
             this.lblPublisherPrefix.AutoSize = true;
-            this.lblPublisherPrefix.Location = new System.Drawing.Point(12, 183);
+            this.lblPublisherPrefix.Location = new System.Drawing.Point(12, 209);
             this.lblPublisherPrefix.Name = "lblPublisherPrefix";
             this.lblPublisherPrefix.Size = new System.Drawing.Size(79, 13);
             this.lblPublisherPrefix.TabIndex = 19;
@@ -129,7 +133,7 @@
             // 
             // txtPublisherName
             // 
-            this.txtPublisherName.Location = new System.Drawing.Point(172, 154);
+            this.txtPublisherName.Location = new System.Drawing.Point(172, 180);
             this.txtPublisherName.Name = "txtPublisherName";
             this.txtPublisherName.Size = new System.Drawing.Size(345, 20);
             this.txtPublisherName.TabIndex = 18;
@@ -137,7 +141,7 @@
             // lblPublisherName
             // 
             this.lblPublisherName.AutoSize = true;
-            this.lblPublisherName.Location = new System.Drawing.Point(12, 157);
+            this.lblPublisherName.Location = new System.Drawing.Point(12, 183);
             this.lblPublisherName.Name = "lblPublisherName";
             this.lblPublisherName.Size = new System.Drawing.Size(81, 13);
             this.lblPublisherName.TabIndex = 17;
@@ -221,6 +225,22 @@
             this.lblMsBuildPath.TabIndex = 25;
             this.lblMsBuildPath.Text = "MS Build Path";
             // 
+            // txtCustomExecutionPolicy
+            // 
+            this.txtCustomExecutionPolicy.Location = new System.Drawing.Point(172, 84);
+            this.txtCustomExecutionPolicy.Name = "txtCustomExecutionPolicy";
+            this.txtCustomExecutionPolicy.Size = new System.Drawing.Size(345, 20);
+            this.txtCustomExecutionPolicy.TabIndex = 28;
+            // 
+            // lblCustomExecutionPolicy
+            // 
+            this.lblCustomExecutionPolicy.AutoSize = true;
+            this.lblCustomExecutionPolicy.Location = new System.Drawing.Point(12, 87);
+            this.lblCustomExecutionPolicy.Name = "lblCustomExecutionPolicy";
+            this.lblCustomExecutionPolicy.Size = new System.Drawing.Size(140, 13);
+            this.lblCustomExecutionPolicy.TabIndex = 27;
+            this.lblCustomExecutionPolicy.Text = "PowerShell Execution Policy";
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,5 +277,7 @@
         private System.Windows.Forms.CheckBox chkboxLoadNamespace;
         private System.Windows.Forms.TextBox txtMsBuildPath;
         private System.Windows.Forms.Label lblMsBuildPath;
+        private System.Windows.Forms.TextBox txtCustomExecutionPolicy;
+        private System.Windows.Forms.Label lblCustomExecutionPolicy;
     }
 }
