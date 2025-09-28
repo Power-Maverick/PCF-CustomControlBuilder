@@ -34,6 +34,7 @@ namespace Maverick.PCF.Builder
     {
         #region XrmToolBox settings
         private Settings pluginSettings;
+        private string detectedPacPath; // Cache the detected PAC path for session reuse
 
         public string RepositoryName => "PCF-CustomControlBuilder";
         public string UserName => "Power-Maverick";
@@ -958,7 +959,11 @@ namespace Maverick.PCF.Builder
 
         private string FindPacPath()
         {
-            string pacPath = string.Empty;
+            // Return cached path if available
+            if (!string.IsNullOrEmpty(detectedPacPath))
+            {
+                return detectedPacPath;
+            }
 
             // First try the standard PAC command (global installation)
             string[] standardCommands = new string[] { Commands.Pac.Check() };
@@ -970,7 +975,8 @@ namespace Maverick.PCF.Builder
             // If PAC is found via standard command, use it
             if (!standardPacDetails.CLINotFound)
             {
-                return "pac"; // Use standard PAC command
+                detectedPacPath = "pac"; // Cache the result
+                return detectedPacPath;
             }
 
             // Try VS Code extension location
@@ -981,14 +987,15 @@ namespace Maverick.PCF.Builder
                 
                 if (File.Exists(vscodeExtensionPacPath))
                 {
-                    // Test if this PAC installation works
-                    string[] vscodeCommands = new string[] { $"\"{vscodeExtensionPacPath}\"" };
+                    // Test if this PAC installation works by running it
+                    string[] vscodeCommands = new string[] { Commands.Pac.Check(vscodeExtensionPacPath) };
                     var vscodeOutput = CommandLineHelper.RunCommand(vscodeCommands);
                     
                     PacVersionParsedDetails vscodePacDetails = stringer.ParsePacVersionOutput(vscodeOutput);
                     if (!vscodePacDetails.CLINotFound)
                     {
-                        return vscodeExtensionPacPath;
+                        detectedPacPath = vscodeExtensionPacPath; // Cache the result
+                        return detectedPacPath;
                     }
                 }
             }
