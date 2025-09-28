@@ -19,6 +19,7 @@ namespace Maverick.PCF.Builder.DataObjects
             Properties = new List<ControlProperty>();
             Features = new List<Feature>();
             IsVirtual = false;
+            AdditionalPackageIndex = 0; // Default to "None" (first item in the dropdown)
         }
 
         public string WorkingFolderPath { get; set; }
