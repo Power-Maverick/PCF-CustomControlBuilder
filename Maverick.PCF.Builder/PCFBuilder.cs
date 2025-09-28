@@ -800,8 +800,30 @@ namespace Maverick.PCF.Builder
         {
             var start = DateTime.Now;
 
-            string[] commands = new string[] { Commands.Pac.Check() };
-            var output = CommandLineHelper.RunCommand(commands);
+            // Try to find PAC in multiple locations
+            string pacPath = FindPacPath();
+            string[] commands;
+            string output;
+
+            if (!string.IsNullOrEmpty(pacPath))
+            {
+                // Use the found PAC path
+                if (pacPath.Equals("pac", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    commands = new string[] { Commands.Pac.Check() };
+                }
+                else
+                {
+                    commands = new string[] { Commands.Pac.Check(pacPath) };
+                }
+                output = CommandLineHelper.RunCommand(commands);
+            }
+            else
+            {
+                // Fallback to standard check for backward compatibility
+                commands = new string[] { Commands.Pac.Check() };
+                output = CommandLineHelper.RunCommand(commands);
+            }
 
             StringHelper stringer = new StringHelper();
             PacVersionParsedDetails outputParsedPacDetails = stringer.ParsePacVersionOutput(output);
@@ -932,6 +954,50 @@ namespace Maverick.PCF.Builder
             }
 
             return msBuildPath;
+        }
+
+        private string FindPacPath()
+        {
+            string pacPath = string.Empty;
+
+            // First try the standard PAC command (global installation)
+            string[] standardCommands = new string[] { Commands.Pac.Check() };
+            var standardOutput = CommandLineHelper.RunCommand(standardCommands);
+
+            StringHelper stringer = new StringHelper();
+            PacVersionParsedDetails standardPacDetails = stringer.ParsePacVersionOutput(standardOutput);
+
+            // If PAC is found via standard command, use it
+            if (!standardPacDetails.CLINotFound)
+            {
+                return "pac"; // Use standard PAC command
+            }
+
+            // Try VS Code extension location
+            try
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string vscodeExtensionPacPath = Path.Combine(appDataPath, "Code", "User", "globalStorage", "microsoft-isvexptools.powerplatform-vscode", "pac", "tools", "pac.exe");
+                
+                if (File.Exists(vscodeExtensionPacPath))
+                {
+                    // Test if this PAC installation works
+                    string[] vscodeCommands = new string[] { $"\"{vscodeExtensionPacPath}\"" };
+                    var vscodeOutput = CommandLineHelper.RunCommand(vscodeCommands);
+                    
+                    PacVersionParsedDetails vscodePacDetails = stringer.ParsePacVersionOutput(vscodeOutput);
+                    if (!vscodePacDetails.CLINotFound)
+                    {
+                        return vscodeExtensionPacPath;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // If there's any error accessing the VS Code extension path, continue with standard behavior
+            }
+
+            return string.Empty; // PAC not found in any location
         }
 
         private void IncrementComponentVersion()
