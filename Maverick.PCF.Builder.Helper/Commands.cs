@@ -48,23 +48,13 @@ namespace Maverick.PCF.Builder.Helper
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -force\"\"";
             }
 
-            public static string SetExecutionPolicyBypassProcess()
-            {
-                return $"Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -force";
-            }
-
-            public static string SetExecutionPolicyBypassProcessWrapped()
-            {
-                return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -force\"\"";
-            }
-
             public static string SetCustomExecutionPolicy(string customPolicy)
             {
                 if (string.IsNullOrEmpty(customPolicy))
                 {
                     return string.Empty;
                 }
-                return $"Set-ExecutionPolicy {customPolicy}";
+                return $"powershell \"& \"Set-ExecutionPolicy {customPolicy}\"\"";
             }
 
             public static string SetCustomExecutionPolicyWrapped(string customPolicy)
@@ -76,7 +66,7 @@ namespace Maverick.PCF.Builder.Helper
                 return $"powershell \"& \"Set-ExecutionPolicy {customPolicy}\"\"";
             }
 
-            public static string ResetExecutionPolicy()
+            public static string DefaultExecutionPolicy()
             {
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Default -Scope CurrentUser -force\"\"";
             }
