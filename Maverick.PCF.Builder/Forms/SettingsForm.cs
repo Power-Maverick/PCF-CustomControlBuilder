@@ -27,7 +27,7 @@ namespace Maverick.PCF.Builder.Forms
 
             txtSetWorkingFolder.Text = pluginSettings.WorkingDirectoryLocation;
             txtMsBuildPath.Text = pluginSettings.MsBuildLocation;
-            txtCustomExecutionPolicy.Text = pluginSettings.CustomExecutionPolicy;
+            txtCustomExecutionPolicy.Text = pluginSettings.CustomExecutionPolicy ?? string.Empty;
             txtControlNamespace.Text = pluginSettings.ControlNamespace;
             chkboxLoadNamespace.Checked = pluginSettings.AlwaysLoadNamespaceFromSettings;
             txtPublisherName.Text = pluginSettings.PublisherName;
