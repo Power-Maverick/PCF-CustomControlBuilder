@@ -72,6 +72,7 @@ namespace Maverick.PCF.Builder.Forms
             txtSetWorkingFolder.Text = string.Empty;
             pluginSettings.WorkingDirectoryLocation = string.Empty;
             pluginSettings.MsBuildLocation = string.Empty;
+            txtCustomExecutionPolicy.Text = string.Empty;
             pluginSettings.CustomExecutionPolicy = string.Empty;
 
             pluginSettings.ControlNamespace = string.Empty;
