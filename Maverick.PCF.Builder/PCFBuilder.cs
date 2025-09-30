@@ -745,6 +745,9 @@ namespace Maverick.PCF.Builder
 
             cboxControlType.SelectedIndex = ControlDetails.IsVirtual ? 1 : 0;
             cboxTemplate.SelectedIndex = ControlDetails.IsDatasetTemplate ? 1 : 0;
+            
+            // Restore the additional package selection from saved control details
+            cboxAdditionalPackages.SelectedIndex = ControlDetails.AdditionalPackageIndex;
 
             if (!string.IsNullOrEmpty(ControlDetails.PreviewImagePath))
             {
@@ -2673,10 +2676,15 @@ namespace Maverick.PCF.Builder
 
         private void cboxControlType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((string)cboxControlType.SelectedItem == "Virtual")
+            if (cboxControlType.SelectedItem != null && (string)cboxControlType.SelectedItem == "Virtual")
             {
                 cboxAdditionalPackages.SelectedIndex = 1;
                 cboxAdditionalPackages.Enabled = false;
+            }
+            else
+            {
+                // Re-enable the additional packages dropdown for non-Virtual control types
+                cboxAdditionalPackages.Enabled = true;
             }
         }
 
