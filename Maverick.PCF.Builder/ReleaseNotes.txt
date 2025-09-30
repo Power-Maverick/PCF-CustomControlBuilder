@@ -1,2 +1,7 @@
-﻿---- BUG FIXES ----
-#57 - Fixed the issue with unhandled error and also now properly show validation error
+﻿---- FEATURES ----
+#73 - Allow custom PowerShell execution policy scripts in session (60% Copilot)
+
+---- BUG FIXES ----
+#72 - Additional Packages Required Prompt was fixed (100% Copilot)
+#70 - Power Apps CLI not detected issue fixed (100% Copilot)
+#34 - Power Apps CLI not detected on this machine issue fixed (100% Copilot)
