@@ -48,7 +48,25 @@ namespace Maverick.PCF.Builder.Helper
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -force\"\"";
             }
 
-            public static string ResetExecutionPolicy()
+            public static string SetCustomExecutionPolicy(string customPolicy)
+            {
+                if (string.IsNullOrEmpty(customPolicy))
+                {
+                    return string.Empty;
+                }
+                return $"powershell \"& \"Set-ExecutionPolicy {customPolicy}\"\"";
+            }
+
+            public static string SetCustomExecutionPolicyWrapped(string customPolicy)
+            {
+                if (string.IsNullOrEmpty(customPolicy))
+                {
+                    return SetExecutionPolicyToUnrestricted();
+                }
+                return $"powershell \"& \"Set-ExecutionPolicy {customPolicy}\"\"";
+            }
+
+            public static string DefaultExecutionPolicy()
             {
                 return $"powershell \"& \"Set-ExecutionPolicy -ExecutionPolicy Default -Scope CurrentUser -force\"\"";
             }

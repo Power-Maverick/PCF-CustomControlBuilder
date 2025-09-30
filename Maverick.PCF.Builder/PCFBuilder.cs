@@ -100,6 +100,13 @@ namespace Maverick.PCF.Builder
         private void InitCommandLine()
         {
             consoleControl.StartProcess("cmd", $"/K powershell");
+            
+            if (pluginSettings.CustomExecutionPolicy != string.Empty)
+            {
+                string[] commands = new string[] { Commands.Cmd.SetCustomExecutionPolicy(pluginSettings.CustomExecutionPolicy) };
+                CommandLineHelper.RunCommand(commands);
+                consoleControl.WriteOutput("Custom execution policy was successfully set.\n", Color.AliceBlue);
+            }            
         }
 
         private void RunCommandLine(params string[] commands)
@@ -913,7 +920,7 @@ namespace Maverick.PCF.Builder
             }
             else
             {
-                string[] commands = new string[] { Commands.Cmd.SetExecutionPolicyToUnrestricted(), Commands.Cmd.FindMsBuild(), Commands.Cmd.ResetExecutionPolicy() };
+                string[] commands = new string[] { Commands.Cmd.SetCustomExecutionPolicyWrapped(pluginSettings.CustomExecutionPolicy), Commands.Cmd.FindMsBuild(), Commands.Cmd.DefaultExecutionPolicy() };
                 var output = CommandLineHelper.RunCommand(commands);
 
                 if (!string.IsNullOrEmpty(output) && output.ToLower().Contains("msbuild.ps1"))

@@ -27,5 +27,6 @@ namespace Maverick.PCF.Builder
         public string PublisherName { get; set; }
         public string PublisherPrefix { get; set; }
         public bool AlwaysLoadPublisherDetailsFromSettings { get; set; }
+        public string CustomExecutionPolicy { get; set; }
     }
 }
