@@ -99,13 +99,13 @@ namespace Maverick.PCF.Builder
 
         private void InitCommandLine()
         {
-            consoleControl.ShowDiagnostics = true;
             consoleControl.StartProcess("cmd", $"/K powershell");
-
+            
             if (pluginSettings.CustomExecutionPolicy != string.Empty)
             {
                 string[] commands = new string[] { Commands.Cmd.SetCustomExecutionPolicy(pluginSettings.CustomExecutionPolicy) };
                 CommandLineHelper.RunCommand(commands);
+                consoleControl.WriteOutput("Custom execution policy was successfully set.\n", Color.AliceBlue);
             }            
         }
 
