@@ -155,6 +155,16 @@ namespace Maverick.PCF.Builder.Helper
             }
 
             /// <summary>
+            /// Check PAC using custom path
+            /// </summary>
+            /// <param name="pacPath">Full path to pac.exe</param>
+            /// <returns></returns>
+            public static string Check(string pacPath)
+            {
+                return $"\"{pacPath}\"";
+            }
+
+            /// <summary>
             /// pac auth create --url <https://xyz.crm.dynamics.com>
             /// </summary>
             /// <param name="url">CDS Environment Url</param>

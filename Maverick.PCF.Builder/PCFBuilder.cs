@@ -34,6 +34,7 @@ namespace Maverick.PCF.Builder
     {
         #region XrmToolBox settings
         private Settings pluginSettings;
+        private string detectedPacPath; // Cache the detected PAC path for session reuse
 
         public string RepositoryName => "PCF-CustomControlBuilder";
         public string UserName => "Power-Maverick";
@@ -810,8 +811,30 @@ namespace Maverick.PCF.Builder
         {
             var start = DateTime.Now;
 
-            string[] commands = new string[] { Commands.Pac.Check() };
-            var output = CommandLineHelper.RunCommand(commands);
+            // Try to find PAC in multiple locations
+            string pacPath = FindPacPath();
+            string[] commands;
+            string output;
+
+            if (!string.IsNullOrEmpty(pacPath))
+            {
+                // Use the found PAC path
+                if (pacPath.Equals("pac", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    commands = new string[] { Commands.Pac.Check() };
+                }
+                else
+                {
+                    commands = new string[] { Commands.Pac.Check(pacPath) };
+                }
+                output = CommandLineHelper.RunCommand(commands);
+            }
+            else
+            {
+                // Fallback to standard check for backward compatibility
+                commands = new string[] { Commands.Pac.Check() };
+                output = CommandLineHelper.RunCommand(commands);
+            }
 
             StringHelper stringer = new StringHelper();
             PacVersionParsedDetails outputParsedPacDetails = stringer.ParsePacVersionOutput(output);
@@ -942,6 +965,56 @@ namespace Maverick.PCF.Builder
             }
 
             return msBuildPath;
+        }
+
+        private string FindPacPath()
+        {
+            // Return cached path if available
+            if (!string.IsNullOrEmpty(detectedPacPath))
+            {
+                return detectedPacPath;
+            }
+
+            // First try the standard PAC command (global installation)
+            string[] standardCommands = new string[] { Commands.Pac.Check() };
+            var standardOutput = CommandLineHelper.RunCommand(standardCommands);
+
+            StringHelper stringer = new StringHelper();
+            PacVersionParsedDetails standardPacDetails = stringer.ParsePacVersionOutput(standardOutput);
+
+            // If PAC is found via standard command, use it
+            if (!standardPacDetails.CLINotFound)
+            {
+                detectedPacPath = "pac"; // Cache the result
+                return detectedPacPath;
+            }
+
+            // Try VS Code extension location
+            try
+            {
+                string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string vscodeExtensionPacPath = Path.Combine(appDataPath, "Code", "User", "globalStorage", "microsoft-isvexptools.powerplatform-vscode", "pac", "tools", "pac.exe");
+                
+                if (File.Exists(vscodeExtensionPacPath))
+                {
+                    // Test if this PAC installation works by running it
+                    string[] vscodeCommands = new string[] { Commands.Pac.Check(vscodeExtensionPacPath) };
+                    var vscodeOutput = CommandLineHelper.RunCommand(vscodeCommands);
+                    
+                    PacVersionParsedDetails vscodePacDetails = stringer.ParsePacVersionOutput(vscodeOutput);
+                    if (!vscodePacDetails.CLINotFound)
+                    {
+                        detectedPacPath = vscodeExtensionPacPath; // Cache the result
+                        return detectedPacPath;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // If there's any error accessing the VS Code extension path, continue with standard behavior
+            }
+
+            return string.Empty; // PAC not found in any location
         }
 
         private void IncrementComponentVersion()
