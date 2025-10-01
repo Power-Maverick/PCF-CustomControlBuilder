@@ -58,17 +58,16 @@ Alternatively, install via NuGet Package Manager in XrmToolBox.
 
 ### First Time Setup
 
-1. **Configure Working Directory**: 
-   - Select a folder where your PCF control projects will be stored
-   - This directory will contain all your control projects
-
-2. **Set VS Developer Command Prompt Path**:
-   - Locate `VsDevCmd.bat` on your system (typically in Visual Studio installation folder)
-   - Example: `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat`
-
-3. **Verify Power Apps CLI**:
-   - The tool will automatically detect if Power Apps CLI is installed
-   - If not detected, use the Help menu to download and install it
+1. **Configure Settings**: 
+   - Open the tool and go to **Settings** (gear icon in the toolbar)
+   - **Working Directory**: Select a folder where your PCF control projects will be stored
+   - **VS Developer Command Prompt Path**: Locate `VsDevCmd.bat` on your system (typically in Visual Studio installation folder)
+     - Example: `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat`
+   - The tool will automatically detect:
+     - **npm** (Node Package Manager) installation
+     - **MSBuild** path from Visual Studio
+     - **Power Apps CLI** installation
+   - If Power Apps CLI is not detected, use the Help menu to download and install it
 
 ### Creating a New Control
 
@@ -78,12 +77,12 @@ Alternatively, install via NuGet Package Manager in XrmToolBox.
    - **Control Name**: Technical name for the control
    - **Display Name**: User-friendly name
    - **Description**: Brief description of control functionality
-   - **Control Type**: Choose `bound` or `input`
+   - **Control Type**: Choose `standard` or `virtual`
    - **Template**: Select `Field` or `Dataset`
    - **Additional Packages**: Optionally add Fluent UI or other libraries
-   - **Version**: Set initial version (e.g., 1.0.0)
+   - **Version**: Component version (read-only, automatically managed)
 
-3. Configure Solution Details:
+3. Configure Solution Details (optional):
    - **Solution Name**: Unique solution name
    - **Publisher Information**: Prefix, name, and friendly name
    - **Solution Version**: Initial version number
@@ -150,8 +149,13 @@ Manage multiple environment connections for easy deployment across development, 
 - Check that Visual Studio Developer Command Prompt path is correct
 - Ensure you have internet connectivity for npm package downloads
 
+**Project File Not Found**:
+- Verify the MSBuild path is correctly configured in Settings
+- Check that Visual Studio is installed with the required build tools
+- Ensure the MSBuild path points to the correct Visual Studio version
+
 **Deployment Issues**:
-- Verify authentication profile is configured correctly
+- Verify authentication profile is configured correctly or you have connected to an environment in XrmToolBox
 - Check that you have appropriate permissions in target environment
 - Ensure solution package was created successfully before deployment
 
@@ -193,6 +197,14 @@ Contributions are welcome! Here's how you can help:
 4. Build the solution
 5. The output will be in `Maverick.PCF.Builder/bin/Debug` or `Release`
 
+### Debugging the Tool
+1. Ensure the solution is built in **Debug** mode
+2. Navigate to `Maverick.PCF.Builder/bin/Debug`
+3. Copy all the contents from the `Plugins` folder
+4. Locate the XrmToolBox storage folder (typically `%AppData%\MscrmTools\XrmToolBox\Plugins`)
+5. Paste the content copied in step 3
+6. Run XrmToolBox and open the PCF Builder tool
+
 ### Code Guidelines
 - Follow existing code structure and naming conventions
 - Add XML documentation comments for public methods
@@ -210,7 +222,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support
 
 - **Sponsor**: [github.com/sponsors/Power-Maverick](https://github.com/sponsors/Power-Maverick)
-- **Community Chat**: [gitter.im/PCF-Builder/community](https://gitter.im/PCF-Builder/community)
+- **Discussions**: [github.com/Power-Maverick/PCF-CustomControlBuilder/discussions](https://github.com/Power-Maverick/PCF-CustomControlBuilder/discussions)
 - **Issues**: [github.com/Power-Maverick/PCF-CustomControlBuilder/issues](https://github.com/Power-Maverick/PCF-CustomControlBuilder/issues)
 
 ---
