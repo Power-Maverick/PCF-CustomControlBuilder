@@ -5,3 +5,5 @@
 #72 - Additional Packages Required Prompt was fixed (100% Copilot)
 #70 - Power Apps CLI not detected issue fixed (100% Copilot)
 #34 - Power Apps CLI not detected on this machine issue fixed (100% Copilot)
+
+Updated README file present on the GitHub repository.
