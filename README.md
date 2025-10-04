@@ -69,7 +69,7 @@ The tool will automatically detect:
    - Review the path identified for MSBuild
    - Set your default namespace (optional)
    - Set your default publisher name and prefix (optional)
-   - Enter custom PowerSheel execution policy command e.g. Bypass -Scope Process (optinal)
+   - Enter custom PowerShell execution policy command e.g. Bypass -Scope Process (optional)
 
 ### Creating a New Control
 
