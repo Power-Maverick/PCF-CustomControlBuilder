@@ -58,16 +58,18 @@ Alternatively, install via NuGet Package Manager in XrmToolBox.
 
 ### First Time Setup
 
-1. **Configure Settings**: 
-   - Open the tool and go to **Settings** (gear icon in the toolbar)
-   - **Working Directory**: Select a folder where your PCF control projects will be stored
-   - **VS Developer Command Prompt Path**: Locate `VsDevCmd.bat` on your system (typically in Visual Studio installation folder)
-     - Example: `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\VsDevCmd.bat`
-   - The tool will automatically detect:
-     - **npm** (Node Package Manager) installation
-     - **MSBuild** path from Visual Studio
-     - **Power Apps CLI** installation
-   - If Power Apps CLI is not detected, use the Help menu to download and install it
+The tool will automatically detect:
+  - **npm** (Node Package Manager) installation
+  - **MSBuild** path from Visual Studio
+  - **Power Apps CLI** installation
+  - If Power Apps CLI is not detected, use the Help menu to download and install it
+
+**Configure Settings**: 
+   - Open the tool and go to **Settings**
+   - Review the path identified for MSBuild
+   - Set your default namespace (optional)
+   - Set your default publisher name and prefix (optional)
+   - Enter custom PowerSheel execution policy command e.g. Bypass -Scope Process (optinal)
 
 ### Creating a New Control
 
@@ -81,17 +83,15 @@ Alternatively, install via NuGet Package Manager in XrmToolBox.
    - **Template**: Select `Field` or `Dataset`
    - **Additional Packages**: Optionally add Fluent UI or other libraries
    - **Version**: Component version (read-only, automatically managed)
-
-3. Configure Solution Details (optional):
-   - **Solution Name**: Unique solution name
-   - **Publisher Information**: Prefix, name, and friendly name
-   - **Solution Version**: Initial version number
-
-4. Click **"Run 'pac' command"** to initialize the project
-5. Use **"Build project"** to compile your control
-6. Use **"Test project"** to launch the test harness
-7. Use **"Create Solution Package"** when ready to deploy
-8. Use **"Deploy to D365 CE"** to push to your environment
+3. Click **"Run 'pac' command"** to initialize the project
+4. Use **"Build project"** to compile your control
+5. Use **"Test project"** to launch the test harness
+6. Use **"Create Solution Package"** when ready to deploy
+    - Configure Solution Details:
+      - **Solution Name**: Unique solution name
+      - **Publisher Information**: Prefix, name, and friendly name
+      - **Solution Version**: Initial version number (read-only, automatically managed)
+7. Use **"Deploy to D365 CE"** to push to your environment
 
 ### Editing an Existing Control
 
@@ -217,7 +217,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Author
 
-**Danish Naglekar** - [@DanzMaverick](https://twitter.com/Danzmaverick)
+**Danish Naglekar** - [@DanzMaverick](https://twitter.com/DanzMaverick)
 
 ## Support
 
